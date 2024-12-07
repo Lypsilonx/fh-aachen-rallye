@@ -16,7 +16,7 @@ class FHAachenRallye extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/login',
+      initialRoute: Backend.userId == null ? '/login' : '/challenges',
       routes: {
         '/login': (context) => PageLogin(),
         '/register': (context) => PageRegister(),

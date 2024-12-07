@@ -4,7 +4,6 @@ import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Backend {
-  static late String userId;
   static late SharedPreferences prefs;
 
   static const List<UserData> users = [
@@ -34,6 +33,8 @@ class Backend {
   static Future<void> init() async {
     prefs = await SharedPreferences.getInstance();
   }
+
+  static String? get userId => prefs.getString('userId');
 
   static int getPoints() {
     return prefs.getInt('user_${userId}_points') ?? 0;
@@ -66,7 +67,7 @@ class Backend {
             element.username == username && element.password == password,
         orElse: () => UserData.empty());
     if (user != UserData.empty()) {
-      userId = user.id;
+      prefs.setString('userId', user.id);
       return (true, '');
     }
 
@@ -74,7 +75,7 @@ class Backend {
   }
 
   static void logout() {
-    userId = '';
+    prefs.remove('userId');
   }
 
   static (bool, String) register(String username, String password) {
