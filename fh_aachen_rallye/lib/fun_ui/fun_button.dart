@@ -1,3 +1,4 @@
+import 'package:fh_aachen_rallye/fun_ui/fun_container.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:flutter/material.dart';
 
@@ -71,11 +72,8 @@ class FunButtonState extends State<FunButton>
     }
 
     return Container(
-      padding: EdgeInsets.only(
-        top:
-            (widget.sizeFactor > 0 ? widget.sizeFactor * Sizes.extraSmall : 0) -
-                _size * Sizes.extraSmall,
-        bottom:
+      padding: EdgeInsets.symmetric(
+        vertical:
             (widget.sizeFactor > 0 ? widget.sizeFactor * Sizes.extraSmall : 0) -
                 _size * Sizes.extraSmall,
       ),
@@ -133,20 +131,16 @@ class FunButtonState extends State<FunButton>
                 _buttonState = ButtonState.idle;
               });
             },
-            child: Container(
-              width: widget.expand ? double.infinity : null,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: switch (_buttonState) {
-                  ButtonState.idle => widget.color.modifySaturation(0.9),
-                  ButtonState.pressed => widget.color.modifySaturation(0.7),
-                  ButtonState.loading => Colors.grey,
-                  ButtonState.disabled => Colors.grey,
-                  ButtonState.hovered => widget.color.modifySaturation(0.8),
-                },
-                borderRadius: BorderRadius.circular(Sizes.borderRadius),
-                boxShadow: Helpers.boxShadow(widget.color),
-              ),
+            child: FunContainer(
+              padding: EdgeInsets.zero,
+              expand: widget.expand,
+              color: switch (_buttonState) {
+                ButtonState.idle => widget.color.modifySaturation(0.9),
+                ButtonState.pressed => widget.color.modifySaturation(0.7),
+                ButtonState.loading => Colors.grey,
+                ButtonState.disabled => Colors.grey,
+                ButtonState.hovered => widget.color.modifySaturation(0.8),
+              },
               child: Padding(
                 padding: EdgeInsets.only(
                   top: Sizes.small + _size * Sizes.extraSmall,

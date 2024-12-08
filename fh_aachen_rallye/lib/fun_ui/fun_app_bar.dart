@@ -1,3 +1,4 @@
+import 'package:fh_aachen_rallye/fun_ui/fun_container.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:flutter/material.dart';
 
@@ -20,18 +21,11 @@ class FunAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: Helpers.intelligentPadding(
         context,
         vertical: false,
-        Container(
-          alignment: Alignment.center,
-          height: Sizes.extraLarge + Sizes.medium,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(Sizes.borderRadiusLarge),
-              bottomRight: Radius.circular(Sizes.borderRadiusLarge),
-            ),
-            boxShadow: Helpers.boxShadow(Colors.white),
+        FunContainer(
+          rounded: const RoundedSides(
+            topLeft: false,
+            topRight: false,
           ),
-          padding: const EdgeInsets.all(Sizes.small),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

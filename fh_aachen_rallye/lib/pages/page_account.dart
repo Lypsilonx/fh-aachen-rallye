@@ -17,11 +17,15 @@ class PageAccount extends FunPage {
   Color get color => Colors.red;
 
   @override
+  State<PageAccount> createState() => _PageAccountState();
+}
+
+class _PageAccountState extends FunPageState<PageAccount> {
+  @override
   Widget title(BuildContext context) => Text('Account', style: Styles.h1);
 
   @override
-  Widget buildPage(
-      BuildContext context, void Function(void Function()) setState) {
+  Widget buildPage(BuildContext context) {
     return Column(
       children: [
         const SizedBox(height: Sizes.medium),

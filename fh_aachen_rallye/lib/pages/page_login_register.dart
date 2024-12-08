@@ -5,8 +5,8 @@ import 'package:fh_aachen_rallye/fun_ui/fun_text_input.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:flutter/material.dart';
 
-class PageLogin extends FunPage {
-  PageLogin({super.key});
+class PageLoginRegister extends FunPage {
+  const PageLoginRegister({super.key});
 
   @override
   String get tileAssetPath => 'assets/background_1.png';
@@ -18,13 +18,20 @@ class PageLogin extends FunPage {
   Color get color => Colors.grey;
 
   @override
-  Widget title(BuildContext context) => Text('Login', style: Styles.h1);
+  State<PageLoginRegister> createState() => _PageLoginRegisterState();
+}
 
-  final TextEditingController usernameController = TextEditingController();
+class _PageLoginRegisterState extends FunPageState<PageLoginRegister> {
+  TextEditingController usernameController = TextEditingController();
+
+  bool isLogin = true;
 
   @override
-  Widget buildPage(
-      BuildContext context, void Function(void Function()) setState) {
+  Widget title(BuildContext context) =>
+      Text(isLogin ? 'Login' : 'Register', style: Styles.h1);
+
+  @override
+  Widget buildPage(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -38,10 +45,11 @@ class PageLogin extends FunPage {
             FunTextInput(
               label: 'Password',
               obscureText: true,
-              submitButton: 'Login',
+              submitButton: isLogin ? 'Login' : 'Register',
               onSubmitted: (value) {
-                var (loggedIn, failMessage) =
-                    Backend.login(usernameController.text, value);
+                var (loggedIn, failMessage) = isLogin
+                    ? Backend.login(usernameController.text, value)
+                    : Backend.register(usernameController.text, value);
                 if (loggedIn) {
                   Navigator.of(context).pushReplacementNamed('/challenges');
                 } else {
@@ -58,10 +66,14 @@ class PageLogin extends FunPage {
         ),
         const SizedBox(height: Sizes.large),
         FunButton(
-          'No account yet? Register!',
+          isLogin
+              ? 'No account yet? Register!'
+              : 'Already have an account? Login!',
           Colors.orange,
           onPressed: () => {
-            Navigator.of(context).pushReplacementNamed('/register'),
+            setState(() {
+              isLogin = !isLogin;
+            }),
           },
         ),
       ],

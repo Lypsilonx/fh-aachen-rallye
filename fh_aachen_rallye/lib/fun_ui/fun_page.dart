@@ -6,27 +6,26 @@ abstract class FunPage extends StatefulWidget {
   const FunPage({
     super.key,
   });
-
-  Widget title(BuildContext context);
-  Widget? trailing(BuildContext context) => null;
-  Widget buildPage(
-      BuildContext context, void Function(void Function()) setState);
   String get tileAssetPath;
   double get tileSize;
   Color get color;
 
   @override
-  State<FunPage> createState() => _FunPageState();
+  State<FunPage> createState();
 }
 
-class _FunPageState extends State<FunPage> {
+abstract class FunPageState<T extends FunPage> extends State<T> {
+  Widget title(BuildContext context);
+  Widget? trailing(BuildContext context) => null;
+  Widget buildPage(BuildContext context);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: FunAppBar(
         widget.color,
-        title: widget.title(context),
-        trailing: widget.trailing(context),
+        title: title(context),
+        trailing: trailing(context),
       ),
       body: Helpers.tiledBackground(
         widget.tileAssetPath,
@@ -35,7 +34,7 @@ class _FunPageState extends State<FunPage> {
         stackChildren: [
           Helpers.intelligentPadding(
             context,
-            widget.buildPage(context, setState),
+            buildPage(context),
           ),
         ],
       ),

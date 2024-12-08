@@ -2,6 +2,7 @@ import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_app_bar.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_button.dart';
+import 'package:fh_aachen_rallye/fun_ui/fun_container.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_text_input.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:flutter/material.dart';
@@ -59,16 +60,7 @@ class ChallengeViewState extends State<ChallengeView> {
                 children: widget.controller.isNew ||
                         widget.controller.isCompleted
                     ? [
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(Sizes.borderRadius),
-                            ),
-                            boxShadow: Helpers.boxShadow(Colors.white),
-                          ),
-                          padding: const EdgeInsets.all(Sizes.small),
+                        FunContainer(
                           child: Column(
                             children: [
                               Text(
@@ -160,16 +152,11 @@ class ChallengeViewState extends State<ChallengeView> {
                         Container(
                           width: double.infinity,
                           alignment: Alignment.centerRight,
-                          child: Container(
-                            padding: const EdgeInsets.all(Sizes.small),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(Sizes.borderRadius),
-                                topRight: Radius.circular(Sizes.borderRadius),
-                                bottomLeft: Radius.circular(Sizes.borderRadius),
-                              ),
-                              boxShadow: Helpers.boxShadow(Colors.white),
+                          child: FunContainer(
+                            expand: false,
+                            padding: const EdgeInsets.all(Sizes.medium),
+                            rounded: const RoundedSides(
+                              bottomRight: false,
                             ),
                             child: Text(step.text),
                           ),

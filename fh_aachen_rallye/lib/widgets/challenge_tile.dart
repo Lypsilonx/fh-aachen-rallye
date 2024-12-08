@@ -1,5 +1,6 @@
 import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/challenge.dart';
+import 'package:fh_aachen_rallye/fun_ui/fun_container.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/widgets/challenge_view.dart';
 import 'package:flutter/material.dart';
@@ -33,12 +34,8 @@ class _ChallengeTileState extends State<ChallengeTile> {
               : Colors.orange,
     );
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(Sizes.borderRadius),
-        boxShadow: Helpers.boxShadow(Colors.white),
-      ),
+    return FunContainer(
+      padding: EdgeInsets.zero,
       child: ListTile(
         leading: Icon(challenge.category.icon, color: challenge.category.color),
         trailing: statusIcon,

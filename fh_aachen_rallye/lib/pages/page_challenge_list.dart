@@ -17,6 +17,11 @@ class PageChallengeList extends FunPage {
   Color get color => Colors.blue;
 
   @override
+  State<PageChallengeList> createState() => _PageChallengeListState();
+}
+
+class _PageChallengeListState extends FunPageState<PageChallengeList> {
+  @override
   Widget title(BuildContext context) => Text('Challenges', style: Styles.h1);
 
   @override
@@ -33,8 +38,7 @@ class PageChallengeList extends FunPage {
   }
 
   @override
-  Widget buildPage(
-      BuildContext context, void Function(void Function()) setState) {
+  Widget buildPage(BuildContext context) {
     var challenges = Backend.getChallengeIds();
 
     return ListView.builder(

@@ -1,8 +1,7 @@
 import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/pages/page_account.dart';
 import 'package:fh_aachen_rallye/pages/page_challenge_list.dart';
-import 'package:fh_aachen_rallye/pages/page_login.dart';
-import 'package:fh_aachen_rallye/pages/page_register.dart';
+import 'package:fh_aachen_rallye/pages/page_login_register.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,8 +17,7 @@ class FHAachenRallye extends StatelessWidget {
     return MaterialApp(
       initialRoute: Backend.userId == null ? '/login' : '/challenges',
       routes: {
-        '/login': (context) => PageLogin(),
-        '/register': (context) => PageRegister(),
+        '/login': (context) => const PageLoginRegister(),
         '/challenges': (context) => const PageChallengeList(),
         '/account': (context) => const PageAccount(),
       },
