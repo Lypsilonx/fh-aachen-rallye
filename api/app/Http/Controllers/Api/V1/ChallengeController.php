@@ -6,15 +6,24 @@ use App\Http\Requests\StoreChallengeRequest;
 use App\Http\Requests\UpdateChallengeRequest;
 use App\Models\Challenge;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\ChallengeResource;
+use App\Http\Resources\V1\ChallengeCollection;
+use Request;
 
 class ChallengeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Challenge::all();
+        $includeSteps = $request->input('includeSteps', false);
+
+        if ($includeSteps) {
+            return new ChallengeCollection(Challenge::with('steps')->paginate());
+        }
+
+        return new ChallengeCollection(Challenge::paginate());
     }
 
     /**
@@ -38,7 +47,13 @@ class ChallengeController extends Controller
      */
     public function show(Challenge $challenge)
     {
-        //
+        $includeSteps = request()->input('includeSteps', false);
+
+        if ($includeSteps) {
+            return new ChallengeResource($challenge->loadMissing('steps'));
+        }
+
+        return new ChallengeResource($challenge);
     }
 
     /**
