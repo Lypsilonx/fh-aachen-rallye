@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\StoreChallengeStepRequest;
-use App\Http\Requests\UpdateChallengeStepRequest;
+use App\Http\Requests\V1\StoreChallengeStepRequest;
+use App\Http\Requests\V1\UpdateChallengeStepRequest;
 use App\Models\ChallengeStep;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\ChallengeStepResource;
@@ -32,7 +32,7 @@ class ChallengeStepController extends Controller
      */
     public function store(StoreChallengeStepRequest $request)
     {
-        //
+        return new ChallengeStepResource(ChallengeStep::create($request->all()));
     }
 
     /**

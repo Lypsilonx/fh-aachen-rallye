@@ -10,6 +10,17 @@ class ChallengeStep extends Model
     /** @use HasFactory<\Database\Factories\ChallengeStepFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'challenge_id',
+        'type',
+        'text',
+        'next',
+        'isLast',
+        'options',
+        'correctAnswer',
+        'indexOnIncorrect',
+    ];
+
     public function challenge()
     {
         return $this->belongsTo(Challenge::class);

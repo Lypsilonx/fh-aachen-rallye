@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -11,7 +11,7 @@ class StoreChallengeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class StoreChallengeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'string', 'max:255'],
+            'difficulty' => ['required', 'integer', 'min:0', 'max:5'],
+            'points' => ['required', 'integer', 'min:0'],
+            'category' => ['required', 'string', 'max:255'],
+            'descriptionStart' => ['required', 'string'],
+            'descriptionEnd' => ['required', 'string'],
+            'image' => ['required', 'image'],
         ];
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\StoreChallengeRequest;
-use App\Http\Requests\UpdateChallengeRequest;
+use App\Http\Requests\V1\StoreChallengeRequest;
+use App\Http\Requests\V1\UpdateChallengeRequest;
 use App\Models\Challenge;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\ChallengeResource;
@@ -17,7 +17,7 @@ class ChallengeController extends Controller
      */
     public function index(Request $request)
     {
-        $includeSteps = $request->input('includeSteps', false);
+        $includeSteps = $request->query('includeSteps', false);
 
         if ($includeSteps) {
             return new ChallengeCollection(Challenge::with('steps')->paginate());
@@ -39,7 +39,7 @@ class ChallengeController extends Controller
      */
     public function store(StoreChallengeRequest $request)
     {
-        //
+        return new ChallengeResource(Challenge::create($request->all()));
     }
 
     /**
@@ -47,7 +47,7 @@ class ChallengeController extends Controller
      */
     public function show(Challenge $challenge)
     {
-        $includeSteps = request()->input('includeSteps', false);
+        $includeSteps = request()->query('includeSteps', false);
 
         if ($includeSteps) {
             return new ChallengeResource($challenge->loadMissing('steps'));
