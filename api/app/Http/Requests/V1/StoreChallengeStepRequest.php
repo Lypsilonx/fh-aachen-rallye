@@ -21,15 +21,27 @@ class StoreChallengeStepRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'challenge_id' => ['required', 'integer', 'exists:challenges,id'],
             'type' => ['required', 'string', 'max:255'],
             'text' => ['required', 'string'],
-            'next' => ['required', 'integer'],
+            'next' => ['integer', 'nullable'],
             'isLast' => ['required', 'boolean'],
-            'options' => ['required', 'string'],
-            'correctAnswer' => ['required', 'string'],
-            'indexOnIncorrect' => ['required', 'integer'],
         ];
+
+        if ($this->input('type') === 'options') {
+            array_push($rules, [
+                'options' => ['string'],
+            ]);
+        }
+
+        if ($this->input('type') === 'stringInput') {
+            array_push($rules, [
+                'correctAnswer' => ['string'],
+                'indexOnIncorrect' => ['string'],
+            ]);
+        }
+
+        return $rules;
     }
 }

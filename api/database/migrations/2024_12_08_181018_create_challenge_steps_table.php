@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('challenge_steps', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('challenge_id')->constrained()->onDelete('cascade');
+            $table->foreignId('challenge_id')->constrained('challenges', 'id')->onDelete('cascade');
             $table->string('type');
             $table->string('text');
             $table->integer('next')->nullable();
