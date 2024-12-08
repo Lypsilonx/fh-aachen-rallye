@@ -111,12 +111,16 @@ abstract class ChallengeStep {
       {this.next, this.isLast = false, this.hasNextButton = true});
 
   Map<String, dynamic> toJson() {
-    return {
-      'type': runtimeType.toString(),
-      'text': text,
-      'next': next,
-      'isLast': isLast,
-    };
+    if (runtimeType.toString() == (ChallengeStepSay).toString()) {
+      return (this as ChallengeStepSay).toJson();
+    } else if (runtimeType.toString() == (ChallengeStepOptions).toString()) {
+      return (this as ChallengeStepOptions).toJson();
+    } else if (runtimeType.toString() ==
+        (ChallengeStepStringInput).toString()) {
+      return (this as ChallengeStepStringInput).toJson();
+    } else {
+      throw Exception('Unknown type');
+    }
   }
 
   factory ChallengeStep.fromJson(Map<String, dynamic> json) {
@@ -137,6 +141,15 @@ class ChallengeStepSay extends ChallengeStep {
   const ChallengeStepSay(super.text, {super.next, super.isLast = false})
       : super(hasNextButton: true);
 
+  Map<String, dynamic> toJson() {
+    return {
+      'type': 'say',
+      'text': text,
+      'next': next,
+      'isLast': isLast,
+    };
+  }
+
   factory ChallengeStepSay.fromJson(Map<String, dynamic> json) {
     return ChallengeStepSay(
       json['text'] as String,
@@ -152,6 +165,16 @@ class ChallengeStepOptions extends ChallengeStep {
   const ChallengeStepOptions(super.text, this.options,
       {super.next, super.isLast = false})
       : super(hasNextButton: false);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'type': 'options',
+      'text': text,
+      'options': options,
+      'next': next,
+      'isLast': isLast,
+    };
+  }
 
   factory ChallengeStepOptions.fromJson(Map<String, dynamic> json) {
     return ChallengeStepOptions(
@@ -172,6 +195,17 @@ class ChallengeStepStringInput extends ChallengeStep {
       super.text, this.correctAnswer, this.indexOnIncorrect,
       {super.next, super.isLast = false})
       : super(hasNextButton: false);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'type': 'stringInput',
+      'text': text,
+      'correctAnswer': correctAnswer,
+      'indexOnIncorrect': indexOnIncorrect,
+      'next': next,
+      'isLast': isLast,
+    };
+  }
 
   factory ChallengeStepStringInput.fromJson(Map<String, dynamic> json) {
     return ChallengeStepStringInput(
