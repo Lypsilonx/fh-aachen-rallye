@@ -6,6 +6,8 @@ use App\Http\Requests\StoreChallengeStepRequest;
 use App\Http\Requests\UpdateChallengeStepRequest;
 use App\Models\ChallengeStep;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\ChallengeStepResource;
+use App\Http\Resources\V1\ChallengeStepCollection;
 
 class ChallengeStepController extends Controller
 {
@@ -14,7 +16,7 @@ class ChallengeStepController extends Controller
      */
     public function index()
     {
-        //
+        return new ChallengeStepCollection(ChallengeStep::paginate());
     }
 
     /**
@@ -38,7 +40,7 @@ class ChallengeStepController extends Controller
      */
     public function show(ChallengeStep $challengeStep)
     {
-        //
+        return new ChallengeStepResource($challengeStep);
     }
 
     /**

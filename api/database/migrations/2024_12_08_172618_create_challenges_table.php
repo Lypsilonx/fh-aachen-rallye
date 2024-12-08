@@ -12,7 +12,6 @@ return new class extends Migration {
     {
         Schema::create('challenges', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('title');
             $table->integer('difficulty');
             $table->integer('points');
@@ -20,6 +19,7 @@ return new class extends Migration {
             $table->text('descriptionStart');
             $table->text('descriptionEnd');
             $table->string('image')->nullable();
+            $table->timestamps();
         });
     }
 
