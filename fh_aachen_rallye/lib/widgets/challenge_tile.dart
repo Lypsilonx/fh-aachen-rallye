@@ -25,24 +25,20 @@ class _ChallengeTileState extends State<ChallengeTile>
   void initState() {
     super.initState();
 
-    SubscriptionManager.subscribe<Challenge>(this, id: widget.challengeId);
-    SubscriptionManager.subscribe<User>(this, id: Backend.userId!);
+    SubscriptionManager.subscribe<Challenge>(this, widget.challengeId);
+    SubscriptionManager.subscribe<User>(this, Backend.userId!);
   }
 
   @override
   void onUpdate(ServerObject object) {
     if (object is Challenge) {
-      if (object.id == widget.challengeId) {
-        setState(() {
-          challenge = object;
-        });
-      }
+      setState(() {
+        challenge = object;
+      });
     } else if (object is User) {
-      if (object.id == Backend.userId) {
-        setState(() {
-          currentStep = object.challengeStates[widget.challengeId] ?? -1;
-        });
-      }
+      setState(() {
+        currentStep = object.challengeStates[widget.challengeId] ?? -1;
+      });
     }
   }
 

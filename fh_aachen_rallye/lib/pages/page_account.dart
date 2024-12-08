@@ -29,17 +29,15 @@ class _PageAccountState extends FunPageState<PageAccount>
   @override
   void initState() {
     super.initState();
-    SubscriptionManager.subscribe<User>(this, id: Backend.userId!);
+    SubscriptionManager.subscribe<User>(this, Backend.userId!);
   }
 
   @override
   void onUpdate(ServerObject object) {
     if (object is User) {
-      if (object.id == Backend.userId) {
-        setState(() {
-          user = object;
-        });
-      }
+      setState(() {
+        user = object;
+      });
     }
   }
 

@@ -37,7 +37,6 @@ class Backend {
       users.removeWhere((element) => element.id == object.id);
       users.add(object);
       saveUsers();
-      SubscriptionManager.notifyUpdate(object);
     }
   }
 
@@ -45,12 +44,16 @@ class Backend {
     if (T.toString() == (User).toString()) {
       User? user = users.firstWhere((element) => element.id == id,
           orElse: () => User.empty(''));
-      SubscriptionManager.notifyUpdate(user);
+      if (user != User.empty('')) {
+        SubscriptionManager.notifyUpdate(user);
+      }
     } else if (T.toString() == (Challenge).toString()) {
       Challenge? challenge = challenges.firstWhere(
           (element) => element.id == id,
           orElse: () => Challenge.empty(''));
-      SubscriptionManager.notifyUpdate(challenge);
+      if (challenge != Challenge.empty('')) {
+        SubscriptionManager.notifyUpdate(challenge);
+      }
     }
   }
 

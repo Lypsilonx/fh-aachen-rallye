@@ -35,35 +35,34 @@ abstract class ServerObjectSubscriber {
 }
 
 class SubscriptionManager {
-  static final Map<Type, List<ServerObjectSubscriber>> _subscribers = {};
+  static final Map<Type, Map<String, ServerObjectSubscriber>> _subscribers = {};
   static final Map<Type, Map<String, ServerObject>> _cachedObjects = {};
 
   static void subscribe<T extends ServerObject>(
-      ServerObjectSubscriber subscriber,
-      {String id = ''}) {
+      ServerObjectSubscriber subscriber, String id) {
     if (!_subscribers.containsKey(T)) {
-      _subscribers[T] = [];
+      _subscribers[T] = {};
     }
 
-    _subscribers[T]!.add(subscriber);
+    if (!_subscribers[T]!.containsKey(id)) {
+      _subscribers[T]![id] = subscriber;
+    }
 
-    if (id.isNotEmpty) {
-      if (_cachedObjects.containsKey(T) && _cachedObjects[T]!.containsKey(id)) {
-        subscriber.onUpdate(_cachedObjects[T]![id]!);
-      } else {
-        subscriber.onUpdate(ServerObject.empty<T>(id));
-        Backend.fetch<T>(id);
-      }
+    if (_cachedObjects.containsKey(T) && _cachedObjects[T]!.containsKey(id)) {
+      subscriber.onUpdate(_cachedObjects[T]![id]!);
+    } else {
+      subscriber.onUpdate(ServerObject.empty<T>(id));
+      Backend.fetch<T>(id);
     }
   }
 
   static void unsubscribe<T extends ServerObject>(
-      ServerObjectSubscriber subscriber) {
-    if (!_subscribers.containsKey(T)) {
+      ServerObjectSubscriber subscriber, String id) {
+    if (!_subscribers.containsKey(T) || !_subscribers[T]!.containsKey(id)) {
       return;
     }
 
-    _subscribers[T]!.remove(subscriber);
+    _subscribers[T]!.remove(id);
   }
 
   static void notifyUpdate(ServerObject object) {
@@ -77,8 +76,10 @@ class SubscriptionManager {
       return;
     }
 
-    for (var element in _subscribers[object.runtimeType]!) {
-      element.onUpdate(object);
+    for (var typeSubscribers in _subscribers[object.runtimeType]!.keys) {
+      if (typeSubscribers == object.id) {
+        _subscribers[object.runtimeType]![typeSubscribers]!.onUpdate(object);
+      }
     }
   }
 }
