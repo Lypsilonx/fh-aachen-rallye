@@ -8,6 +8,7 @@ use App\Models\ChallengeStep;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\ChallengeStepResource;
 use App\Http\Resources\V1\ChallengeStepCollection;
+use Illuminate\Http\Request;
 
 class ChallengeStepController extends Controller
 {
@@ -56,7 +57,9 @@ class ChallengeStepController extends Controller
      */
     public function update(UpdateChallengeStepRequest $request, ChallengeStep $challengeStep)
     {
-        //
+        $challengeStep->update($request->all());
+
+        return new ChallengeStepResource($challengeStep);
     }
 
     /**

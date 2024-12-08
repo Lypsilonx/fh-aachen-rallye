@@ -28,7 +28,7 @@ class StoreChallengeRequest extends FormRequest
             'category' => ['required', 'string', 'max:255'],
             'descriptionStart' => ['required', 'string'],
             'descriptionEnd' => ['required', 'string'],
-            'image' => ['required', 'image'],
+            'image' => ['string', 'nullable'],
         ];
     }
 }

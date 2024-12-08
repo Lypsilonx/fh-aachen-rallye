@@ -11,7 +11,7 @@ class UpdateChallengeStepRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,30 @@ class UpdateChallengeStepRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        $method = $this->method();
+
+        if ($method === 'PUT') {
+            return [
+                'challenge_id' => ['required', 'integer', 'exists:challenges,id'],
+                'type' => ['required', 'string', 'max:255'],
+                'text' => ['required', 'string'],
+                'next' => ['required', 'integer'],
+                'isLast' => ['required', 'boolean'],
+                'options' => ['required', 'string'],
+                'correctAnswer' => ['required', 'string'],
+                'indexOnIncorrect' => ['required', 'integer'],
+            ];
+        } else {
+            return [
+                'challenge_id' => ['sometimes', 'required', 'integer', 'exists:challenges,id'],
+                'type' => ['sometimes', 'required', 'string', 'max:255'],
+                'text' => ['sometimes', 'required', 'string'],
+                'next' => ['sometimes', 'required', 'integer'],
+                'isLast' => ['sometimes', 'required', 'boolean'],
+                'options' => ['sometimes', 'required', 'string'],
+                'correctAnswer' => ['sometimes', 'required', 'string'],
+                'indexOnIncorrect' => ['sometimes', 'required', 'integer'],
+            ];
+        }
     }
 }

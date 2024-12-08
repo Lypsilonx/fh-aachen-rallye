@@ -8,7 +8,7 @@ use App\Models\Challenge;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\ChallengeResource;
 use App\Http\Resources\V1\ChallengeCollection;
-use Request;
+use Illuminate\Http\Request;
 
 class ChallengeController extends Controller
 {
@@ -69,7 +69,9 @@ class ChallengeController extends Controller
      */
     public function update(UpdateChallengeRequest $request, Challenge $challenge)
     {
-        //
+        $challenge->update($request->all());
+
+        return new ChallengeResource($challenge);
     }
 
     /**
