@@ -1,8 +1,8 @@
+import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:flutter/material.dart';
 
-class Challenge {
-  final String id;
+class Challenge extends ServerObject {
   final String title;
   final Difficulty difficulty;
   final int points;
@@ -13,8 +13,8 @@ class Challenge {
 
   final String? image;
 
-  const Challenge({
-    required this.id,
+  const Challenge(
+    super.id, {
     required this.title,
     required this.difficulty,
     required this.category,
@@ -24,6 +24,56 @@ class Challenge {
     required this.steps,
     this.image,
   });
+
+  static Challenge empty(String id) {
+    return Challenge(
+      id,
+      title: 'Loading...',
+      difficulty: Difficulty.none,
+      category: ChallengeCategory.loading,
+      points: 0,
+      descriptionStart: 'Loading...',
+      descriptionEnd: 'Loading...',
+      steps: [],
+    );
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'difficulty': difficulty.index,
+      'category': switch (category) {
+        ChallengeCategory.general => 'general',
+        _ => 'loading',
+      },
+      'points': points,
+      'descriptionStart': descriptionStart,
+      'descriptionEnd': descriptionEnd,
+      'steps': steps.map((e) => e.toJson()).toList(),
+      'image': image,
+    };
+  }
+
+  factory Challenge.fromJson(Map<String, dynamic> json) {
+    return Challenge(
+      json['id'] as String,
+      title: json['title'] as String,
+      difficulty: Difficulty.values[json['difficulty'] as int],
+      category: switch (json['category']) {
+        'general' => ChallengeCategory.general,
+        _ => ChallengeCategory.loading,
+      },
+      points: json['points'] as int,
+      descriptionStart: json['descriptionStart'] as String,
+      descriptionEnd: json['descriptionEnd'] as String,
+      steps: (json['steps'] as List)
+          .map((e) => ChallengeStep.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      image: json['image'] as String?,
+    );
+  }
 }
 
 class ChallengeCategory {
@@ -34,6 +84,13 @@ class ChallengeCategory {
 
   const ChallengeCategory(this.name, this.description, this.icon,
       {this.color = Colors.orange});
+
+  static const ChallengeCategory loading = ChallengeCategory(
+    "Loading",
+    "Loading...",
+    Icons.hourglass_empty,
+    color: Colors.grey,
+  );
 
   static const ChallengeCategory general = ChallengeCategory(
     "General",
@@ -52,11 +109,41 @@ abstract class ChallengeStep {
 
   const ChallengeStep(this.text,
       {this.next, this.isLast = false, this.hasNextButton = true});
+
+  Map<String, dynamic> toJson() {
+    return {
+      'type': runtimeType.toString(),
+      'text': text,
+      'next': next,
+      'isLast': isLast,
+    };
+  }
+
+  factory ChallengeStep.fromJson(Map<String, dynamic> json) {
+    switch (json['type'] as String) {
+      case 'say':
+        return ChallengeStepSay.fromJson(json);
+      case 'options':
+        return ChallengeStepOptions.fromJson(json);
+      case 'stringInput':
+        return ChallengeStepStringInput.fromJson(json);
+      default:
+        throw Exception('Unknown type');
+    }
+  }
 }
 
 class ChallengeStepSay extends ChallengeStep {
   const ChallengeStepSay(super.text, {super.next, super.isLast = false})
       : super(hasNextButton: true);
+
+  factory ChallengeStepSay.fromJson(Map<String, dynamic> json) {
+    return ChallengeStepSay(
+      json['text'] as String,
+      next: json['next'] as int?,
+      isLast: json['isLast'] as bool,
+    );
+  }
 }
 
 class ChallengeStepOptions extends ChallengeStep {
@@ -65,6 +152,16 @@ class ChallengeStepOptions extends ChallengeStep {
   const ChallengeStepOptions(super.text, this.options,
       {super.next, super.isLast = false})
       : super(hasNextButton: false);
+
+  factory ChallengeStepOptions.fromJson(Map<String, dynamic> json) {
+    return ChallengeStepOptions(
+      json['text'] as String,
+      (json['options'] as Map<String, dynamic>)
+          .map((key, value) => MapEntry(key, value as int)),
+      next: json['next'] as int?,
+      isLast: json['isLast'] as bool,
+    );
+  }
 }
 
 class ChallengeStepStringInput extends ChallengeStep {
@@ -75,4 +172,14 @@ class ChallengeStepStringInput extends ChallengeStep {
       super.text, this.correctAnswer, this.indexOnIncorrect,
       {super.next, super.isLast = false})
       : super(hasNextButton: false);
+
+  factory ChallengeStepStringInput.fromJson(Map<String, dynamic> json) {
+    return ChallengeStepStringInput(
+      json['text'] as String,
+      json['correctAnswer'] as String,
+      json['indexOnIncorrect'] as int,
+      next: json['next'] as int?,
+      isLast: json['isLast'] as bool,
+    );
+  }
 }

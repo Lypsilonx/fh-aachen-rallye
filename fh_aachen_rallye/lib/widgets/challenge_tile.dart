@@ -1,5 +1,7 @@
 import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/challenge.dart';
+import 'package:fh_aachen_rallye/data/server_object.dart';
+import 'package:fh_aachen_rallye/data/user.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_container.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/widgets/challenge_view.dart';
@@ -14,22 +16,47 @@ class ChallengeTile extends StatefulWidget {
   State<ChallengeTile> createState() => _ChallengeTileState();
 }
 
-class _ChallengeTileState extends State<ChallengeTile> {
+class _ChallengeTileState extends State<ChallengeTile>
+    implements ServerObjectSubscriber {
+  late Challenge challenge;
+  late int currentStep;
+
+  @override
+  void initState() {
+    super.initState();
+
+    SubscriptionManager.subscribe<Challenge>(this, id: widget.challengeId);
+    SubscriptionManager.subscribe<User>(this, id: Backend.userId!);
+  }
+
+  @override
+  void onUpdate(ServerObject object) {
+    if (object is Challenge) {
+      if (object.id == widget.challengeId) {
+        setState(() {
+          challenge = object;
+        });
+      }
+    } else if (object is User) {
+      if (object.id == Backend.userId) {
+        setState(() {
+          currentStep = object.challengeStates[widget.challengeId] ?? -1;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    Challenge challenge = Backend.getChallenge(widget.challengeId);
-    ChallengeViewController challengeController =
-        ChallengeViewController(challenge, onUpdate: setState);
-
     var statusIcon = Icon(
-      challengeController.isCompleted
+      currentStep == -2
           ? Icons.check
-          : challengeController.isNew
+          : currentStep == -1
               ? Icons.play_arrow
               : Icons.play_arrow,
-      color: challengeController.isCompleted
+      color: currentStep == -2
           ? Colors.green
-          : challengeController.isNew
+          : currentStep == -1
               ? Colors.grey
               : Colors.orange,
     );
@@ -45,12 +72,7 @@ class _ChallengeTileState extends State<ChallengeTile> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ChallengeView(
-                challengeController,
-                onChallengeComplete: () {
-                  challengeController.gotoStep(-1);
-                },
-              ),
+              builder: (context) => ChallengeView(widget.challengeId),
             ),
           );
         },

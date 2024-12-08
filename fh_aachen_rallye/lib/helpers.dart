@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class Helpers {
   static Widget displayDifficulty(Difficulty difficulty) {
     int stars = switch (difficulty) {
+      Difficulty.none => 0,
       Difficulty.easy => 1,
       Difficulty.medium => 2,
       Difficulty.hard => 3,
@@ -98,7 +99,7 @@ class Helpers {
   }
 }
 
-enum Difficulty { varyEasy, easy, medium, hard, varyHard }
+enum Difficulty { none, varyEasy, easy, medium, hard, varyHard }
 
 extension AdvancedColor on Color {
   bool get isLight => computeLuminance() > 0.5;
