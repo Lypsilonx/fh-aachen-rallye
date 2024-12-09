@@ -37,8 +37,6 @@ class Backend {
       'http://www.politischdekoriert.de/fh-aachen-rallye/api/public/index.php/';
   static late SharedPreferences prefs;
 
-  static List<Challenge> challenges = [];
-
   static void send(ServerObject object) {
     print('Sending object: $object');
     // Send object to server
@@ -173,6 +171,9 @@ class Backend {
     state.user!.challengeStates[challengeId] = currentStep;
 
     if (currentStep == -2) {
+      List<Challenge> challenges = Cache.serverObjects[Challenge]!.values
+          .map((e) => e as Challenge)
+          .toList();
       state.user!.points += (challenges
           .firstWhere((element) => element.id == challengeId)
           .points);
