@@ -27,14 +27,12 @@ class UpdateUserRequest extends FormRequest
             return [
                 'username' => ['required', 'string', 'max:255'],
                 'points' => ['required', 'integer', 'min:0'],
-                'challengeStates' => ['required', 'string'],
                 'displayName' => ['string', 'nullable'],
             ];
         } else {
             return [
                 'username' => ['sometimes', 'required', 'string', 'max:255'],
                 'points' => ['sometimes', 'required', 'integer', 'min:0'],
-                'challengeStates' => ['sometimes', 'required', 'string'],
                 'displayName' => ['sometimes', 'string', 'nullable'],
             ];
         }

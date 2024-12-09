@@ -24,7 +24,6 @@ class User extends Authenticatable
         'username',
         'password',
         'points',
-        'challengeStates',
     ];
 
     /**
@@ -48,5 +47,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function challengeStates()
+    {
+        return $this->hasMany(ChallengeState::class);
     }
 }

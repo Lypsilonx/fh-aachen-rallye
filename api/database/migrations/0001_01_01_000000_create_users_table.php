@@ -15,7 +15,6 @@ return new class extends Migration {
 
             $table->string('displayName')->nullable();
             $table->integer('points')->default(0);
-            $table->string('challengeStates')->default('{}');
 
             $table->string('username')->unique();
             $table->timestamp('username_verified_at')->nullable();

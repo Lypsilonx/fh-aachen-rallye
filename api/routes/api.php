@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\ChallengeController;
 use App\Http\Controllers\Api\V1\ChallengeStepController;
 use App\Http\Controllers\Api\V1\UserController;
+use App\Http\Controllers\Api\V1\ChallengeStateController;
 use App\Http\Controllers\Api\V1\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,4 +21,5 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1', 'm
     Route::apiResource('challenges', ChallengeController::class);
     Route::apiResource('challengeSteps', ChallengeStepController::class);
     Route::apiResource('users', UserController::class);
+    Route::apiResource('challengeStates', ChallengeStateController::class);
 });

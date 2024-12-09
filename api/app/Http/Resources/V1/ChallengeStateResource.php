@@ -5,7 +5,7 @@ namespace App\Http\Resources\V1;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class ChallengeStateResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,9 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'username' => $this->username,
-            'points' => $this->points,
-            'displayName' => $this->displayName,
-            'challengeStates' => ChallengeStateResource::collection($this->whenLoaded('challengeStates')),
+            'challenge_id' => $this->challenge_id,
+            'user_id' => $this->user_id,
+            'step' => $this->step,
         ];
     }
 }

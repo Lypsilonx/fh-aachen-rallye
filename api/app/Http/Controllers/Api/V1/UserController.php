@@ -16,10 +16,10 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $includeSteps = $request->query('includeSteps', false);
+        $includeChallengeStates = $request->query('includeChallengeStates', false);
 
-        if ($includeSteps) {
-            return new UserCollection(User::with('steps')->paginate());
+        if ($includeChallengeStates) {
+            return new UserCollection(User::with('challengeStates')->paginate());
         }
 
         return new UserCollection(User::paginate());
@@ -30,10 +30,10 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $includeSteps = request()->query('includeSteps', false);
+        $includeChallengeStates = request()->query('includeChallengeStates', false);
 
-        if ($includeSteps) {
-            return new UserResource($user->loadMissing('steps'));
+        if ($includeChallengeStates) {
+            return new UserResource($user->loadMissing('challengeStates'));
         }
 
         return new UserResource($user);
@@ -53,6 +53,28 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->update($request->all());
+
+        if ($request->has('challengeStates')) {
+            $challengeStates = $request->input('challengeStates');
+
+            if (is_string($challengeStates)) {
+                $challengeStates = json_decode($challengeStates, true);
+            }
+
+            foreach ($challengeStates as $challenge_id => $step) {
+                $user->challengeStates()->updateOrCreate(
+                    [
+                        'challenge_id' => $challenge_id,
+                        'user_id' => $user->id
+                    ],
+                    [
+                        'step' => $step
+                    ]
+                );
+            }
+        }
+
+        $user->load('challengeStates');
 
         return new UserResource($user);
     }
