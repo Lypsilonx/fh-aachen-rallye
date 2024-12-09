@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:fh_aachen_rallye/data/server_object.dart';
 
 class User extends ServerObject {
@@ -29,7 +27,7 @@ class User extends ServerObject {
       'id': id,
       'username': username,
       'points': points,
-      'challengeStates': jsonEncode(challengeStates),
+      'challengeStates': challengeStates,
       'displayName': displayName,
     };
   }
@@ -39,8 +37,11 @@ class User extends ServerObject {
       json['id'] as String,
       json['username'] as String,
       json['points'] as int,
-      (jsonDecode(json['challengeStates'] as String) as Map<String, dynamic>)
-          .map((key, value) => MapEntry(key, value)),
+      {
+        for (var item in json['challengeStates'] as List)
+          (item as Map<String, dynamic>)['challenge_id'] as String:
+              (item)['step'] as int
+      },
       displayName: json['displayName'] as String?,
     );
   }

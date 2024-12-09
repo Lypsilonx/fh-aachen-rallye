@@ -45,8 +45,7 @@ class Backend {
     if (object is User) {
       apiRequest('PUT', 'users/${object.id}', body: object.toJson())
           .then((value) {
-        var user = User.fromJson(value['data']);
-        SubscriptionManager.notifyUpdate(user);
+        fetch<User>(object.id);
       });
     }
   }
@@ -56,8 +55,7 @@ class Backend {
     // Patch object on server
     if (object is User) {
       apiRequest('PATCH', 'users/${object.id}', body: changes).then((value) {
-        var user = User.fromJson(value['data']);
-        SubscriptionManager.notifyUpdate(user);
+        fetch<User>(object.id);
       });
     }
   }
@@ -66,7 +64,8 @@ class Backend {
     print('Fetching object: $T with id $id');
     if (T.toString() == (User).toString()) {
       if (id == '*') {
-        var requestedUsers = await apiRequest('GET', 'users');
+        var requestedUsers =
+            await apiRequest('GET', 'users?includeChallengeStates=true');
         if (requestedUsers != null) {
           for (var userJson in requestedUsers['data']) {
             var user = User.fromJson(userJson);
@@ -74,7 +73,8 @@ class Backend {
           }
         }
       } else {
-        var requestedUser = await apiRequest('GET', 'users/$id');
+        var requestedUser =
+            await apiRequest('GET', 'users/$id?includeChallengeStates=true');
         if (requestedUser != null) {
           var user = User.fromJson(requestedUser['data']);
           SubscriptionManager.notifyUpdate(user);
