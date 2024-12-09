@@ -78,8 +78,6 @@ class UserController extends Controller
                         $user->points += $challenge->points;
                         $user->save();
                     }
-
-                    continue;
                 }
 
                 $user->challengeStates()->updateOrCreate(
