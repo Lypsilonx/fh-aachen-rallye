@@ -12,25 +12,6 @@ class Backend {
   static Future<void> init() async {
     prefs = await SharedPreferences.getInstance();
     state = BackendState();
-
-    // Challenge testChallenge = const Challenge(
-    //   'test',
-    //   title: 'Test Challenge',
-    //   difficulty: Difficulty.easy,
-    //   points: 10,
-    //   category: ChallengeCategory.general,
-    //   descriptionStart: 'This is a test challenge.',
-    //   descriptionEnd: 'You did it!',
-    //   steps: [
-    //     ChallengeStepSay('Hello!'),
-    //     ChallengeStepOptions('Decide!', {'Option 1': 1, 'Back': -1}),
-    //     ChallengeStepStringInput('Type something!', 'something!', 2),
-    //     ChallengeStepSay('Whoo!', isLast: true),
-    //     ChallengeStepSay('Not quite!', next: -2),
-    //   ],
-    // );
-
-    // await apiRequest('POST', 'challenges', body: testChallenge.toJson());
   }
 
   static const String apiUrl =
@@ -203,6 +184,27 @@ class BackendState implements ServerObjectSubscriber {
     SubscriptionManager.unsubscribe(this);
     if (Backend.userId != null) {
       SubscriptionManager.subscribe<User>(this, Backend.userId!);
+
+      // // TEMPORARY
+      // Challenge testChallenge = const Challenge(
+      //   'test',
+      //   title: 'Test Challenge',
+      //   difficulty: Difficulty.easy,
+      //   points: 10,
+      //   category: ChallengeCategory.general,
+      //   descriptionStart: 'This is a test challenge.',
+      //   descriptionEnd: 'You did it!',
+      //   steps: [
+      //     ChallengeStepSay('Hello!'),
+      //     ChallengeStepOptions('Decide!', {'Option 1': 1, 'Back': -1}),
+      //     ChallengeStepStringInput('Type something!', 'something!', 2),
+      //     ChallengeStepSay('Whoo!', isLast: true),
+      //     ChallengeStepSay('Not quite!', next: -2),
+      //   ],
+      // );
+
+      // await Backend.apiRequest('POST', 'challenges',
+      //     body: testChallenge.toJson());
     }
   }
 
