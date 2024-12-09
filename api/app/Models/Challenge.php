@@ -9,8 +9,10 @@ class Challenge extends Model
 {
     /** @use HasFactory<\Database\Factories\ChallengeFactory> */
     use HasFactory;
+    public $incrementing = false;
 
     protected $fillable = [
+        'id',
         'title',
         'difficulty',
         'points',
@@ -19,6 +21,8 @@ class Challenge extends Model
         'descriptionEnd',
         'image',
     ];
+
+    protected $guarded = [];
 
     public function steps()
     {

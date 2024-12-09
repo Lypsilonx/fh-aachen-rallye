@@ -11,8 +11,8 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('challenge_steps', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('challenge_id')->constrained('challenges', 'id')->onDelete('cascade');
+            $table->string('id', 16)->unique();
+            $table->string('challenge_id', 16)->constrained('challenges', 'id')->onDelete('cascade');
             $table->string('type');
             $table->string('text');
             $table->integer('next')->nullable();
@@ -23,7 +23,7 @@ return new class extends Migration {
 
             // ChallengeStepStringInput
             $table->string('correctAnswer')->nullable();
-            $table->string('indexOnIncorrect')->nullable();
+            $table->integer('indexOnIncorrect')->nullable();
 
             $table->timestamps();
         });
