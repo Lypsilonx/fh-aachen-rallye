@@ -30,7 +30,7 @@ class Backend {
     //   ],
     // );
 
-    // sendChallenge(testChallenge);
+    // await apiRequest('POST', 'challenges', body: testChallenge.toJson());
   }
 
   static const String apiUrl =
@@ -95,25 +95,6 @@ class Backend {
           var challenge = Challenge.fromJson(requestedChallenge['data']);
           SubscriptionManager.notifyUpdate(challenge);
         }
-      }
-    }
-  }
-
-  // TEMP
-  static void sendChallenge(Challenge challenge) async {
-    print('Sending challenge: $challenge');
-    var response =
-        await apiRequest('POST', 'challenges', body: challenge.toJson());
-
-    int i = 0;
-    for (var challengeStep in challenge.steps) {
-      i = i + 1;
-      var challengeJson = challengeStep.toJson();
-      // add challenge_id
-      challengeJson['challenge_id'] = response['data']['id'];
-      if (await apiRequest('POST', 'challengeSteps', body: challengeJson) ==
-          null) {
-        print('Failed to send challenge step $i');
       }
     }
   }

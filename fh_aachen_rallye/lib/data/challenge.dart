@@ -53,7 +53,11 @@ class Challenge extends ServerObject {
       'points': points,
       'descriptionStart': descriptionStart,
       'descriptionEnd': descriptionEnd,
-      'steps': steps.map((e) => e.toJson()).toList(),
+      'steps': steps.map((e) {
+        var json = e.toJson();
+        json['index'] = steps.indexOf(e);
+        return json;
+      }).toList(),
       'image': image,
     };
   }
