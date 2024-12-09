@@ -145,21 +145,7 @@ class Backend {
 
   // TEMP
   static void setChallengeState(String challengeId, int currentStep) {
-    if (state.user == null) {
-      return;
-    }
-
     state.user!.challengeStates[challengeId] = currentStep;
-
-    if (currentStep == -2) {
-      List<Challenge> challenges = Cache.serverObjects[Challenge]!.values
-          .map((e) => e as Challenge)
-          .toList();
-      state.user!.points += (challenges
-          .firstWhere((element) => element.id == challengeId)
-          .points);
-      Backend.patch(state.user!, {'points': state.user!.points});
-    }
 
     Backend.patch(state.user!,
         {'challengeStates': jsonEncode(state.user!.challengeStates)});
