@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:flutter/material.dart';
@@ -154,7 +156,7 @@ class ChallengeStepSay extends ChallengeStep {
     return ChallengeStepSay(
       json['text'] as String,
       next: json['next'] as int?,
-      isLast: json['isLast'] as bool,
+      isLast: json['isLast'] as int == 1,
     );
   }
 }
@@ -170,7 +172,7 @@ class ChallengeStepOptions extends ChallengeStep {
     return {
       'type': 'options',
       'text': text,
-      'options': options,
+      'options': jsonEncode(options),
       'next': next,
       'isLast': isLast,
     };
@@ -179,10 +181,10 @@ class ChallengeStepOptions extends ChallengeStep {
   factory ChallengeStepOptions.fromJson(Map<String, dynamic> json) {
     return ChallengeStepOptions(
       json['text'] as String,
-      (json['options'] as Map<String, dynamic>)
-          .map((key, value) => MapEntry(key, value as int)),
+      (jsonDecode(json['options'] as String) as Map<String, dynamic>)
+          .map((key, value) => MapEntry(key, value)),
       next: json['next'] as int?,
-      isLast: json['isLast'] as bool,
+      isLast: json['isLast'] as int == 1,
     );
   }
 }
@@ -213,7 +215,7 @@ class ChallengeStepStringInput extends ChallengeStep {
       json['correctAnswer'] as String,
       json['indexOnIncorrect'] as int,
       next: json['next'] as int?,
-      isLast: json['isLast'] as bool,
+      isLast: json['isLast'] as int == 1,
     );
   }
 }

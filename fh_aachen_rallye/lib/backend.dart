@@ -5,31 +5,17 @@ import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/data/user.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Backend {
+  static const String apiUrl =
+      'http://www.politischdekoriert.de/fh-aachen-rallye/api/public/index.php/api/v1/';
   static late SharedPreferences prefs;
 
   static List<User> users = [];
 
-  static const List<Challenge> challenges = [
-    Challenge(
-      'test',
-      title: 'Test Challenge',
-      difficulty: Difficulty.easy,
-      points: 10,
-      category: ChallengeCategory.general,
-      descriptionStart: 'This is a test challenge.',
-      descriptionEnd: 'You did it!',
-      steps: [
-        ChallengeStepSay('Hello!'),
-        ChallengeStepOptions('Decide!', {'Option 1': 1, 'Back': -1}),
-        ChallengeStepStringInput('Type something!', 'something!', 2),
-        ChallengeStepSay('Whoo!', isLast: true),
-        ChallengeStepSay('Not quite!', next: -2),
-      ],
-    ),
-  ];
+  static List<Challenge> challenges = [];
 
   static void send(ServerObject object) {
     // Send object to server
@@ -60,7 +46,65 @@ class Backend {
   static Future<void> init() async {
     prefs = await SharedPreferences.getInstance();
 
+    Challenge testChallenge = const Challenge(
+      'test',
+      title: 'Test Challenge',
+      difficulty: Difficulty.easy,
+      points: 10,
+      category: ChallengeCategory.general,
+      descriptionStart: 'This is a test challenge.',
+      descriptionEnd: 'You did it!',
+      steps: [
+        ChallengeStepSay('Hello!'),
+        ChallengeStepOptions('Decide!', {'Option 1': 1, 'Back': -1}),
+        ChallengeStepStringInput('Type something!', 'something!', 2),
+        ChallengeStepSay('Whoo!', isLast: true),
+        ChallengeStepSay('Not quite!', next: -2),
+      ],
+    );
+
+    //sendChallenge(testChallenge);
+
     users = loadUsers();
+    challenges = await getChallenges();
+  }
+
+  // TEMP
+  static void sendChallenge(Challenge challenge) async {
+    var result = await http.post(Uri.parse('${apiUrl}challenges'),
+        body: jsonEncode(challenge.toJson()),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        });
+
+    if (result.statusCode != 201) {
+      print(result.statusCode);
+      print(result.body);
+      return;
+    }
+
+    int i = 0;
+    for (var challengeStep in challenge.steps) {
+      i = i + 1;
+      var challengeJson = challengeStep.toJson();
+      // add challenge_id
+      challengeJson['id'] = "${challenge.id}_$i";
+      challengeJson['challenge_id'] = challenge.id;
+      result = await http.post(Uri.parse('${apiUrl}challengeSteps'),
+          body: jsonEncode(challengeJson),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          });
+
+      if (result.statusCode != 201) {
+        print(result.statusCode);
+        print(result.body);
+        print(challengeJson);
+        return;
+      }
+    }
   }
 
   static List<User> loadUsers() {
@@ -75,6 +119,21 @@ class Backend {
   }
 
   static String? get userId => prefs.getString('userId');
+
+  static Future<List<Challenge>> getChallenges() async {
+    var result =
+        await http.get(Uri.parse('${apiUrl}challenges?includeSteps=true'));
+    if (result.statusCode == 200) {
+      List<Challenge> challenges = [];
+      for (var challengeJson in jsonDecode(result.body)["data"]) {
+        challenges.add(Challenge.fromJson(challengeJson));
+        SubscriptionManager.notifyUpdate(challenges.last);
+      }
+      return challenges;
+    } else {
+      return [];
+    }
+  }
 
   static List<String> getChallengeIds() {
     return challenges.map((e) => e.id).toList();
