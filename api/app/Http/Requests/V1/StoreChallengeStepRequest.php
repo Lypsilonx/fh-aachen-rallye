@@ -29,6 +29,7 @@ class StoreChallengeStepRequest extends FormRequest
     {
         $rules = [
             'challenge_id' => ['required', 'uuid', 'exists:challenges,id'],
+            'index' => ['required', 'integer'],
             'type' => ['required', 'string', 'max:255'],
             'text' => ['required', 'string'],
             'next' => ['integer', 'nullable'],

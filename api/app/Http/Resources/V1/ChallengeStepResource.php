@@ -16,6 +16,7 @@ class ChallengeStepResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'index' => $this->index,
             'challenge_id' => $this->challenge_id,
             'type' => $this->type,
             'text' => $this->text,

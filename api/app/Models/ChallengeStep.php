@@ -13,6 +13,7 @@ class ChallengeStep extends Model
 
     protected $fillable = [
         'challenge_id',
+        'index',
         'type',
         'text',
         'next',

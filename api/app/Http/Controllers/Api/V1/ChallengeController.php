@@ -39,7 +39,43 @@ class ChallengeController extends Controller
      */
     public function store(StoreChallengeRequest $request)
     {
-        return new ChallengeResource(Challenge::create($request->all()));
+        $challenge = Challenge::create($request->all());
+
+        if ($request->has('steps')) {
+            $steps = $request->input('steps');
+
+            if (is_string($steps)) {
+                $steps = json_decode($steps, true);
+            }
+
+            foreach ($steps as $step) {
+                $values = [
+                    'type' => $step['type'],
+                    'text' => $step['text'],
+                    'next' => $step['next'],
+                    'isLast' => $step['isLast'],
+                ];
+
+                if ($step['type'] === 'options') {
+                    $values['options'] = $step['options'];
+                }
+
+                if ($step['type'] === 'stringInput') {
+                    $values['correctAnswer'] = $step['correctAnswer'];
+                    $values['indexOnIncorrect'] = $step['indexOnIncorrect'];
+                }
+
+                $challenge->steps()->updateOrCreate(
+                    [
+                        'challenge_id' => $challenge->id,
+                        'index' => $step['index'],
+                    ],
+                    $values
+                );
+            }
+        }
+
+        return new ChallengeResource($challenge);
     }
 
     /**
@@ -70,6 +106,42 @@ class ChallengeController extends Controller
     public function update(UpdateChallengeRequest $request, Challenge $challenge)
     {
         $challenge->update($request->all());
+
+        if ($request->has('steps')) {
+            $steps = $request->input('steps');
+
+            if (is_string($steps)) {
+                $steps = json_decode($steps, true);
+            }
+
+            foreach ($steps as $step) {
+                $values = [
+                    'type' => $step['type'],
+                    'text' => $step['text'],
+                    'next' => $step['next'],
+                    'isLast' => $step['isLast'],
+                ];
+
+                if ($step['type'] === 'options') {
+                    $values['options'] = $step['options'];
+                }
+
+                if ($step['type'] === 'stringInput') {
+                    $values['correctAnswer'] = $step['correctAnswer'];
+                    $values['indexOnIncorrect'] = $step['indexOnIncorrect'];
+                }
+
+                $challenge->steps()->updateOrCreate(
+                    [
+                        'challenge_id' => $challenge->id,
+                        'index' => $step['index'],
+                    ],
+                    $values
+                );
+            }
+        }
+
+        $challenge->load('steps');
 
         return new ChallengeResource($challenge);
     }

@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('challenge_steps', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->integer('index');
             $table->foreignUuid('challenge_id')->constrained('challenges', 'id')->onDelete('cascade');
             $table->string('type');
             $table->string('text');
