@@ -4,15 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class ChallengeStep extends Model
 {
     /** @use HasFactory<\Database\Factories\ChallengeStepFactory> */
-    use HasFactory;
-    public $incrementing = false;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
-        'id',
         'challenge_id',
         'type',
         'text',
@@ -22,8 +21,6 @@ class ChallengeStep extends Model
         'correctAnswer',
         'indexOnIncorrect',
     ];
-
-    protected $guarded = [];
 
     public function challenge()
     {

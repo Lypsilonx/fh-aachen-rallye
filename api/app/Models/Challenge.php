@@ -4,15 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class Challenge extends Model
 {
     /** @use HasFactory<\Database\Factories\ChallengeFactory> */
-    use HasFactory;
-    public $incrementing = false;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
-        'id',
         'title',
         'difficulty',
         'points',
@@ -21,8 +20,6 @@ class Challenge extends Model
         'descriptionEnd',
         'image',
     ];
-
-    protected $guarded = [];
 
     public function steps()
     {

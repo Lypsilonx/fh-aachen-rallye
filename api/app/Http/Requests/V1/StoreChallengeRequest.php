@@ -11,7 +11,13 @@ class StoreChallengeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $user = $this->user();
+
+        if ($user === null) {
+            return false;
+        }
+
+        return $user->tokenCan('create:challenges');
     }
 
     /**
@@ -22,7 +28,6 @@ class StoreChallengeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => ['required', 'string', 'max:16'],
             'title' => ['required', 'string', 'max:255'],
             'difficulty' => ['required', 'integer', 'min:0', 'max:5'],
             'points' => ['required', 'integer', 'min:0'],

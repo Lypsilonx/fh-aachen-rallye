@@ -11,7 +11,13 @@ class UpdateChallengeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $user = $this->user();
+
+        if ($user === null) {
+            return false;
+        }
+
+        return $user->tokenCan('update:challenges');
     }
 
     /**
@@ -25,7 +31,6 @@ class UpdateChallengeRequest extends FormRequest
 
         if ($method === 'PUT') {
             return [
-                'id' => ['required', 'string', 'max:16'],
                 'title' => ['required', 'string', 'max:255'],
                 'difficulty' => ['required', 'integer', 'min:0', 'max:5'],
                 'points' => ['required', 'integer', 'min:0'],
@@ -36,7 +41,6 @@ class UpdateChallengeRequest extends FormRequest
             ];
         } else {
             return [
-                'id' => ['required', 'string', 'max:16'],
                 'title' => ['sometimes', 'required', 'string', 'max:255'],
                 'difficulty' => ['sometimes', 'required', 'integer', 'min:0', 'max:5'],
                 'points' => ['sometimes', 'required', 'integer', 'min:0'],

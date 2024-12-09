@@ -11,8 +11,8 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('challenge_steps', function (Blueprint $table) {
-            $table->string('id', 16)->unique();
-            $table->string('challenge_id', 16)->constrained('challenges', 'id')->onDelete('cascade');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('challenge_id')->constrained('challenges', 'id')->onDelete('cascade');
             $table->string('type');
             $table->string('text');
             $table->integer('next')->nullable();
