@@ -4,6 +4,8 @@ import 'package:fh_aachen_rallye/pages/page_challenge_list.dart';
 import 'package:fh_aachen_rallye/pages/page_login_register.dart';
 import 'package:flutter/material.dart';
 
+// build with: flutter build web --release --base-href="/fh-aachen-rallye/" -o ..
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Backend.init().then((value) => runApp(const FHAachenRallye()));
