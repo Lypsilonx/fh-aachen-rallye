@@ -1,4 +1,5 @@
-import 'package:fh_aachen_rallye/backend.dart';
+import 'package:fh_aachen_rallye/data/challenge.dart';
+import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/widgets/challenge_tile.dart';
@@ -20,7 +21,8 @@ class PageChallengeList extends FunPage {
   State<PageChallengeList> createState() => _PageChallengeListState();
 }
 
-class _PageChallengeListState extends FunPageState<PageChallengeList> {
+class _PageChallengeListState extends FunPageState<PageChallengeList>
+    implements ServerObjectSubscriber {
   @override
   Widget title(BuildContext context) => Text('Challenges', style: Styles.h1);
 
@@ -37,14 +39,35 @@ class _PageChallengeListState extends FunPageState<PageChallengeList> {
     );
   }
 
+  List<String> challengeIds = [];
+
+  @override
+  void initState() {
+    super.initState();
+    SubscriptionManager.subscribeAll<Challenge>(this);
+  }
+
+  @override
+  void dispose() {
+    SubscriptionManager.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void onUpdate(ServerObject object) {
+    var challengeChache = Cache.serverObjects[Challenge];
+    if (challengeChache != null) {
+      challengeIds = challengeChache.keys.toList();
+      setState(() {});
+    }
+  }
+
   @override
   Widget buildPage(BuildContext context) {
-    var challenges = Backend.getChallengeIds();
-
     return ListView.builder(
-      itemCount: challenges.length,
+      itemCount: challengeIds.length,
       itemBuilder: (context, index) {
-        return ChallengeTile(challenges[index]);
+        return ChallengeTile(challengeIds[index]);
       },
     );
   }

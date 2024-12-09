@@ -34,12 +34,26 @@ abstract class ServerObjectSubscriber {
   void onUpdate(ServerObject object);
 }
 
+class Cache {
+  static final Map<Type, Map<String, ServerObject>> serverObjects = {};
+
+  static void clear() {
+    print('Clearing cache');
+    serverObjects.clear();
+  }
+}
+
 class SubscriptionManager {
   static final Map<Type, Map<String, ServerObjectSubscriber>> _subscribers = {};
-  static final Map<Type, Map<String, ServerObject>> _cachedObjects = {};
+
+  static void subscribeAll<T extends ServerObject>(
+      ServerObjectSubscriber subscriber) {
+    subscribe<T>(subscriber, '*');
+  }
 
   static void subscribe<T extends ServerObject>(
-      ServerObjectSubscriber subscriber, String id) {
+      ServerObjectSubscriber subscriber, String id,
+      {bool forceFetch = false}) {
     if (!_subscribers.containsKey(T)) {
       _subscribers[T] = {};
     }
@@ -48,36 +62,46 @@ class SubscriptionManager {
       _subscribers[T]![id] = subscriber;
     }
 
-    if (_cachedObjects.containsKey(T) && _cachedObjects[T]!.containsKey(id)) {
-      subscriber.onUpdate(_cachedObjects[T]![id]!);
+    if (Cache.serverObjects.containsKey(T) &&
+        Cache.serverObjects[T]!.containsKey(id)) {
+      subscriber.onUpdate(Cache.serverObjects[T]![id]!);
+      if (forceFetch) {
+        Backend.fetch<T>(id);
+      }
     } else {
       subscriber.onUpdate(ServerObject.empty<T>(id));
       Backend.fetch<T>(id);
     }
   }
 
-  static void unsubscribe<T extends ServerObject>(
-      ServerObjectSubscriber subscriber, String id) {
-    if (!_subscribers.containsKey(T) || !_subscribers[T]!.containsKey(id)) {
-      return;
-    }
+  static unsubscribe(ServerObjectSubscriber subscriber) {
+    var oldSubscribers =
+        Map<Type, Map<String, ServerObjectSubscriber>>.from(_subscribers);
 
-    _subscribers[T]!.remove(id);
+    for (var type in oldSubscribers.keys) {
+      var oldSubscribersOfType =
+          Map<String, ServerObjectSubscriber>.from(oldSubscribers[type]!);
+      for (var id in oldSubscribersOfType.keys) {
+        if (oldSubscribersOfType[id] == subscriber) {
+          _subscribers[type]!.remove(id);
+        }
+      }
+    }
   }
 
   static void notifyUpdate(ServerObject object) {
-    if (!_cachedObjects.containsKey(object.runtimeType)) {
-      _cachedObjects[object.runtimeType] = {};
+    if (!Cache.serverObjects.containsKey(object.runtimeType)) {
+      Cache.serverObjects[object.runtimeType] = {};
     }
 
-    _cachedObjects[object.runtimeType]![object.id] = object;
+    Cache.serverObjects[object.runtimeType]![object.id] = object;
 
     if (!_subscribers.containsKey(object.runtimeType)) {
       return;
     }
 
     for (var typeSubscribers in _subscribers[object.runtimeType]!.keys) {
-      if (typeSubscribers == object.id) {
+      if (typeSubscribers == object.id || typeSubscribers == '*') {
         _subscribers[object.runtimeType]![typeSubscribers]!.onUpdate(object);
       }
     }

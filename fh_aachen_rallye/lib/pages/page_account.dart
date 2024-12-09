@@ -33,6 +33,12 @@ class _PageAccountState extends FunPageState<PageAccount>
   }
 
   @override
+  void dispose() {
+    SubscriptionManager.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
   void onUpdate(ServerObject object) {
     if (object is User) {
       setState(() {
@@ -57,9 +63,9 @@ class _PageAccountState extends FunPageState<PageAccount>
           "Logout",
           Colors.red,
           onPressed: () {
-            Backend.logout();
             Navigator.popUntil(context, (route) => route.isFirst);
             Navigator.pushReplacementNamed(context, '/login');
+            Backend.logout();
           },
         ),
       ],
