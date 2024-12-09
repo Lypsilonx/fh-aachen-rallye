@@ -44,7 +44,8 @@ class Cache {
 }
 
 class SubscriptionManager {
-  static final Map<Type, Map<String, ServerObjectSubscriber>> _subscribers = {};
+  static final Map<Type, Map<String, List<ServerObjectSubscriber>>>
+      _subscribers = {};
 
   static void subscribeAll<T extends ServerObject>(
       ServerObjectSubscriber subscriber) {
@@ -59,8 +60,10 @@ class SubscriptionManager {
     }
 
     if (!_subscribers[T]!.containsKey(id)) {
-      _subscribers[T]![id] = subscriber;
+      _subscribers[T]![id] = [];
     }
+
+    _subscribers[T]![id]!.add(subscriber);
 
     if (Cache.serverObjects.containsKey(T) &&
         Cache.serverObjects[T]!.containsKey(id)) {
@@ -102,7 +105,10 @@ class SubscriptionManager {
 
     for (var typeSubscribers in _subscribers[object.runtimeType]!.keys) {
       if (typeSubscribers == object.id || typeSubscribers == '*') {
-        _subscribers[object.runtimeType]![typeSubscribers]!.onUpdate(object);
+        for (var subscriber
+            in _subscribers[object.runtimeType]![typeSubscribers]!) {
+          subscriber.onUpdate(object);
+        }
       }
     }
   }
