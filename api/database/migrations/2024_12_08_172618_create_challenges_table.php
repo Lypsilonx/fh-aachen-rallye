@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('challenges', function (Blueprint $table) {
-            $table->id();
+            $table->string('id', 16)->unique();
             $table->string('title');
             $table->integer('difficulty');
             $table->integer('points');

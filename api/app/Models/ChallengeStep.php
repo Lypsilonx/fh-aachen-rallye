@@ -9,8 +9,10 @@ class ChallengeStep extends Model
 {
     /** @use HasFactory<\Database\Factories\ChallengeStepFactory> */
     use HasFactory;
+    public $incrementing = false;
 
     protected $fillable = [
+        'id',
         'challenge_id',
         'type',
         'text',
@@ -20,6 +22,8 @@ class ChallengeStep extends Model
         'correctAnswer',
         'indexOnIncorrect',
     ];
+
+    protected $guarded = [];
 
     public function challenge()
     {
