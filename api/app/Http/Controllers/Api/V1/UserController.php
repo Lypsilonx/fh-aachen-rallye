@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\UserResource;
 use App\Http\Resources\V1\UserCollection;
+use App\Models\Challenge;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -30,6 +31,10 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        if (!auth()->user()->tokenCan('read:users')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $includeChallengeStates = request()->query('includeChallengeStates', false);
 
         if ($includeChallengeStates) {
@@ -62,6 +67,21 @@ class UserController extends Controller
             }
 
             foreach ($challengeStates as $challenge_id => $step) {
+                if ($step === -2) {
+                    $previousStep = $user->challengeStates()->where('challenge_id', $challenge_id)->where('user_id', $user->id)->first();
+                    if (!$step) {
+                        continue;
+                    }
+
+                    if ($previousStep->step !== -2) {
+                        $challenge = Challenge::find($challenge_id);
+                        $user->points += $challenge->points;
+                        $user->save();
+                    }
+
+                    continue;
+                }
+
                 $user->challengeStates()->updateOrCreate(
                     [
                         'challenge_id' => $challenge_id,
@@ -84,6 +104,15 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        if (!auth()->user()->tokenCan('delete:users')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $user->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'User deleted successfully'
+        ]);
     }
 }

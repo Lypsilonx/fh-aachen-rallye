@@ -11,7 +11,30 @@ use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {
-    public $adminTokenCapabilities = ['create:challenges', 'read:challenges', 'update:challenges', 'delete:challenges', 'create:challengeSteps', 'read:challengeSteps', 'update:challengeSteps', 'delete:challengeSteps'];
+    public $adminTokenCapabilities = [
+        'create:challenges',
+        'read:challenges',
+        'update:challenges',
+        'delete:challenges',
+        'create:challengeSteps',
+        'read:challengeSteps',
+        'update:challengeSteps',
+        'delete:challengeSteps',
+        'create:users',
+        'read:users',
+        'update:users',
+        'delete:users',
+        'create:challengeStates',
+        'read:challengeStates',
+        'update:challengeStates',
+        'delete:challengeStates',
+    ];
+
+    public $userTokenCapabilities = [
+        'read:challenges',
+        'read:users',
+        'update:users:self',
+    ];
 
     public function register(Request $request)
     {
@@ -42,7 +65,7 @@ class AuthController extends Controller
                 'status' => true,
                 'message' => 'User created successfully',
                 'userId' => $user->id,
-                'token' => $user->createToken('auth_token', $this->adminTokenCapabilities)->plainTextToken
+                'token' => $user->createToken('auth_token', $this->userTokenCapabilities)->plainTextToken
             ], 200);
 
         } catch (\Exception $e) {
@@ -92,7 +115,7 @@ class AuthController extends Controller
                 'status' => true,
                 'message' => 'User logged in successfully',
                 'userId' => $user->id,
-                'token' => $user->createToken('auth_token', $this->adminTokenCapabilities)->plainTextToken
+                'token' => $user->createToken('auth_token', $this->userTokenCapabilities)->plainTextToken
             ], 200);
 
         } catch (\Exception $e) {

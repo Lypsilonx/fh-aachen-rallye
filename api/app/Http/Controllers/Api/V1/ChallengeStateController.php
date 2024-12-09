@@ -41,6 +41,10 @@ class ChallengeStateController extends Controller
      */
     public function show(ChallengeState $challengeState)
     {
+        if (!auth()->user()->tokenCan('read:challengeStates')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         return new ChallengeStateResource($challengeState);
     }
 
@@ -67,6 +71,15 @@ class ChallengeStateController extends Controller
      */
     public function destroy(ChallengeState $challengeState)
     {
-        //
+        if (!auth()->user()->tokenCan('delete:challengeStates')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $challengeState->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Challenge state deleted successfully'
+        ]);
     }
 }

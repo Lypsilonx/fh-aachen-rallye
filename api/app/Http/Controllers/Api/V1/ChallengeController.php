@@ -83,6 +83,10 @@ class ChallengeController extends Controller
      */
     public function show(Challenge $challenge)
     {
+        if (!auth()->user()->tokenCan('read:challenges')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $includeSteps = request()->query('includeSteps', false);
 
         if ($includeSteps) {
@@ -151,6 +155,15 @@ class ChallengeController extends Controller
      */
     public function destroy(Challenge $challenge)
     {
-        //
+        if (!auth()->user()->tokenCan('delete:challenges')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $challenge->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Challenge deleted successfully'
+        ]);
     }
 }

@@ -11,7 +11,13 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $user = $this->user();
+
+        if ($user === null) {
+            return false;
+        }
+
+        return $user->tokenCan('update:users') || ($user->tokenCan('update:users:self') && $user->id === $this->route('user')->id);
     }
 
     /**
@@ -26,13 +32,11 @@ class UpdateUserRequest extends FormRequest
         if ($method === 'PUT') {
             return [
                 'username' => ['required', 'string', 'max:255'],
-                'points' => ['required', 'integer', 'min:0'],
                 'displayName' => ['string', 'nullable'],
             ];
         } else {
             return [
                 'username' => ['sometimes', 'required', 'string', 'max:255'],
-                'points' => ['sometimes', 'required', 'integer', 'min:0'],
                 'displayName' => ['sometimes', 'string', 'nullable'],
             ];
         }

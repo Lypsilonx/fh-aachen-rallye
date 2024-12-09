@@ -41,6 +41,10 @@ class ChallengeStepController extends Controller
      */
     public function show(ChallengeStep $challengeStep)
     {
+        if (!auth()->user()->tokenCan('read:challengeSteps')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         return new ChallengeStepResource($challengeStep);
     }
 
@@ -67,6 +71,15 @@ class ChallengeStepController extends Controller
      */
     public function destroy(ChallengeStep $challengeStep)
     {
-        //
+        if (!auth()->user()->tokenCan('delete:challengeSteps')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $challengeStep->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Challenge step deleted successfully'
+        ]);
     }
 }
