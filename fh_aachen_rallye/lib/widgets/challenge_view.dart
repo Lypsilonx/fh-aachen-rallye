@@ -37,6 +37,12 @@ class ChallengeViewState extends State<ChallengeView>
   }
 
   @override
+  void dispose() {
+    SubscriptionManager.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
   void onUpdate(ServerObject object) {
     if (object is Challenge) {
       setState(() {

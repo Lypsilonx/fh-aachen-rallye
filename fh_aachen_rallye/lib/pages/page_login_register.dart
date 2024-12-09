@@ -46,10 +46,10 @@ class _PageLoginRegisterState extends FunPageState<PageLoginRegister> {
               label: 'Password',
               obscureText: true,
               submitButton: isLogin ? 'Login' : 'Register',
-              onSubmitted: (value) {
+              onSubmitted: (value) async {
                 var (loggedIn, failMessage) = isLogin
-                    ? Backend.login(usernameController.text, value)
-                    : Backend.register(usernameController.text, value);
+                    ? await Backend.login(usernameController.text, value)
+                    : await Backend.register(usernameController.text, value);
                 if (loggedIn) {
                   Navigator.of(context).pushReplacementNamed('/challenges');
                 } else {

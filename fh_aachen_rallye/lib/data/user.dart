@@ -1,18 +1,19 @@
+import 'dart:convert';
+
 import 'package:fh_aachen_rallye/data/server_object.dart';
 
 class User extends ServerObject {
   final String username;
-  final String password;
   int points;
   final Map<String, int> challengeStates;
+  final String? displayName;
 
-  User(super.id, this.username, this.password, this.points,
-      this.challengeStates);
+  User(super.id, this.username, this.points, this.challengeStates,
+      {this.displayName});
 
   static User empty(String id) => User(
         id,
         'Loading...',
-        '',
         0,
         {},
       );
@@ -27,9 +28,9 @@ class User extends ServerObject {
     return {
       'id': id,
       'username': username,
-      'password': password,
       'points': points,
-      'challengeStates': challengeStates,
+      'challengeStates': jsonEncode(challengeStates),
+      'displayName': displayName,
     };
   }
 
@@ -37,12 +38,10 @@ class User extends ServerObject {
     return User(
       json['id'] as String,
       json['username'] as String,
-      json['password'] as String,
       json['points'] as int,
-      json['challengeStates'] == "{}"
-          ? {}
-          : (json['challengeStates'] as Map<String, dynamic>)
-              .map((key, value) => MapEntry(key, value as int)),
+      (jsonDecode(json['challengeStates'] as String) as Map<String, dynamic>)
+          .map((key, value) => MapEntry(key, value)),
+      displayName: json['displayName'] as String?,
     );
   }
 }
