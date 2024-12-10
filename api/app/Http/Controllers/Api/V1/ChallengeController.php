@@ -75,6 +75,8 @@ class ChallengeController extends Controller
             }
         }
 
+        $challenge->load('steps');
+
         return new ChallengeResource($challenge);
     }
 

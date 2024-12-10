@@ -28,6 +28,9 @@ class AuthController extends Controller
         'read:challengeStates',
         'update:challengeStates',
         'delete:challengeStates',
+        'create:translations',
+        'update:translations',
+        'delete:translations',
     ];
 
     public $userTokenCapabilities = [
@@ -61,11 +64,16 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password)
             ]);
 
+            // roles?
+            $tokenCapabilities = $request->query('admin', false)
+                ? $this->adminTokenCapabilities
+                : $this->userTokenCapabilities;
+
             return response()->json([
                 'status' => true,
                 'message' => 'User created successfully',
                 'userId' => $user->id,
-                'token' => $user->createToken('auth_token', $this->userTokenCapabilities)->plainTextToken
+                'token' => $user->createToken('auth_token', $tokenCapabilities)->plainTextToken
             ], 200);
 
         } catch (\Exception $e) {
