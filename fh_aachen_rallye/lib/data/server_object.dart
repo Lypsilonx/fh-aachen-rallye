@@ -1,5 +1,6 @@
 import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/challenge.dart';
+import 'package:fh_aachen_rallye/data/translation.dart';
 import 'package:fh_aachen_rallye/data/user.dart';
 
 abstract class ServerObject {
@@ -14,6 +15,8 @@ abstract class ServerObject {
       return Challenge.fromJson(json);
     } else if (T.toString() == (User).toString()) {
       return User.fromJson(json);
+    } else if (T.toString() == (Translation).toString()) {
+      return Translation.fromJson(json);
     } else {
       throw Exception('Unknown type');
     }
@@ -24,6 +27,8 @@ abstract class ServerObject {
       return Challenge.empty(id);
     } else if (T.toString() == (User).toString()) {
       return User.empty(id);
+    } else if (T.toString() == (Translation).toString()) {
+      return Translation.empty(id);
     } else {
       throw Exception('Unknown type');
     }
@@ -37,9 +42,15 @@ abstract class ServerObjectSubscriber {
 class Cache {
   static final Map<Type, Map<String, ServerObject>> serverObjects = {};
 
-  static void clear() {
-    print('Clearing cache');
-    serverObjects.clear();
+  static void clear({List<Type> dontDelete = const []}) {
+    print(
+        'Clearing cache${dontDelete.isNotEmpty ? ' except $dontDelete' : ''}');
+
+    for (var type in serverObjects.keys) {
+      if (!dontDelete.contains(type)) {
+        serverObjects[type]!.clear();
+      }
+    }
   }
 }
 
@@ -47,11 +58,19 @@ class SubscriptionManager {
   static final Map<Type, Map<String, List<ServerObjectSubscriber>>>
       _subscribers = {};
 
-  static void subscribeAll<T extends ServerObject>(
+  // Called every time an object of the type T is requested (passes object in onUpdate)
+  static void subscribeAny<T extends ServerObject>(
       ServerObjectSubscriber subscriber) {
     subscribe<T>(subscriber, '*');
   }
 
+  // Called ONCE if either a specific object or all objects of the type T are requested (passes EMPTY object in onUpdate)
+  static void subscribeAll<T extends ServerObject>(
+      ServerObjectSubscriber subscriber) {
+    subscribe<T>(subscriber, 'all');
+  }
+
+  // Called every time a specific object is requested (passes that object in onUpdate)
   static void subscribe<T extends ServerObject>(
       ServerObjectSubscriber subscriber, String id,
       {bool forceFetch = false}) {
@@ -79,14 +98,18 @@ class SubscriptionManager {
 
   static unsubscribe(ServerObjectSubscriber subscriber) {
     var oldSubscribers =
-        Map<Type, Map<String, ServerObjectSubscriber>>.from(_subscribers);
+        Map<Type, Map<String, List<ServerObjectSubscriber>>>.from(_subscribers);
 
     for (var type in oldSubscribers.keys) {
       var oldSubscribersOfType =
-          Map<String, ServerObjectSubscriber>.from(oldSubscribers[type]!);
+          Map<String, List<ServerObjectSubscriber>>.from(oldSubscribers[type]!);
       for (var id in oldSubscribersOfType.keys) {
-        if (oldSubscribersOfType[id] == subscriber) {
-          _subscribers[type]!.remove(id);
+        var oldSubscribersOfId =
+            List<ServerObjectSubscriber>.from(oldSubscribersOfType[id]!);
+        for (var oldSubscriber in oldSubscribersOfId) {
+          if (oldSubscriber == subscriber) {
+            _subscribers[type]![id]!.remove(subscriber);
+          }
         }
       }
     }
@@ -108,6 +131,20 @@ class SubscriptionManager {
         for (var subscriber
             in _subscribers[object.runtimeType]![typeSubscribers]!) {
           subscriber.onUpdate(object);
+        }
+      }
+    }
+  }
+
+  static void notifyAll<T extends ServerObject>() {
+    if (!Cache.serverObjects.containsKey(T)) {
+      return;
+    }
+
+    for (var typeSubscribers in _subscribers[T]!.keys) {
+      if (typeSubscribers == 'all') {
+        for (var subscriber in _subscribers[T]![typeSubscribers]!) {
+          subscriber.onUpdate(ServerObject.empty<T>('*'));
         }
       }
     }

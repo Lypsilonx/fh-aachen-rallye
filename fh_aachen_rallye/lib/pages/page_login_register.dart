@@ -3,6 +3,9 @@ import 'package:fh_aachen_rallye/fun_ui/fun_button.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_text_input.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
+import 'package:fh_aachen_rallye/translation/translated_string.dart';
+import 'package:fh_aachen_rallye/translation/translated_text.dart';
+import 'package:fh_aachen_rallye/translation/translator.dart';
 import 'package:flutter/material.dart';
 
 class PageLoginRegister extends FunPage {
@@ -28,7 +31,7 @@ class _PageLoginRegisterState extends FunPageState<PageLoginRegister> {
 
   @override
   Widget title(BuildContext context) =>
-      Text(isLogin ? 'Login' : 'Register', style: Styles.h1);
+      TranslatedText(isLogin ? 'LOGIN' : 'REGISTER', style: Styles.h1);
 
   @override
   Widget buildPage(BuildContext context) {
@@ -40,12 +43,17 @@ class _PageLoginRegisterState extends FunPageState<PageLoginRegister> {
         ),
         Column(
           children: [
-            FunTextInput(label: 'Username', controller: usernameController),
+            FunTextInput(
+              label: TranslatedString(setState, 'USERNAME').register(this),
+              controller: usernameController,
+            ),
             const SizedBox(height: Sizes.small),
             FunTextInput(
-              label: 'Password',
+              label: TranslatedString(setState, 'PASSWORD').register(this),
               obscureText: true,
-              submitButton: isLogin ? 'Login' : 'Register',
+              submitButton: isLogin
+                  ? TranslatedString(setState, 'LOGIN').register(this)
+                  : TranslatedString(setState, 'REGISTER').register(this),
               onSubmitted: (value) async {
                 var (loggedIn, failMessage) = isLogin
                     ? await Backend.login(usernameController.text, value)
@@ -67,13 +75,26 @@ class _PageLoginRegisterState extends FunPageState<PageLoginRegister> {
         const SizedBox(height: Sizes.large),
         FunButton(
           isLogin
-              ? 'No account yet? Register!'
-              : 'Already have an account? Login!',
+              ? TranslatedString(setState, 'NOT_REGISTERED').register(this)
+              : TranslatedString(setState, 'ALREADY_REGISTERED').register(this),
           Colors.orange,
           onPressed: () => {
             setState(() {
               isLogin = !isLogin;
             }),
+          },
+        ),
+        FunButton(
+          Translator.language == Language.english
+              ? 'Zu Deutsch wechseln'
+              : 'Switch to English',
+          Colors.blue,
+          onPressed: () {
+            Translator.setLanguage(
+              Translator.language == Language.english
+                  ? Language.german
+                  : Language.english,
+            );
           },
         ),
       ],

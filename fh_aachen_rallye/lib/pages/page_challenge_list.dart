@@ -2,6 +2,7 @@ import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
+import 'package:fh_aachen_rallye/translation/translated_text.dart';
 import 'package:fh_aachen_rallye/widgets/challenge_tile.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,8 @@ class PageChallengeList extends FunPage {
 class _PageChallengeListState extends FunPageState<PageChallengeList>
     implements ServerObjectSubscriber {
   @override
-  Widget title(BuildContext context) => Text('Challenges', style: Styles.h1);
+  Widget title(BuildContext context) =>
+      TranslatedText('CHALLENGES', style: Styles.h1);
 
   @override
   Widget? trailing(BuildContext context) {

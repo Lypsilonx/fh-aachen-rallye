@@ -1,5 +1,6 @@
 import 'package:fh_aachen_rallye/fun_ui/fun_app_bar.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
+import 'package:fh_aachen_rallye/translation/translator.dart';
 import 'package:flutter/material.dart';
 
 abstract class FunPage extends StatefulWidget {
@@ -18,6 +19,22 @@ abstract class FunPageState<T extends FunPage> extends State<T> {
   Widget title(BuildContext context);
   Widget? trailing(BuildContext context) => null;
   Widget buildPage(BuildContext context);
+
+  List<Translateable> translateables = [];
+
+  @override
+  void dispose() {
+    for (var translateable in translateables) {
+      Translator.unsubscribe(translateable);
+    }
+    super.dispose();
+  }
+
+  void registerTranslateable(Translateable translateable) {
+    if (!translateables.contains(translateable)) {
+      translateables.add(translateable);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

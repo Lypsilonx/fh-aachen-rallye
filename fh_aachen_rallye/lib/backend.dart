@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
+import 'package:fh_aachen_rallye/data/translation.dart';
 import 'package:fh_aachen_rallye/data/user.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
+import 'package:fh_aachen_rallye/translation/translator.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,6 +14,7 @@ class Backend {
   static Future<void> init() async {
     prefs = await SharedPreferences.getInstance();
     state = BackendState();
+    Translator();
   }
 
   static const String apiUrl =
@@ -42,13 +45,22 @@ class Backend {
   static void fetch<T extends ServerObject>(String id) async {
     print('Fetching object: $T with id $id');
     if (T.toString() == (User).toString()) {
-      if (id == '*') {
+      if (id == '*' || id == 'all') {
         var requestedUsers =
             await apiRequest('GET', 'users?includeChallengeStates=true');
-        if (requestedUsers != null) {
-          for (var userJson in requestedUsers['data']) {
-            var user = User.fromJson(userJson);
-            SubscriptionManager.notifyUpdate(user);
+        while (true) {
+          if (requestedUsers != null) {
+            for (var userJson in requestedUsers['data']) {
+              var user = User.fromJson(userJson);
+              SubscriptionManager.notifyUpdate(user);
+            }
+
+            if (requestedUsers['links']['next'] != null) {
+              requestedUsers =
+                  await webRequest('GET', requestedUsers['links']['next']);
+            } else {
+              break;
+            }
           }
         }
       } else {
@@ -59,14 +71,24 @@ class Backend {
           SubscriptionManager.notifyUpdate(user);
         }
       }
+      SubscriptionManager.notifyAll<User>();
     } else if (T.toString() == (Challenge).toString()) {
-      if (id == '*') {
+      if (id == '*' || id == 'all') {
         var requestedChallenges =
             await apiRequest('GET', 'challenges?includeSteps=true');
-        if (requestedChallenges != null) {
-          for (var challengeJson in requestedChallenges['data']) {
-            var challenge = Challenge.fromJson(challengeJson);
-            SubscriptionManager.notifyUpdate(challenge);
+        while (true) {
+          if (requestedChallenges != null) {
+            for (var challengeJson in requestedChallenges['data']) {
+              var challenge = Challenge.fromJson(challengeJson);
+              SubscriptionManager.notifyUpdate(challenge);
+            }
+          }
+
+          if (requestedChallenges['links']['next'] != null) {
+            requestedChallenges =
+                await webRequest('GET', requestedChallenges['links']['next']);
+          } else {
+            break;
           }
         }
       } else {
@@ -77,6 +99,35 @@ class Backend {
           SubscriptionManager.notifyUpdate(challenge);
         }
       }
+      SubscriptionManager.notifyAll<Challenge>();
+    } else if (T.toString() == (Translation).toString()) {
+      if (id == '*' || id == 'all') {
+        dynamic requestedTranslations = await apiRequest('GET', 'translations');
+        while (true) {
+          if (requestedTranslations != null) {
+            for (var translationJson in requestedTranslations['data']) {
+              var translation = Translation.fromJson(translationJson);
+              SubscriptionManager.notifyUpdate(translation);
+            }
+          }
+
+          if (requestedTranslations['links']['next'] != null) {
+            requestedTranslations =
+                await webRequest('GET', requestedTranslations['links']['next']);
+          } else {
+            break;
+          }
+        }
+      } else {
+        var requestedTranslation = await apiRequest('GET', 'translations/$id');
+        if (requestedTranslation != null) {
+          var translation = Translation.fromJson(requestedTranslation['data']);
+          SubscriptionManager.notifyUpdate(translation);
+        }
+      }
+      SubscriptionManager.notifyAll<Translation>();
+    } else {
+      throw Exception('Unknown type');
     }
   }
 
@@ -84,12 +135,12 @@ class Backend {
 
   static Future<dynamic> apiRequest(String method, String path,
       {Map<String, dynamic>? body}) async {
-    return webRequest(method, "api/v1/$path", body: body);
+    return webRequest(method, "${apiUrl}api/v1/$path", body: body);
   }
 
   static Future<dynamic> webRequest(String method, String path,
       {Map<String, dynamic>? body}) async {
-    var url = Uri.parse('$apiUrl$path');
+    var url = Uri.parse(path);
     var headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -149,10 +200,9 @@ class Backend {
   }
 
   static void logout() {
-    prefs.remove('userId');
-    prefs.remove('token');
+    prefs.clear();
     state.user = null;
-    Cache.clear();
+    Cache.clear(dontDelete: [Translation]);
   }
 
   static Future<(bool, String)> register(

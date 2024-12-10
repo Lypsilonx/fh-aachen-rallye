@@ -4,6 +4,9 @@ import 'package:fh_aachen_rallye/data/user.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_button.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
+import 'package:fh_aachen_rallye/translation/translated_string.dart';
+import 'package:fh_aachen_rallye/translation/translated_text.dart';
+import 'package:fh_aachen_rallye/translation/translator.dart';
 import 'package:flutter/material.dart';
 
 class PageAccount extends FunPage {
@@ -48,7 +51,8 @@ class _PageAccountState extends FunPageState<PageAccount>
   }
 
   @override
-  Widget title(BuildContext context) => Text('Account', style: Styles.h1);
+  Widget title(BuildContext context) =>
+      TranslatedText('ACCOUNT', style: Styles.h1);
 
   @override
   Widget buildPage(BuildContext context) {
@@ -60,7 +64,21 @@ class _PageAccountState extends FunPageState<PageAccount>
         Text('Points: ${user.points}', style: Styles.h2),
         const SizedBox(height: Sizes.extraLarge),
         FunButton(
-          "Logout",
+          Translator.language == Language.english
+              ? 'Zu Deutsch wechseln'
+              : 'Switch to English',
+          Colors.blue,
+          onPressed: () {
+            Translator.setLanguage(
+              Translator.language == Language.english
+                  ? Language.german
+                  : Language.english,
+            );
+          },
+        ),
+        const SizedBox(height: Sizes.extraLarge),
+        FunButton(
+          TranslatedString(setState, 'LOGOUT').register(this),
           Colors.red,
           onPressed: () {
             Navigator.popUntil(context, (route) => route.isFirst);
