@@ -32,7 +32,7 @@ class FunAppBar extends StatelessWidget implements PreferredSizeWidget {
               Container(
                 width: Sizes.large,
                 alignment: Alignment.center,
-                child: Navigator.of(context).canPop()
+                child: ModalRoute.of(context)?.canPop ?? false
                     ? GestureDetector(
                         onTap: () {
                           Navigator.of(context).pop();
