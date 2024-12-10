@@ -6,21 +6,26 @@ class FunContainer extends StatelessWidget {
     required this.child,
     this.color = Colors.white,
     this.expand = true,
+    this.width,
+    this.height,
     this.padding = const EdgeInsets.all(Sizes.small),
     this.rounded = const RoundedSides(),
     super.key,
   });
 
-  final Widget child;
+  final Widget? child;
   final Color color;
   final bool expand;
+  final double? width;
+  final double? height;
   final EdgeInsets padding;
   final RoundedSides rounded;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: expand ? double.infinity : null,
+      width: expand ? double.infinity : width,
+      height: height,
       alignment: expand ? Alignment.center : null,
       decoration: BoxDecoration(
         color: color,

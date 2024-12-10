@@ -1,10 +1,9 @@
 import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_button.dart';
+import 'package:fh_aachen_rallye/fun_ui/fun_language_picker.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_text_input.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
-import 'package:fh_aachen_rallye/translation/translated_text.dart';
-import 'package:fh_aachen_rallye/translation/translator.dart';
 import 'package:flutter/material.dart';
 
 class PageLoginRegister extends FunPage {
@@ -30,7 +29,12 @@ class _PageLoginRegisterState extends FunPageState<PageLoginRegister> {
 
   @override
   Widget title(BuildContext context) =>
-      TranslatedText(isLogin ? 'LOGIN' : 'REGISTER', style: Styles.h1);
+      Text(translate(isLogin ? 'LOGIN' : 'REGISTER'), style: Styles.h1);
+
+  @override
+  Widget trailing(BuildContext context) {
+    return const FunLanguagePicker();
+  }
 
   @override
   Widget buildPage(BuildContext context) {
@@ -80,19 +84,6 @@ class _PageLoginRegisterState extends FunPageState<PageLoginRegister> {
             setState(() {
               isLogin = !isLogin;
             }),
-          },
-        ),
-        FunButton(
-          Translator.language == Language.english
-              ? 'Zu Deutsch wechseln'
-              : 'Switch to English',
-          Colors.blue,
-          onPressed: () {
-            Translator.setLanguage(
-              Translator.language == Language.english
-                  ? Language.german
-                  : Language.english,
-            );
           },
         ),
       ],
