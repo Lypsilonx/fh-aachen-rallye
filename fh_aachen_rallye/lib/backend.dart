@@ -5,7 +5,7 @@ import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/data/translation.dart';
 import 'package:fh_aachen_rallye/data/user.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
-import 'package:fh_aachen_rallye/translation/translator.dart';
+import 'package:fh_aachen_rallye/translator.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
