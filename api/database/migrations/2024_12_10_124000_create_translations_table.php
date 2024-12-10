@@ -41,7 +41,7 @@ return new class extends Migration {
             $id = \Ramsey\Uuid\Uuid::uuid4();
             $key = $initialTranslation['key'];
             $value = $initialTranslation['en'];
-            $language = 'english';
+            $language = 'en';
 
             DB::table('translations')->insert([
                 'id' => \Ramsey\Uuid\Uuid::uuid4(),
@@ -53,7 +53,7 @@ return new class extends Migration {
             ]);
 
             $value = $initialTranslation['de'];
-            $language = 'german';
+            $language = 'de';
 
             DB::table('translations')->insert([
                 'id' => \Ramsey\Uuid\Uuid::uuid4(),
