@@ -1,5 +1,6 @@
 import 'package:fh_aachen_rallye/fun_ui/fun_app_bar.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
+import 'package:fh_aachen_rallye/translation/translated_string.dart';
 import 'package:fh_aachen_rallye/translation/translator.dart';
 import 'package:flutter/material.dart';
 
@@ -34,6 +35,10 @@ abstract class FunPageState<T extends FunPage> extends State<T> {
     if (!translateables.contains(translateable)) {
       translateables.add(translateable);
     }
+  }
+
+  String translate(String key) {
+    return TranslatedString(setState, key).register(this);
   }
 
   @override

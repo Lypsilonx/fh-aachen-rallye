@@ -4,7 +4,6 @@ import 'package:fh_aachen_rallye/data/user.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_button.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
-import 'package:fh_aachen_rallye/translation/translated_string.dart';
 import 'package:fh_aachen_rallye/translation/translated_text.dart';
 import 'package:fh_aachen_rallye/translation/translator.dart';
 import 'package:flutter/material.dart';
@@ -78,7 +77,7 @@ class _PageAccountState extends FunPageState<PageAccount>
         ),
         const SizedBox(height: Sizes.extraLarge),
         FunButton(
-          TranslatedString(setState, 'LOGOUT').register(this),
+          translate('LOGOUT'),
           Colors.red,
           onPressed: () {
             Navigator.popUntil(context, (route) => route.isFirst);

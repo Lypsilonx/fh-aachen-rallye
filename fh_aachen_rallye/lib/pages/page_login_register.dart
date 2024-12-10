@@ -3,7 +3,6 @@ import 'package:fh_aachen_rallye/fun_ui/fun_button.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_text_input.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
-import 'package:fh_aachen_rallye/translation/translated_string.dart';
 import 'package:fh_aachen_rallye/translation/translated_text.dart';
 import 'package:fh_aachen_rallye/translation/translator.dart';
 import 'package:flutter/material.dart';
@@ -44,16 +43,15 @@ class _PageLoginRegisterState extends FunPageState<PageLoginRegister> {
         Column(
           children: [
             FunTextInput(
-              label: TranslatedString(setState, 'USERNAME').register(this),
+              label: translate('USERNAME'),
               controller: usernameController,
             ),
             const SizedBox(height: Sizes.small),
             FunTextInput(
-              label: TranslatedString(setState, 'PASSWORD').register(this),
+              label: translate('PASSWORD'),
               obscureText: true,
-              submitButton: isLogin
-                  ? TranslatedString(setState, 'LOGIN').register(this)
-                  : TranslatedString(setState, 'REGISTER').register(this),
+              submitButton:
+                  isLogin ? translate('LOGIN') : translate('REGISTER'),
               onSubmitted: (value) async {
                 var (loggedIn, failMessage) = isLogin
                     ? await Backend.login(usernameController.text, value)
@@ -75,8 +73,8 @@ class _PageLoginRegisterState extends FunPageState<PageLoginRegister> {
         const SizedBox(height: Sizes.large),
         FunButton(
           isLogin
-              ? TranslatedString(setState, 'NOT_REGISTERED').register(this)
-              : TranslatedString(setState, 'ALREADY_REGISTERED').register(this),
+              ? translate('NOT_REGISTERED')
+              : translate('ALREADY_REGISTERED'),
           Colors.orange,
           onPressed: () => {
             setState(() {
