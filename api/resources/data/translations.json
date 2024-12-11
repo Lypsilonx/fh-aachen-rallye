@@ -1,0 +1,42 @@
+{
+    "LOGIN": { "en": "Login", "de": "Anmelden" },
+    "REGISTER": { "en": "Register", "de": "Registrieren" },
+    "LOGOUT": { "en": "Logout", "de": "Abmelden" },
+    "USERNAME": { "en": "Username", "de": "Benutzername" },
+    "PASSWORD": { "en": "Password", "de": "Passwort" },
+    "ALREADY_REGISTERED": {
+        "en": "Already registered? Log in!",
+        "de": "Bereits registriert? Melde dich an!"
+    },
+    "NOT_REGISTERED": {
+        "en": "Not registered? Register!",
+        "de": "Noch nicht registriert? Registriere dich!"
+    },
+    "ACCOUNT": { "en": "Account", "de": "Benutzerkonto" },
+    "SETTINGS": { "en": "Settings", "de": "Einstellungen" },
+    "SAVE": { "en": "Save", "de": "Speichern" },
+    "START": { "en": "Start", "de": "Start" },
+    "NEXT": { "en": "Next", "de": "Weiter" },
+    "BACK": { "en": "Back", "de": "Zurück" },
+    "RESTART": { "en": "Restart", "de": "Neu starten" },
+    "SUBMIT": { "en": "Submit", "de": "Senden" },
+    "COMPLETE": { "en": "Complete", "de": "Abschließen" },
+    "LOADING": { "en": "Loading", "de": "Lädt" },
+    "CANCEL": { "en": "Cancel", "de": "Abbrechen" },
+    "EDIT": { "en": "Edit", "de": "Bearbeiten" },
+    "DELETE": { "en": "Delete", "de": "Löschen" },
+    "CHALLENGES": { "en": "Challenges", "de": "Aufgaben" },
+    "POINTS": { "en": "Points", "de": "Punkte" },
+    "CATEGORY": { "en": "Category", "de": "Kategorie" },
+    "DIFFICULTY": { "en": "Difficulty", "de": "Schwierigkeit" },
+    "DIFFICULTY_VERYEASY": { "en": "Very Easy", "de": "Sehr leicht" },
+    "DIFFICULTY_EASY": { "en": "Easy", "de": "Leicht" },
+    "DIFFICULTY_MEDIUM": { "en": "Medium", "de": "Mittel" },
+    "DIFFICULTY_HARD": { "en": "Hard", "de": "Schwer" },
+    "DIFFICULTY_VERYHARD": { "en": "Very Hard", "de": "Sehr schwer" },
+    "CATEGORY_GENERAL": { "en": "General", "de": "Allgemein" },
+    "CATEGORY_GENERAL_DESCRIPTION": {
+        "en": "General knowledge and trivia.",
+        "de": "Allgemeinwissen und Trivia."
+    }
+}

@@ -1,0 +1,50 @@
+{
+    "id": "test",
+    "title": "Test Challenge",
+    "difficulty": 1,
+    "category": "general",
+    "points": 10,
+    "descriptionStart": "This is a test challenge.",
+    "descriptionEnd": "You did it!",
+    "steps": [
+        {
+            "type": "say",
+            "text": "Hello!",
+            "next": null,
+            "isLast": false,
+            "index": 0
+        },
+        {
+            "type": "options",
+            "text": "Decide!",
+            "options": "{ \"Option 1\": 1, \"Back\": -1 }",
+            "next": null,
+            "isLast": false,
+            "index": 1
+        },
+        {
+            "type": "stringInput",
+            "text": "Type something!",
+            "correctAnswer": "something!",
+            "indexOnIncorrect": 2,
+            "next": null,
+            "isLast": false,
+            "index": 2
+        },
+        {
+            "type": "say",
+            "text": "Whoo!",
+            "next": null,
+            "isLast": true,
+            "index": 3
+        },
+        {
+            "type": "say",
+            "text": "Not quite!",
+            "next": -2,
+            "isLast": false,
+            "index": 4
+        }
+    ],
+    "image": null
+}
