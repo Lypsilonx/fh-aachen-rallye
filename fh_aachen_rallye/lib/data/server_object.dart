@@ -1,4 +1,5 @@
 import 'package:fh_aachen_rallye/backend.dart';
+import 'package:fh_aachen_rallye/data/cache.dart';
 import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/translation.dart';
 import 'package:fh_aachen_rallye/data/user.dart';
@@ -39,21 +40,6 @@ abstract class ServerObjectSubscriber {
   void onUpdate(ServerObject object);
 }
 
-class Cache {
-  static final Map<Type, Map<String, ServerObject>> serverObjects = {};
-
-  static void clear({List<Type> dontDelete = const []}) {
-    print(
-        'Clearing cache${dontDelete.isNotEmpty ? ' except $dontDelete' : ''}');
-
-    for (var type in serverObjects.keys) {
-      if (!dontDelete.contains(type)) {
-        serverObjects[type]!.clear();
-      }
-    }
-  }
-}
-
 class SubscriptionManager {
   static final Map<Type, Map<String, List<ServerObjectSubscriber>>>
       _subscribers = {};
@@ -72,8 +58,7 @@ class SubscriptionManager {
 
   // Called every time a specific object is requested (passes that object in onUpdate)
   static void subscribe<T extends ServerObject>(
-      ServerObjectSubscriber subscriber, String id,
-      {bool forceFetch = false}) {
+      ServerObjectSubscriber subscriber, String id) {
     if (!_subscribers.containsKey(T)) {
       _subscribers[T] = {};
     }
@@ -84,12 +69,8 @@ class SubscriptionManager {
 
     _subscribers[T]![id]!.add(subscriber);
 
-    if (Cache.serverObjects.containsKey(T) &&
-        Cache.serverObjects[T]!.containsKey(id)) {
-      subscriber.onUpdate(Cache.serverObjects[T]![id]!);
-      if (forceFetch) {
-        Backend.fetch<T>(id);
-      }
+    if (Cache.contains(T, id: id)) {
+      subscriber.onUpdate(Cache.fetch<T>(id)!);
     } else {
       subscriber.onUpdate(ServerObject.empty<T>(id));
       Backend.fetch<T>(id);
@@ -115,12 +96,83 @@ class SubscriptionManager {
     }
   }
 
-  static void notifyUpdate(ServerObject object) {
-    if (!Cache.serverObjects.containsKey(object.runtimeType)) {
-      Cache.serverObjects[object.runtimeType] = {};
+  static void pollCache() async {
+    var pollList = createCachePollList();
+    var (result, message) =
+        await Backend.apiRequest('POST', 'pollCache', body: {
+      'poll_list': pollList,
+    });
+
+    if (result == null) {
+      return;
     }
 
-    Cache.serverObjects[object.runtimeType]![object.id] = object;
+    if (!result.containsKey('update_list')) {
+      return;
+    }
+
+    print("received updates: ${result['update_list']}");
+    List<String> updateList =
+        result['update_list'].map<String>((e) => e as String).toList();
+
+    for (var update in updateList) {
+      var type = update.split(':')[0];
+      var id = update.split(':')[1];
+
+      if (type == 'Challenge') {
+        Backend.fetch<Challenge>(id);
+      } else if (type == 'User') {
+        Backend.fetch<User>(id);
+      } else if (type == 'Translation') {
+        Backend.fetch<Translation>(id);
+      }
+    }
+  }
+
+  static List<Map<String, dynamic>> createCachePollList() {
+    List<Map<String, dynamic>> pollList = [];
+    for (var type in _subscribers.keys) {
+      var typeString = "";
+
+      if (type.toString() == (Challenge).toString()) {
+        typeString = "Challenge";
+      } else if (type.toString() == (User).toString()) {
+        typeString = "User";
+      } else if (type.toString() == (Translation).toString()) {
+        typeString = "Translation";
+      }
+
+      if (_subscribers[type]!.containsKey('*')) {
+        pollList.add({
+          "type": typeString,
+          "id": "*",
+          "lastUpdate": Cache.lastUpdate(type)!.millisecondsSinceEpoch
+        });
+        continue;
+      }
+      if (_subscribers[type]!.containsKey('all')) {
+        pollList.add({
+          "type": typeString,
+          "id": "all",
+          "lastUpdate": Cache.lastUpdate(type)!.millisecondsSinceEpoch
+        });
+      }
+      for (var id in _subscribers[type]!.keys) {
+        if (id != '*' && id != 'all') {
+          pollList.add({
+            "type": typeString,
+            "id": id,
+            "lastUpdate": Cache.lastUpdate(type, id: id)!.millisecondsSinceEpoch
+          });
+        }
+      }
+    }
+
+    return pollList;
+  }
+
+  static void notifyUpdate(ServerObject object) {
+    Cache.store(object);
 
     if (!_subscribers.containsKey(object.runtimeType)) {
       return;
@@ -137,7 +189,7 @@ class SubscriptionManager {
   }
 
   static void notifyAll<T extends ServerObject>() {
-    if (!Cache.serverObjects.containsKey(T)) {
+    if (!Cache.contains(T)) {
       return;
     }
 

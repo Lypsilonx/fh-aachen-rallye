@@ -1,4 +1,5 @@
 import 'package:fh_aachen_rallye/backend.dart';
+import 'package:fh_aachen_rallye/data/cache.dart';
 import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
@@ -58,9 +59,9 @@ class _PageChallengeListState extends FunPageState<PageChallengeList>
 
   @override
   void onUpdate(ServerObject object) {
-    var challengeChache = Cache.serverObjects[Challenge];
-    if (challengeChache != null) {
-      challengeIds = challengeChache.keys.toList();
+    var challengeChache = Cache.fetchAll<Challenge>();
+    if (challengeChache.isNotEmpty) {
+      challengeIds = challengeChache.map((e) => e.id).toList();
       setState(() {});
     }
   }

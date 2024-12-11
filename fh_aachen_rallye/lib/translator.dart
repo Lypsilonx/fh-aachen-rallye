@@ -1,4 +1,5 @@
 import 'package:fh_aachen_rallye/backend.dart';
+import 'package:fh_aachen_rallye/data/cache.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/data/translation.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class Translator implements ServerObjectSubscriber {
       _language = Language.values
           .firstWhere((element) => element.name == savedLanguage);
     }
-    SubscriptionManager.subscribeAll<Translation>(this);
+    SubscriptionManager.subscribeAny<Translation>(this);
   }
 
   static void subscribe(TranslatedState subscriber, Function setState) {
@@ -46,13 +47,11 @@ class Translator implements ServerObjectSubscriber {
   }
 
   static String translate(String key, String fallback) {
-    if (Cache.serverObjects[Translation] != null) {
-      for (var translation in Cache.serverObjects[Translation]!.values) {
-        if (translation is Translation) {
-          if (translation.key == key &&
-              translation.language == _language.name) {
-            return translation.value;
-          }
+    List<Translation> translations = Cache.fetchAll<Translation>();
+    if (translations.isNotEmpty) {
+      for (var translation in translations) {
+        if (translation.key == key && translation.language == _language.name) {
+          return translation.value;
         }
       }
     }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fh_aachen_rallye/data/cache.dart';
 import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/data/translation.dart';
@@ -31,7 +32,6 @@ class Backend {
       var (_, message) =
           await apiRequest('PUT', 'users/${object.id}', body: object.toJson());
       fetch<User>(object.id);
-
       return message;
     }
 
@@ -46,7 +46,6 @@ class Backend {
       var (_, message) =
           await apiRequest('PATCH', 'users/${object.id}', body: changes);
       fetch<User>(object.id);
-
       return message;
     }
 
@@ -195,7 +194,9 @@ class Backend {
 
     var message = await Backend.patch(state.user!,
         {'challengeStates': jsonEncode(state.user!.challengeStates)});
-    Backend.fetch<Challenge>('all');
+    if (currentStep == -2) {
+      Backend.fetch<Challenge>('all');
+    }
 
     return message;
   }
