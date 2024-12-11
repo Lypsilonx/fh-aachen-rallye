@@ -25,19 +25,6 @@ class Backend {
       'http://www.politischdekoriert.de/fh-aachen-rallye/api/public/index.php/';
   static late SharedPreferences prefs;
 
-  static Future<String> send(ServerObject object) async {
-    print('Sending object: $object');
-    // Send object to server
-    if (object is User) {
-      var (_, message) =
-          await apiRequest('PUT', 'users/${object.id}', body: object.toJson());
-      fetch<User>(object.id);
-      return message;
-    }
-
-    return '';
-  }
-
   static Future<String> patch(
       ServerObject object, Map<String, dynamic> changes) async {
     print('Patching object: $object with $changes');
@@ -54,93 +41,50 @@ class Backend {
 
   static void fetch<T extends ServerObject>(String id) async {
     print('Fetching object: $T with id $id');
+
+    String requestEndpoint = '';
+    String requestArgs = '';
+
     if (T.toString() == (User).toString()) {
-      if (id == '*' || id == 'all') {
-        var (requestedUsers, _) =
-            await apiRequest('GET', 'users?includeChallengeStates=true');
-        while (true) {
-          if (requestedUsers != null) {
-            for (var userJson in requestedUsers['data']) {
-              var user = User.fromJson(userJson);
-              SubscriptionManager.notifyUpdate(user);
-            }
-
-            if (requestedUsers['links']['next'] != null) {
-              (requestedUsers, _) =
-                  await webRequest('GET', requestedUsers['links']['next']);
-            } else {
-              break;
-            }
-          }
-        }
-      } else {
-        var (requestedUser, _) =
-            await apiRequest('GET', 'users/$id?includeChallengeStates=true');
-        if (requestedUser != null) {
-          var user = User.fromJson(requestedUser['data']);
-          SubscriptionManager.notifyUpdate(user);
-        }
-      }
-      SubscriptionManager.notifyAll<User>();
+      requestEndpoint = 'users';
+      requestArgs = 'includeChallengeStates=true';
     } else if (T.toString() == (Challenge).toString()) {
-      if (id == '*' || id == 'all') {
-        var (requestedChallenges, _) =
-            await apiRequest('GET', 'challenges?includeSteps=true');
-        while (true) {
-          if (requestedChallenges != null) {
-            for (var challengeJson in requestedChallenges['data']) {
-              var challenge = Challenge.fromJson(challengeJson);
-              SubscriptionManager.notifyUpdate(challenge);
-            }
-          }
-
-          if (requestedChallenges['links']['next'] != null) {
-            (requestedChallenges, _) =
-                await webRequest('GET', requestedChallenges['links']['next']);
-          } else {
-            break;
-          }
-        }
-      } else {
-        var (requestedChallenge, _) =
-            await apiRequest('GET', 'challenges/$id?includeSteps=true');
-        if (requestedChallenge != null) {
-          var challenge = Challenge.fromJson(requestedChallenge['data']);
-          SubscriptionManager.notifyUpdate(challenge);
-        }
-      }
-      SubscriptionManager.notifyAll<Challenge>();
+      requestEndpoint = 'challenges';
+      requestArgs = 'includeSteps=true';
     } else if (T.toString() == (Translation).toString()) {
-      if (id == '*' || id == 'all') {
-        var (requestedTranslations, _) =
-            await apiRequest('GET', 'translations');
-        while (true) {
-          if (requestedTranslations != null) {
-            for (var translationJson in requestedTranslations['data']) {
-              var translation = Translation.fromJson(translationJson);
-              SubscriptionManager.notifyUpdate(translation);
-            }
-          }
-
-          if (requestedTranslations['links']['next'] != null) {
-            (requestedTranslations, _) =
-                await webRequest('GET', requestedTranslations['links']['next']);
-          } else {
-            break;
-          }
-        }
-      } else {
-        var (requestedTranslation, _) =
-            await apiRequest('GET', 'translations/$id');
-        if (requestedTranslation != null) {
-          var translation = Translation.fromJson(requestedTranslation['data']);
-          SubscriptionManager.notifyUpdate(translation);
-        }
-      }
-      SubscriptionManager.notifyAll<Translation>();
+      requestEndpoint = 'translations';
+      requestArgs = '';
     } else {
       throw Exception('Unknown type');
     }
+
+    if (id == '*' || id == 'all') {
+      var (requestedObjects, _) =
+          await apiRequest('GET', '$requestEndpoint?$requestArgs');
+      while (true) {
+        if (requestedObjects != null) {
+          for (var userJson in requestedObjects['data']) {
+            var user = ServerObject.fromJson<T>(userJson);
+            SubscriptionManager.notifyUpdate(user);
+          }
+
+          if (requestedObjects['links']['next'] != null) {
+            (requestedObjects, _) =
+                await webRequest('GET', requestedObjects['links']['next']);
+          } else {
+            break;
+          }
+        }
+      }
+    } else {
+      var (requestedObject, _) =
+          await apiRequest('GET', '$requestEndpoint/$id?$requestArgs');
+      if (requestedObject != null) {
+        var user = ServerObject.fromJson<T>(requestedObject['data']);
+        SubscriptionManager.notifyUpdate(user);
+      }
+    }
+    SubscriptionManager.notifyAll<T>();
   }
 
   static String? get userId => prefs.getString('userId');

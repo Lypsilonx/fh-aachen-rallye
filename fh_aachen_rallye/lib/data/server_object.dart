@@ -11,7 +11,8 @@ abstract class ServerObject {
 
   Map<String, dynamic> toJson();
 
-  ServerObject fromJson<T extends ServerObject>(Map<String, dynamic> json) {
+  static ServerObject fromJson<T extends ServerObject>(
+      Map<String, dynamic> json) {
     if (T.toString() == (Challenge).toString()) {
       return Challenge.fromJson(json);
     } else if (T.toString() == (User).toString()) {
@@ -90,6 +91,10 @@ class SubscriptionManager {
         for (var oldSubscriber in oldSubscribersOfId) {
           if (oldSubscriber == subscriber) {
             _subscribers[type]![id]!.remove(subscriber);
+
+            if (_subscribers[type]![id]!.isEmpty) {
+              _subscribers[type]!.remove(id);
+            }
           }
         }
       }
@@ -111,7 +116,6 @@ class SubscriptionManager {
       return;
     }
 
-    print("received updates: ${result['update_list']}");
     List<String> updateList =
         result['update_list'].map<String>((e) => e as String).toList();
 
