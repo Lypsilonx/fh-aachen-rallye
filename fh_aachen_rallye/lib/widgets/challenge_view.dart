@@ -63,6 +63,7 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
 
     if (step.isLast) {
       gotoStep(-2);
+      Backend.fetch<Challenge>('all');
     } else {
       proceedStep(step.next ?? 1);
     }

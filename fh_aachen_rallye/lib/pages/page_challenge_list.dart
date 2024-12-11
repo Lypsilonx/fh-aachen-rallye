@@ -1,6 +1,8 @@
+import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
+import 'package:fh_aachen_rallye/fun_ui/fun_text_input.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/widgets/challenge_tile.dart';
 import 'package:flutter/material.dart';
@@ -65,14 +67,27 @@ class _PageChallengeListState extends FunPageState<PageChallengeList>
 
   @override
   Widget buildPage(BuildContext context) {
-    return ListView.builder(
-      itemCount: challengeIds.length,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: Sizes.medium),
-          child: ChallengeTile(challengeIds[index]),
-        );
-      },
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+            itemCount: challengeIds.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: Sizes.medium),
+                child: ChallengeTile(challengeIds[index]),
+              );
+            },
+          ),
+        ),
+        FunTextInput(
+          label: translate('UNLOCK_CHALLENGE'),
+          submitButton: translate('UNLOCK_CHALLENGE'),
+          onSubmitted: (value) {
+            Backend.unlockChallenge(value);
+          },
+        ),
+      ],
     );
   }
 }

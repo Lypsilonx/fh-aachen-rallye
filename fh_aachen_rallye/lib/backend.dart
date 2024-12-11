@@ -229,6 +229,19 @@ class Backend {
 
     return (false, message);
   }
+
+  static Future<String> unlockChallenge(String lockId) async {
+    print('Unlocking with lock_id: $lockId');
+    var (result, message) = await apiRequest('POST', 'game/unlock', body: {
+      'lock_id': lockId,
+    });
+    fetch<Challenge>('all');
+    if (result != null) {
+      return '';
+    }
+
+    return message;
+  }
 }
 
 class BackendState implements ServerObjectSubscriber {
