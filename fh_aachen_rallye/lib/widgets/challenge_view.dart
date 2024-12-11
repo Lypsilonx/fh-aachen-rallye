@@ -7,6 +7,7 @@ import 'package:fh_aachen_rallye/fun_ui/fun_button.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_container.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_text_input.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
+import 'package:fh_aachen_rallye/translator.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,7 +20,7 @@ class ChallengeView extends StatefulWidget {
   ChallengeViewState createState() => ChallengeViewState();
 }
 
-class ChallengeViewState extends State<ChallengeView>
+class ChallengeViewState extends TranslatedState<ChallengeView>
     implements ServerObjectSubscriber {
   int currentStep = 0;
 
@@ -132,21 +133,21 @@ class ChallengeViewState extends State<ChallengeView>
                                         Padding(
                                           padding: tableEdgeInsets,
                                           child: Text(
-                                            'Category',
+                                            translate('CATEGORY'),
                                             style: Styles.subtitle,
                                           ),
                                         ),
                                         Padding(
                                           padding: tableEdgeInsets,
                                           child: Text(
-                                            'Difficulty',
+                                            translate('DIFFICULTY'),
                                             style: Styles.subtitle,
                                           ),
                                         ),
                                         Padding(
                                           padding: tableEdgeInsets,
                                           child: Text(
-                                            'Points',
+                                            translate('POINTS'),
                                             style: Styles.subtitle,
                                           ),
                                         ),
@@ -154,27 +155,37 @@ class ChallengeViewState extends State<ChallengeView>
                                     ),
                                     TableRow(
                                       children: [
-                                        Padding(
-                                          padding: tableEdgeInsets,
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                challenge.category.icon,
-                                                color: challenge.category.color,
-                                              ),
-                                              const SizedBox(
-                                                  width: Sizes.small),
-                                              Text(
-                                                challenge.category.name,
-                                                style: Styles.body,
-                                              ),
-                                            ],
+                                        Tooltip(
+                                          message: translate(
+                                              challenge.category.description),
+                                          child: Padding(
+                                            padding: tableEdgeInsets,
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  challenge.category.icon,
+                                                  color:
+                                                      challenge.category.color,
+                                                ),
+                                                const SizedBox(
+                                                    width: Sizes.small),
+                                                Text(
+                                                  translate(
+                                                      challenge.category.name),
+                                                  style: Styles.body,
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                        Padding(
-                                          padding: tableEdgeInsets,
-                                          child: Helpers.displayDifficulty(
-                                              challenge.difficulty),
+                                        Tooltip(
+                                          message: translate(
+                                              'DIFFICULTY_${challenge.difficulty.name.toUpperCase()}'),
+                                          child: Padding(
+                                            padding: tableEdgeInsets,
+                                            child: Helpers.displayDifficulty(
+                                                challenge.difficulty),
+                                          ),
                                         ),
                                         Padding(
                                           padding: tableEdgeInsets,
@@ -188,7 +199,7 @@ class ChallengeViewState extends State<ChallengeView>
                           ),
                         ),
                         FunButton(
-                          isNew ? 'Start' : 'Restart',
+                          isNew ? translate('START') : translate('RESTART'),
                           Colors.green,
                           onPressed: () => proceedStep(1),
                         ),
@@ -226,7 +237,7 @@ class ChallengeViewState extends State<ChallengeView>
                           Column(
                             children: [
                               FunTextInput(
-                                submitButton: 'Submit',
+                                submitButton: translate('SUBMIT'),
                                 onSubmitted: (value) {
                                   if (value == step.correctAnswer) {
                                     nextStep(step);
@@ -240,8 +251,8 @@ class ChallengeViewState extends State<ChallengeView>
                         if (step.hasNextButton)
                           FunButton(
                               step.isLast
-                                  ? 'Complete (+${challenge.points} Points)'
-                                  : 'Next',
+                                  ? "${translate('COMPLETE')} (+${challenge.points} ${translate('POINTS')})"
+                                  : translate('NEXT'),
                               step.isLast ? Colors.green : Colors.orange,
                               sizeFactor: step.isLast ? 1.5 : -1,
                               onPressed: () => nextStep(step)),

@@ -68,7 +68,10 @@ class _PageChallengeListState extends FunPageState<PageChallengeList>
     return ListView.builder(
       itemCount: challengeIds.length,
       itemBuilder: (context, index) {
-        return ChallengeTile(challengeIds[index]);
+        return Padding(
+          padding: const EdgeInsets.only(bottom: Sizes.medium),
+          child: ChallengeTile(challengeIds[index]),
+        );
       },
     );
   }

@@ -4,10 +4,13 @@ import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/data/translation.dart';
 import 'package:fh_aachen_rallye/data/user.dart';
-import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/translator.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
+final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
+    GlobalKey<ScaffoldMessengerState>();
 
 class Backend {
   static late BackendState state;
@@ -46,7 +49,7 @@ class Backend {
     print('Fetching object: $T with id $id');
     if (T.toString() == (User).toString()) {
       if (id == '*' || id == 'all') {
-        var requestedUsers =
+        var (requestedUsers, _) =
             await apiRequest('GET', 'users?includeChallengeStates=true');
         while (true) {
           if (requestedUsers != null) {
@@ -56,7 +59,7 @@ class Backend {
             }
 
             if (requestedUsers['links']['next'] != null) {
-              requestedUsers =
+              (requestedUsers, _) =
                   await webRequest('GET', requestedUsers['links']['next']);
             } else {
               break;
@@ -64,7 +67,7 @@ class Backend {
           }
         }
       } else {
-        var requestedUser =
+        var (requestedUser, _) =
             await apiRequest('GET', 'users/$id?includeChallengeStates=true');
         if (requestedUser != null) {
           var user = User.fromJson(requestedUser['data']);
@@ -74,7 +77,7 @@ class Backend {
       SubscriptionManager.notifyAll<User>();
     } else if (T.toString() == (Challenge).toString()) {
       if (id == '*' || id == 'all') {
-        var requestedChallenges =
+        var (requestedChallenges, _) =
             await apiRequest('GET', 'challenges?includeSteps=true');
         while (true) {
           if (requestedChallenges != null) {
@@ -85,14 +88,14 @@ class Backend {
           }
 
           if (requestedChallenges['links']['next'] != null) {
-            requestedChallenges =
+            (requestedChallenges, _) =
                 await webRequest('GET', requestedChallenges['links']['next']);
           } else {
             break;
           }
         }
       } else {
-        var requestedChallenge =
+        var (requestedChallenge, _) =
             await apiRequest('GET', 'challenges/$id?includeSteps=true');
         if (requestedChallenge != null) {
           var challenge = Challenge.fromJson(requestedChallenge['data']);
@@ -102,7 +105,8 @@ class Backend {
       SubscriptionManager.notifyAll<Challenge>();
     } else if (T.toString() == (Translation).toString()) {
       if (id == '*' || id == 'all') {
-        dynamic requestedTranslations = await apiRequest('GET', 'translations');
+        var (requestedTranslations, _) =
+            await apiRequest('GET', 'translations');
         while (true) {
           if (requestedTranslations != null) {
             for (var translationJson in requestedTranslations['data']) {
@@ -112,14 +116,15 @@ class Backend {
           }
 
           if (requestedTranslations['links']['next'] != null) {
-            requestedTranslations =
+            (requestedTranslations, _) =
                 await webRequest('GET', requestedTranslations['links']['next']);
           } else {
             break;
           }
         }
       } else {
-        var requestedTranslation = await apiRequest('GET', 'translations/$id');
+        var (requestedTranslation, _) =
+            await apiRequest('GET', 'translations/$id');
         if (requestedTranslation != null) {
           var translation = Translation.fromJson(requestedTranslation['data']);
           SubscriptionManager.notifyUpdate(translation);
@@ -133,12 +138,12 @@ class Backend {
 
   static String? get userId => prefs.getString('userId');
 
-  static Future<dynamic> apiRequest(String method, String path,
+  static Future<(dynamic, String)> apiRequest(String method, String path,
       {Map<String, dynamic>? body}) async {
     return webRequest(method, "${apiUrl}api/v1/$path", body: body);
   }
 
-  static Future<dynamic> webRequest(String method, String path,
+  static Future<(dynamic, String)> webRequest(String method, String path,
       {Map<String, dynamic>? body}) async {
     var url = Uri.parse(path);
     var headers = {
@@ -159,7 +164,7 @@ class Backend {
     };
 
     if (result == null) {
-      return null;
+      return (null, 'Invalid method');
     }
 
     if (result.statusCode != 201 && result.statusCode != 200) {
@@ -169,10 +174,10 @@ class Backend {
       print(
           'The $method request to $path failed with status code ${result.statusCode}');
       print('Response: ${result.body}');
-      return null;
+      return (null, result.body);
     }
 
-    return jsonDecode(result.body);
+    return (jsonDecode(result.body), '');
   }
 
   // TEMP
@@ -185,7 +190,7 @@ class Backend {
 
   static Future<(bool, String)> login(String username, String password) async {
     print('Logging in $username');
-    var result = await apiRequest('POST', 'auth/login', body: {
+    var (result, message) = await apiRequest('POST', 'auth/login', body: {
       'username': username,
       'password': password,
     });
@@ -196,10 +201,13 @@ class Backend {
       return (true, '');
     }
 
-    return (false, 'Login failed.');
+    return (false, message);
   }
 
-  static void logout() {
+  static void logout(BuildContext context) {
+    Navigator.popUntil(context, (route) => route.isFirst);
+    Translator.setLanguage(Language.en);
+    Navigator.pushReplacementNamed(context, '/login');
     prefs.clear();
     state.user = null;
     Cache.clear(dontDelete: [Translation]);
@@ -208,7 +216,7 @@ class Backend {
   static Future<(bool, String)> register(
       String username, String password) async {
     print('Registering $username');
-    var result = await apiRequest('POST', 'auth/register', body: {
+    var (result, message) = await apiRequest('POST', 'auth/register', body: {
       'username': username,
       'password': password,
     });
@@ -219,7 +227,7 @@ class Backend {
       return (true, '');
     }
 
-    return (false, 'Registration failed.');
+    return (false, message);
   }
 }
 
@@ -234,27 +242,6 @@ class BackendState implements ServerObjectSubscriber {
     SubscriptionManager.unsubscribe(this);
     if (Backend.userId != null) {
       SubscriptionManager.subscribe<User>(this, Backend.userId!);
-
-      // // TEMPORARY
-      // Challenge testChallenge = const Challenge(
-      //   'test',
-      //   title: 'Test Challenge',
-      //   difficulty: Difficulty.easy,
-      //   points: 10,
-      //   category: ChallengeCategory.general,
-      //   descriptionStart: 'This is a test challenge.',
-      //   descriptionEnd: 'You did it!',
-      //   steps: [
-      //     ChallengeStepSay('Hello!'),
-      //     ChallengeStepOptions('Decide!', {'Option 1': 1, 'Back': -1}),
-      //     ChallengeStepStringInput('Type something!', 'something!', 2),
-      //     ChallengeStepSay('Whoo!', isLast: true),
-      //     ChallengeStepSay('Not quite!', next: -2),
-      //   ],
-      // );
-
-      // await Backend.apiRequest('POST', 'challenges',
-      //     body: testChallenge.toJson());
     }
   }
 

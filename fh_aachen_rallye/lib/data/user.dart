@@ -11,7 +11,7 @@ class User extends ServerObject {
 
   static User empty(String id) => User(
         id,
-        'Loading...',
+        'LOADING',
         0,
         {},
       );

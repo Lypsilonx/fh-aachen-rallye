@@ -92,15 +92,15 @@ class ChallengeCategory {
       {this.color = Colors.orange});
 
   static const ChallengeCategory loading = ChallengeCategory(
-    "Loading",
-    "Loading...",
+    "LOADING",
+    "LOADING",
     Icons.hourglass_empty,
     color: Colors.grey,
   );
 
   static const ChallengeCategory general = ChallengeCategory(
-    "General",
-    "General knowledge and trivia.",
+    "CATEGORY_GENERAL",
+    "CATEGORY_GENERAL_DESCRIPTION",
     Icons.lightbulb,
     color: Colors.yellow,
   );

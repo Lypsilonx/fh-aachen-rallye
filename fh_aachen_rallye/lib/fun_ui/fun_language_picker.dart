@@ -12,8 +12,6 @@ class FunLanguagePicker extends StatefulWidget {
 }
 
 class _FunLanguagePickerState extends State<FunLanguagePicker> {
-  Language? hoveredItem;
-
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<Language>(
@@ -32,43 +30,24 @@ class _FunLanguagePickerState extends State<FunLanguagePicker> {
       offset: const Offset(Sizes.small, Sizes.large + Sizes.small),
       itemBuilder: (BuildContext context) {
         return Language.values.map((Language language) {
+          var index = Language.values.indexOf(language);
           return PopupMenuItem<Language>(
             enabled: false,
             padding: EdgeInsets.zero,
             value: language,
-            child: StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
-                var hovered = hoveredItem == language;
-                var color = Colors.white.modifySaturation(hovered ? 0.9 : 1);
-                int index = Language.values.indexOf(language);
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context, language);
-                  },
-                  child: MouseRegion(
-                    onEnter: (_) {
-                      setState(() {
-                        hoveredItem = language;
-                      });
-                    },
-                    onExit: (_) {
-                      setState(() {
-                        hoveredItem = null;
-                      });
-                    },
-                    child: FunContainer(
-                      color: color,
-                      rounded: RoundedSides(
-                        topLeft: index == 0,
-                        topRight: index == 0,
-                        bottomLeft: index == Language.values.length - 1,
-                        bottomRight: index == Language.values.length - 1,
-                      ),
-                      child: buildFlag(language, hovered: hovered),
-                    ),
-                  ),
-                );
+            child: FunContainer(
+              onTap: () {
+                Navigator.pop(context, language);
               },
+              hoverStrength: 0.2,
+              color: Colors.white,
+              rounded: RoundedSides(
+                topLeft: index == 0,
+                topRight: index == 0,
+                bottomLeft: index == Language.values.length - 1,
+                bottomRight: index == Language.values.length - 1,
+              ),
+              builder: (hovered) => buildFlag(language, hovered: hovered),
             ),
           );
         }).toList();

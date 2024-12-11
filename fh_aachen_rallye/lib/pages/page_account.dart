@@ -64,15 +64,13 @@ class _PageAccountState extends FunPageState<PageAccount>
         const SizedBox(height: Sizes.medium),
         Text('User ID: ${user.id}', style: Styles.h2),
         const SizedBox(height: Sizes.medium),
-        Text('Points: ${user.points}', style: Styles.h2),
+        Text('${translate('POINTS')}: ${user.points}', style: Styles.h2),
         const SizedBox(height: Sizes.extraLarge),
         FunButton(
           translate('LOGOUT'),
           Colors.red,
           onPressed: () {
-            Navigator.popUntil(context, (route) => route.isFirst);
-            Navigator.pushReplacementNamed(context, '/login');
-            Backend.logout();
+            Backend.logout(context);
           },
         ),
       ],

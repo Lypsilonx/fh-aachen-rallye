@@ -6,11 +6,11 @@ class Helpers {
   static Widget displayDifficulty(Difficulty difficulty) {
     int stars = switch (difficulty) {
       Difficulty.none => 0,
-      Difficulty.easy => 1,
-      Difficulty.medium => 2,
-      Difficulty.hard => 3,
-      Difficulty.varyEasy => 4,
-      Difficulty.varyHard => 5,
+      Difficulty.veryEasy => 1,
+      Difficulty.easy => 2,
+      Difficulty.medium => 3,
+      Difficulty.hard => 4,
+      Difficulty.veryHard => 5,
     };
 
     return Row(
@@ -99,7 +99,7 @@ class Helpers {
   }
 }
 
-enum Difficulty { none, varyEasy, easy, medium, hard, varyHard }
+enum Difficulty { none, veryEasy, easy, medium, hard, veryHard }
 
 extension AdvancedColor on Color {
   bool get isLight => computeLuminance() > 0.5;

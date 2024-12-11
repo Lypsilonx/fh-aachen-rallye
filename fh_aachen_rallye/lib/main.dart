@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 
 // build with: flutter build web --release --base-href="/fh-aachen-rallye/" -o ..
 
+final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
+    GlobalKey<ScaffoldMessengerState>();
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Backend.init().then((value) => runApp(const FHAachenRallye()));
@@ -17,6 +19,7 @@ class FHAachenRallye extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scaffoldMessengerKey: rootScaffoldMessengerKey,
       initialRoute: Backend.userId == null ? '/login' : '/challenges',
       routes: {
         '/login': (context) => const PageLoginRegister(),

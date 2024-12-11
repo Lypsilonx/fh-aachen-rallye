@@ -1,9 +1,12 @@
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:flutter/material.dart';
 
-class FunContainer extends StatelessWidget {
+class FunContainer extends StatefulWidget {
   const FunContainer({
-    required this.child,
+    this.child,
+    this.builder,
+    this.onTap,
+    this.hoverStrength = 0.05,
     this.color = Colors.white,
     this.expand = true,
     this.width,
@@ -14,7 +17,10 @@ class FunContainer extends StatelessWidget {
   });
 
   final Widget? child;
+  final Widget? Function(bool hovered)? builder;
+  final Function()? onTap;
   final Color color;
+  final double hoverStrength;
   final bool expand;
   final double? width;
   final double? height;
@@ -22,31 +28,64 @@ class FunContainer extends StatelessWidget {
   final RoundedSides rounded;
 
   @override
+  State<FunContainer> createState() => _FunContainerState();
+}
+
+class _FunContainerState extends State<FunContainer> {
+  bool hovered = false;
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      width: expand ? double.infinity : width,
-      height: height,
-      alignment: expand ? Alignment.center : null,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.only(
-          topLeft: rounded.topLeft
-              ? const Radius.circular(Sizes.medium)
-              : Radius.zero,
-          topRight: rounded.topRight
-              ? const Radius.circular(Sizes.medium)
-              : Radius.zero,
-          bottomLeft: rounded.bottomLeft
-              ? const Radius.circular(Sizes.medium)
-              : Radius.zero,
-          bottomRight: rounded.bottomRight
-              ? const Radius.circular(Sizes.medium)
-              : Radius.zero,
+    var finalColor =
+        widget.color.modifySaturation(1 - (hovered ? widget.hoverStrength : 0));
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: MouseRegion(
+        onEnter: (_) {
+          setState(() {
+            if (widget.onTap == null) {
+              return;
+            }
+
+            hovered = true;
+          });
+        },
+        onExit: (_) {
+          if (widget.onTap == null) {
+            return;
+          }
+
+          setState(() {
+            hovered = false;
+          });
+        },
+        child: Container(
+          width: widget.expand ? double.infinity : widget.width,
+          height: widget.height,
+          alignment: widget.expand ? Alignment.center : null,
+          decoration: BoxDecoration(
+            color: finalColor,
+            borderRadius: BorderRadius.only(
+              topLeft: widget.rounded.topLeft
+                  ? const Radius.circular(Sizes.medium)
+                  : Radius.zero,
+              topRight: widget.rounded.topRight
+                  ? const Radius.circular(Sizes.medium)
+                  : Radius.zero,
+              bottomLeft: widget.rounded.bottomLeft
+                  ? const Radius.circular(Sizes.medium)
+                  : Radius.zero,
+              bottomRight: widget.rounded.bottomRight
+                  ? const Radius.circular(Sizes.medium)
+                  : Radius.zero,
+            ),
+            boxShadow: Helpers.boxShadow(widget.color),
+          ),
+          padding: widget.padding,
+          child:
+              widget.builder != null ? widget.builder!(hovered) : widget.child,
         ),
-        boxShadow: Helpers.boxShadow(color),
       ),
-      padding: padding,
-      child: child,
     );
   }
 }

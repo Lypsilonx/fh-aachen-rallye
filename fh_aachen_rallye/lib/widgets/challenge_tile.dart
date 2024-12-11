@@ -64,24 +64,24 @@ class _ChallengeTileState extends State<ChallengeTile>
     );
 
     return FunContainer(
+      onTap: () {
+        if (widget.challengeId == '') {
+          return;
+        }
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ChallengeView(widget.challengeId),
+          ),
+        );
+      },
       padding: EdgeInsets.zero,
       child: ListTile(
         leading: Icon(challenge.category.icon, color: challenge.category.color),
         trailing: statusIcon,
         title: Text(challenge.title, style: Styles.h2),
         subtitle: Helpers.displayDifficulty(challenge.difficulty),
-        onTap: () {
-          if (widget.challengeId == '') {
-            return;
-          }
-
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ChallengeView(widget.challengeId),
-            ),
-          );
-        },
       ),
     );
   }
