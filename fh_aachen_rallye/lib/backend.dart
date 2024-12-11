@@ -24,25 +24,33 @@ class Backend {
       'http://www.politischdekoriert.de/fh-aachen-rallye/api/public/index.php/';
   static late SharedPreferences prefs;
 
-  static void send(ServerObject object) {
+  static Future<String> send(ServerObject object) async {
     print('Sending object: $object');
     // Send object to server
     if (object is User) {
-      apiRequest('PUT', 'users/${object.id}', body: object.toJson())
-          .then((value) {
-        fetch<User>(object.id);
-      });
+      var (_, message) =
+          await apiRequest('PUT', 'users/${object.id}', body: object.toJson());
+      fetch<User>(object.id);
+
+      return message;
     }
+
+    return '';
   }
 
-  static void patch(ServerObject object, Map<String, dynamic> changes) {
+  static Future<String> patch(
+      ServerObject object, Map<String, dynamic> changes) async {
     print('Patching object: $object with $changes');
     // Patch object on server
     if (object is User) {
-      apiRequest('PATCH', 'users/${object.id}', body: changes).then((value) {
-        fetch<User>(object.id);
-      });
+      var (_, message) =
+          await apiRequest('PATCH', 'users/${object.id}', body: changes);
+      fetch<User>(object.id);
+
+      return message;
     }
+
+    return '';
   }
 
   static void fetch<T extends ServerObject>(String id) async {
@@ -181,11 +189,15 @@ class Backend {
   }
 
   // TEMP
-  static void setChallengeState(String challengeId, int currentStep) {
+  static Future<String> setChallengeState(
+      String challengeId, int currentStep) async {
     state.user!.challengeStates[challengeId] = currentStep;
 
-    Backend.patch(state.user!,
+    var message = await Backend.patch(state.user!,
         {'challengeStates': jsonEncode(state.user!.challengeStates)});
+    Backend.fetch<Challenge>('all');
+
+    return message;
   }
 
   static Future<(bool, String)> login(String username, String password) async {
