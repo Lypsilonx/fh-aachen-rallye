@@ -14,6 +14,8 @@ return new class extends Migration {
             $table->uuid('id')->primary();
             $table->string('title');
             $table->integer('difficulty');
+            $table->string('lock_id')->nullable();
+            $table->string('unlock_id')->nullable();
             $table->integer('points');
             $table->string('category');
             $table->text('descriptionStart');

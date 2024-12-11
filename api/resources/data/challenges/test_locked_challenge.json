@@ -1,10 +1,10 @@
 {
-    "title": "Test Challenge",
+    "title": "Secret Challenge",
     "difficulty": 1,
-    "unlock_id": "test",
+    "lock_id": "test",
     "category": "general",
-    "points": 10,
-    "descriptionStart": "This is a test challenge.",
+    "points": 20,
+    "descriptionStart": "This is a secret test challenge.",
     "descriptionEnd": "You did it!",
     "steps": [
         {

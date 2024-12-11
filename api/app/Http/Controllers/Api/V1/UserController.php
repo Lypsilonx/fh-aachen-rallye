@@ -74,9 +74,7 @@ class UserController extends Controller
                     }
 
                     if ($previousStep->step !== -2) {
-                        $challenge = Challenge::find($challenge_id);
-                        $user->points += $challenge->points;
-                        $user->save();
+                        GameController::completeChallenge($user, $challenge_id);
                     }
                 }
 

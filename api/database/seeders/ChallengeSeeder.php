@@ -21,14 +21,16 @@ class ChallengeSeeder extends Seeder
             $challengeJson = json_decode(File::get($file), true);
 
             $challenge = Challenge::create([
-                'id' => $challengeJson['id'],
+                'id' => \Ramsey\Uuid\Uuid::uuid4(),
                 'title' => $challengeJson['title'],
                 'difficulty' => $challengeJson['difficulty'],
+                'lock_id' => $challengeJson['lock_id'] ?? null,
+                'unlock_id' => $challengeJson['unlock_id'] ?? null,
                 'points' => $challengeJson['points'],
                 'category' => $challengeJson['category'],
                 'descriptionStart' => $challengeJson['descriptionStart'],
                 'descriptionEnd' => $challengeJson['descriptionEnd'],
-                'image' => $challengeJson['image'],
+                'image' => $challengeJson['image'] ?? null,
             ]);
 
             ChallengeController::storeSteps($challenge, $challengeJson['steps']);

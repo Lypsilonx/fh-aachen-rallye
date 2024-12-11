@@ -14,6 +14,7 @@ class AuthController extends Controller
     public $adminTokenCapabilities = [
         'create:challenges',
         'read:challenges',
+        'read:challenges:locked',
         'update:challenges',
         'delete:challenges',
         'create:challengeSteps',

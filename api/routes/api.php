@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\ChallengeStateController;
 use App\Http\Controllers\Api\V1\TranslationController;
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\GameController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +26,5 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1', 'm
     Route::apiResource('users', UserController::class);
     Route::apiResource('challengeStates', ChallengeStateController::class);
     Route::apiResource('translations', TranslationController::class)->except(['index', 'show']);
+    Route::post('game/unlock', [GameController::class, 'unlockRequest']);
 });

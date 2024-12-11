@@ -25,6 +25,11 @@
     "CANCEL": { "en": "Cancel", "de": "Abbrechen" },
     "EDIT": { "en": "Edit", "de": "Bearbeiten" },
     "DELETE": { "en": "Delete", "de": "Löschen" },
+    "UNLOCK": { "en": "Unlock", "de": "Freischalten" },
+    "UNLOCK_CHALLENGE": {
+        "en": "Unlock Challenge",
+        "de": "Aufgabe freischalten"
+    },
     "CHALLENGES": { "en": "Challenges", "de": "Aufgaben" },
     "POINTS": { "en": "Points", "de": "Punkte" },
     "CATEGORY": { "en": "Category", "de": "Kategorie" },

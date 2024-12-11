@@ -4,6 +4,7 @@ namespace App\Http\Resources\V1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use App\Models\ChallengeState;
 
 class ChallengeCollection extends ResourceCollection
 {
@@ -14,6 +15,13 @@ class ChallengeCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return $this->collection->filter(function ($challenge) {
+            if (!auth()->user()->tokenCan('read:challenges:locked')) {
+                if ($challenge->lock_id && ChallengeState::where('user_id', auth()->id())->where('challenge_id', $challenge->id)->doesntExist()) {
+                    return false;
+                }
+            }
+            return true;
+        })->toArray();
     }
 }

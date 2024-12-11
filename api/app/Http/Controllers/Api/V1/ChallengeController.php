@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Requests\V1\StoreChallengeRequest;
 use App\Http\Requests\V1\UpdateChallengeRequest;
 use App\Models\Challenge;
+use App\Models\ChallengeState;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\ChallengeResource;
 use App\Http\Resources\V1\ChallengeCollection;
@@ -17,6 +18,10 @@ class ChallengeController extends Controller
      */
     public function index(Request $request)
     {
+        if (!auth()->user()->tokenCan('read:challenges')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $includeSteps = $request->query('includeSteps', false);
 
         if ($includeSteps) {
@@ -92,6 +97,14 @@ class ChallengeController extends Controller
     {
         if (!auth()->user()->tokenCan('read:challenges')) {
             abort(403, 'Unauthorized action.');
+        }
+
+        if (!auth()->user()->tokenCan('read:challenges:locked')) {
+            // check if challenge_states contains a record with the current user and the challenge
+            if ($challenge->lock_id && ChallengeState::where('user_id', auth()->id())->where('challenge_id', $challenge->id)->doesntExist()) {
+                // act as if the challenge doesn't exist
+                abort(404, 'Challenge not found.');
+            }
         }
 
         $includeSteps = request()->query('includeSteps', false);
