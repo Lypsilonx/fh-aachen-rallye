@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\ChallengeStateController;
 use App\Http\Controllers\Api\V1\TranslationController;
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\CacheController;
 use App\Http\Controllers\Api\V1\GameController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::apiResource('translations', TranslationController::class)->only(['index', 'show']);
 });
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1', 'middleware' => 'auth:sanctum'], function () {
+    Route::post('pollCache', [CacheController::class, 'cachePollRequest']);
     Route::apiResource('challenges', ChallengeController::class);
     Route::apiResource('challengeSteps', ChallengeStepController::class);
     Route::apiResource('users', UserController::class);

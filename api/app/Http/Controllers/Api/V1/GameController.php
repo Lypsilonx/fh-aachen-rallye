@@ -8,7 +8,6 @@ use App\Models\ChallengeState;
 use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
 class GameController extends Controller
@@ -62,7 +61,9 @@ class GameController extends Controller
         $user->points += $challenge->points;
         $user->save();
 
-        GameController::unlock($user, $challenge->unlock_id);
+        if ($challenge->unlock_id) {
+            GameController::unlock($user, $challenge->unlock_id);
+        }
     }
 
     public static function unlock(User $user, string $lock_id)
