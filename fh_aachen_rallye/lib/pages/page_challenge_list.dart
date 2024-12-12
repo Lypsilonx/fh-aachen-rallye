@@ -1,11 +1,14 @@
+import 'dart:convert';
+
 import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/cache.dart';
 import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
+import 'package:fh_aachen_rallye/fun_ui/fun_button.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
-import 'package:fh_aachen_rallye/fun_ui/fun_text_input.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/widgets/challenge_tile.dart';
+import 'package:fh_aachen_rallye/widgets/scan_qr_code_view.dart';
 import 'package:flutter/material.dart';
 
 class PageChallengeList extends FunPage {
@@ -81,11 +84,48 @@ class _PageChallengeListState extends FunPageState<PageChallengeList>
             },
           ),
         ),
-        FunTextInput(
-          label: translate('UNLOCK_CHALLENGE'),
-          submitButton: translate('UNLOCK_CHALLENGE'),
-          onSubmitted: (value) {
-            Backend.unlockChallenge(value);
+        FunButton(
+          translate('UNLOCK_CHALLENGE'),
+          Colors.blue,
+          onPressed: () async {
+            var value = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    const ScanQRCodeView(acceptRegex: r'^FHAR-\d{4}$'),
+              ),
+            );
+            if (value != null) {
+              var (success, message) = await Backend.unlockChallenge(value);
+              print(message);
+              if (RegExp(r'^\d+/\d+$').hasMatch(message)) {
+                var unlockedChallenges = int.parse(message.split('/')[0]);
+                var totalChallenges = int.parse(message.split('/')[1]);
+
+                if (totalChallenges == 0) {
+                  message = translate('NO_CHALLENGES_FOUND');
+                } else if (unlockedChallenges == 0) {
+                  message = translate('CHALLENGES_ALREADY_UNLOCKED');
+                } else if (unlockedChallenges < totalChallenges) {
+                  message = translate('CHALLENGES_UNLOCKED', args: [
+                    unlockedChallenges.toString(),
+                    totalChallenges.toString()
+                  ]);
+                } else if (unlockedChallenges == totalChallenges) {
+                  message = (totalChallenges == 1
+                      ? translate('CHALLENGE_UNLOCKED')
+                      : translate('CHALLENGES_UNLOCKED_ALL',
+                          args: [totalChallenges.toString()]));
+                }
+              }
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(message),
+                  backgroundColor: success ? Colors.green : Colors.red,
+                ),
+              );
+            }
           },
         ),
       ],

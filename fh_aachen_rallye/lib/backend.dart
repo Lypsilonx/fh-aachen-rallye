@@ -10,9 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
-    GlobalKey<ScaffoldMessengerState>();
-
 class Backend {
   static late BackendState state;
   static Future<void> init() async {
@@ -187,17 +184,19 @@ class Backend {
     return (false, message);
   }
 
-  static Future<String> unlockChallenge(String lockId) async {
+  static Future<(bool, String)> unlockChallenge(String lockId) async {
     print('Unlocking with lock_id: $lockId');
     var (result, message) = await apiRequest('POST', 'game/unlock', body: {
       'lock_id': lockId,
     });
     fetch<Challenge>('all');
     if (result != null) {
-      return '';
+      int unlockedChallenges = result['unlocked_challenges'];
+      int totalChallenges = result['total_challenges'];
+      return (true, '$unlockedChallenges/$totalChallenges');
     }
 
-    return message;
+    return (false, message);
   }
 }
 

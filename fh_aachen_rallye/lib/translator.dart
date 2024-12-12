@@ -46,12 +46,21 @@ class Translator implements ServerObjectSubscriber {
     }
   }
 
-  static String translate(String key, String fallback) {
+  static String translate(String key, String fallback, {List<String>? args}) {
     List<Translation> translations = Cache.fetchAll<Translation>();
     if (translations.isNotEmpty) {
       for (var translation in translations) {
         if (translation.key == key && translation.language == _language.name) {
-          return translation.value;
+          var translationString = translation.value;
+          if (args != null) {
+            for (var i = 0; i < args.length; i++) {
+              translationString = translationString.replaceAll(
+                '{${i + 1}}',
+                args[i],
+              );
+            }
+          }
+          return translationString;
         }
       }
     }
@@ -78,8 +87,8 @@ abstract class TranslatedState<T extends StatefulWidget> extends State<T> {
     super.dispose();
   }
 
-  String translate(String key, {String fallback = ''}) {
-    String translation = Translator.translate(key, fallback);
+  String translate(String key, {String fallback = '', List<String>? args}) {
+    String translation = Translator.translate(key, fallback, args: args);
     return translation;
   }
 }
