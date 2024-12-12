@@ -1,6 +1,7 @@
 {
     "title": "Test Challenge",
     "difficulty": 1,
+    "lock_id": "FHAR-1234",
     "unlock_id": "test",
     "category": "general",
     "points": 10,

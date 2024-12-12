@@ -43,5 +43,25 @@
     "CATEGORY_GENERAL_DESCRIPTION": {
         "en": "General knowledge and trivia.",
         "de": "Allgemeinwissen und Trivia."
+    },
+    "NO_CHALLENGES_FOUND": {
+        "en": "No challenges found for this code",
+        "de": "Keine Aufgaben für diesen Code gefunden"
+    },
+    "CHALLENGES_ALREADY_UNLOCKED": {
+        "en": "Challenges already unlocked",
+        "de": "Aufgaben bereits freigeschaltet"
+    },
+    "CHALLENGES_UNLOCKED": {
+        "en": "$0 of $1 challenges unlocked",
+        "de": "$0 von $1 Aufgaben freigeschaltet"
+    },
+    "CHALLENGE_UNLOCKED": {
+        "en": "Challenge unlocked!",
+        "de": "Aufgabe freigeschaltet!"
+    },
+    "CHALLENGES_UNLOCKED_ALL": {
+        "en": "$1 challenges unlocked",
+        "de": "$1 Aufgaben freigeschaltet"
     }
 }

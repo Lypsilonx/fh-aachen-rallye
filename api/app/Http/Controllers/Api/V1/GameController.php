@@ -39,11 +39,12 @@ class GameController extends Controller
                 ], 404);
             }
 
-            unlockForUser($user, $request->input('lock_id'));
+            $unlocked_challenges = GameController::unlock($user, $request->input('lock_id'));
 
             return response()->json([
                 'status' => true,
-                'message' => 'Challenges unlocked',
+                'unlocked_challenges' => $unlocked_challenges[0],
+                'total_challenges' => $unlocked_challenges[1],
             ], 200);
 
         } catch (\Exception $e) {
@@ -66,17 +67,34 @@ class GameController extends Controller
         }
     }
 
-    public static function unlock(User $user, string $lock_id)
+    public static function unlock(User $user, string $lock_id): array
     {
         $challenges = Challenge::where('lock_id', $lock_id)->get();
 
+        if ($challenges->isEmpty()) {
+            return [0, 0];
+        }
+
+        $unlocked_challenges = 0;
         foreach ($challenges as $challenge) {
+            // check if challenge is already unlocked
+            $challengeState = ChallengeState::where('user_id', $user->id)
+                ->where('challenge_id', $challenge->id)
+                ->first();
+
+            if ($challengeState) {
+                continue;
+            }
+
             // add challenge_state with step=-1
             $challengeState = ChallengeState::create([
                 'user_id' => $user->id,
                 'challenge_id' => $challenge->id,
                 'step' => -1,
             ]);
+            $unlocked_challenges++;
         }
+
+        return [$unlocked_challenges, $challenges->count()];
     }
 }
