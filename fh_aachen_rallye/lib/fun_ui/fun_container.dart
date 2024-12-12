@@ -67,16 +67,16 @@ class _FunContainerState extends State<FunContainer> {
             color: finalColor,
             borderRadius: BorderRadius.only(
               topLeft: widget.rounded.topLeft
-                  ? const Radius.circular(Sizes.medium)
+                  ? const Radius.circular(Sizes.borderRadius)
                   : Radius.zero,
               topRight: widget.rounded.topRight
-                  ? const Radius.circular(Sizes.medium)
+                  ? const Radius.circular(Sizes.borderRadius)
                   : Radius.zero,
               bottomLeft: widget.rounded.bottomLeft
-                  ? const Radius.circular(Sizes.medium)
+                  ? const Radius.circular(Sizes.borderRadius)
                   : Radius.zero,
               bottomRight: widget.rounded.bottomRight
-                  ? const Radius.circular(Sizes.medium)
+                  ? const Radius.circular(Sizes.borderRadius)
                   : Radius.zero,
             ),
             boxShadow: Helpers.boxShadow(widget.color),

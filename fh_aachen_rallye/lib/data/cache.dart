@@ -51,7 +51,7 @@ class Cache {
 
       for (var type in _serverObjects.keys) {
         for (var lastUpdateEntry in _serverObjects[type]!.values) {
-          if (lastUpdate == null || lastUpdateEntry.$2.isBefore(lastUpdate)) {
+          if (lastUpdate == null || lastUpdateEntry.$2.isAfter(lastUpdate)) {
             lastUpdate = lastUpdateEntry.$2;
           }
         }

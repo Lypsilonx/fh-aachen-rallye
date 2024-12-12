@@ -92,6 +92,12 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
       right: Sizes.small,
     );
 
+    var options = [];
+    if (step is ChallengeStepOptions) {
+      options = step.options.keys.toList();
+      options.shuffle();
+    }
+
     return Scaffold(
       appBar: FunAppBar(
         challenge.category.color,
@@ -219,7 +225,7 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
                         ),
                         if (step is ChallengeStepOptions)
                           Column(
-                            children: step.options.keys
+                            children: options
                                 .map((option) => Column(
                                       children: [
                                         const SizedBox(height: Sizes.small),

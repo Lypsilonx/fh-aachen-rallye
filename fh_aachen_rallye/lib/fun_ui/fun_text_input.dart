@@ -46,7 +46,7 @@ class _FunTextInputState extends State<FunTextInput> {
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.all(
-                Radius.circular(Sizes.borderRadiusSmall),
+                Radius.circular(Sizes.borderRadius - Sizes.extraSmall),
               ),
             ),
             padding: const EdgeInsets.only(
