@@ -58,7 +58,7 @@ class Translator implements ServerObjectSubscriber {
           if (args != null) {
             for (var i = 0; i < args.length; i++) {
               translationString = translationString.replaceAll(
-                '{${i + 1}}',
+                '{$i}',
                 args[i],
               );
             }
