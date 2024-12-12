@@ -7320,7 +7320,7 @@ return A.F(null,r)}})
 return A.G($async$hT,r)},
 lx(a,b,c){var s=0,r=A.H(t.lY),q
 var $async$lx=A.I(function(d,e){if(d===1)return A.E(e,r)
-while(true)switch(s){case 0:q=A.GR(a,"http://www.politischdekoriert.de/fh-aachen-rallye/api/public/index.php/api/v1/"+b,c)
+while(true)switch(s){case 0:q=A.GR(a,"https://www.politischdekoriert.de/fh-aachen-rallye/api/public/index.php/api/v1/"+b,c)
 s=1
 break
 case 1:return A.F(q,r)}})

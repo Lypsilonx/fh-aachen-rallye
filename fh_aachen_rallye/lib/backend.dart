@@ -19,7 +19,7 @@ class Backend {
   }
 
   static const String apiUrl =
-      'http://www.politischdekoriert.de/fh-aachen-rallye/api/public/index.php/';
+      'https://www.politischdekoriert.de/fh-aachen-rallye/api/public/index.php/';
   static late SharedPreferences prefs;
 
   static Future<String> patch(
