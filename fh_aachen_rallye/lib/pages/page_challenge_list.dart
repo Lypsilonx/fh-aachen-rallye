@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/cache.dart';
 import 'package:fh_aachen_rallye/data/challenge.dart';
@@ -91,8 +89,10 @@ class _PageChallengeListState extends FunPageState<PageChallengeList>
             var value = await Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    const ScanQRCodeView(acceptRegex: r'^FHAR-\d{4}$'),
+                builder: (context) => ScanQRCodeView(
+                  acceptRegex: r'^FHAR-\d{4}$',
+                  manualInput: translate('UNLOCK_CHALLENGE'),
+                ),
               ),
             );
             if (value != null) {

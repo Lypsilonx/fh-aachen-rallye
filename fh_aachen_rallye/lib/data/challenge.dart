@@ -124,6 +124,8 @@ abstract class ChallengeStep {
     } else if (runtimeType.toString() ==
         (ChallengeStepStringInput).toString()) {
       return (this as ChallengeStepStringInput).toJson();
+    } else if (runtimeType.toString() == (ChallengeStepScan).toString()) {
+      return (this as ChallengeStepScan).toJson();
     } else {
       throw Exception('Unknown type');
     }
@@ -137,6 +139,8 @@ abstract class ChallengeStep {
         return ChallengeStepOptions.fromJson(json);
       case 'stringInput':
         return ChallengeStepStringInput.fromJson(json);
+      case 'scan':
+        return ChallengeStepScan.fromJson(json);
       default:
         throw Exception('Unknown type');
     }
@@ -198,9 +202,12 @@ class ChallengeStepStringInput extends ChallengeStep {
   final int indexOnIncorrect;
 
   const ChallengeStepStringInput(
-      super.text, this.correctAnswer, this.indexOnIncorrect,
-      {super.next, super.isLast = false})
-      : super(hasNextButton: false);
+    super.text,
+    this.correctAnswer,
+    this.indexOnIncorrect, {
+    super.next,
+    super.isLast = false,
+  }) : super(hasNextButton: false);
 
   Map<String, dynamic> toJson() {
     return {
@@ -218,6 +225,36 @@ class ChallengeStepStringInput extends ChallengeStep {
       json['text'] as String,
       json['correctAnswer'] as String,
       json['indexOnIncorrect'] as int,
+      next: json['next'] as int?,
+      isLast: json['isLast'] as int == 1,
+    );
+  }
+}
+
+class ChallengeStepScan extends ChallengeStep {
+  final String correctAnswer;
+
+  const ChallengeStepScan(
+    super.text,
+    this.correctAnswer, {
+    super.next,
+    super.isLast = false,
+  }) : super(hasNextButton: false);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'type': 'scan',
+      'text': text,
+      'correctAnswer': correctAnswer,
+      'next': next,
+      'isLast': isLast,
+    };
+  }
+
+  factory ChallengeStepScan.fromJson(Map<String, dynamic> json) {
+    return ChallengeStepScan(
+      json['text'] as String,
+      json['correctAnswer'] as String,
       next: json['next'] as int?,
       isLast: json['isLast'] as int == 1,
     );

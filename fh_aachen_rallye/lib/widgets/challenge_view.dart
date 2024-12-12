@@ -8,6 +8,7 @@ import 'package:fh_aachen_rallye/fun_ui/fun_container.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_text_input.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/translator.dart';
+import 'package:fh_aachen_rallye/widgets/scan_qr_code_view.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -253,6 +254,26 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
                                 },
                               ),
                             ],
+                          ),
+                        if (step is ChallengeStepScan)
+                          FunButton(
+                            translate('SCAN'),
+                            Colors.blue,
+                            onPressed: () async {
+                              var value = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ScanQRCodeView(
+                                    acceptRegex: step.correctAnswer,
+                                  ),
+                                ),
+                              );
+                              if (value != null) {
+                                if (value == step.correctAnswer) {
+                                  nextStep(step);
+                                }
+                              }
+                            },
                           ),
                         if (step.hasNextButton)
                           FunButton(

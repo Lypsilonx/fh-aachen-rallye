@@ -10,8 +10,9 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 
 class ScanQRCodeView extends FunPage {
   final String? acceptRegex;
+  final String? manualInput;
 
-  const ScanQRCodeView({super.key, this.acceptRegex});
+  const ScanQRCodeView({super.key, this.acceptRegex, this.manualInput});
 
   @override
   ScanQRCodeViewState createState() => ScanQRCodeViewState();
@@ -48,9 +49,9 @@ class ScanQRCodeViewState extends FunPageState<ScanQRCodeView>
             block = false;
           });
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Invalid QR Code'),
-              duration: Duration(seconds: 2),
+            SnackBar(
+              content: Text(translate('INVALID_QR_CODE')),
+              duration: const Duration(seconds: 2),
             ),
           );
         }
@@ -112,20 +113,21 @@ class ScanQRCodeViewState extends FunPageState<ScanQRCodeView>
             ),
           ),
         ),
-        const SizedBox(height: Sizes.large),
-        FunTextInput(
-          label: translate('UNLOCK_CHALLENGE'),
-          submitButton: translate('UNLOCK_CHALLENGE'),
-          onSubmitted: (value) {
-            Backend.unlockChallenge(value);
-          },
-        ),
+        if (widget.manualInput != null) const SizedBox(height: Sizes.large),
+        if (widget.manualInput != null)
+          FunTextInput(
+            label: widget.manualInput!,
+            submitButton: translate('SUBMIT'),
+            onSubmitted: (value) {
+              Backend.unlockChallenge(value);
+            },
+          ),
       ],
     );
   }
 
   @override
   Widget title(BuildContext context) {
-    return Text('Scan QR Code', style: Styles.h1);
+    return Text(translate('SCAN_QR_CODE'), style: Styles.h1);
   }
 }
