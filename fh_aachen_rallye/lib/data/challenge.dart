@@ -6,6 +6,7 @@ import 'package:fh_aachen_rallye/translator.dart';
 import 'package:flutter/material.dart';
 
 class Challenge extends ServerObject {
+  final String challengeId;
   final String title;
   final Language language;
   final Difficulty difficulty;
@@ -19,6 +20,7 @@ class Challenge extends ServerObject {
 
   const Challenge(
     super.id, {
+    required this.challengeId,
     required this.title,
     required this.language,
     required this.difficulty,
@@ -33,6 +35,7 @@ class Challenge extends ServerObject {
   static Challenge empty(String id) {
     return Challenge(
       id,
+      challengeId: 'LOADING',
       title: 'LOADING',
       language: Language.en,
       difficulty: Difficulty.none,
@@ -48,6 +51,7 @@ class Challenge extends ServerObject {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      'challengeId': challengeId,
       'title': title,
       'language': language.name,
       'difficulty': difficulty.index,
@@ -70,6 +74,7 @@ class Challenge extends ServerObject {
   factory Challenge.fromJson(Map<String, dynamic> json) {
     return Challenge(
       json['id'] as String,
+      challengeId: json['challenge_id'] as String,
       title: json['title'] as String,
       language: Language.values
           .firstWhere((element) => element.name == json['language'] as String),

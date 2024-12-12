@@ -62,15 +62,11 @@ class _PageChallengeListState extends FunPageState<PageChallengeList>
   @override
   void onUpdate(ServerObject object) {
     var challengeChache = Cache.fetchAll<Challenge>();
-    challengeIds = [];
+    challengeIds = challengeChache
+        .where((e) => e.language == Translator.language)
+        .map((e) => e.id)
+        .toList();
     setState(() {});
-    Future.delayed(const Duration(milliseconds: 1), () {
-      challengeIds = challengeChache
-          .where((e) => e.language == Translator.language)
-          .map((e) => e.id)
-          .toList();
-      setState(() {});
-    });
   }
 
   @override
@@ -83,7 +79,10 @@ class _PageChallengeListState extends FunPageState<PageChallengeList>
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: Sizes.medium),
-                child: ChallengeTile(challengeIds[index]),
+                child: ChallengeTile(
+                  challengeIds[index],
+                  key: UniqueKey(),
+                ),
               );
             },
           ),

@@ -43,7 +43,7 @@ class _ChallengeTileState extends State<ChallengeTile>
       });
     } else if (object is User) {
       setState(() {
-        currentStep = object.challengeStates[widget.challengeId] ?? -1;
+        currentStep = object.challengeStates[challenge.challengeId] ?? -1;
       });
     }
   }

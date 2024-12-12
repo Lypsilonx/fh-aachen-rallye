@@ -54,7 +54,7 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
       });
     } else if (object is User) {
       setState(() {
-        currentStep = object.challengeStates[widget.challengeId] ?? -1;
+        currentStep = object.challengeStates[challenge.challengeId] ?? -1;
       });
     }
   }
@@ -85,7 +85,7 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
 
     setState(() {
       currentStep = step;
-      Backend.setChallengeState(challenge.id, currentStep);
+      Backend.setChallengeState(challenge.challengeId, currentStep);
     });
   }
 
