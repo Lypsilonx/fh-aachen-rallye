@@ -60,15 +60,15 @@
         "de": "Aufgaben bereits freigeschaltet"
     },
     "CHALLENGES_UNLOCKED": {
-        "en": "$0 of $1 challenges unlocked",
-        "de": "$0 von $1 Aufgaben freigeschaltet"
+        "en": "{$0} of {$1} challenges unlocked",
+        "de": "{$0} von {$1} Aufgaben freigeschaltet"
     },
     "CHALLENGE_UNLOCKED": {
         "en": "Challenge unlocked!",
         "de": "Aufgabe freigeschaltet!"
     },
     "CHALLENGES_UNLOCKED_ALL": {
-        "en": "$1 challenges unlocked",
-        "de": "$1 Aufgaben freigeschaltet"
+        "en": "{$0} challenges unlocked",
+        "de": "{$0} Aufgaben freigeschaltet"
     }
 }

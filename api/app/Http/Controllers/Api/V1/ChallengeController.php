@@ -23,13 +23,12 @@ class ChallengeController extends Controller
         }
 
         $includeSteps = $request->query('includeSteps', false);
-        $language = $request->query('language', "en");
 
         if ($includeSteps) {
-            return new ChallengeCollection(Challenge::where('language', $language)->with('steps')->paginate());
+            return new ChallengeCollection(Challenge::with('steps')->paginate());
         }
 
-        return new ChallengeCollection(Challenge::where('language', $language)->paginate());
+        return new ChallengeCollection(Challenge::paginate());
     }
 
     /**
