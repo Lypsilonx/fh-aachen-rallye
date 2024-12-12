@@ -6,6 +6,7 @@ class FunTextInput extends StatefulWidget {
   const FunTextInput({
     this.label,
     this.obscureText = false,
+    this.autofocus = true,
     this.submitButton,
     this.onSubmitted,
     this.controller,
@@ -14,6 +15,7 @@ class FunTextInput extends StatefulWidget {
 
   final String? label;
   final bool obscureText;
+  final bool autofocus;
   final String? submitButton;
   final Function(String)? onSubmitted;
   final TextEditingController? controller;
@@ -58,7 +60,7 @@ class _FunTextInputState extends State<FunTextInput> {
               cursorHeight: Sizes.fontSizeLarge,
               style: Styles.bodyLarge,
               controller: controller,
-              autofocus: true,
+              autofocus: widget.autofocus,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 fillColor: Colors.white,

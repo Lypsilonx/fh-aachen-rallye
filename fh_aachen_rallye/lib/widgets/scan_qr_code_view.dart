@@ -106,18 +106,23 @@ class ScanQRCodeViewState extends FunPageState<ScanQRCodeView>
       children: [
         Expanded(
           child: FunContainer(
-            child: MobileScanner(
-              controller: controller,
-              errorBuilder: (context, error, child) {
-                return Text('Error: $error');
-              },
-              fit: BoxFit.cover,
+            child: ClipRRect(
+              borderRadius:
+                  BorderRadius.circular(Sizes.borderRadius - Sizes.small),
+              child: MobileScanner(
+                controller: controller,
+                errorBuilder: (context, error, child) {
+                  return Text('Error: $error');
+                },
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),
         if (widget.manualInput != null) const SizedBox(height: Sizes.large),
         if (widget.manualInput != null)
           FunTextInput(
+            autofocus: false,
             label: widget.manualInput!,
             submitButton: translate('SUBMIT'),
             onSubmitted: (value) {

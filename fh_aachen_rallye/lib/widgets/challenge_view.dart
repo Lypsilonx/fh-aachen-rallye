@@ -33,6 +33,8 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
   bool get isCompleted => currentStep == -2;
   bool get isNew => currentStep == -1;
 
+  var options = [];
+
   @override
   void initState() {
     super.initState();
@@ -106,10 +108,13 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
       right: Sizes.small,
     );
 
-    var options = [];
     if (step is ChallengeStepOptions) {
-      options = step.options.keys.toList();
-      options.shuffle();
+      if (options.isEmpty) {
+        options = step.options.keys.toList();
+        options.shuffle();
+      }
+    } else {
+      options = [];
     }
 
     return Scaffold(
