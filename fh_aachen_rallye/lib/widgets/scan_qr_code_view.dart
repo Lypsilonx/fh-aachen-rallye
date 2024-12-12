@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_container.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_text_input.dart';
@@ -39,23 +38,26 @@ class ScanQRCodeViewState extends FunPageState<ScanQRCodeView>
     if (mounted) {
       var barcode = barcodes.barcodes.firstOrNull;
       if (barcode != null && !block) {
-        if (widget.acceptRegex == null ||
-            RegExp(widget.acceptRegex!).hasMatch(barcode.rawValue!)) {
-          block = true;
-          Navigator.pop(context, barcode.rawValue);
-        } else {
-          block = true;
-          Future.delayed(const Duration(seconds: 2), () {
-            block = false;
-          });
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(translate('INVALID_QR_CODE')),
-              duration: const Duration(seconds: 2),
-            ),
-          );
-        }
+        block = true;
+        checkCode(barcode.rawValue!);
       }
+    }
+  }
+
+  void checkCode(String code) async {
+    if (widget.acceptRegex == null ||
+        RegExp(widget.acceptRegex!).hasMatch(code)) {
+      Navigator.pop(context, code);
+    } else {
+      Future.delayed(const Duration(seconds: 2), () {
+        block = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(translate('INVALID_QR_CODE')),
+          duration: const Duration(seconds: 2),
+        ),
+      );
     }
   }
 
@@ -119,7 +121,7 @@ class ScanQRCodeViewState extends FunPageState<ScanQRCodeView>
             label: widget.manualInput!,
             submitButton: translate('SUBMIT'),
             onSubmitted: (value) {
-              Backend.unlockChallenge(value);
+              checkCode(value);
             },
           ),
       ],

@@ -61,10 +61,8 @@ class _PageChallengeListState extends FunPageState<PageChallengeList>
   @override
   void onUpdate(ServerObject object) {
     var challengeChache = Cache.fetchAll<Challenge>();
-    if (challengeChache.isNotEmpty) {
-      challengeIds = challengeChache.map((e) => e.id).toList();
-      setState(() {});
-    }
+    challengeIds = challengeChache.map((e) => e.id).toList();
+    setState(() {});
   }
 
   @override
@@ -97,7 +95,6 @@ class _PageChallengeListState extends FunPageState<PageChallengeList>
             );
             if (value != null) {
               var (success, message) = await Backend.unlockChallenge(value);
-              print(message);
               if (RegExp(r'^\d+/\d+$').hasMatch(message)) {
                 var unlockedChallenges = int.parse(message.split('/')[0]);
                 var totalChallenges = int.parse(message.split('/')[1]);

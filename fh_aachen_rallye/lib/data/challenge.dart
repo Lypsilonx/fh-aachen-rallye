@@ -2,10 +2,12 @@ import 'dart:convert';
 
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
+import 'package:fh_aachen_rallye/translator.dart';
 import 'package:flutter/material.dart';
 
 class Challenge extends ServerObject {
   final String title;
+  final Language language;
   final Difficulty difficulty;
   final int points;
   final ChallengeCategory category;
@@ -18,6 +20,7 @@ class Challenge extends ServerObject {
   const Challenge(
     super.id, {
     required this.title,
+    required this.language,
     required this.difficulty,
     required this.category,
     required this.points,
@@ -30,12 +33,13 @@ class Challenge extends ServerObject {
   static Challenge empty(String id) {
     return Challenge(
       id,
-      title: 'Loading...',
+      title: 'LOADING',
+      language: Language.en,
       difficulty: Difficulty.none,
       category: ChallengeCategory.loading,
       points: 0,
-      descriptionStart: 'Loading...',
-      descriptionEnd: 'Loading...',
+      descriptionStart: 'LOADING',
+      descriptionEnd: 'LOADING',
       steps: [],
     );
   }
@@ -45,6 +49,7 @@ class Challenge extends ServerObject {
     return {
       'id': id,
       'title': title,
+      'language': language.name,
       'difficulty': difficulty.index,
       'category': switch (category) {
         ChallengeCategory.general => 'general',
@@ -66,6 +71,8 @@ class Challenge extends ServerObject {
     return Challenge(
       json['id'] as String,
       title: json['title'] as String,
+      language: Language.values
+          .firstWhere((element) => element.name == json['language'] as String),
       difficulty: Difficulty.values[json['difficulty'] as int],
       category: switch (json['category']) {
         'general' => ChallengeCategory.general,
@@ -109,12 +116,16 @@ class ChallengeCategory {
 abstract class ChallengeStep {
   final String text;
   final int? next;
+  final List<int>? alternatives;
   final bool isLast;
 
   final bool hasNextButton;
 
   const ChallengeStep(this.text,
-      {this.next, this.isLast = false, this.hasNextButton = true});
+      {this.next,
+      this.alternatives,
+      this.isLast = false,
+      this.hasNextButton = true});
 
   Map<String, dynamic> toJson() {
     if (runtimeType.toString() == (ChallengeStepSay).toString()) {
@@ -148,14 +159,19 @@ abstract class ChallengeStep {
 }
 
 class ChallengeStepSay extends ChallengeStep {
-  const ChallengeStepSay(super.text, {super.next, super.isLast = false})
-      : super(hasNextButton: true);
+  const ChallengeStepSay(
+    super.text, {
+    super.next,
+    super.alternatives,
+    super.isLast = false,
+  }) : super(hasNextButton: true);
 
   Map<String, dynamic> toJson() {
     return {
       'type': 'say',
       'text': text,
       'next': next,
+      'alternatives': alternatives?.map((e) => e.toString()).join(','),
       'isLast': isLast,
     };
   }
@@ -165,6 +181,8 @@ class ChallengeStepSay extends ChallengeStep {
       json['text'] as String,
       next: json['next'] as int?,
       isLast: json['isLast'] as int == 1,
+      alternatives:
+          (json['alternatives'] as String?)?.split(',').map(int.parse).toList(),
     );
   }
 }
@@ -172,9 +190,13 @@ class ChallengeStepSay extends ChallengeStep {
 class ChallengeStepOptions extends ChallengeStep {
   final Map<String, int> options;
 
-  const ChallengeStepOptions(super.text, this.options,
-      {super.next, super.isLast = false})
-      : super(hasNextButton: false);
+  const ChallengeStepOptions(
+    super.text,
+    this.options, {
+    super.next,
+    super.alternatives,
+    super.isLast = false,
+  }) : super(hasNextButton: false);
 
   Map<String, dynamic> toJson() {
     return {
@@ -182,6 +204,7 @@ class ChallengeStepOptions extends ChallengeStep {
       'text': text,
       'options': jsonEncode(options),
       'next': next,
+      'alternatives': alternatives?.map((e) => e.toString()).join(','),
       'isLast': isLast,
     };
   }
@@ -192,6 +215,8 @@ class ChallengeStepOptions extends ChallengeStep {
       (jsonDecode(json['options'] as String) as Map<String, dynamic>)
           .map((key, value) => MapEntry(key, value)),
       next: json['next'] as int?,
+      alternatives:
+          (json['alternatives'] as String?)?.split(',').map(int.parse).toList(),
       isLast: json['isLast'] as int == 1,
     );
   }
@@ -206,6 +231,7 @@ class ChallengeStepStringInput extends ChallengeStep {
     this.correctAnswer,
     this.indexOnIncorrect, {
     super.next,
+    super.alternatives,
     super.isLast = false,
   }) : super(hasNextButton: false);
 
@@ -216,6 +242,7 @@ class ChallengeStepStringInput extends ChallengeStep {
       'correctAnswer': correctAnswer,
       'indexOnIncorrect': indexOnIncorrect,
       'next': next,
+      'alternatives': alternatives?.map((e) => e.toString()).join(','),
       'isLast': isLast,
     };
   }
@@ -226,6 +253,8 @@ class ChallengeStepStringInput extends ChallengeStep {
       json['correctAnswer'] as String,
       json['indexOnIncorrect'] as int,
       next: json['next'] as int?,
+      alternatives:
+          (json['alternatives'] as String?)?.split(',').map(int.parse).toList(),
       isLast: json['isLast'] as int == 1,
     );
   }
@@ -238,6 +267,7 @@ class ChallengeStepScan extends ChallengeStep {
     super.text,
     this.correctAnswer, {
     super.next,
+    super.alternatives,
     super.isLast = false,
   }) : super(hasNextButton: false);
 
@@ -247,6 +277,7 @@ class ChallengeStepScan extends ChallengeStep {
       'text': text,
       'correctAnswer': correctAnswer,
       'next': next,
+      'alternatives': alternatives?.map((e) => e.toString()).join(','),
       'isLast': isLast,
     };
   }
@@ -256,6 +287,8 @@ class ChallengeStepScan extends ChallengeStep {
       json['text'] as String,
       json['correctAnswer'] as String,
       next: json['next'] as int?,
+      alternatives:
+          (json['alternatives'] as String?)?.split(',').map(int.parse).toList(),
       isLast: json['isLast'] as int == 1,
     );
   }

@@ -1,11 +1,14 @@
 import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/cache.dart';
+import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/data/translation.dart';
+import 'package:fh_aachen_rallye/data/user.dart';
 import 'package:flutter/material.dart';
 
 class Translator implements ServerObjectSubscriber {
-  static Language _language = Language.en;
+  static const Language defaultLanguage = Language.de;
+  static Language _language = defaultLanguage;
   static Language get language => _language;
 
   static final Map<TranslatedState, Function> _subscribers = {};
@@ -32,6 +35,8 @@ class Translator implements ServerObjectSubscriber {
   static void setLanguage(Language language) {
     _language = language;
     Backend.prefs.setString('language', language.name);
+    Cache.clear(dontDelete: [Translation, User]);
+    Backend.fetch<Challenge>('all');
     updateSubscribers();
   }
 

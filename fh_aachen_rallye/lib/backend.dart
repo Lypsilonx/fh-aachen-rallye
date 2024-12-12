@@ -47,7 +47,7 @@ class Backend {
       requestArgs = 'includeChallengeStates=true';
     } else if (T.toString() == (Challenge).toString()) {
       requestEndpoint = 'challenges';
-      requestArgs = 'includeSteps=true';
+      requestArgs = 'includeSteps=true&language=${Translator.language.name}';
     } else if (T.toString() == (Translation).toString()) {
       requestEndpoint = 'translations';
       requestArgs = '';
@@ -160,7 +160,7 @@ class Backend {
 
   static void logout(BuildContext context) {
     Navigator.popUntil(context, (route) => route.isFirst);
-    Translator.setLanguage(Language.en);
+    Translator.setLanguage(Translator.defaultLanguage);
     Navigator.pushReplacementNamed(context, '/login');
     prefs.clear();
     state.user = null;

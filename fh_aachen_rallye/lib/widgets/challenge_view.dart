@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
@@ -70,6 +72,17 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
   }
 
   void gotoStep(int step) {
+    if (!(step < 0 || step >= challenge.steps.length)) {
+      ChallengeStep challengeStep = challenge.steps[step];
+      if (challengeStep.alternatives != null &&
+          challengeStep.alternatives!.isNotEmpty) {
+        // Randomly select one of the alternatives or the original step
+        var possibleSteps =
+            ([step, ...challengeStep.alternatives!]).toSet().toList();
+        step = possibleSteps[Random().nextInt(possibleSteps.length)];
+      }
+    }
+
     setState(() {
       currentStep = step;
       Backend.setChallengeState(challenge.id, currentStep);
@@ -246,7 +259,9 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
                               FunTextInput(
                                 submitButton: translate('SUBMIT'),
                                 onSubmitted: (value) {
-                                  if (value == step.correctAnswer) {
+                                  if (step.correctAnswer
+                                      .split(',')
+                                      .contains(value)) {
                                     nextStep(step);
                                   } else {
                                     proceedStep(step.indexOnIncorrect);
@@ -264,12 +279,16 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => ScanQRCodeView(
-                                    acceptRegex: step.correctAnswer,
+                                    acceptRegex:
+                                        step.correctAnswer.replaceAll(',', '|'),
+                                    manualInput: translate('ENTER_CODE'),
                                   ),
                                 ),
                               );
                               if (value != null) {
-                                if (value == step.correctAnswer) {
+                                if (step.correctAnswer
+                                    .split(',')
+                                    .contains(value)) {
                                   nextStep(step);
                                 }
                               }

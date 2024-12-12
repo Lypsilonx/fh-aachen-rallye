@@ -150,7 +150,7 @@ class SubscriptionManager {
         pollList.add({
           "type": typeString,
           "id": "*",
-          "lastUpdate": Cache.lastUpdate(type)!.millisecondsSinceEpoch
+          "lastUpdate": Cache.lastUpdate(type)?.millisecondsSinceEpoch ?? 0
         });
         continue;
       }
@@ -158,7 +158,7 @@ class SubscriptionManager {
         pollList.add({
           "type": typeString,
           "id": "all",
-          "lastUpdate": Cache.lastUpdate(type)!.millisecondsSinceEpoch
+          "lastUpdate": Cache.lastUpdate(type)?.millisecondsSinceEpoch ?? 0
         });
       }
       for (var id in _subscribers[type]!.keys) {
@@ -166,7 +166,8 @@ class SubscriptionManager {
           pollList.add({
             "type": typeString,
             "id": id,
-            "lastUpdate": Cache.lastUpdate(type, id: id)!.millisecondsSinceEpoch
+            "lastUpdate":
+                Cache.lastUpdate(type, id: id)?.millisecondsSinceEpoch ?? 0
           });
         }
       }
