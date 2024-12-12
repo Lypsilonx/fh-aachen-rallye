@@ -67,6 +67,16 @@ class Cache {
     return _serverObjects[t]![id]!.$2;
   }
 
+  static void clearType<T extends ServerObject>() {
+    print('Clearing cache for ${T.toString()}');
+
+    if (!contains(T)) {
+      return;
+    }
+
+    _serverObjects[T]!.clear();
+  }
+
   static void clear({List<Type> dontDelete = const []}) {
     print(
         'Clearing cache${dontDelete.isNotEmpty ? ' except $dontDelete' : ''}');

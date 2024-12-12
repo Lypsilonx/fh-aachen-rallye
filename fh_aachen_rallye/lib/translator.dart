@@ -3,7 +3,6 @@ import 'package:fh_aachen_rallye/data/cache.dart';
 import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/data/translation.dart';
-import 'package:fh_aachen_rallye/data/user.dart';
 import 'package:flutter/material.dart';
 
 class Translator implements ServerObjectSubscriber {
@@ -35,8 +34,7 @@ class Translator implements ServerObjectSubscriber {
   static void setLanguage(Language language) {
     _language = language;
     Backend.prefs.setString('language', language.name);
-    Cache.clear(dontDelete: [Translation, User]);
-    Backend.fetch<Challenge>('all');
+    SubscriptionManager.notifyAll<Challenge>();
     updateSubscribers();
   }
 
