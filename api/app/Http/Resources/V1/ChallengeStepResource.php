@@ -21,6 +21,7 @@ class ChallengeStepResource extends JsonResource
             'type' => $this->type,
             'text' => $this->text,
             'next' => $this->next,
+            'alternatives' => $this->alternatives,
             'isLast' => $this->isLast,
             'options' => $this->options,
             'correctAnswer' => $this->correctAnswer,

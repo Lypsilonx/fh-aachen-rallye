@@ -30,6 +30,7 @@
         "en": "Unlock Challenge",
         "de": "Aufgabe freischalten"
     },
+    "ENTER_CODE": { "en": "Enter code", "de": "Code eingeben" },
     "CHALLENGES": { "en": "Challenges", "de": "Aufgaben" },
     "POINTS": { "en": "Points", "de": "Punkte" },
     "CATEGORY": { "en": "Category", "de": "Kategorie" },

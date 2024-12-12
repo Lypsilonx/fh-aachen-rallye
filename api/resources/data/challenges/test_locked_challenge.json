@@ -1,5 +1,6 @@
 {
     "title": "Secret Challenge",
+    "language": "en",
     "difficulty": 1,
     "lock_id": "test",
     "category": "general",
@@ -10,7 +11,6 @@
         {
             "type": "say",
             "text": "Hello!",
-            "next": null,
             "isLast": false,
             "index": 0
         },
@@ -18,23 +18,20 @@
             "type": "options",
             "text": "Decide!",
             "options": "{ \"Option 1\": 1, \"Back\": -1 }",
-            "next": null,
             "isLast": false,
             "index": 1
         },
         {
             "type": "stringInput",
             "text": "Type something!",
-            "correctAnswer": "something!",
+            "correctAnswer": "something!,something",
             "indexOnIncorrect": 2,
-            "next": null,
             "isLast": false,
             "index": 2
         },
         {
             "type": "say",
             "text": "Whoo!",
-            "next": null,
             "isLast": true,
             "index": 3
         },

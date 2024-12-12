@@ -17,6 +17,7 @@ class ChallengeResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'language' => $this->language,
             'difficulty' => $this->difficulty,
             'points' => $this->points,
             'category' => $this->category,

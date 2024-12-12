@@ -23,12 +23,13 @@ class ChallengeController extends Controller
         }
 
         $includeSteps = $request->query('includeSteps', false);
+        $language = $request->query('language', "en");
 
         if ($includeSteps) {
-            return new ChallengeCollection(Challenge::with('steps')->paginate());
+            return new ChallengeCollection(Challenge::where('language', $language)->with('steps')->paginate());
         }
 
-        return new ChallengeCollection(Challenge::paginate());
+        return new ChallengeCollection(Challenge::where('language', $language)->paginate());
     }
 
     /**
@@ -67,7 +68,8 @@ class ChallengeController extends Controller
             $values = [
                 'type' => $step['type'],
                 'text' => $step['text'],
-                'next' => $step['next'],
+                'next' => $step['next'] ?? null,
+                'alternatives' => $step['alternatives'] ?? null,
                 'isLast' => $step['isLast'],
             ];
 

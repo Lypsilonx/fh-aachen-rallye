@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->string('type');
             $table->string('text');
             $table->integer('next')->nullable();
+            $table->string('alternatives')->nullable();
             $table->boolean('isLast');
 
             // ChallengeStepOptions

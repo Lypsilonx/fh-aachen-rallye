@@ -23,6 +23,7 @@ class ChallengeSeeder extends Seeder
             $challenge = Challenge::create([
                 'id' => \Ramsey\Uuid\Uuid::uuid4(),
                 'title' => $challengeJson['title'],
+                'language' => $challengeJson['language'],
                 'difficulty' => $challengeJson['difficulty'],
                 'lock_id' => $challengeJson['lock_id'] ?? null,
                 'unlock_id' => $challengeJson['unlock_id'] ?? null,

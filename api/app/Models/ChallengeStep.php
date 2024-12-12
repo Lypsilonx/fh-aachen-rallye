@@ -17,6 +17,7 @@ class ChallengeStep extends Model
         'type',
         'text',
         'next',
+        'alternatives',
         'isLast',
         'options',
         'correctAnswer',
