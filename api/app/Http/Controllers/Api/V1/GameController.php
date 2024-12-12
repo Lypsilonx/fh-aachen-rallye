@@ -77,7 +77,6 @@ class GameController extends Controller
 
         $unlocked_challenges = 0;
         foreach ($challenges as $challenge) {
-            // check if challenge is already unlocked
             $challengeState = ChallengeState::where('user_id', $user->id)
                 ->where('challenge_id', $challenge->id)
                 ->first();
@@ -86,7 +85,6 @@ class GameController extends Controller
                 continue;
             }
 
-            // add challenge_state with step=-1
             $challengeState = ChallengeState::create([
                 'user_id' => $user->id,
                 'challenge_id' => $challenge->id,

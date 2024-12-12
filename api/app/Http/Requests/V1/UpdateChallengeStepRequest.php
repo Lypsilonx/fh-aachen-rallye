@@ -29,30 +29,34 @@ class UpdateChallengeStepRequest extends FormRequest
     {
         $method = $this->method();
 
+        $rules = [
+            'challenge_id' => ['required', 'uuid', 'exists:challenges,id'],
+            'index' => ['required', 'integer'],
+            'type' => ['required', 'string', 'max:255'],
+            'text' => ['required', 'string'],
+            'next' => ['integer', 'nullable'],
+            'isLast' => ['required', 'boolean'],
+        ];
+
+        if ($this->input('type') === 'options') {
+            $rules['options'] = ['required', 'string'];
+        }
+
+        if ($this->input('type') === 'stringInput' || $this->input('type') === 'scan') {
+            $rules['correctAnswer'] = ['required', 'string'];
+        }
+
+        if ($this->input('type') === 'stringInput') {
+            $rules['indexOnIncorrect'] = ['required', 'integer'];
+        }
+
         if ($method === 'PUT') {
-            return [
-                'challenge_id' => ['required', 'uuid', 'exists:challenges,id'],
-                'index' => ['required', 'integer'],
-                'type' => ['required', 'string', 'max:255'],
-                'text' => ['required', 'string'],
-                'next' => ['required', 'integer'],
-                'isLast' => ['required', 'boolean'],
-                'options' => ['required', 'string'],
-                'correctAnswer' => ['required', 'string'],
-                'indexOnIncorrect' => ['required', 'integer'],
-            ];
+            return $rules;
         } else {
-            return [
-                'challenge_id' => ['sometimes', 'required', 'uuid', 'exists:challenges,id'],
-                'index' => ['sometimes', 'required', 'integer'],
-                'type' => ['sometimes', 'required', 'string', 'max:255'],
-                'text' => ['sometimes', 'required', 'string'],
-                'next' => ['sometimes', 'required', 'integer'],
-                'isLast' => ['sometimes', 'required', 'boolean'],
-                'options' => ['sometimes', 'required', 'string'],
-                'correctAnswer' => ['sometimes', 'required', 'string'],
-                'indexOnIncorrect' => ['sometimes', 'required', 'integer'],
-            ];
+            foreach ($rules as $key => $value) {
+                $rules[$key] = ['sometimes', ...$value];
+            }
+            return $rules;
         }
     }
 }
