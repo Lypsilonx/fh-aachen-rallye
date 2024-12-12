@@ -70,6 +70,7 @@ class GameController extends Controller
     public static function unlock(User $user, string $lock_id): array
     {
         $challenges = Challenge::where('lock_id', $lock_id)->get();
+        $challenges = $challenges->unique('challenge_id');
 
         if ($challenges->isEmpty()) {
             return [0, 0];
