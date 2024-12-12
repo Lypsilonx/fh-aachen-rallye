@@ -44,6 +44,12 @@
         "en": "General knowledge and trivia.",
         "de": "Allgemeinwissen und Trivia."
     },
+    "SCAN": { "en": "Scan", "de": "Scannen" },
+    "SCAN_QR_CODE": { "en": "Scan QR code", "de": "QR-Code scannen" },
+    "INVALID_QR_CODE": {
+        "en": "Invalid QR code",
+        "de": "Ungültiger QR-Code"
+    },
     "NO_CHALLENGES_FOUND": {
         "en": "No challenges found for this code",
         "de": "Keine Aufgaben für diesen Code gefunden"

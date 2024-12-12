@@ -49,7 +49,7 @@ class ChallengeController extends Controller
         if ($request->has('steps')) {
             $steps = $request->input('steps');
 
-            storeSteps($challenge, $steps);
+            ChallengeController::storeSteps($challenge, $steps);
         }
 
         $challenge->load('steps');
@@ -75,8 +75,11 @@ class ChallengeController extends Controller
                 $values['options'] = $step['options'];
             }
 
-            if ($step['type'] === 'stringInput') {
+            if ($step['type'] === 'stringInput' || $step['type'] === 'scan') {
                 $values['correctAnswer'] = $step['correctAnswer'];
+            }
+
+            if ($step['type'] === 'stringInput') {
                 $values['indexOnIncorrect'] = $step['indexOnIncorrect'];
             }
 
@@ -134,7 +137,7 @@ class ChallengeController extends Controller
         if ($request->has('steps')) {
             $steps = $request->input('steps');
 
-            storeSteps($challenge, $steps);
+            ChallengeController::storeSteps($challenge, $steps);
         }
 
         $challenge->load('steps');

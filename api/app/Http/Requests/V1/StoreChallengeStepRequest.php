@@ -40,8 +40,11 @@ class StoreChallengeStepRequest extends FormRequest
             $rules['options'] = ['required', 'string'];
         }
 
-        if ($this->input('type') === 'stringInput') {
+        if ($this->input('type') === 'stringInput' || $this->input('type') === 'scan') {
             $rules['correctAnswer'] = ['required', 'string'];
+        }
+
+        if ($this->input('type') === 'stringInput') {
             $rules['indexOnIncorrect'] = ['required', 'integer'];
         }
 
