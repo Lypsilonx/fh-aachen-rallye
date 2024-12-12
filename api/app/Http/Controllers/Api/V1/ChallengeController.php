@@ -105,7 +105,7 @@ class ChallengeController extends Controller
 
         if (!auth()->user()->tokenCan('read:challenges:locked')) {
             // check if challenge_states contains a record with the current user and the challenge
-            if ($challenge->lock_id && ChallengeState::where('user_id', auth()->id())->where('challenge_id', $challenge->id)->doesntExist()) {
+            if ($challenge->lock_id && ChallengeState::where('user_id', auth()->id())->where('challenge_id', $challenge->challenge_id)->doesntExist()) {
                 // act as if the challenge doesn't exist
                 abort(404, 'Challenge not found.');
             }

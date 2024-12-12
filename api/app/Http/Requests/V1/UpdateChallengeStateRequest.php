@@ -31,13 +31,13 @@ class UpdateChallengeStateRequest extends FormRequest
 
         if ($method === 'PUT') {
             return [
-                'challenge_id' => ['required', 'uuid', 'exists:challenges,id'],
+                'challenge_id' => ['required', 'string', 'max:255'],
                 'user_id' => ['required', 'uuid', 'exists:users,id'],
                 'step' => ['required', 'integer'],
             ];
         } else {
             return [
-                'challenge_id' => ['sometimes', 'required', 'uuid', 'exists:challenges,id'],
+                'challenge_id' => ['sometimes', 'required', 'string', 'max:255'],
                 'user_id' => ['sometimes', 'required', 'uuid', 'exists:users,id'],
                 'step' => ['sometimes', 'required', 'integer'],
             ];

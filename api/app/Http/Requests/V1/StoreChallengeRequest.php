@@ -28,6 +28,7 @@ class StoreChallengeRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'challenge_id' => ['required', 'string', 'max:255'],
             'title' => ['required', 'string', 'max:255'],
             'language' => ['required', 'string', 'max:2', 'min:2'],
             'difficulty' => ['required', 'integer', 'min:0', 'max:5'],

@@ -29,7 +29,7 @@ class StoreChallengeStateRequest extends FormRequest
     {
         return [
             'user_id' => ['required', 'uuid', 'exists:users,id'],
-            'challenge_id' => ['required', 'uuid', 'exists:challenges,id'],
+            'challenge_id' => ['required', 'string', 'max:255'],
             'step' => ['required', 'integer'],
         ];
     }

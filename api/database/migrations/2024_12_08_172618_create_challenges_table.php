@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('challenges', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('challenge_id');
             $table->string('title');
             $table->string('language');
             $table->integer('difficulty');

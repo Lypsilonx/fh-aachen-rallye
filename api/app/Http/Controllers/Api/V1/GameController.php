@@ -58,7 +58,7 @@ class GameController extends Controller
 
     public static function completeChallenge(User $user, string $challenge_id)
     {
-        $challenge = Challenge::find($challenge_id);
+        $challenge = Challenge::where('challenge_id', $challenge_id)->first();
         $user->points += $challenge->points;
         $user->save();
 
@@ -78,7 +78,7 @@ class GameController extends Controller
         $unlocked_challenges = 0;
         foreach ($challenges as $challenge) {
             $challengeState = ChallengeState::where('user_id', $user->id)
-                ->where('challenge_id', $challenge->id)
+                ->where('challenge_id', $challenge->challenge_id)
                 ->first();
 
             if ($challengeState) {
@@ -87,7 +87,7 @@ class GameController extends Controller
 
             $challengeState = ChallengeState::create([
                 'user_id' => $user->id,
-                'challenge_id' => $challenge->id,
+                'challenge_id' => $challenge->challenge_id,
                 'step' => -1,
             ]);
             $unlocked_challenges++;

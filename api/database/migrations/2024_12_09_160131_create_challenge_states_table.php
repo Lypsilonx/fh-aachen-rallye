@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('challenge_states', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained('users', 'id')->onDelete('cascade');
-            $table->foreignUuid('challenge_id')->constrained('challenges', 'id')->onDelete('cascade');
+            $table->string('challenge_id', 255)->constrained('challenges', 'challenge_id')->onDelete('cascade');
             $table->integer('step');
             $table->timestamps();
         });

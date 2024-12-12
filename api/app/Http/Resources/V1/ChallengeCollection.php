@@ -17,7 +17,7 @@ class ChallengeCollection extends ResourceCollection
     {
         return $this->collection->filter(function ($challenge) {
             if (!auth()->user()->tokenCan('read:challenges:locked')) {
-                if ($challenge->lock_id && ChallengeState::where('user_id', auth()->id())->where('challenge_id', $challenge->id)->doesntExist()) {
+                if ($challenge->lock_id && ChallengeState::where('user_id', auth()->id())->where('challenge_id', $challenge->challenge_id)->doesntExist()) {
                     return false;
                 }
             }

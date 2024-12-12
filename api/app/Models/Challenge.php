@@ -12,6 +12,7 @@ class Challenge extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = [
+        'challenge_id',
         'title',
         'difficulty',
         'points',

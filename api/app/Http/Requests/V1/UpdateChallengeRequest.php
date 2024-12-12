@@ -31,6 +31,7 @@ class UpdateChallengeRequest extends FormRequest
 
         if ($method === 'PUT') {
             return [
+                'challenge_id' => ['required', 'string', 'max:255'],
                 'title' => ['required', 'string', 'max:255'],
                 'language' => ['required', 'string', 'max:2', 'min:2'],
                 'difficulty' => ['required', 'integer', 'min:0', 'max:5'],
@@ -42,6 +43,7 @@ class UpdateChallengeRequest extends FormRequest
             ];
         } else {
             return [
+                'challenge_id' => ['sometimes', 'required', 'string', 'max:255'],
                 'title' => ['sometimes', 'required', 'string', 'max:255'],
                 'language' => ['sometimes', 'required', 'string', 'max:2', 'min:2'],
                 'difficulty' => ['sometimes', 'required', 'integer', 'min:0', 'max:5'],
