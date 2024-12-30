@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
@@ -78,10 +80,59 @@ class _ChallengeTileState extends State<ChallengeTile>
       },
       padding: EdgeInsets.zero,
       child: ListTile(
-        leading: Icon(challenge.category.icon, color: challenge.category.color),
+        leading: LayoutBuilder(
+          builder: (context, constraints) {
+            double circleSize = constraints.maxHeight * 0.75;
+            double iconSize = Sizes.small * 0.8;
+            double center = (constraints.maxHeight - iconSize) / 2;
+            return SizedBox(
+              width: constraints.maxHeight,
+              height: constraints.maxHeight - circleSize / 4,
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                      bottom: circleSize / 4,
+                    ),
+                    child: Center(
+                      child: Icon(challenge.category.icon,
+                          color: challenge.category.color),
+                    ),
+                  ),
+                  // place stars in a radial pattern around the icon depending on the duration
+                  ...List.generate(
+                    challenge.duration.index,
+                    (index) {
+                      double iconAngle = 30;
+                      double radialOffset =
+                          max(challenge.duration.index - 1, 0) / 2 * iconAngle;
+                      double angle = index * iconAngle - radialOffset;
+                      return Positioned(
+                        left: (circleSize / 2) * sin(angle * pi / 180) + center,
+                        top: (circleSize / 2) * cos(angle * pi / 180) +
+                            center -
+                            circleSize / 4,
+                        child: Icon(
+                          Icons.circle,
+                          color: challenge.category.color,
+                          size: iconSize,
+                        ),
+                      );
+                    },
+                  )
+                ],
+              ),
+            );
+          },
+        ),
         trailing: statusIcon,
         title: Text(challenge.title, style: Styles.h2),
-        subtitle: Helpers.displayDifficulty(challenge.difficulty),
+        subtitle: Row(
+          children: [
+            Helpers.displayDifficulty(challenge.difficulty),
+            Helpers.displayTags(challenge),
+          ],
+        ),
       ),
     );
   }

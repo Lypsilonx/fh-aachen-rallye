@@ -9,7 +9,9 @@ class Challenge extends ServerObject {
   final String challengeId;
   final String title;
   final Language language;
-  final Difficulty difficulty;
+  final ChallengeDifficulty difficulty;
+  final List<String> tags;
+  final ChallengeDuration duration;
   final int points;
   final ChallengeCategory category;
   final String descriptionStart;
@@ -24,6 +26,8 @@ class Challenge extends ServerObject {
     required this.title,
     required this.language,
     required this.difficulty,
+    required this.tags,
+    required this.duration,
     required this.category,
     required this.points,
     required this.descriptionStart,
@@ -38,7 +42,9 @@ class Challenge extends ServerObject {
       challengeId: 'LOADING',
       title: 'LOADING',
       language: Language.en,
-      difficulty: Difficulty.none,
+      difficulty: ChallengeDifficulty.none,
+      tags: [],
+      duration: ChallengeDuration.none,
       category: ChallengeCategory.loading,
       points: 0,
       descriptionStart: 'LOADING',
@@ -55,6 +61,8 @@ class Challenge extends ServerObject {
       'title': title,
       'language': language.name,
       'difficulty': difficulty.index,
+      'tags': tags.join(','),
+      'duration': duration.index,
       'category': category.categoryName(),
       'points': points,
       'descriptionStart': descriptionStart,
@@ -75,7 +83,11 @@ class Challenge extends ServerObject {
       title: json['title'] as String,
       language: Language.values
           .firstWhere((element) => element.name == json['language'] as String),
-      difficulty: Difficulty.values[json['difficulty'] as int],
+      difficulty: ChallengeDifficulty.values[json['difficulty'] as int],
+      tags: json['tags'] == null
+          ? []
+          : (json['tags'] as String).split(',').toList(),
+      duration: ChallengeDuration.values[json['duration'] as int],
       category: ChallengeCategory.fromString(json['category'] as String),
       points: json['points'] as int,
       descriptionStart: json['descriptionStart'] as String,

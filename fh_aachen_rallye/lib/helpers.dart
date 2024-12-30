@@ -1,16 +1,17 @@
 import 'dart:math';
 
+import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:flutter/material.dart';
 
 class Helpers {
-  static Widget displayDifficulty(Difficulty difficulty) {
+  static Widget displayDifficulty(ChallengeDifficulty difficulty) {
     int stars = switch (difficulty) {
-      Difficulty.none => 0,
-      Difficulty.veryEasy => 1,
-      Difficulty.easy => 2,
-      Difficulty.medium => 3,
-      Difficulty.hard => 4,
-      Difficulty.veryHard => 5,
+      ChallengeDifficulty.none => 0,
+      ChallengeDifficulty.veryEasy => 1,
+      ChallengeDifficulty.easy => 2,
+      ChallengeDifficulty.medium => 3,
+      ChallengeDifficulty.hard => 4,
+      ChallengeDifficulty.veryHard => 5,
     };
 
     return Row(
@@ -20,6 +21,31 @@ class Helpers {
         (index) => Icon(
           index < stars ? Icons.star : Icons.star_border,
           color: Colors.orange,
+        ),
+      ),
+    );
+  }
+
+  static Widget displayTags(Challenge challenge) {
+    return Row(
+      children: List.generate(
+        challenge.tags.length,
+        (index) => Padding(
+          padding: const EdgeInsets.only(
+            left: Sizes.small,
+          ),
+          child: Chip(
+            padding: EdgeInsets.zero,
+            backgroundColor:
+                challenge.category.color.withSaturation(1).withOpacity(0.2),
+            side: const BorderSide(
+              style: BorderStyle.none,
+            ),
+            label: Text(
+              challenge.tags[index],
+              style: Styles.bodySmall,
+            ),
+          ),
         ),
       ),
     );
@@ -99,7 +125,9 @@ class Helpers {
   }
 }
 
-enum Difficulty { none, veryEasy, easy, medium, hard, veryHard }
+enum ChallengeDifficulty { none, veryEasy, easy, medium, hard, veryHard }
+
+enum ChallengeDuration { none, minutes, hours, days, more }
 
 extension AdvancedColor on Color {
   bool get isLight => computeLuminance() > 0.5;
@@ -136,6 +164,7 @@ class Sizes {
   static const double borderRadius = Sizes.small;
   static const double borderRadiusLarge = Sizes.borderRadius * 2;
 
+  static const double fontSizeExtraSmall = Sizes.fontSizeSmall / 1.2;
   static const double fontSizeSmall = Sizes.fontSizeMedium / 1.2;
   static const double fontSizeMedium = 16;
   static const double fontSizeLarge = Sizes.fontSizeMedium * 1.2;
@@ -149,6 +178,10 @@ class Styles {
 
   static TextStyle bodyLarge = Styles.body.copyWith(
     fontSize: Sizes.fontSizeLarge,
+  );
+
+  static TextStyle bodySmall = Styles.body.copyWith(
+    fontSize: Sizes.fontSizeExtraSmall,
   );
 
   static TextStyle subtitle = Styles.body.copyWith(
