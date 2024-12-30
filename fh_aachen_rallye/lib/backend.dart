@@ -18,8 +18,9 @@ class Backend {
     Translator();
   }
 
-  static const String apiUrl =
-      'https://www.politischdekoriert.de/fh-aachen-rallye/api/public/index.php/';
+  static const String url =
+      'https://www.politischdekoriert.de/fh-aachen-rallye';
+  static const String apiUrl = '$url/api/public/index.php/';
   static late SharedPreferences prefs;
 
   static Future<String> patch(
