@@ -1,0 +1,75 @@
+{
+    "challenge_id": "tutorial",
+    "title": "Tutorial",
+    "language": "de",
+    "difficulty": 0,
+    "tags": "Test tag, Zweiter test tag",
+    "duration": 1,
+    "category": "tutorial",
+    "points": 10,
+    "descriptionStart": "Wilkommen bei der FH-Aachen Rallye!\n\nIn diesem Tutorial lernst du, wie du die App benutzt, Aufgaben findest und löst.",
+    "descriptionEnd": "Am Ende des Tutorials bekommst du hier noch eine kleine Zusammenfassung der Aufgabe.",
+    "steps": [
+        {
+            "type": "say",
+            "text": "Aufgaben können auf verschiedene Weisen freigeschaltet werden.\n\n\nDiese Aufgabe ist standardmäßig freigeschaltet, sodass du direkt beginnen kannst.\n\n\nAndere Aufgaben werden freigeschaltet, wenn du QR-Codes auf dem Campus scannst oder andere Aufgaben löst.\n\n\nDrücke auf 'Weiter', um fortzufahren."
+        },
+        {
+            "type": "say",
+            "text": "Die meisten Aufgaben beginnen mit einer Aufgabenstellung\n\nDiese enthält Informationen (Text und/oder Bilder), die du benötigst, um die Aufgabe zu lösen."
+        },
+        {
+            "type": "options",
+            "text": "Es wird auch vorkommen, dass du eine Auswahl treffen musst.\n\n\nWähle eine der Optionen aus, um fortzufahren.",
+            "options": "{ \"A\": 1, \"B\": 2 }"
+        },
+        {
+            "type": "say",
+            "text": "Du hast option A gewählt, sehr gut!",
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "Du hast option B gewählt, sehr gut!"
+        },
+        {
+            "type": "stringInput",
+            "text": "Andere Aufgaben erfordern, dass du eine Antwort eingibst.\n\n\nSchreibe 'FH-Aachen Rallye' in das Textfeld und drücke auf 'Weiter', um fortzufahren.",
+            "correctAnswer": "FH-Aachen Rallye",
+            "indexOnIncorrect": 2,
+            "next": 3
+        },
+        {
+            "type": "stringInput",
+            "text": "Versuche es nocheinmal.\n\n\nSchreibe 'FH-Aachen Rallye' in das Textfeld und drücke auf 'Senden', um fortzufahren.",
+            "correctAnswer": "FH-Aachen Rallye",
+            "indexOnIncorrect": 1,
+            "next": 3
+        },
+        {
+            "type": "say",
+            "text": "Wenn du eine falsche Antwort eingibst, passiert meistens nichts schlimmes.\n\n\nDu kannst es oft einfach noch einmal versuchen.",
+            "next": -1
+        },
+        {
+            "type": "say",
+            "text": "Gut gemacht!\n\nFalls du eine falsche Antwort eingibst, passiert meistens nichts schlimmes.\n\n\nDu kannst es oft einfach noch einmal versuchen.",
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "Gut gemacht!"
+        },
+        {
+            "type": "scan",
+            "text": "Einige Aufgaben erfordern, dass du einen QR-Code scannst.\n\n\nWenn du 'Scannen' drückst, wird die Kamera geöffnet.\n\nStelle sicher, dass du der App die Berechtigung zum Zugriff auf die Kamera erteilst.\n\nFalls du das nicht möchtest, kannst du den Code unter dem QR-Code auch manuell eingeben.\n\n\nDa dies nur ein Tutorial ist, musst du keinen QR-Code scannen.\n\nGib einfach den Code 'FHAR-1234' manuell ein um fortzufahren.",
+            "correctAnswer": "FHAR-1234"
+        },
+        {
+            "type": "say",
+            "text": "Gut gemacht!\n\nDu hast das Tutorial erfolgreich abgeschlossen!\n\n\nDrücke auf 'Abschließen', um deine Punkte zu erhalten.\n\n\nPunkte zeigen anderen Rallye-Teilnehmern an, wie gut du bist.\n\n\nSchwierigere Aufgaben geben mehr Punkte.\n\n\nViel Glück und viel Spaß bei der FH-Aachen Rallye!",
+            "isLast": true
+        }
+    ],
+    "image": null
+}

@@ -1,0 +1,75 @@
+{
+    "challenge_id": "tutorial",
+    "title": "Tutorial",
+    "language": "en",
+    "difficulty": 0,
+    "tags": "Test tag, Second test tag",
+    "duration": 1,
+    "category": "tutorial",
+    "points": 10,
+    "descriptionStart": "Welcome to the FH-Aachen Rallye!\n\nIn this tutorial you will learn how to use the app, find and solve challenges.",
+    "descriptionEnd": "At the end of the tutorial you will receive a small summary of the challenge.",
+    "steps": [
+        {
+            "type": "say",
+            "text": "Challenges can be unlocked in a variety of ways.\n\n\nThis challenge is unlocked by default, so you can start right away.\n\n\nOther challenges will be unlocked when you scan QR codes around campus or solve other challenges.\n\n\nPress 'Next' to continue."
+        },
+        {
+            "type": "say",
+            "text": "Most challenges start with a task description.\n\nThis contains information (text and/or images) that you need to solve the challenge."
+        },
+        {
+            "type": "options",
+            "text": "Sometimes you have to make a choice.\n\n\nSelect one of the options to continue.",
+            "options": "{ \"A\": 1, \"B\": 2 }"
+        },
+        {
+            "type": "say",
+            "text": "You have chosen option A, very good!",
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "You have chosen option B, very good!"
+        },
+        {
+            "type": "stringInput",
+            "text": "Other challenges require you to enter an answer.\n\n\nWrite 'FH-Aachen Rallye' in the text field and press 'Submit' to continue.",
+            "correctAnswer": "FH-Aachen Rallye",
+            "indexOnIncorrect": 2,
+            "next": 3
+        },
+        {
+            "type": "stringInput",
+            "text": "Try again.\n\n\nWrite 'FH-Aachen Rallye' in the text field and press 'Submit' to continue.",
+            "correctAnswer": "FH-Aachen Rallye",
+            "indexOnIncorrect": 1,
+            "next": 3
+        },
+        {
+            "type": "say",
+            "text": "If you enter a wrong answer, usually nothing bad happens.\n\n\nYou can often just try again.",
+            "next": -1
+        },
+        {
+            "type": "say",
+            "text": "Well done!\n\nIf you enter a wrong answer, usually nothing bad happens.\n\n\nYou can often just try again.",
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "Well done!"
+        },
+        {
+            "type": "scan",
+            "text": "Some challenges require you to scan a QR code.\n\n\nIf you press 'Scan', the camera will open.\n\nMake sure to grant the app permission to access the camera.\n\nIf you don't want to do that, you can also manually enter the code below the QR code.\n\n\nSince this is only a tutorial, you don't have to scan a QR code.\n\nJust enter the code 'FHAR-1234' manually to continue.",
+            "correctAnswer": "FHAR-1234"
+        },
+        {
+            "type": "say",
+            "text": "Well done!\n\nYou have completed the tutorial.\n\n\nPress 'Finish' to collect your points.\n\n\nPoints show other rally participants how good you are at solving challenges.\nMore difficult challenges give you more points.\n\n\nGood luck and have fun with the FH-Aachen Rallye!",
+            "isLast": true
+        }
+    ],
+    "image": null
+}

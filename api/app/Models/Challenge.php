@@ -15,6 +15,8 @@ class Challenge extends Model
         'challenge_id',
         'title',
         'difficulty',
+        'tags',
+        'duration',
         'points',
         'category',
         'descriptionStart',

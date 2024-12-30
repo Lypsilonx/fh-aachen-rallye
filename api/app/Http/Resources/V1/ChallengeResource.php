@@ -20,6 +20,8 @@ class ChallengeResource extends JsonResource
             'title' => $this->title,
             'language' => $this->language,
             'difficulty' => $this->difficulty,
+            'tags' => $this->tags,
+            'duration' => $this->duration,
             'points' => $this->points,
             'category' => $this->category,
             'descriptionStart' => $this->descriptionStart,

@@ -26,6 +26,8 @@ class ChallengeSeeder extends Seeder
                 'title' => $challengeJson['title'],
                 'language' => $challengeJson['language'],
                 'difficulty' => $challengeJson['difficulty'],
+                'tags' => $challengeJson['tags'] ?? null,
+                'duration' => $challengeJson['duration'],
                 'lock_id' => $challengeJson['lock_id'] ?? null,
                 'unlock_id' => $challengeJson['unlock_id'] ?? null,
                 'points' => $challengeJson['points'],

@@ -16,6 +16,8 @@ return new class extends Migration {
             $table->string('title');
             $table->string('language');
             $table->integer('difficulty');
+            $table->string('tags')->nullable();
+            $table->integer('duration');
             $table->string('lock_id')->nullable();
             $table->string('unlock_id')->nullable();
             $table->integer('points');

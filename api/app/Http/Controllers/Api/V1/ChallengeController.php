@@ -63,13 +63,14 @@ class ChallengeController extends Controller
             $steps = json_decode($steps, true);
         }
 
+        $index = 0;
         foreach ($steps as $step) {
             $values = [
                 'type' => $step['type'],
                 'text' => $step['text'],
                 'next' => $step['next'] ?? null,
                 'alternatives' => $step['alternatives'] ?? null,
-                'isLast' => $step['isLast'],
+                'isLast' => $step['isLast'] ?? false,
             ];
 
             if ($step['type'] === 'options') {
@@ -87,10 +88,12 @@ class ChallengeController extends Controller
             $challenge->steps()->updateOrCreate(
                 [
                     'challenge_id' => $challenge->id,
-                    'index' => $step['index'],
+                    'index' => $step['index'] ?? $index,
                 ],
                 $values
             );
+
+            $index++;
         }
     }
 

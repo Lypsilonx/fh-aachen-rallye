@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->integer('index');
             $table->foreignUuid('challenge_id')->constrained('challenges', 'id')->onDelete('cascade');
             $table->string('type');
-            $table->string('text');
+            $table->string('text', 2048);
             $table->integer('next')->nullable();
             $table->string('alternatives')->nullable();
             $table->boolean('isLast');

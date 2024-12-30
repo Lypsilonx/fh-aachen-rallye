@@ -35,15 +35,40 @@
     "POINTS": { "en": "Points", "de": "Punkte" },
     "CATEGORY": { "en": "Category", "de": "Kategorie" },
     "DIFFICULTY": { "en": "Difficulty", "de": "Schwierigkeit" },
+    "DIFFICULTY_NONE": { "en": "No rating", "de": "Keine Bewertung" },
     "DIFFICULTY_VERYEASY": { "en": "Very Easy", "de": "Sehr leicht" },
     "DIFFICULTY_EASY": { "en": "Easy", "de": "Leicht" },
     "DIFFICULTY_MEDIUM": { "en": "Medium", "de": "Mittel" },
     "DIFFICULTY_HARD": { "en": "Hard", "de": "Schwer" },
     "DIFFICULTY_VERYHARD": { "en": "Very Hard", "de": "Sehr schwer" },
+    "DURATION": { "en": "Duration", "de": "Dauer" },
+    "DURATION_NONE": { "en": "No rating", "de": "Keine Bewertung" },
+    "DURATION_MINUTES": { "en": "a few minutes", "de": "ein paar Minuten" },
+    "DURATION_HOURS": { "en": "a few hours", "de": "ein paar Stunden" },
+    "DURATION_DAYS": { "en": "a couple of days", "de": "einige Tage" },
+    "DURATION_MORE": { "en": "more than a week", "de": "mehr als eine Woche" },
+    "CATEGORY_TUTORIAL": { "en": "Tutorial", "de": "Tutorial" },
+    "CATEGORY_TUTORIAL_DESCRIPTION": {
+        "en": "Learn how to use the app.",
+        "de": "Lerne die App zu benutzen."
+    },
     "CATEGORY_GENERAL": { "en": "General", "de": "Allgemein" },
     "CATEGORY_GENERAL_DESCRIPTION": {
         "en": "General knowledge and trivia.",
         "de": "Allgemeinwissen und Trivia."
+    },
+    "CATEGORY_ELECTRICAL_ENGINEERING": {
+        "en": "Electrical Engineering",
+        "de": "Elektrotechnik"
+    },
+    "CATEGORY_ELECTRICAL_ENGINEERING_DESCRIPTION": {
+        "en": "Electrical engineering problems and puzzles.",
+        "de": "Elektrotechnische Probleme und Rätsel."
+    },
+    "CATEGORY_MATH": { "en": "Math", "de": "Mathematik" },
+    "CATEGORY_MATH_DESCRIPTION": {
+        "en": "Mathematical problems and puzzles.",
+        "de": "Mathematische Probleme und Rätsel."
     },
     "SCAN": { "en": "Scan", "de": "Scannen" },
     "SCAN_QR_CODE": { "en": "Scan QR code", "de": "QR-Code scannen" },

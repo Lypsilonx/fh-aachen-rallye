@@ -32,6 +32,8 @@ class StoreChallengeRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'language' => ['required', 'string', 'max:2', 'min:2'],
             'difficulty' => ['required', 'integer', 'min:0', 'max:5'],
+            'tags' => ['string', 'nullable'],
+            'duration' => ['required', 'integer', 'min:0'],
             'points' => ['required', 'integer', 'min:0'],
             'category' => ['required', 'string', 'max:255'],
             'descriptionStart' => ['required', 'string'],
