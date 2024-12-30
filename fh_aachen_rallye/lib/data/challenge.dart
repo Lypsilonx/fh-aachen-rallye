@@ -55,10 +55,7 @@ class Challenge extends ServerObject {
       'title': title,
       'language': language.name,
       'difficulty': difficulty.index,
-      'category': switch (category) {
-        ChallengeCategory.general => 'general',
-        _ => 'loading',
-      },
+      'category': category.categoryName(),
       'points': points,
       'descriptionStart': descriptionStart,
       'descriptionEnd': descriptionEnd,
@@ -79,10 +76,7 @@ class Challenge extends ServerObject {
       language: Language.values
           .firstWhere((element) => element.name == json['language'] as String),
       difficulty: Difficulty.values[json['difficulty'] as int],
-      category: switch (json['category']) {
-        'general' => ChallengeCategory.general,
-        _ => ChallengeCategory.loading,
-      },
+      category: ChallengeCategory.fromString(json['category'] as String),
       points: json['points'] as int,
       descriptionStart: json['descriptionStart'] as String,
       descriptionEnd: json['descriptionEnd'] as String,
@@ -103,6 +97,26 @@ class ChallengeCategory {
   const ChallengeCategory(this.name, this.description, this.icon,
       {this.color = Colors.orange});
 
+  static ChallengeCategory fromString(String name) {
+    return switch (name) {
+      'tutorial' => ChallengeCategory.tutorial,
+      'general' => ChallengeCategory.general,
+      'electricalEngineering' => ChallengeCategory.electricalEngineering,
+      'maths' => ChallengeCategory.maths,
+      _ => ChallengeCategory.loading,
+    };
+  }
+
+  String categoryName() {
+    return switch (name) {
+      'CATEGORY_TUTORIAL' => 'tutorial',
+      'CATEGORY_GENERAL' => 'general',
+      'CATEGORY_ELECTRICAL_ENGINEERING' => 'electricalEngineering',
+      'CATEGORY_MATHS' => 'maths',
+      _ => 'loading',
+    };
+  }
+
   static const ChallengeCategory loading = ChallengeCategory(
     "LOADING",
     "LOADING",
@@ -110,11 +124,32 @@ class ChallengeCategory {
     color: Colors.grey,
   );
 
+  static const ChallengeCategory tutorial = ChallengeCategory(
+    "CATEGORY_TUTORIAL",
+    "CATEGORY_TUTORIAL_DESCRIPTION",
+    Icons.school,
+    color: Colors.blue,
+  );
+
   static const ChallengeCategory general = ChallengeCategory(
     "CATEGORY_GENERAL",
     "CATEGORY_GENERAL_DESCRIPTION",
     Icons.lightbulb,
     color: Colors.yellow,
+  );
+
+  static const ChallengeCategory electricalEngineering = ChallengeCategory(
+    "CATEGORY_ELECTRICAL_ENGINEERING",
+    "CATEGORY_ELECTRICAL_ENGINEERING_DESCRIPTION",
+    Icons.electrical_services,
+    color: Colors.orange,
+  );
+
+  static const ChallengeCategory maths = ChallengeCategory(
+    "CATEGORY_MATHS",
+    "CATEGORY_MATHS_DESCRIPTION",
+    Icons.calculate,
+    color: Colors.red,
   );
 }
 
