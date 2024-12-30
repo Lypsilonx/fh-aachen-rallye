@@ -18,30 +18,6 @@ class CacheController extends Controller
     public function cachePollRequest(Request $request)
     {
         try {
-            $validatedUser = Validator::make(
-                $request->all(),
-                [
-                    'poll_list' => 'required',
-                ],
-            );
-
-            if ($validatedUser->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Validation failed',
-                    'errors' => $validatedUser->errors()
-                ], 401);
-            }
-
-            $user = User::find(auth()->id());
-
-            if (!$user) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'User not found',
-                ], 404);
-            }
-
             $poll_list = $request->poll_list;
             $update_list = [];
 

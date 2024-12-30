@@ -20,9 +20,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::post('auth/register', [AuthController::class, 'register']);
     Route::post('auth/login', [AuthController::class, 'login']);
     Route::apiResource('translations', TranslationController::class)->only(['index', 'show']);
+    Route::post('pollCache', [CacheController::class, 'cachePollRequest']);
 });
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1', 'middleware' => 'auth:sanctum'], function () {
-    Route::post('pollCache', [CacheController::class, 'cachePollRequest']);
     Route::apiResource('challenges', ChallengeController::class);
     Route::apiResource('challengeSteps', ChallengeStepController::class);
     Route::apiResource('users', UserController::class);
