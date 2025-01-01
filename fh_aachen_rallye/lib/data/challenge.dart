@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/translator.dart';
@@ -17,6 +18,33 @@ class Challenge extends ServerObject {
   final String descriptionStart;
   final String descriptionEnd;
   final List<ChallengeStep> steps;
+
+  double get progress {
+    if (Backend.state.user == null) {
+      return 0;
+    }
+
+    var user = Backend.state.user!;
+    int challengeState = user.challengeStates[challengeId] ?? -1;
+
+    if (challengeState == -1) {
+      return 0;
+    } else if (challengeState == -2) {
+      return 1;
+    }
+
+    // get progress from just steps that have non negative or null "next"
+    int totalSteps = steps
+        .where((element) => element.next == null || element.next! >= 0)
+        .length;
+
+    int completedSteps = steps
+        .take(challengeState + 1)
+        .where((element) => element.next == null || element.next! >= 0)
+        .length;
+
+    return completedSteps / totalSteps;
+  }
 
   final String? image;
 
@@ -129,6 +157,8 @@ class ChallengeCategory {
     };
   }
 
+  static const double _saturation = 0.9;
+
   static const ChallengeCategory loading = ChallengeCategory(
     "LOADING",
     "LOADING",
@@ -136,32 +166,32 @@ class ChallengeCategory {
     color: Colors.grey,
   );
 
-  static const ChallengeCategory tutorial = ChallengeCategory(
+  static ChallengeCategory tutorial = ChallengeCategory(
     "CATEGORY_TUTORIAL",
     "CATEGORY_TUTORIAL_DESCRIPTION",
     Icons.school,
-    color: Colors.blue,
+    color: Colors.blue.withSaturation(_saturation),
   );
 
-  static const ChallengeCategory general = ChallengeCategory(
+  static ChallengeCategory general = ChallengeCategory(
     "CATEGORY_GENERAL",
     "CATEGORY_GENERAL_DESCRIPTION",
     Icons.lightbulb,
-    color: Colors.yellow,
+    color: Colors.yellow.withSaturation(_saturation),
   );
 
-  static const ChallengeCategory electricalEngineering = ChallengeCategory(
+  static ChallengeCategory electricalEngineering = ChallengeCategory(
     "CATEGORY_ELECTRICAL_ENGINEERING",
     "CATEGORY_ELECTRICAL_ENGINEERING_DESCRIPTION",
     Icons.bolt,
-    color: Colors.orange,
+    color: Colors.orange.withSaturation(_saturation),
   );
 
-  static const ChallengeCategory maths = ChallengeCategory(
+  static ChallengeCategory maths = ChallengeCategory(
     "CATEGORY_MATHS",
     "CATEGORY_MATHS_DESCRIPTION",
     Icons.calculate,
-    color: Colors.red,
+    color: Colors.red.withSaturation(_saturation),
   );
 }
 

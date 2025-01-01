@@ -119,289 +119,340 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
         challenge.category.color,
         title: Text(challenge.title, style: Styles.h1),
       ),
-      body: Helpers.tiledBackground(
-        "assets/background_1.png",
-        200,
-        challenge.category.color,
-        stackChildren: [
-          Helpers.intelligentPadding(
-            context,
-            SizedBox(
-              width: double.infinity,
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  EdgeInsetsGeometry tableEdgeInsets = const EdgeInsets.all(
-                    Sizes.small,
-                  );
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return Stack(
+            children: [
+              SizedBox(
+                height: constraints.maxHeight,
+                width: constraints.maxWidth,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: constraints.maxWidth * challenge.progress,
+                      height: Sizes.small,
+                      color: challenge.progress == 1
+                          ? Colors.green
+                          : challenge.category.color.inverted(),
+                    ),
+                  ],
+                ),
+              ),
+              Helpers.tiledBackground(
+                "assets/background_1.png",
+                200,
+                challenge.category.color,
+                stackChildren: [
+                  Helpers.intelligentPadding(
+                    context,
+                    SizedBox(
+                      width: double.infinity,
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          EdgeInsetsGeometry tableEdgeInsets =
+                              const EdgeInsets.all(
+                            Sizes.small,
+                          );
 
-                  return SingleChildScrollView(
-                    controller: scrollController,
-                    scrollDirection: Axis.vertical,
-                    child: ConstrainedBox(
-                      constraints:
-                          BoxConstraints(minHeight: constraints.maxHeight),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: isNew || isCompleted
-                            ? [
-                                FunContainer(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Container(
-                                        padding:
-                                            const EdgeInsets.all(Sizes.small),
-                                        width: double.infinity,
-                                        child: MdText(
-                                          isNew
-                                              ? challenge.descriptionStart
-                                              : challenge.descriptionEnd,
-                                          //style: Styles.body,
-                                        ),
-                                      ),
-                                      SizedBox(height: isNew ? Sizes.large : 0),
-                                      if (isNew)
-                                        Table(
-                                          border: const TableBorder(
-                                            verticalInside: BorderSide(
-                                              color: Colors.grey,
-                                              width: 0.2,
-                                            ),
-                                            horizontalInside: BorderSide(
-                                              color: Colors.grey,
-                                              width: 0.2,
-                                            ),
-                                          ),
-                                          children: [
-                                            TableRow(
-                                              children: [
-                                                Tooltip(
-                                                  message: translate(challenge
-                                                      .category.description),
-                                                  child: Padding(
-                                                    padding: tableEdgeInsets,
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
+                          return SingleChildScrollView(
+                            controller: scrollController,
+                            scrollDirection: Axis.vertical,
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                  minHeight: constraints.maxHeight),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: isNew || isCompleted
+                                    ? [
+                                        FunContainer(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Container(
+                                                padding: const EdgeInsets.all(
+                                                    Sizes.small),
+                                                width: double.infinity,
+                                                child: MdText(
+                                                  isNew
+                                                      ? challenge
+                                                          .descriptionStart
+                                                      : challenge
+                                                          .descriptionEnd,
+                                                  //style: Styles.body,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                  height:
+                                                      isNew ? Sizes.large : 0),
+                                              if (isNew)
+                                                Table(
+                                                  border: const TableBorder(
+                                                    verticalInside: BorderSide(
+                                                      color: Colors.grey,
+                                                      width: 0.2,
+                                                    ),
+                                                    horizontalInside:
+                                                        BorderSide(
+                                                      color: Colors.grey,
+                                                      width: 0.2,
+                                                    ),
+                                                  ),
+                                                  children: [
+                                                    TableRow(
                                                       children: [
-                                                        Text(
-                                                          translate('CATEGORY'),
-                                                          style:
-                                                              Styles.subtitle,
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Icon(
+                                                        Tooltip(
+                                                          message: translate(
                                                               challenge.category
-                                                                  .icon,
-                                                              color: challenge
-                                                                  .category
-                                                                  .color,
+                                                                  .description),
+                                                          child: Padding(
+                                                            padding:
+                                                                tableEdgeInsets,
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  translate(
+                                                                      'CATEGORY'),
+                                                                  style: Styles
+                                                                      .subtitle,
+                                                                ),
+                                                                Row(
+                                                                  children: [
+                                                                    Icon(
+                                                                      challenge
+                                                                          .category
+                                                                          .icon,
+                                                                      color: challenge
+                                                                          .category
+                                                                          .color,
+                                                                    ),
+                                                                    const SizedBox(
+                                                                        width: Sizes
+                                                                            .small),
+                                                                    Text(
+                                                                      translate(challenge
+                                                                          .category
+                                                                          .name),
+                                                                      style: Styles
+                                                                          .body,
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ],
                                                             ),
-                                                            const SizedBox(
-                                                                width: Sizes
-                                                                    .small),
-                                                            Text(
-                                                              translate(
-                                                                  challenge
-                                                                      .category
-                                                                      .name),
-                                                              style:
-                                                                  Styles.body,
-                                                            ),
-                                                          ],
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              tableEdgeInsets,
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                translate(
+                                                                    'DURATION'),
+                                                                style: Styles
+                                                                    .subtitle,
+                                                              ),
+                                                              Text(
+                                                                translate(
+                                                                    'DURATION_${challenge.duration.name.toUpperCase()}'),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: tableEdgeInsets,
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        translate('DURATION'),
-                                                        style: Styles.subtitle,
-                                                      ),
-                                                      Text(
-                                                        translate(
-                                                            'DURATION_${challenge.duration.name.toUpperCase()}'),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            TableRow(
-                                              children: [
-                                                Tooltip(
-                                                  message: translate(
-                                                      'DIFFICULTY_${challenge.difficulty.name.toUpperCase()}'),
-                                                  child: Padding(
-                                                    padding: tableEdgeInsets,
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
+                                                    TableRow(
                                                       children: [
-                                                        Text(
-                                                          translate(
-                                                              'DIFFICULTY'),
-                                                          style:
-                                                              Styles.subtitle,
+                                                        Tooltip(
+                                                          message: translate(
+                                                              'DIFFICULTY_${challenge.difficulty.name.toUpperCase()}'),
+                                                          child: Padding(
+                                                            padding:
+                                                                tableEdgeInsets,
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  translate(
+                                                                      'DIFFICULTY'),
+                                                                  style: Styles
+                                                                      .subtitle,
+                                                                ),
+                                                                Helpers.displayDifficulty(
+                                                                    challenge
+                                                                        .difficulty),
+                                                              ],
+                                                            ),
+                                                          ),
                                                         ),
-                                                        Helpers
-                                                            .displayDifficulty(
-                                                                challenge
-                                                                    .difficulty),
+                                                        Padding(
+                                                          padding:
+                                                              tableEdgeInsets,
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                translate(
+                                                                    'POINTS'),
+                                                                style: Styles
+                                                                    .subtitle,
+                                                              ),
+                                                              Text(
+                                                                  '${challenge.points}'),
+                                                            ],
+                                                          ),
+                                                        ),
                                                       ],
                                                     ),
-                                                  ),
+                                                  ],
                                                 ),
-                                                Padding(
-                                                  padding: tableEdgeInsets,
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        translate('POINTS'),
-                                                        style: Styles.subtitle,
-                                                      ),
-                                                      Text(
-                                                          '${challenge.points}'),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
+                                              const SizedBox(
+                                                  height: Sizes.small),
+                                              Helpers.displayTags(challenge),
+                                            ],
+                                          ),
+                                        ),
+                                        Column(
+                                          children: [
+                                            const SizedBox(
+                                              height: Sizes.small,
+                                            ),
+                                            FunButton(
+                                              isNew
+                                                  ? translate('START')
+                                                  : translate('RESTART'),
+                                              Colors.green,
+                                              onPressed: () => proceedStep(1),
+                                            ),
+                                            const SizedBox(
+                                              height: Sizes.extraSmall,
                                             ),
                                           ],
                                         ),
-                                      const SizedBox(height: Sizes.small),
-                                      Helpers.displayTags(challenge),
-                                    ],
-                                  ),
-                                ),
-                                Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: Sizes.small,
-                                    ),
-                                    FunButton(
-                                      isNew
-                                          ? translate('START')
-                                          : translate('RESTART'),
-                                      Colors.green,
-                                      onPressed: () => proceedStep(1),
-                                    ),
-                                    const SizedBox(
-                                      height: Sizes.extraSmall,
-                                    ),
-                                  ],
-                                ),
-                              ]
-                            : [
-                                generateChatBubbles(step.text),
-                                const SizedBox(
-                                  height: Sizes.large,
-                                ),
-                                Column(
-                                  children: [
-                                    if (step is ChallengeStepOptions)
-                                      Column(
-                                        children: options
-                                            .map((option) => Column(
-                                                  children: [
-                                                    const SizedBox(
-                                                        height: Sizes.small),
-                                                    FunButton(
-                                                      option,
-                                                      Colors.blue,
-                                                      onPressed: () =>
-                                                          proceedStep(
-                                                              step.options[
-                                                                  option]!),
-                                                    ),
-                                                  ],
-                                                ))
-                                            .toList(),
-                                      ),
-                                    if (step is ChallengeStepStringInput)
-                                      Column(
-                                        children: [
-                                          FunTextInput(
-                                            submitButton: translate('SUBMIT'),
-                                            onSubmitted: (value) {
-                                              if (step.correctAnswer
-                                                  .split(',')
-                                                  .map((e) => e.toLowerCase())
-                                                  .contains(
-                                                      value.toLowerCase())) {
-                                                nextStep(step);
-                                              } else {
-                                                proceedStep(
-                                                    step.indexOnIncorrect);
-                                              }
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    if (step is ChallengeStepScan)
-                                      FunButton(
-                                        translate('SCAN'),
-                                        Colors.blue,
-                                        onPressed: () async {
-                                          var value = await Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ScanQRCodeView(
-                                                acceptRegex: step.correctAnswer
-                                                    .replaceAll(',', '|'),
-                                                manualInput:
-                                                    translate('ENTER_CODE'),
+                                      ]
+                                    : [
+                                        generateChatBubbles(step.text),
+                                        const SizedBox(
+                                          height: Sizes.large,
+                                        ),
+                                        Column(
+                                          children: [
+                                            if (step is ChallengeStepOptions)
+                                              Column(
+                                                children: options
+                                                    .map((option) => Column(
+                                                          children: [
+                                                            const SizedBox(
+                                                                height: Sizes
+                                                                    .small),
+                                                            FunButton(
+                                                              option,
+                                                              Colors.blue,
+                                                              onPressed: () =>
+                                                                  proceedStep(step
+                                                                          .options[
+                                                                      option]!),
+                                                            ),
+                                                          ],
+                                                        ))
+                                                    .toList(),
                                               ),
+                                            if (step
+                                                is ChallengeStepStringInput)
+                                              Column(
+                                                children: [
+                                                  FunTextInput(
+                                                    submitButton:
+                                                        translate('SUBMIT'),
+                                                    onSubmitted: (value) {
+                                                      if (step.correctAnswer
+                                                          .split(',')
+                                                          .map((e) =>
+                                                              e.toLowerCase())
+                                                          .contains(value
+                                                              .toLowerCase())) {
+                                                        nextStep(step);
+                                                      } else {
+                                                        proceedStep(step
+                                                            .indexOnIncorrect);
+                                                      }
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            if (step is ChallengeStepScan)
+                                              FunButton(
+                                                translate('SCAN'),
+                                                Colors.blue,
+                                                onPressed: () async {
+                                                  var value =
+                                                      await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ScanQRCodeView(
+                                                        acceptRegex: step
+                                                            .correctAnswer
+                                                            .replaceAll(
+                                                                ',', '|'),
+                                                        manualInput: translate(
+                                                            'ENTER_CODE'),
+                                                      ),
+                                                    ),
+                                                  );
+                                                  if (value != null) {
+                                                    if (step.correctAnswer
+                                                        .split(',')
+                                                        .contains(value)) {
+                                                      nextStep(step);
+                                                    }
+                                                  }
+                                                },
+                                              ),
+                                            if (step.hasNextButton)
+                                              FunButton(
+                                                  step.isLast
+                                                      ? "${translate('COMPLETE')} (+${challenge.points} ${translate('POINTS')})"
+                                                      : translate('NEXT'),
+                                                  step.isLast
+                                                      ? Colors.green
+                                                      : Colors.orange,
+                                                  sizeFactor:
+                                                      step.isLast ? 1.5 : -1,
+                                                  onPressed: () =>
+                                                      nextStep(step)),
+                                            const SizedBox(
+                                              height: Sizes.extraSmall,
                                             ),
-                                          );
-                                          if (value != null) {
-                                            if (step.correctAnswer
-                                                .split(',')
-                                                .contains(value)) {
-                                              nextStep(step);
-                                            }
-                                          }
-                                        },
-                                      ),
-                                    if (step.hasNextButton)
-                                      FunButton(
-                                          step.isLast
-                                              ? "${translate('COMPLETE')} (+${challenge.points} ${translate('POINTS')})"
-                                              : translate('NEXT'),
-                                          step.isLast
-                                              ? Colors.green
-                                              : Colors.orange,
-                                          sizeFactor: step.isLast ? 1.5 : -1,
-                                          onPressed: () => nextStep(step)),
-                                    const SizedBox(
-                                      height: Sizes.extraSmall,
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                          ],
+                                        ),
+                                      ],
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
-                  );
-                },
+                  ),
+                ],
               ),
-            ),
-          ),
-        ],
+            ],
+          );
+        },
       ),
     );
   }

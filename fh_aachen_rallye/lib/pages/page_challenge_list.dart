@@ -66,6 +66,25 @@ class _PageChallengeListState extends FunPageState<PageChallengeList>
         .where((e) => e.language == Translator.language)
         .map((e) => e.id)
         .toList();
+
+    challengeIds.sort((a, b) {
+      var challengeA = challengeChache.firstWhere((e) => e.id == a);
+      var challengeB = challengeChache.firstWhere((e) => e.id == b);
+
+      // sort by progress, then difficulty, then title (progress 1 last)
+      if (challengeA.progress == 1) {
+        return 1;
+      } else if (challengeB.progress == 1) {
+        return -1;
+      } else if (challengeA.progress != challengeB.progress) {
+        return challengeA.progress - challengeB.progress > 0 ? -1 : 1;
+      } else if (challengeA.difficulty.index != challengeB.difficulty.index) {
+        return challengeA.difficulty.index - challengeB.difficulty.index;
+      } else {
+        return challengeA.title.compareTo(challengeB.title);
+      }
+    });
+
     setState(() {});
   }
 

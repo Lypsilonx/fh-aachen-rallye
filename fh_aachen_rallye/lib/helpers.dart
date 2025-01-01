@@ -37,14 +37,18 @@ class Helpers {
           padding: const EdgeInsets.only(
             left: Sizes.small,
           ),
-          child: Chip(
-            padding: EdgeInsets.zero,
-            backgroundColor:
-                challenge.category.color.withSaturation(1).withOpacity(0.2),
-            side: const BorderSide(
-              style: BorderStyle.none,
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: challenge.category.color),
+              borderRadius: BorderRadius.circular(Sizes.borderRadius),
+              color:
+                  challenge.category.color.withSaturation(1).withOpacity(0.2),
             ),
-            label: Text(
+            padding: const EdgeInsets.symmetric(
+              horizontal: Sizes.small,
+              vertical: Sizes.extraSmall,
+            ),
+            child: Text(
               challenge.tags[index],
               style: Styles.bodySmall,
             ),
@@ -153,6 +157,13 @@ extension AdvancedColor on Color {
     }
 
     return hsl.withSaturation(hsl.saturation * saturation).toColor();
+  }
+
+  Color inverted() {
+    HSLColor hsl = HSLColor.fromColor(this);
+    double hue = (hsl.hue + 180) % 360;
+    return HSLColor.fromAHSL(opacity, hue, hsl.saturation, hsl.lightness)
+        .toColor();
   }
 }
 

@@ -65,75 +65,107 @@ class _ChallengeTileState extends State<ChallengeTile>
               : Colors.orange,
     );
 
-    return FunContainer(
-      onTap: () {
-        if (widget.challengeId == '') {
-          return;
-        }
+    return Stack(
+      children: [
+        FunContainer(
+          height: Sizes.extraLarge + Sizes.small,
+          onTap: () {
+            if (widget.challengeId == '') {
+              return;
+            }
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ChallengeView(widget.challengeId),
-          ),
-        );
-      },
-      padding: EdgeInsets.zero,
-      child: ListTile(
-        leading: LayoutBuilder(
-          builder: (context, constraints) {
-            double circleSize = constraints.maxHeight * 0.75;
-            double iconSize = Sizes.small * 0.8;
-            double center = (constraints.maxHeight - iconSize) / 2;
-            return SizedBox(
-              width: constraints.maxHeight,
-              height: constraints.maxHeight - circleSize / 4,
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                      bottom: circleSize / 4,
-                    ),
-                    child: Center(
-                      child: Icon(challenge.category.icon,
-                          color: challenge.category.color),
-                    ),
-                  ),
-                  // place stars in a radial pattern around the icon depending on the duration
-                  ...List.generate(
-                    challenge.duration.index,
-                    (index) {
-                      double iconAngle = 30;
-                      double radialOffset =
-                          max(challenge.duration.index - 1, 0) / 2 * iconAngle;
-                      double angle = index * iconAngle - radialOffset;
-                      return Positioned(
-                        left: (circleSize / 2) * sin(angle * pi / 180) + center,
-                        top: (circleSize / 2) * cos(angle * pi / 180) +
-                            center -
-                            circleSize / 4,
-                        child: Icon(
-                          Icons.circle,
-                          color: challenge.category.color,
-                          size: iconSize,
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChallengeView(widget.challengeId),
+              ),
+            );
+          },
+          padding: EdgeInsets.zero,
+          child: ListTile(
+            leading: LayoutBuilder(
+              builder: (context, constraints) {
+                double circleSize = constraints.maxHeight * 0.9;
+                double iconSize = Sizes.small * 0.8;
+                double center = (constraints.maxHeight - iconSize) / 2;
+                return SizedBox(
+                  width: constraints.maxHeight,
+                  height: constraints.maxHeight - circleSize / 4,
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: circleSize / 4,
                         ),
-                      );
-                    },
-                  )
-                ],
+                        child: Center(
+                          child: Icon(challenge.category.icon,
+                              color: challenge.category.color),
+                        ),
+                      ),
+                      // place stars in a radial pattern around the icon depending on the duration
+                      ...List.generate(
+                        challenge.duration.index,
+                        (index) {
+                          double iconAngle = 30;
+                          double radialOffset =
+                              max(challenge.duration.index - 1, 0) /
+                                  2 *
+                                  iconAngle;
+                          double angle = index * iconAngle - radialOffset;
+                          return Positioned(
+                            left: (circleSize / 2) * sin(angle * pi / 180) +
+                                center,
+                            top: (circleSize / 2) * cos(angle * pi / 180) +
+                                center -
+                                circleSize / 4,
+                            child: Icon(
+                              Icons.circle,
+                              color: challenge.category.color,
+                              size: iconSize,
+                            ),
+                          );
+                        },
+                      )
+                    ],
+                  ),
+                );
+              },
+            ),
+            trailing: statusIcon,
+            title: Text(challenge.title, style: Styles.h2),
+            subtitle: Row(
+              children: [
+                Helpers.displayDifficulty(challenge.difficulty),
+                Helpers.displayTags(challenge),
+              ],
+            ),
+          ),
+        ),
+        LayoutBuilder(
+          builder: (context, constraints) {
+            return SizedBox(
+              height: Sizes.extraLarge + Sizes.small,
+              width: constraints.maxWidth,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(Sizes.borderRadius),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: constraints.maxWidth * challenge.progress,
+                      height: Sizes.extraSmall,
+                      color: challenge.progress == 1
+                          ? Colors.green
+                          : Colors.orange,
+                    ),
+                  ],
+                ),
               ),
             );
           },
         ),
-        trailing: statusIcon,
-        title: Text(challenge.title, style: Styles.h2),
-        subtitle: Row(
-          children: [
-            Helpers.displayDifficulty(challenge.difficulty),
-            Helpers.displayTags(challenge),
-          ],
-        ),
-      ),
+      ],
     );
   }
 }
