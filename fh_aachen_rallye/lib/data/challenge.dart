@@ -153,7 +153,7 @@ class ChallengeCategory {
   static const ChallengeCategory electricalEngineering = ChallengeCategory(
     "CATEGORY_ELECTRICAL_ENGINEERING",
     "CATEGORY_ELECTRICAL_ENGINEERING_DESCRIPTION",
-    Icons.electrical_services,
+    Icons.bolt,
     color: Colors.orange,
   );
 

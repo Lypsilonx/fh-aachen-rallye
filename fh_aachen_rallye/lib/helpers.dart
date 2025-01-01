@@ -2,6 +2,9 @@ import 'dart:math';
 
 import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
+import 'package:markdown/markdown.dart' as md;
 
 class Helpers {
   static Widget displayDifficulty(ChallengeDifficulty difficulty) {
@@ -196,4 +199,43 @@ class Styles {
   static TextStyle h1 = Styles.h2.copyWith(
     fontSize: Sizes.fontSizeLarge,
   );
+}
+
+class MdText extends StatelessWidget {
+  final String data;
+  final TextStyle style;
+
+  const MdText(this.data, {this.style = Styles.body, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MarkdownBody(
+      data: data,
+      styleSheet: MarkdownStyleSheet(
+        p: style,
+        h1: Styles.h1,
+        h2: Styles.h2,
+      ),
+      builders: {
+        'latex': LatexElementBuilder(textStyle: style),
+      },
+      extensionSet: md.ExtensionSet(
+        [LatexBlockSyntax()],
+        [LatexInlineSyntax()],
+      ),
+    );
+  }
+}
+
+extension Intersperse<T> on Iterable<T> {
+  Iterable<T> intersperse(T separator) sync* {
+    var iterator = this.iterator;
+    if (iterator.moveNext()) {
+      yield iterator.current;
+      while (iterator.moveNext()) {
+        yield separator;
+        yield iterator.current;
+      }
+    }
+  }
 }

@@ -35,6 +35,8 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
 
   var options = [];
 
+  final ScrollController scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -86,6 +88,8 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
     }
 
     setState(() {
+      options = [];
+      scrollController.jumpTo(0);
       currentStep = step;
       Backend.setChallengeState(challenge.challengeId, currentStep);
     });
@@ -131,6 +135,7 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
                   );
 
                   return SingleChildScrollView(
+                    controller: scrollController,
                     scrollDirection: Axis.vertical,
                     child: ConstrainedBox(
                       constraints:
@@ -148,11 +153,11 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
                                         padding:
                                             const EdgeInsets.all(Sizes.small),
                                         width: double.infinity,
-                                        child: Text(
+                                        child: MdText(
                                           isNew
                                               ? challenge.descriptionStart
                                               : challenge.descriptionEnd,
-                                          style: Styles.body,
+                                          //style: Styles.body,
                                         ),
                                       ),
                                       SizedBox(height: isNew ? Sizes.large : 0),
@@ -283,12 +288,22 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
                                     ],
                                   ),
                                 ),
-                                FunButton(
-                                  isNew
-                                      ? translate('START')
-                                      : translate('RESTART'),
-                                  Colors.green,
-                                  onPressed: () => proceedStep(1),
+                                Column(
+                                  children: [
+                                    const SizedBox(
+                                      height: Sizes.small,
+                                    ),
+                                    FunButton(
+                                      isNew
+                                          ? translate('START')
+                                          : translate('RESTART'),
+                                      Colors.green,
+                                      onPressed: () => proceedStep(1),
+                                    ),
+                                    const SizedBox(
+                                      height: Sizes.extraSmall,
+                                    ),
+                                  ],
                                 ),
                               ]
                             : [
@@ -325,7 +340,9 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
                                             onSubmitted: (value) {
                                               if (step.correctAnswer
                                                   .split(',')
-                                                  .contains(value)) {
+                                                  .map((e) => e.toLowerCase())
+                                                  .contains(
+                                                      value.toLowerCase())) {
                                                 nextStep(step);
                                               } else {
                                                 proceedStep(
@@ -408,33 +425,9 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
   }
 
   Widget generateChatBubble(String text) {
-    List<Widget> children = [];
-
-    String currentText = "";
-    for (var char in text.split('')) {
-      if (char == '[' && currentText.isNotEmpty) {
-        children.add(Text(
-          currentText,
-          style: Styles.body,
-        ));
-        currentText = "";
-      } else if (char == ']') {
-        children.add(
-          Image.network(
-              "${Backend.url}/api/resources/data/images/$currentText"),
-        );
-        children.add(const SizedBox(height: Sizes.small));
-        currentText = "";
-      } else {
-        currentText += char;
-      }
-    }
-    if (currentText.isNotEmpty) {
-      children.add(Text(
-        currentText,
-        style: Styles.body,
-      ));
-    }
+    text = text.replaceAllMapped(RegExp(r'!\[([^\]]*)\]\(([^)]*)\)'), (match) {
+      return '![${match.group(1)}](${Backend.url}/api/resources/data/images/${match.group(2)})';
+    });
 
     return Container(
       width: double.infinity,
@@ -447,8 +440,7 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
         rounded: const RoundedSides(
           bottomLeft: false,
         ),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end, children: children),
+        child: MdText(text, style: Styles.body),
       ),
     );
   }

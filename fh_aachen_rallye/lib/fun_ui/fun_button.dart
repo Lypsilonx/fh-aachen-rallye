@@ -148,7 +148,7 @@ class FunButtonState extends State<FunButton>
                   left: Sizes.medium + _size * Sizes.small,
                   right: Sizes.medium + _size * Sizes.small,
                 ),
-                child: Text(
+                child: MdText(
                   widget.text,
                   style: Styles.bodyLarge.copyWith(
                     color: widget.color.isLight ? Colors.black : Colors.white,
