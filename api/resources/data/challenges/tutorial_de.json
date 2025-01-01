@@ -3,9 +3,9 @@
     "title": "Tutorial",
     "language": "de",
     "difficulty": 0,
-    "tags": "Test tag, Zweiter test tag",
     "duration": 1,
     "category": "tutorial",
+    "unlock_id": "tutorial",
     "points": 10,
     "descriptionStart": "Wilkommen bei der FH-Aachen Rallye!\n\nIn diesem Tutorial lernst du, wie du die App benutzt, Aufgaben findest und löst.",
     "descriptionEnd": "Am Ende des Tutorials bekommst du hier noch eine kleine Zusammenfassung der Aufgabe.",
@@ -70,6 +70,5 @@
             "text": "Gut gemacht!\n\nDu hast das Tutorial erfolgreich abgeschlossen!\n\n\nDrücke auf 'Abschließen', um deine Punkte zu erhalten.\n\n\nPunkte zeigen anderen Rallye-Teilnehmern an, wie gut du bist.\n\n\nSchwierigere Aufgaben geben mehr Punkte.\n\n\nViel Glück und viel Spaß bei der FH-Aachen Rallye!",
             "isLast": true
         }
-    ],
-    "image": null
+    ]
 }

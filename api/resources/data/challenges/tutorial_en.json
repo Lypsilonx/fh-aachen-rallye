@@ -3,9 +3,9 @@
     "title": "Tutorial",
     "language": "en",
     "difficulty": 0,
-    "tags": "Test tag, Second test tag",
     "duration": 1,
     "category": "tutorial",
+    "unlock_id": "tutorial",
     "points": 10,
     "descriptionStart": "Welcome to the FH-Aachen Rallye!\n\nIn this tutorial you will learn how to use the app, find and solve challenges.",
     "descriptionEnd": "At the end of the tutorial you will receive a small summary of the challenge.",
@@ -70,6 +70,5 @@
             "text": "Well done!\n\nYou have completed the tutorial.\n\n\nPress 'Finish' to collect your points.\n\n\nPoints show other rally participants how good you are at solving challenges.\nMore difficult challenges give you more points.\n\n\nGood luck and have fun with the FH-Aachen Rallye!",
             "isLast": true
         }
-    ],
-    "image": null
+    ]
 }
