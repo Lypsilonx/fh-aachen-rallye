@@ -1,0 +1,22 @@
+{
+    "challenge_id": "resistors",
+    "title": "Widerstände",
+    "language": "de",
+    "difficulty": 2,
+    "duration": 2,
+    "category": "electricalEngineering",
+    "points": 40,
+    "descriptionStart": "Was genau ist ein Widerstand?\n\nIn dieser Aufgabe lernst du die Grundlagen der Widerstände kennen.",
+    "descriptionEnd": "Du verstahst nun wie Widerstände funktionieren und wie sie in Schaltkreisen eingesetzt werden!",
+    "steps": [
+        {
+            "type": "say",
+            "text": ""
+        },
+        {
+            "type": "say",
+            "text": "",
+            "isLast": true
+        }
+    ]
+}

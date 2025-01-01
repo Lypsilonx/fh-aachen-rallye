@@ -5,7 +5,7 @@
     "difficulty": 1,
     "duration": 1,
     "category": "electricalEngineering",
-
+    "lock_id": "es_basics",
     "points": 20,
     "descriptionStart": "Das coulombsche Gesetz beschreibt das Verhältnis zweier Punktladungen zueinander.\n\nSchaffst du es, das Gesetz zu verstehen?",
     "descriptionEnd": "Du weißt jetzt, was das coulombsche Gesetz ist und wie es angewendet wird.",

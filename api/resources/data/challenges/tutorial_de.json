@@ -34,7 +34,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Andere Aufgaben erfordern, dass du eine Antwort eingibst.\n\n\nSchreibe 'FH-Aachen Rallye' in das Textfeld und drücke auf 'Weiter', um fortzufahren.",
+            "text": "Andere Aufgaben erfordern, dass du eine Antwort eingibst.\n\n\nSchreibe 'FH-Aachen Rallye' in das Textfeld und drücke auf 'Senden', um fortzufahren.",
             "correctAnswer": "FH-Aachen Rallye",
             "indexOnIncorrect": 2,
             "next": 3

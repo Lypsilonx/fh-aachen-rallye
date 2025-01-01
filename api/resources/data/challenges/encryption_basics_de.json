@@ -1,0 +1,22 @@
+{
+    "challenge_id": "encryption_basics",
+    "title": "Grunlagen der Verschlüsselung",
+    "language": "de",
+    "difficulty": 1,
+    "duration": 1,
+    "category": "maths",
+    "points": 20,
+    "descriptionStart": "Wo findet sich Verschlüsselung im Alltag wieder?\n\nIn dieser Aufgabe lernst du die Grundlagen der Verschlüsselung kennen.",
+    "descriptionEnd": "Du hast die Grundlagen der Verschlüsselung kennengelernt!",
+    "steps": [
+        {
+            "type": "say",
+            "text": "Verschlüsselung ist wichtig für eine effiziente und sichere Kommunikation"
+        },
+        {
+            "type": "say",
+            "text": "",
+            "isLast": true
+        }
+    ]
+}

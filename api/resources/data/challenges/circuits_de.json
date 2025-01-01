@@ -1,0 +1,22 @@
+{
+    "challenge_id": "circuits",
+    "title": "Elektronische Schaltkreise",
+    "language": "de",
+    "difficulty": 2,
+    "duration": 2,
+    "category": "electricalEngineering",
+    "points": 40,
+    "descriptionStart": "Wie fließt der Strom durch einen Schaltkreis?\n\nIn dieser Aufgabe lernst du die Grundlagen der elektronischen Schaltkreise kennen.",
+    "descriptionEnd": "Du kannst dir jetzt vorstellen wie ein elektronischer Schaltkreis funktioniert!",
+    "steps": [
+        {
+            "type": "say",
+            "text": ""
+        },
+        {
+            "type": "say",
+            "text": "",
+            "isLast": true
+        }
+    ]
+}

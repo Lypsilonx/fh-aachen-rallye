@@ -1,0 +1,23 @@
+{
+    "challenge_id": "fh_labs",
+    "title": "Labore der FH Aachen",
+    "language": "de",
+    "difficulty": 3,
+    "duration": 3,
+    "category": "general",
+    "tags": "Outdoor",
+    "points": 200,
+    "descriptionStart": "Wer arbeitet in welchem Labor an was? Findest du es heraus?",
+    "descriptionEnd": "Du hast die Labore der FH Aachen kennengelernt!",
+    "steps": [
+        {
+            "type": "say",
+            "text": ""
+        },
+        {
+            "type": "say",
+            "text": "",
+            "isLast": true
+        }
+    ]
+}

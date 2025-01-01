@@ -22,7 +22,7 @@
         },
         {
             "type": "options",
-            "text": "Die  **Gesamtfeldstärke**  einer  aus  mehreren  Ladungen  bestehenden  Anordnung ergibt sich durch *multiplikation* der Beiträge der Einzelladungen.",
+            "text": "Die **Gesamtfeldstärke** einer aus mehreren Ladungen bestehenden Anordnung ergibt sich durch *multiplikation* der Beiträge der Einzelladungen.",
             "options": "{ \"Wahr\": 1, \"Falsch\": 2 }"
         },
         {
@@ -42,7 +42,7 @@
         },
         {
             "type": "options",
-            "text": "Ladungen  *unterschiedlichen*  Vorzeichens  stoßen  sich  gegenseitig  ab.",
+            "text": "Ladungen *unterschiedlichen* Vorzeichens stoßen sich gegenseitig ab.",
             "options": "{ \"Wahr\": 1, \"Falsch\": 2 }"
         },
         {

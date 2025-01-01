@@ -65,8 +65,8 @@
         "en": "Electrical engineering problems and puzzles.",
         "de": "Elektrotechnische Probleme und Rätsel."
     },
-    "CATEGORY_MATH": { "en": "Math", "de": "Mathematik" },
-    "CATEGORY_MATH_DESCRIPTION": {
+    "CATEGORY_MATHS": { "en": "Math", "de": "Mathematik" },
+    "CATEGORY_MATHS_DESCRIPTION": {
         "en": "Mathematical problems and puzzles.",
         "de": "Mathematische Probleme und Rätsel."
     },
