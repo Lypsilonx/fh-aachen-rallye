@@ -12,7 +12,7 @@
     "steps": [
         {
             "type": "options",
-            "text": "Das coulombsche Gesetz oder Coulomb-Gesetz ist die Basis der ______.",
+            "text": "Das coulombsche Gesetz oder Coulomb-Gesetz ist die Basis der ____.",
             "options": "{ \"Elektrostatik\": 2, \"Elektrodynamik\": 1, \"Elektronik\": 1 }"
         },
         {

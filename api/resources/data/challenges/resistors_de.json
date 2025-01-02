@@ -10,8 +10,82 @@
     "descriptionEnd": "Du verstahst nun wie Widerstände funktionieren und wie sie in Schaltkreisen eingesetzt werden!",
     "steps": [
         {
+            "type": "options",
+            "text": "Ein Widerstand wird in der Einheit ____ gemessen.",
+            "options": "{ \"Ohm\": 0, \"Volt\": 1, \"Ampere\": 1, \"Watt\": 1 }",
+            "alternatives": "2,4,6s8"
+        },
+        {
             "type": "say",
-            "text": ""
+            "text": "Das ist leider falsch.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "Strom fließt immer ____.",
+            "options": "{ \"entlang des kürzeren Weges\": 1, \"entlang des längeren Weges\": 1, \"entlang des Weges mit dem geringsten Widerstand\": 0, \"entlang des Weges mit dem größten Widerstand\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "Ein Widerstand in einem Schaltkreis wird durch ein Symbol dargestellt, das einem ____ ähnelt.",
+            "options": "{ \"Rechteck\": 0, \"Kreis\": 1, \"Dreieck\": 1, \"Quadrat\": 0 }"
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "Widerstände werden in Schaltkreisen verwendet, um ____ zu steuern",
+            "options": "{ \"den Stromfluss\": 0, \"die Spannung\": 1, \"die Leistung\": 1, \"die Energie\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Wie viel Ohm hat dieser Widerstand?\n\n\n![Widerstand](resistors/resistor_0.42.png)",
+            "correctAnswer": "0.42",
+            "indexOnIncorrect": 1,
+            "next": 6,
+            "alternatives": "2,4"
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Wie viel Ohm hat dieser Widerstand?\n\n\n![Widerstand](resistors/resistor_420.png)",
+            "correctAnswer": "420",
+            "indexOnIncorrect": 1,
+            "next": 4
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Wie viel Ohm hat dieser Widerstand?\n\n\n![Widerstand](resistors/resistor_69.png)",
+            "correctAnswer": "69",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch.",
+            "next": -1
         },
         {
             "type": "say",
