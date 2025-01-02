@@ -66,7 +66,9 @@ class UserController extends Controller
                 $challengeStates = json_decode($challengeStates, true);
             }
 
-            foreach ($challengeStates as $challenge_id => $step) {
+            foreach ($challengeStates as $challenge_id => $challengeState) {
+                $step = $challengeState['step'];
+
                 if ($step === -2) {
                     $previousStep = $user->challengeStates()->where('challenge_id', $challenge_id)->where('user_id', $user->id)->first();
                     if (!$step) {
@@ -84,7 +86,9 @@ class UserController extends Controller
                         'user_id' => $user->id
                     ],
                     [
-                        'step' => $step
+                        'step' => $step,
+                        'shuffleSource' => $challengeState['shuffleSource'],
+                        'shuffleTargets' => $challengeState['shuffleTargets']
                     ]
                 );
             }

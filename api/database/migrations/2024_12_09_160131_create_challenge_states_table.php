@@ -15,6 +15,8 @@ return new class extends Migration {
             $table->foreignUuid('user_id')->constrained('users', 'id')->onDelete('cascade');
             $table->string('challenge_id', 255)->constrained('challenges', 'challenge_id')->onDelete('cascade');
             $table->integer('step');
+            $table->integer('shuffleSource')->nullable();
+            $table->string('shuffleTargets')->nullable();
             $table->timestamps();
         });
     }
