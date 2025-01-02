@@ -19,6 +19,8 @@ class ChallengeStateResource extends JsonResource
             'challenge_id' => $this->challenge_id,
             'user_id' => $this->user_id,
             'step' => $this->step,
+            'shuffleSource' => $this->shuffleSource,
+            'shuffleTargets' => $this->shuffleTargets,
         ];
     }
 }

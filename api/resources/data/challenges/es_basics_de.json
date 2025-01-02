@@ -13,7 +13,8 @@
         {
             "type": "options",
             "text": "Elektrische Ladungen sind immer ein vielfaches der **Elementarladung**.",
-            "options": "{ \"Wahr\": 2, \"Falsch\": 1 }"
+            "options": "{ \"Wahr\": 0, \"Falsch\": 1 }",
+            "alternatives": "2,4,6s8"
         },
         {
             "type": "say",
@@ -23,7 +24,7 @@
         {
             "type": "options",
             "text": "Die **Gesamtfeldstärke** einer aus mehreren Ladungen bestehenden Anordnung ergibt sich durch *multiplikation* der Beiträge der Einzelladungen.",
-            "options": "{ \"Wahr\": 1, \"Falsch\": 2 }"
+            "options": "{ \"Wahr\": 1, \"Falsch\": 0 }"
         },
         {
             "type": "say",
@@ -33,7 +34,7 @@
         {
             "type": "options",
             "text": "In einem *abgeschlossenen* System ist die Summe der Ladungen stets konstant.",
-            "options": "{ \"Wahr\": 2, \"Falsch\": 1 }"
+            "options": "{ \"Wahr\": 0, \"Falsch\": 1 }"
         },
         {
             "type": "say",
@@ -43,7 +44,7 @@
         {
             "type": "options",
             "text": "Ladungen *unterschiedlichen* Vorzeichens stoßen sich gegenseitig ab.",
-            "options": "{ \"Wahr\": 1, \"Falsch\": 2 }"
+            "options": "{ \"Wahr\": 1, \"Falsch\": 0 }"
         },
         {
             "type": "say",

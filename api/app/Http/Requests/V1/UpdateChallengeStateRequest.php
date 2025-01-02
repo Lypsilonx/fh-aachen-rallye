@@ -34,12 +34,16 @@ class UpdateChallengeStateRequest extends FormRequest
                 'challenge_id' => ['required', 'string', 'max:255'],
                 'user_id' => ['required', 'uuid', 'exists:users,id'],
                 'step' => ['required', 'integer'],
+                'shuffleSource' => ['nullable', 'integer'],
+                'shuffleTargets' => ['nullable', 'string'],
             ];
         } else {
             return [
                 'challenge_id' => ['sometimes', 'required', 'string', 'max:255'],
                 'user_id' => ['sometimes', 'required', 'uuid', 'exists:users,id'],
                 'step' => ['sometimes', 'required', 'integer'],
+                'shuffleSource' => ['sometimes', 'nullable', 'integer'],
+                'shuffleTargets' => ['sometimes', 'nullable', 'string'],
             ];
         }
     }
