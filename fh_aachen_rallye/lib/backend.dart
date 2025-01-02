@@ -131,12 +131,12 @@ class Backend {
 
   // TEMP
   static Future<String> setChallengeState(
-      String challengeId, int currentStep) async {
-    state.user!.challengeStates[challengeId] = currentStep;
+      String challengeId, ChallengeState challengeState) async {
+    state.user!.challengeStates[challengeId] = challengeState;
 
     var message = await Backend.patch(state.user!,
         {'challengeStates': jsonEncode(state.user!.challengeStates)});
-    if (currentStep == -2) {
+    if (challengeState.step == -2) {
       Backend.fetch<Challenge>('all');
     }
 

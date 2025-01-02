@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
+import 'package:fh_aachen_rallye/data/user.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/translator.dart';
 import 'package:flutter/material.dart';
@@ -25,21 +26,50 @@ class Challenge extends ServerObject {
     }
 
     var user = Backend.state.user!;
-    int challengeState = user.challengeStates[challengeId] ?? -1;
+    ChallengeState? challengeState = user.challengeStates[challengeId];
 
-    if (challengeState == -1) {
+    if (challengeState == null) {
       return 0;
-    } else if (challengeState == -2) {
+    }
+
+    if (challengeState.step == -1) {
+      return 0;
+    } else if (challengeState.step == -2) {
       return 1;
     }
 
-    // get progress from just steps that have non negative or null "next"
     int totalSteps = steps
         .where((element) => element.next == null || element.next! >= 0)
         .length;
 
+    if (challengeState.shuffleSource != null) {
+      ChallengeStep cStep = steps[challengeState.shuffleSource!];
+      int completedStepsBeforeShuffle = steps
+          .take(challengeState.shuffleSource!)
+          .where((element) => element.next == null || element.next! >= 0)
+          .length;
+
+      int completedStepsAfterShuffle = steps
+          .take(cStep.shuffleExit!)
+          .where((element) => element.next == null || element.next! >= 0)
+          .length;
+
+      double shuffleProgress = 1 -
+          (challengeState.shuffleTargets.length /
+              (cStep.alternativesInt.length + 1));
+
+      print(
+          "${challengeState.shuffleTargets.length} / ${cStep.alternativesInt.length + 1}");
+      print(shuffleProgress);
+
+      return (completedStepsBeforeShuffle +
+              (completedStepsAfterShuffle - completedStepsBeforeShuffle) *
+                  shuffleProgress) /
+          totalSteps;
+    }
+
     int completedSteps = steps
-        .take(challengeState + 1)
+        .take(challengeState.step + 1)
         .where((element) => element.next == null || element.next! >= 0)
         .length;
 
@@ -198,10 +228,38 @@ class ChallengeCategory {
 abstract class ChallengeStep {
   final String text;
   final int? next;
-  final List<int>? alternatives;
+  final String? alternatives;
   final bool isLast;
 
   final bool hasNextButton;
+
+  List<int> get alternativesInt {
+    if (alternatives == null) {
+      return [];
+    }
+
+    String alternativesWithoutShuffle = alternatives!.contains("s")
+        ? alternatives!.substring(0, alternatives!.indexOf("s"))
+        : alternatives!;
+
+    return alternativesWithoutShuffle.split(',').map(int.parse).toList();
+  }
+
+  bool get shuffleAlternatives {
+    return alternatives != null && alternatives!.contains("s");
+  }
+
+  int? get shuffleExit {
+    if (alternatives == null) {
+      return null;
+    }
+
+    if (alternatives!.contains("s")) {
+      return int.parse(alternatives!.substring(alternatives!.indexOf("s") + 1));
+    } else {
+      return null;
+    }
+  }
 
   const ChallengeStep(this.text,
       {this.next,
@@ -253,7 +311,7 @@ class ChallengeStepSay extends ChallengeStep {
       'type': 'say',
       'text': text,
       'next': next,
-      'alternatives': alternatives?.map((e) => e.toString()).join(','),
+      'alternatives': alternatives,
       'isLast': isLast,
     };
   }
@@ -263,8 +321,7 @@ class ChallengeStepSay extends ChallengeStep {
       json['text'] as String,
       next: json['next'] as int?,
       isLast: json['isLast'] as int == 1,
-      alternatives:
-          (json['alternatives'] as String?)?.split(',').map(int.parse).toList(),
+      alternatives: (json['alternatives'] as String?),
     );
   }
 }
@@ -286,7 +343,7 @@ class ChallengeStepOptions extends ChallengeStep {
       'text': text,
       'options': jsonEncode(options),
       'next': next,
-      'alternatives': alternatives?.map((e) => e.toString()).join(','),
+      'alternatives': alternatives,
       'isLast': isLast,
     };
   }
@@ -297,8 +354,7 @@ class ChallengeStepOptions extends ChallengeStep {
       (jsonDecode(json['options'] as String) as Map<String, dynamic>)
           .map((key, value) => MapEntry(key, value)),
       next: json['next'] as int?,
-      alternatives:
-          (json['alternatives'] as String?)?.split(',').map(int.parse).toList(),
+      alternatives: (json['alternatives'] as String?),
       isLast: json['isLast'] as int == 1,
     );
   }
@@ -324,7 +380,7 @@ class ChallengeStepStringInput extends ChallengeStep {
       'correctAnswer': correctAnswer,
       'indexOnIncorrect': indexOnIncorrect,
       'next': next,
-      'alternatives': alternatives?.map((e) => e.toString()).join(','),
+      'alternatives': alternatives,
       'isLast': isLast,
     };
   }
@@ -335,8 +391,7 @@ class ChallengeStepStringInput extends ChallengeStep {
       json['correctAnswer'] as String,
       json['indexOnIncorrect'] as int,
       next: json['next'] as int?,
-      alternatives:
-          (json['alternatives'] as String?)?.split(',').map(int.parse).toList(),
+      alternatives: (json['alternatives'] as String?),
       isLast: json['isLast'] as int == 1,
     );
   }
@@ -359,7 +414,7 @@ class ChallengeStepScan extends ChallengeStep {
       'text': text,
       'correctAnswer': correctAnswer,
       'next': next,
-      'alternatives': alternatives?.map((e) => e.toString()).join(','),
+      'alternatives': alternatives,
       'isLast': isLast,
     };
   }
@@ -369,8 +424,7 @@ class ChallengeStepScan extends ChallengeStep {
       json['text'] as String,
       json['correctAnswer'] as String,
       next: json['next'] as int?,
-      alternatives:
-          (json['alternatives'] as String?)?.split(',').map(int.parse).toList(),
+      alternatives: (json['alternatives'] as String?),
       isLast: json['isLast'] as int == 1,
     );
   }

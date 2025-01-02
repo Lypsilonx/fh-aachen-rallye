@@ -3,7 +3,7 @@ import 'package:fh_aachen_rallye/data/server_object.dart';
 class User extends ServerObject {
   final String username;
   int points;
-  final Map<String, int> challengeStates;
+  final Map<String, ChallengeState> challengeStates;
   final String? displayName;
 
   User(super.id, this.username, this.points, this.challengeStates,
@@ -27,7 +27,9 @@ class User extends ServerObject {
       'id': id,
       'username': username,
       'points': points,
-      'challengeStates': challengeStates,
+      'challengeStates': challengeStates.map(
+        (key, value) => MapEntry(key, value.toJson()),
+      ),
       'displayName': displayName,
     };
   }
@@ -40,9 +42,37 @@ class User extends ServerObject {
       {
         for (var item in json['challengeStates'] as List)
           (item as Map<String, dynamic>)['challenge_id'] as String:
-              (item)['step'] as int
+              ChallengeState.fromJson(item),
       },
       displayName: json['displayName'] as String?,
     );
+  }
+}
+
+class ChallengeState {
+  final int step;
+  final int? shuffleSource;
+  final List<int> shuffleTargets;
+
+  ChallengeState(this.step, this.shuffleSource, this.shuffleTargets);
+
+  factory ChallengeState.fromJson(Map<String, dynamic> json) {
+    return ChallengeState(
+        json['step'] as int,
+        json['shuffleSource'] as int?,
+        json['shuffleTargets'] == null || json['shuffleTargets'] == ''
+            ? []
+            : (json['shuffleTargets'] as String)
+                .split(',')
+                .map(int.parse)
+                .toList());
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'step': step,
+      'shuffleSource': shuffleSource,
+      'shuffleTargets': shuffleTargets.join(','),
+    };
   }
 }

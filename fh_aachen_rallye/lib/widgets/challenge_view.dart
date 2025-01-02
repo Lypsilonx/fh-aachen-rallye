@@ -33,7 +33,11 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
   bool get isCompleted => currentStep == -2;
   bool get isNew => currentStep == -1;
 
-  var options = [];
+  List<String> options = [];
+
+  int? shuffleSource;
+  int? shuffleExit;
+  List<int> shuffleTargets = [];
 
   final ScrollController scrollController = ScrollController();
 
@@ -57,8 +61,15 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
         challenge = object;
       });
     } else if (object is User) {
+      ChallengeState? challengeState =
+          object.challengeStates[challenge.challengeId];
       setState(() {
-        currentStep = object.challengeStates[challenge.challengeId] ?? -1;
+        currentStep = challengeState?.step ?? -1;
+        shuffleSource = challengeState?.shuffleSource;
+        if (shuffleSource != null) {
+          shuffleExit = challenge.steps[shuffleSource!].shuffleExit;
+        }
+        shuffleTargets = challengeState?.shuffleTargets ?? [];
       });
     }
   }
@@ -75,15 +86,37 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
     }
   }
 
-  void gotoStep(int step) {
+  void gotoStep(int step, {bool shuffle = false}) {
     if (!(step < 0 || step >= challenge.steps.length)) {
       ChallengeStep challengeStep = challenge.steps[step];
+
       if (challengeStep.alternatives != null &&
           challengeStep.alternatives!.isNotEmpty) {
-        // Randomly select one of the alternatives or the original step
-        var possibleSteps =
-            ([step, ...challengeStep.alternatives!]).toSet().toList();
-        step = possibleSteps[Random().nextInt(possibleSteps.length)];
+        if (challengeStep.shuffleAlternatives) {
+          if (shuffleExit == null) {
+            shuffleSource = step;
+            shuffleExit = challengeStep.shuffleExit;
+            shuffleTargets =
+                ([step, ...challengeStep.alternativesInt]).toSet().toList();
+            shuffle = true;
+          }
+        } else {
+          // Randomly select one of the alternatives or the original step
+          var possibleSteps =
+              ([step, ...challengeStep.alternativesInt]).toSet().toList();
+          step = possibleSteps[Random().nextInt(possibleSteps.length)];
+        }
+      }
+
+      if (shuffle && shuffleExit != null) {
+        if (shuffleTargets.isEmpty) {
+          step = shuffleExit!;
+          shuffleSource = null;
+          shuffleExit = null;
+        } else {
+          step = shuffleTargets[Random().nextInt(shuffleTargets.length)];
+          shuffleTargets.remove(step);
+        }
       }
     }
 
@@ -91,12 +124,13 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
       options = [];
       scrollController.jumpTo(0);
       currentStep = step;
-      Backend.setChallengeState(challenge.challengeId, currentStep);
+      Backend.setChallengeState(challenge.challengeId,
+          ChallengeState(currentStep, shuffleSource, shuffleTargets));
     });
   }
 
   void proceedStep(int step) {
-    gotoStep(currentStep + step);
+    gotoStep(currentStep + step, shuffle: step == 0);
   }
 
   @override
