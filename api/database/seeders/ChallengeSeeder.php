@@ -14,8 +14,8 @@ class ChallengeSeeder extends Seeder
      */
     public function run(): void
     {
-        // load challenges from resources/data/challenges/<challenge>.json
-        $files = File::files(base_path('resources/data/challenges'));
+        // load challenges from resources/data/challenges/(<subfolders>/)?<challenge>.json
+        $files = File::allFiles(base_path('resources/data/challenges'));
 
         foreach ($files as $file) {
             $challengeJson = json_decode(File::get($file), true);

@@ -1,0 +1,22 @@
+{
+    "challenge_id": "ee_logos",
+    "title": "Elektrotechnik Logos",
+    "language": "de",
+    "difficulty": 2,
+    "duration": 2,
+    "category": "electricalEngineering",
+    "points": 50,
+    "descriptionStart": "Erkennst du diese Logos von Elektrotechnik-Unternehmen?",
+    "descriptionEnd": "Du hast alle Logos erkannt!",
+    "steps": [
+        {
+            "type": "say",
+            "text": ""
+        },
+        {
+            "type": "say",
+            "text": "",
+            "isLast": true
+        }
+    ]
+}
