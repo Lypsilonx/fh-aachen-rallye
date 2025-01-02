@@ -97,14 +97,14 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
             shuffleSource = step;
             shuffleExit = challengeStep.shuffleExit;
             shuffleTargets =
-                ([step, ...challengeStep.alternativesInt]).toSet().toList();
+                ([0, ...challengeStep.alternativesInt]).toSet().toList();
             shuffle = true;
           }
         } else {
           // Randomly select one of the alternatives or the original step
           var possibleSteps =
-              ([step, ...challengeStep.alternativesInt]).toSet().toList();
-          step = possibleSteps[Random().nextInt(possibleSteps.length)];
+              ([0, ...challengeStep.alternativesInt]).toSet().toList();
+          step = possibleSteps[Random().nextInt(possibleSteps.length)] + step;
         }
       }
 
@@ -114,8 +114,9 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
           shuffleSource = null;
           shuffleExit = null;
         } else {
-          step = shuffleTargets[Random().nextInt(shuffleTargets.length)];
-          shuffleTargets.remove(step);
+          step = shuffleTargets[Random().nextInt(shuffleTargets.length)] +
+              shuffleSource!;
+          shuffleTargets.remove(step - shuffleSource!);
         }
       }
     }

@@ -238,6 +238,12 @@ class MdText extends StatelessWidget {
   }
 }
 
+extension AdvancedListInt on Iterable<int> {
+  int sum() {
+    return fold(0, (a, b) => a + b);
+  }
+}
+
 extension Intersperse<T> on Iterable<T> {
   Iterable<T> intersperse(T separator) sync* {
     var iterator = this.iterator;

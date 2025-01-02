@@ -38,29 +38,32 @@ class Challenge extends ServerObject {
       return 1;
     }
 
-    int totalSteps = steps
-        .where((element) => element.next == null || element.next! >= 0)
-        .length;
+    List<int> stepValues = steps
+        .map((element) => (element.next == null || element.next! >= 0) ? 1 : 0)
+        .toList();
+
+    for (int i = 0; i < steps.length; i++) {
+      ChallengeStep cStep = steps[i];
+      if (cStep.alternativesInt.isNotEmpty && !cStep.shuffleAlternatives) {
+        for (int alternative in cStep.alternativesInt) {
+          stepValues[alternative + i] = 0;
+        }
+      }
+    }
+
+    int totalSteps = stepValues.sum();
 
     if (challengeState.shuffleSource != null) {
       ChallengeStep cStep = steps[challengeState.shuffleSource!];
-      int completedStepsBeforeShuffle = steps
-          .take(challengeState.shuffleSource!)
-          .where((element) => element.next == null || element.next! >= 0)
-          .length;
+      int completedStepsBeforeShuffle =
+          stepValues.take(challengeState.shuffleSource!).sum();
 
-      int completedStepsAfterShuffle = steps
-          .take(cStep.shuffleExit!)
-          .where((element) => element.next == null || element.next! >= 0)
-          .length;
+      int completedStepsAfterShuffle =
+          stepValues.take(cStep.shuffleExit!).sum();
 
       double shuffleProgress = 1 -
           (challengeState.shuffleTargets.length /
               (cStep.alternativesInt.length + 1));
-
-      print(
-          "${challengeState.shuffleTargets.length} / ${cStep.alternativesInt.length + 1}");
-      print(shuffleProgress);
 
       return (completedStepsBeforeShuffle +
               (completedStepsAfterShuffle - completedStepsBeforeShuffle) *
@@ -68,10 +71,7 @@ class Challenge extends ServerObject {
           totalSteps;
     }
 
-    int completedSteps = steps
-        .take(challengeState.step + 1)
-        .where((element) => element.next == null || element.next! >= 0)
-        .length;
+    int completedSteps = stepValues.take(challengeState.step + 1).sum();
 
     return completedSteps / totalSteps;
   }
