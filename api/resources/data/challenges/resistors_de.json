@@ -88,8 +88,18 @@
             "next": -1
         },
         {
+            "type": "options",
+            "text": "Was muss wahr sein, damit in der folgenden Schaltung $D_1$ und $D_2$ abwechselnd leuchten?\n\n\n![Astabile Kippschaltung](resistors/astable_multivibrator.png)",
+            "options": "{ \"$R_2 > R_1$\": 2, \"$R_2 < R_1$\": 1, \"$R_2 = R_1$\": 1, \"Es ist egal, wie groß $R_1$ und $R_2$ sind\": 1 }"
+        },
+        {
             "type": "say",
-            "text": "",
+            "text": "Das ist leider falsch.",
+            "next": -1
+        },
+        {
+            "type": "say",
+            "text": "Du verstahst nun wie Widerstände funktionieren und wie sie in Schaltkreisen eingesetzt werden!",
             "isLast": true
         }
     ]

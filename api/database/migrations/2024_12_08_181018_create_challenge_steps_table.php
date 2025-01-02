@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->boolean('isLast');
 
             // ChallengeStepOptions
-            $table->string('options')->nullable();
+            $table->string('options', 2048)->nullable();
 
             // ChallengeStepStringInput
             $table->string('correctAnswer')->nullable();
