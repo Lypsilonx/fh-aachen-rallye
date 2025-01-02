@@ -40,6 +40,7 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
   List<int> shuffleTargets = [];
 
   final ScrollController scrollController = ScrollController();
+  final TextEditingController stringInputController = TextEditingController();
 
   @override
   void initState() {
@@ -100,11 +101,6 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
                 ([0, ...challengeStep.alternativesInt]).toSet().toList();
             shuffle = true;
           }
-        } else {
-          // Randomly select one of the alternatives or the original step
-          var possibleSteps =
-              ([0, ...challengeStep.alternativesInt]).toSet().toList();
-          step = possibleSteps[Random().nextInt(possibleSteps.length)] + step;
         }
       }
 
@@ -118,12 +114,24 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
               shuffleSource!;
           shuffleTargets.remove(step - shuffleSource!);
         }
+        challengeStep = challenge.steps[step];
+      }
+
+      if (challengeStep.alternatives != null &&
+          challengeStep.alternatives!.isNotEmpty) {
+        if (!challengeStep.shuffleAlternatives) {
+          // Randomly select one of the alternatives or the original step
+          var possibleSteps =
+              ([0, ...challengeStep.alternativesInt]).toSet().toList();
+          step = possibleSteps[Random().nextInt(possibleSteps.length)] + step;
+        }
       }
     }
 
     setState(() {
       options = [];
       scrollController.jumpTo(0);
+      stringInputController.clear();
       currentStep = step;
       Backend.setChallengeState(challenge.challengeId,
           ChallengeState(currentStep, shuffleSource, shuffleTargets));
@@ -355,9 +363,11 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
                                                     ),
                                                   ],
                                                 ),
-                                              const SizedBox(
-                                                  height: Sizes.small),
-                                              Helpers.displayTags(challenge),
+                                              if (isNew)
+                                                const SizedBox(
+                                                    height: Sizes.small),
+                                              if (isNew)
+                                                Helpers.displayTags(challenge),
                                             ],
                                           ),
                                         ),
@@ -411,6 +421,8 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
                                               Column(
                                                 children: [
                                                   FunTextInput(
+                                                    controller:
+                                                        stringInputController,
                                                     submitButton:
                                                         translate('SUBMIT'),
                                                     onSubmitted: (value) {
@@ -514,7 +526,6 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
     text = text.replaceAllMapped(RegExp(r'!\[([^\]]*)\]\(([^)]*)\)'), (match) {
       return '![${match.group(1)}](${Backend.url}/api/resources/data/images/${match.group(2)})';
     });
-
     return Container(
       width: double.infinity,
       alignment: Alignment.centerLeft,
