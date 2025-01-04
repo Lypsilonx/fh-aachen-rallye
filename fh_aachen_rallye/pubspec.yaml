@@ -27,9 +27,13 @@ flutter:
   assets:
     - assets/background_1.png
 
-fonts:
-  - family: Josefin Sans
-    fonts:
-      - asset: fonts/JosefinSans-VariableFont_wght.ttf
-      - asset: fonts/JosefinSans-Italic-VariableFont_wght.ttf
-        style: italic
+  fonts:
+    - family: JosefinSans
+      fonts:
+        - asset: fonts/JosefinSans-VariableFont_wght.ttf
+          weight: 700
+        - asset: fonts/JosefinSans-Italic-VariableFont_wght.ttf
+          style: italic
+    - family: Futura
+      fonts:
+        - asset: fonts/Futura.ttc

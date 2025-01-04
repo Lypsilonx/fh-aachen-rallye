@@ -171,9 +171,9 @@ extension AdvancedColor on Color {
 
   Color modifySaturation(double saturation) {
     HSLColor hsl = HSLColor.fromColor(this);
-    if (blue == green && green == red) {
+    if (b == g && g == r) {
       int value = (255 * saturation).toInt();
-      return Color.fromARGB(alpha, value, value, value);
+      return Color.fromARGB((a * 255).round(), value, value, value);
     }
 
     return hsl.withSaturation(hsl.saturation * saturation).toColor();
@@ -182,8 +182,7 @@ extension AdvancedColor on Color {
   Color inverted() {
     HSLColor hsl = HSLColor.fromColor(this);
     double hue = (hsl.hue + 180) % 360;
-    return HSLColor.fromAHSL(opacity, hue, hsl.saturation, hsl.lightness)
-        .toColor();
+    return HSLColor.fromAHSL(a, hue, hsl.saturation, hsl.lightness).toColor();
   }
 }
 
@@ -207,7 +206,14 @@ class Sizes {
 class Styles {
   static const TextStyle body = TextStyle(
     fontSize: Sizes.fontSizeSmall,
-    fontFamily: 'Josefin Sans',
+    fontFamily: 'JosefinSans',
+    fontWeight: FontWeight.normal,
+    fontVariations: [
+      FontVariation(
+        'wght',
+        500,
+      ),
+    ],
   );
 
   static TextStyle bodyLarge = Styles.body.copyWith(
@@ -220,10 +226,22 @@ class Styles {
 
   static TextStyle subtitle = Styles.body.copyWith(
     fontWeight: FontWeight.bold,
+    fontVariations: [
+      const FontVariation(
+        'wght',
+        900,
+      ),
+    ],
   );
 
   static TextStyle h2 = Styles.body.copyWith(
     fontWeight: FontWeight.bold,
+    fontVariations: [
+      const FontVariation(
+        'wght',
+        900,
+      ),
+    ],
     fontFamily: 'Futura',
     fontSize: Sizes.fontSizeMedium,
   );
