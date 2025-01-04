@@ -20,13 +20,24 @@ class ChallengeSeeder extends Seeder
         foreach ($files as $file) {
             $challengeJson = json_decode(File::get($file), true);
 
+            $tags = $challengeJson['tags'] ?? null;
+
+            $subfolder = $file->getRelativePath();
+            if ($subfolder !== "") {
+                if ($tags === null) {
+                    $tags = $subfolder;
+                } else {
+                    $tags .= ",$subfolder";
+                }
+            }
+
             $challenge = Challenge::create([
                 'id' => \Ramsey\Uuid\Uuid::uuid4(),
                 'challenge_id' => $challengeJson['challenge_id'],
                 'title' => $challengeJson['title'],
                 'language' => $challengeJson['language'],
                 'difficulty' => $challengeJson['difficulty'],
-                'tags' => $challengeJson['tags'] ?? null,
+                'tags' => $tags,
                 'duration' => $challengeJson['duration'],
                 'lock_id' => $challengeJson['lock_id'] ?? null,
                 'unlock_id' => $challengeJson['unlock_id'] ?? null,
