@@ -124,9 +124,13 @@ class SubscriptionManager {
       var id = update.split(':')[1];
 
       if (type == 'Challenge') {
-        Backend.fetch<Challenge>(id);
+        if (Backend.state.user != null) {
+          Backend.fetch<Challenge>(id);
+        }
       } else if (type == 'User') {
-        Backend.fetch<User>(id);
+        if (Backend.state.user != null) {
+          Backend.fetch<User>(id);
+        }
       } else if (type == 'Translation') {
         Backend.fetch<Translation>(id);
       }
