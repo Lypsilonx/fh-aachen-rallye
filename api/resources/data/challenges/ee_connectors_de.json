@@ -24,7 +24,7 @@
         },
         {
             "type": "options",
-            "text": "Welche Funktion hat BNC?",
+            "text": "![Stecker](ee_connectors/BNC.png)\n\n\nWelche Funktion hat BNC?",
             "options": "{ \"Radio- & Videosignale\": 0, \"Audiosignale\": 1, \"Stromversorgung\": 1 }"
         },
         {
@@ -46,7 +46,7 @@
         },
         {
             "type": "options",
-            "text": "Welche Funktion hat DIN?",
+            "text": "![Stecker](ee_connectors/DIN.png)\n\n\nWelche Funktion hat DIN?",
             "options": "{ \"Video-, Audio- oder MIDI-Signale\": 0, \"Ethernet und lokale Netzwerke\": 1, \"Hochspannungsversorgung\": 1 }"
         },
         {
@@ -68,7 +68,7 @@
         },
         {
             "type": "options",
-            "text": "Welche Funktion hat RCA?",
+            "text": "![Stecker](ee_connectors/RCA.png)\n\n\nWelche Funktion hat RCA/Chinch?",
             "options": "{ \"Audio- & Videosignale\": 0, \"Synchronisierung von Systemen\": 1, \"Serielles Interface\": 1 }"
         },
         {
@@ -90,7 +90,7 @@
         },
         {
             "type": "options",
-            "text": "Wofur wird der SMA-Stecker verwendet?",
+            "text": "![Stecker](ee_connectors/SMA.png)\n\n\nWofur wird der SMA-Stecker verwendet?",
             "options": "{ \"Antennen & Mikrowellensysteme\": 0, \"High Fidelity Audio\": 1, \"Stromversorgung\": 1 }"
         },
         {
@@ -112,7 +112,7 @@
         },
         {
             "type": "options",
-            "text": "Wofur wird der TNC-Stecker verwendet?",
+            "text": "![Stecker](ee_connectors/TNC.png)\n\n\nWofur wird der TNC-Stecker verwendet?",
             "options": "{ \"Radio- & Mikrowellensysteme\": 0, \"Optische Fasernetzwerke\": 1, \"High Fidelity Audio\": 1 }"
         },
         {
@@ -133,7 +133,7 @@
         },
         {
             "type": "options",
-            "text": "In welchem Bereich wird der XLR-Stecker verwendet?",
+            "text": "![Stecker](ee_connectors/XLR.png)\n\n\nIn welchem Bereich wird der XLR-Stecker verwendet?",
             "options": "{ \"Bühnenveranstaltungen\": 0, \"Medizinische Verfahren\": 1, \"Messungen\": 1 }"
         },
         {
