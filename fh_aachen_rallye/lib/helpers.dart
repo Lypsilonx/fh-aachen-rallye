@@ -29,31 +29,51 @@ class Helpers {
     );
   }
 
-  static Widget displayTags(Challenge challenge) {
-    return Row(
-      children: List.generate(
-        challenge.tags.length,
-        (index) => Padding(
-          padding: const EdgeInsets.only(
-            left: Sizes.small,
+  static Widget displayTags(Challenge challenge,
+      {double maxWidth = double.infinity}) {
+    double overflowSize = 1000;
+    return SizedBox(
+      width: maxWidth,
+      height: Sizes.large - Sizes.small + 2,
+      child: Stack(
+        children: [
+          Positioned(
+            left: -overflowSize,
+            child: SizedBox(
+              width: maxWidth + overflowSize,
+              child: ClipRect(
+                child: Wrap(
+                  spacing: Sizes.small,
+                  children: [
+                    SizedBox(width: overflowSize),
+                    ...List.generate(
+                      challenge.tags.length,
+                      (index) => Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: challenge.category.color),
+                          borderRadius:
+                              BorderRadius.circular(Sizes.borderRadius),
+                          color: challenge.category.color
+                              .withSaturation(1)
+                              .withAlpha((255 * 0.2).round()),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: Sizes.small,
+                          vertical: Sizes.extraSmall,
+                        ),
+                        child: Text(
+                          challenge.tags[index],
+                          style: Styles.bodySmall,
+                          maxLines: 1,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: challenge.category.color),
-              borderRadius: BorderRadius.circular(Sizes.borderRadius),
-              color:
-                  challenge.category.color.withSaturation(1).withOpacity(0.2),
-            ),
-            padding: const EdgeInsets.symmetric(
-              horizontal: Sizes.small,
-              vertical: Sizes.extraSmall,
-            ),
-            child: Text(
-              challenge.tags[index],
-              style: Styles.bodySmall,
-            ),
-          ),
-        ),
+        ],
       ),
     );
   }
