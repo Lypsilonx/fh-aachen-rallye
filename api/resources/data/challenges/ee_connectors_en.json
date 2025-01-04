@@ -1,0 +1,151 @@
+{
+    "challenge_id": "ee_connectors",
+    "title": "Connector-Quiz",
+    "language": "en",
+    "difficulty": 2,
+    "duration": 2,
+    "category": "electricalEngineering",
+    "points": 50,
+    "descriptionStart": "Do you know these connectors?",
+    "descriptionEnd": "You have assigned all connectors their functions and names!",
+    "steps": [
+        {
+            "type": "stringInput",
+            "text": "Which connector is this?\n\n\n![Connector](ee_connectors/BNC.png)",
+            "correctAnswer": "BNC",
+            "indexOnIncorrect": 1,
+            "next": 2,
+            "alternatives": "4,8,12,16,20s24"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "What function does BNC have?",
+            "options": "{ \"Radio & Video Signals\": 0, \"Audio Signals\": 1, \"Power Supply\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Which connector is this?\n\n\n![Connector](ee_connectors/DIN.png)",
+            "correctAnswer": "DIN",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "What function does DIN have?",
+            "options": "{ \"Video, Audio or MIDI Signals\": 0, \"Ethernet and Local Networks\": 1, \"High Voltage Supply\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Which connector is this?\n\n\n![Connector](ee_connectors/RCA.png)",
+            "correctAnswer": "RCA",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "What function does RCA have?",
+            "options": "{ \"Audio & Video Signals\": 0, \"Systems Synchonization\": 1, \"Serial Communication\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Which connector is this?\n\n\n![Connector](ee_connectors/SMA.png)",
+            "correctAnswer": "SMA",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "What is the SMA connector used for?",
+            "options": "{ \"Antennas & Microwave Systems\": 0, \"High Fidelity Audio\": 1, \"Power Supply\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Which connector is this?\n\n\n![Connector](ee_connectors/TNC.png)",
+            "correctAnswer": "TNC",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "What is the TNC connector used for?",
+            "options": "{ \"Radio & Microwave Systems\": 0, \"Optical Fiber Networks\": 1, \"High Fidelity Audio\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Which connector is this?\n\n\n![Connector](ee_connectors/XLR.png)",
+            "correctAnswer": "XLR",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "In which field is the XLR connector used?",
+            "options": "{ \"Stage Events\": 0, \"Medical Procedures\": 1, \"Measuements\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "say",
+            "text": "You have assigned all connectors their functions and names!",
+            "isLast": true
+        }
+    ]
+}

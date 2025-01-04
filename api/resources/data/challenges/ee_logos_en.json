@@ -1,0 +1,103 @@
+{
+    "challenge_id": "ee_logos",
+    "title": "Electrical Engineering Logos",
+    "language": "en",
+    "difficulty": 2,
+    "duration": 2,
+    "category": "electricalEngineering",
+    "points": 50,
+    "descriptionStart": "Can you recognize these logos of electrical engineering companies?",
+    "descriptionEnd": "You have recognized all logos!",
+    "steps": [
+        {
+            "type": "stringInput",
+            "text": "Which company is behind this logo?\n\n\n![Logo](ee_logos/AnalogDevices_Logo.png)",
+            "correctAnswer": "analogdevices,Analog Devices",
+            "indexOnIncorrect": 1,
+            "next": 0,
+            "alternatives": "2,4,6,8,10,12s14"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Which company is behind this logo?\n\n\n![Logo](ee_logos/Arduino_Logo.png)",
+            "correctAnswer": "arduino",
+            "indexOnIncorrect": 1,
+            "next": 0
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Which company is behind this logo?\n\n\n![Logo](ee_logos/Atmel_Logo.png)",
+            "correctAnswer": "atmel",
+            "indexOnIncorrect": 1,
+            "next": 0
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Which company is behind this logo?\n\n\n![Logo](ee_logos/MicrochipTechnology_Logo.png)",
+            "correctAnswer": "microchiptechnology,Microchip Technology,microchip",
+            "indexOnIncorrect": 1,
+            "next": 0
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Which company is behind this logo?\n\n\n![Logo](ee_logos/STMicroelectronics_Logo.png)",
+            "correctAnswer": "stmicroelectronics,STMicroelectronics",
+            "indexOnIncorrect": 1,
+            "next": 0
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Which company is behind this logo?\n\n\n![Logo](ee_logos/TexasInstruments_Logo.png)",
+            "correctAnswer": "texasinstruments,Texas Instruments",
+            "indexOnIncorrect": 1,
+            "next": 0
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Which company is behind this logo?\n\n\n![Logo](ee_logos/TSMC_Logo.png)",
+            "correctAnswer": "tsmc",
+            "indexOnIncorrect": 1,
+            "next": 0
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "say",
+            "text": "You have recognized all logos!",
+            "isLast": true
+        }
+    ]
+}

@@ -14,8 +14,18 @@
             "text": "Welcher Stecker ist das?\n\n\n![Stecker](ee_connectors/BNC.png)",
             "correctAnswer": "BNC",
             "indexOnIncorrect": 1,
-            "next": 0,
-            "alternatives": "2,4,6,8,10s12"
+            "next": 2,
+            "alternatives": "4,8,12,16,20s24"
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "Welche Funktion hat BNC?",
+            "options": "{ \"Radio- & Videosignale\": 0, \"Audiosignale\": 1, \"Stromversorgung\": 1 }"
         },
         {
             "type": "say",
@@ -27,7 +37,17 @@
             "text": "Welcher Stecker ist das?\n\n\n![Stecker](ee_connectors/DIN.png)",
             "correctAnswer": "DIN",
             "indexOnIncorrect": 1,
-            "next": 0
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "Welche Funktion hat DIN?",
+            "options": "{ \"Video-, Audio- oder MIDI-Signale\": 0, \"Ethernet und lokale Netzwerke\": 1, \"Hochspannungsversorgung\": 1 }"
         },
         {
             "type": "say",
@@ -37,9 +57,19 @@
         {
             "type": "stringInput",
             "text": "Welcher Stecker ist das?\n\n\n![Stecker](ee_connectors/RCA.png)",
-            "correctAnswer": "RCA",
+            "correctAnswer": "RCA,Chinch",
             "indexOnIncorrect": 1,
-            "next": 0
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "Welche Funktion hat RCA?",
+            "options": "{ \"Audio- & Videosignale\": 0, \"Synchronisierung von Systemen\": 1, \"Serielles Interface\": 1 }"
         },
         {
             "type": "say",
@@ -51,7 +81,17 @@
             "text": "Welcher Stecker ist das?\n\n\n![Stecker](ee_connectors/SMA.png)",
             "correctAnswer": "SMA",
             "indexOnIncorrect": 1,
-            "next": 0
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "Wofur wird der SMA-Stecker verwendet?",
+            "options": "{ \"Antennen & Mikrowellensysteme\": 0, \"High Fidelity Audio\": 1, \"Stromversorgung\": 1 }"
         },
         {
             "type": "say",
@@ -63,7 +103,17 @@
             "text": "Welcher Stecker ist das?\n\n\n![Stecker](ee_connectors/TNC.png)",
             "correctAnswer": "TNC",
             "indexOnIncorrect": 1,
-            "next": 0
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "Wofur wird der TNC-Stecker verwendet?",
+            "options": "{ \"Radio- & Mikrowellensysteme\": 0, \"Optische Fasernetzwerke\": 1, \"High Fidelity Audio\": 1 }"
         },
         {
             "type": "say",
@@ -75,11 +125,21 @@
             "text": "Welcher Stecker ist das?\n\n\n![Stecker](ee_connectors/XLR.png)",
             "correctAnswer": "XLR",
             "indexOnIncorrect": 1,
-            "next": 0
+            "next": 2
         },
         {
             "type": "say",
             "text": "Das ist leider falsch."
+        },
+        {
+            "type": "options",
+            "text": "In welchem Bereich wird der XLR-Stecker verwendet?",
+            "options": "{ \"Bühnenveranstaltungen\": 0, \"Medizinische Verfahren\": 1, \"Messungen\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch.",
+            "next": -1
         },
         {
             "type": "say",
