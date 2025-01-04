@@ -1,0 +1,90 @@
+{
+    "challenge_id": "ee_connectors",
+    "title": "Stecker-Quiz",
+    "language": "de",
+    "difficulty": 2,
+    "duration": 2,
+    "category": "electricalEngineering",
+    "points": 50,
+    "descriptionStart": "Sind dir diese Stecker bekannt?",
+    "descriptionEnd": "Du hast alle Stecker ihren Funktionen und Bezeichnungen zugeordnet!",
+    "steps": [
+        {
+            "type": "stringInput",
+            "text": "Welcher Stecker ist das?\n\n\n![Stecker](ee_connectors/BNC.png)",
+            "correctAnswer": "BNC",
+            "indexOnIncorrect": 1,
+            "next": 0,
+            "alternatives": "2,4,6,8,10s12"
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Welcher Stecker ist das?\n\n\n![Stecker](ee_connectors/DIN.png)",
+            "correctAnswer": "DIN",
+            "indexOnIncorrect": 1,
+            "next": 0
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Welcher Stecker ist das?\n\n\n![Stecker](ee_connectors/RCA.png)",
+            "correctAnswer": "RCA",
+            "indexOnIncorrect": 1,
+            "next": 0
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Welcher Stecker ist das?\n\n\n![Stecker](ee_connectors/SMA.png)",
+            "correctAnswer": "SMA",
+            "indexOnIncorrect": 1,
+            "next": 0
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Welcher Stecker ist das?\n\n\n![Stecker](ee_connectors/TNC.png)",
+            "correctAnswer": "TNC",
+            "indexOnIncorrect": 1,
+            "next": 0
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Welcher Stecker ist das?\n\n\n![Stecker](ee_connectors/XLR.png)",
+            "correctAnswer": "XLR",
+            "indexOnIncorrect": 1,
+            "next": 0
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch."
+        },
+        {
+            "type": "say",
+            "text": "Du hast alle Stecker ihren Funktionen und Bezeichnungen zugeordnet!",
+            "isLast": true
+        }
+    ]
+}

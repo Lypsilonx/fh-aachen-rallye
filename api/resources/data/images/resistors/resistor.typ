@@ -67,7 +67,8 @@
   return colors;
 }
 
-#let color_code = get_resistor(420, 20);
+#let color_code = get_resistor(5700, 1);
+//#let color_code = get_resistor(120000000, 0.5);
 
 #place(
   center + horizon,
