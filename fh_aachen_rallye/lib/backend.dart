@@ -61,14 +61,14 @@ class Backend {
           await apiRequest('GET', '$requestEndpoint?$requestArgs');
       while (true) {
         if (requestedObjects != null) {
-          for (var userJson in requestedObjects['data']) {
-            var user = ServerObject.fromJson<T>(userJson);
-            SubscriptionManager.notifyUpdate(user);
+          for (var json in requestedObjects['data']) {
+            var object = ServerObject.fromJson<T>(json);
+            SubscriptionManager.notifyUpdate(object);
           }
 
           if (requestedObjects['links']['next'] != null) {
-            (requestedObjects, _) =
-                await webRequest('GET', requestedObjects['links']['next']);
+            (requestedObjects, _) = await webRequest(
+                'GET', requestedObjects['links']['next'] + '&$requestArgs');
           } else {
             break;
           }
