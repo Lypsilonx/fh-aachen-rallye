@@ -1,0 +1,160 @@
+{
+    "challenge_id": "encryption_basics",
+    "title": "Grunlagen der Verschlüsselung",
+    "language": "de",
+    "difficulty": 1,
+    "duration": 2,
+    "category": "maths",
+    "points": 40,
+    "descriptionStart": "Wo findet sich Verschlüsselung im Alltag wieder?\n\nIn dieser Aufgabe lernst du die Grundlagen der Verschlüsselung kennen.",
+    "descriptionEnd": "Du hast die Grundlagen der Verschlüsselung kennengelernt!",
+    "steps": [
+        {
+            "type": "say",
+            "text": "Ally möchte mit Brim über eine *sichere Verbindung* kommunizieren. Ally verschlüsselt alle Nachrichten mit einem **Schlüssel**, den nur die beiden kennen.\n\n\nDer einfachheit halber benutzen wir hier eine einfache Verschlüsselungsmethode: **Die Caesar-Verschlüsselung**.\n\nBei der Caesar-Verschlüsselung wird jeder Buchstabe des Klartextes *um eine feste Anzahl von Positionen im Alphabet verschoben*. Der **Schlüssel** gibt an, um wie viele Positionen verschoben wird.\n\n\n**Beispiel**:\n\n*Klartext*: 'Hallo'\n\n*Schlüssel*: 3\n\n*Verschlüsselter Text*: 'Kdoor'"
+        },
+        {
+            "type": "stringInput",
+            "text": "Verschlüssele den Klartext 'FH Aachen' mit dem Schlüssel 5.",
+            "correctAnswer": "KM Ffhmjs",
+            "indexOnIncorrect": 1,
+            "next": 8,
+            "alternatives": "2,4,6"
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Verschlüssele den Klartext 'FH Aachen' mit dem Schlüssel 9.",
+            "correctAnswer": "OQ Jjlqnw",
+            "indexOnIncorrect": 1,
+            "next": 6
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Verschlüssele den Klartext 'FH Aachen' mit dem Schlüssel 14.",
+            "correctAnswer": "TV Ooqvsb",
+            "indexOnIncorrect": 1,
+            "next": 4
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Verschlüssele den Klartext 'FH Aachen' mit dem Schlüssel 25.",
+            "correctAnswer": "EG Zzbgdm",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
+            "next": -1
+        },
+        {
+            "type": "say",
+            "text": "Super! Die nachricht ist nun verschlüsselt und kann *nur von Brim* entschlüsselt werden.\n\n(Brim muss dafür die empfangene Nachricht nur noch einmal um 26 - den Schlüssel - verschieben.)\n\n\nUm die Nachricht jedoch zu versenden muss Ally die Nachricht noch in ein **Format** bringen, das über das Internet verschickt werden kann. Dafür wird die Nachricht in eine Reihe von 0en und 1en umgewandelt.\n\n\nDafür benutzen die beiden ein eigenes **Protokoll**. Jeder Buchstabe wird erst **in Morsecode umgewandelt** und dann **binär kodiert**."
+        },
+        {
+            "type": "stringInput",
+            "text": "Welcher Buchstabe wird im Morsecode mit '..-.' dargestellt?",
+            "correctAnswer": "F",
+            "indexOnIncorrect": 1,
+            "next": 8,
+            "alternatives": "2,4,6"
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Welcher Buchstabe wird im Morsecode mit '....' dargestellt?",
+            "correctAnswer": "H",
+            "indexOnIncorrect": 1,
+            "next": 6
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Welcher Buchstabe wird im Morsecode mit '-.-.' dargestellt?",
+            "correctAnswer": "C",
+            "indexOnIncorrect": 1,
+            "next": 4
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Welcher Buchstabe wird im Morsecode mit '.-' dargestellt?",
+            "correctAnswer": "A",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Super! Die Nachricht kann nun in Morsecode umgewandelt werden!\n\n\nMorse-Code hat vier verschiedene Zeichen ('.', '-', Zeichenende und Wortende). Wie viele **Bits** werden (pro Zeichen) benötigt, um Morse-Code (binär) zu kodieren?",
+            "correctAnswer": "2",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Wir verschlüsseln nun nach folgendem Schema von Morsecode zu binär:\n\n- . wird zu 00\n- \\- wird zu 01\n- Zeichenende wird zu 10\n- Wortende wird zu 11\n\nVerschlüssele den Morsecode '.... . .-.. .-.. ---' (*Hello*) in binär.",
+            "correctAnswer": "000000001000100001000010000100001001010111",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Super! Die Nachricht ist nun in binär kodiert und kann über das Internet verschickt werden.\n\n\nBrim empfängt die Nachricht und entschlüsselt sie. Dafür müssen die Schritte rückgängig gemacht werden. Zuerst wird die Nachricht aus binär in Morsecode umgewandelt, dann in Buchstaben und schließlich wird sie (Caesar-)entschlüsselt.\n\n\nBrim erhält die Nachricht '0001010110000000100100001001000010010100011000010111' und kennt den Caesar-Schlüssel 8. Entschlüssele die Nachricht.",
+            "correctAnswer": "rallye",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
+            "next": -1
+        },
+        {
+            "type": "say",
+            "text": "Super! Die Nachricht wurde erfolgreich entschlüsselt und Brim kann sie lesen!",
+            "isLast": true
+        }
+    ]
+}
