@@ -306,6 +306,7 @@ class ChallengeStepSay extends ChallengeStep {
     super.isLast = false,
   }) : super(hasNextButton: true);
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       'type': 'say',
@@ -337,6 +338,7 @@ class ChallengeStepOptions extends ChallengeStep {
     super.isLast = false,
   }) : super(hasNextButton: false);
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       'type': 'options',
@@ -373,6 +375,7 @@ class ChallengeStepStringInput extends ChallengeStep {
     super.isLast = false,
   }) : super(hasNextButton: false);
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       'type': 'stringInput',
@@ -408,6 +411,7 @@ class ChallengeStepScan extends ChallengeStep {
     super.isLast = false,
   }) : super(hasNextButton: false);
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       'type': 'scan',

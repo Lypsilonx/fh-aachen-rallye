@@ -132,7 +132,8 @@ class _ChallengeTileState extends State<ChallengeTile>
               },
             ),
             trailing: statusIcon,
-            title: Text(challenge.title, style: Styles.h2),
+            title: Text(challenge.title,
+                style: Styles.h2, maxLines: 1, overflow: TextOverflow.ellipsis),
             subtitle: Row(
               children: [
                 Helpers.displayDifficulty(challenge.difficulty),
