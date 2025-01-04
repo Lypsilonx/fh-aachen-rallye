@@ -10,6 +10,26 @@
     "descriptionEnd": "Du weißt nun was eine Fourier Transformation ist!",
     "steps": [
         {
+            "type": "options",
+            "text": "Wenn du eine Fourier-Transformation durchführst, transformierst du eine Funktion zwischen ____.",
+            "options": "{ \"dem Zeitbereich und dem Frequenzbereich\": 2, \"dem Frequenzbereich und dem konkreten Bereich\": 1, \"dem Zeitbereich und dem imaginären Bereich\": 1, \"dem Frequenzbereich und dem imaginären Bereich\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch. Versuche es noch einmal.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "Das ist richtig!\n\n\nSchau dir mal die folgende Funktion an:![](fourier/wave_1.png)\n\nWelche der folgenden Funktionen ist die Fourier-Transformation dieser Funktion?",
+            "options": "{ \"![](fourier/fourier_1.png)\": 2, \"![](fourier/fourier_2.png)\": 1, \"![](fourier/fourier_3.png)\": 1, \"![](fourier/fourier_4.png)\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch. Versuche es noch einmal.",
+            "next": -1
+        },
+        {
             "type": "say",
             "text": ""
         },
