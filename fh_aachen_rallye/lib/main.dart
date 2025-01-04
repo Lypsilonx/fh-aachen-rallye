@@ -7,7 +7,7 @@ import 'package:fh_aachen_rallye/pages/page_challenge_list.dart';
 import 'package:fh_aachen_rallye/pages/page_login_register.dart';
 import 'package:flutter/material.dart';
 
-// build with: flutter build web --release --base-href="/fh-aachen-rallye/" -o ..
+// build with: flutter build web --release --wasm --base-href="/fh-aachen-rallye/" -o ..
 
 final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
     GlobalKey<ScaffoldMessengerState>();
