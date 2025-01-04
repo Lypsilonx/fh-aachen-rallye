@@ -41,17 +41,20 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
 
   final ScrollController scrollController = ScrollController();
   final TextEditingController stringInputController = TextEditingController();
+  late FocusNode stringInputFocusNode;
 
   @override
   void initState() {
     super.initState();
     SubscriptionManager.subscribe<Challenge>(this, widget.challengeId);
     SubscriptionManager.subscribe<User>(this, Backend.userId!);
+    stringInputFocusNode = FocusNode();
   }
 
   @override
   void dispose() {
     SubscriptionManager.unsubscribe(this);
+    stringInputFocusNode.dispose();
     super.dispose();
   }
 
@@ -133,6 +136,11 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
       scrollController.jumpTo(0);
       stringInputController.clear();
       currentStep = step;
+      if (currentStep >= 0 &&
+          challenge.steps[currentStep] is ChallengeStepStringInput) {
+        print("Requesting focus");
+        stringInputFocusNode.requestFocus();
+      }
       Backend.setChallengeState(challenge.challengeId,
           ChallengeState(currentStep, shuffleSource, shuffleTargets));
     });
@@ -423,6 +431,8 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
                                                   FunTextInput(
                                                     controller:
                                                         stringInputController,
+                                                    focusNode:
+                                                        stringInputFocusNode,
                                                     submitButton:
                                                         translate('SUBMIT'),
                                                     onSubmitted: (value) {

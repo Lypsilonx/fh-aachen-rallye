@@ -10,6 +10,7 @@ class FunTextInput extends StatefulWidget {
     this.submitButton,
     this.onSubmitted,
     this.controller,
+    this.focusNode,
     super.key,
   });
 
@@ -19,6 +20,7 @@ class FunTextInput extends StatefulWidget {
   final String? submitButton;
   final Function(String)? onSubmitted;
   final TextEditingController? controller;
+  final FocusNode? focusNode;
 
   @override
   State<FunTextInput> createState() => _FunTextInputState();
@@ -27,6 +29,7 @@ class FunTextInput extends StatefulWidget {
 class _FunTextInputState extends State<FunTextInput> {
   late TextEditingController controller =
       widget.controller ?? TextEditingController();
+  late FocusNode focusNode = widget.focusNode ?? FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +63,7 @@ class _FunTextInputState extends State<FunTextInput> {
               cursorHeight: Sizes.fontSizeLarge,
               style: Styles.bodyLarge,
               controller: controller,
+              focusNode: focusNode,
               autofocus: widget.autofocus,
               decoration: InputDecoration(
                 border: InputBorder.none,
