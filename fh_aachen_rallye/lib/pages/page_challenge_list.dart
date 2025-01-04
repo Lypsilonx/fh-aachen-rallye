@@ -2,6 +2,7 @@ import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/cache.dart';
 import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
+import 'package:fh_aachen_rallye/data/user.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_button.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
@@ -51,6 +52,7 @@ class _PageChallengeListState extends FunPageState<PageChallengeList>
   void initState() {
     super.initState();
     SubscriptionManager.subscribeAll<Challenge>(this);
+    SubscriptionManager.subscribe<User>(this, Backend.state.user!.id);
   }
 
   @override
