@@ -116,7 +116,7 @@ class _PageChallengeListState extends FunPageState<PageChallengeList>
               context,
               MaterialPageRoute(
                 builder: (context) => ScanQRCodeView(
-                  acceptRegex: r'^FHAR-\d{4}$',
+                  acceptRegex: r'^FHAR-[0-9A-Z]{8}$',
                   manualInput: translate('UNLOCK_CHALLENGE'),
                 ),
               ),
