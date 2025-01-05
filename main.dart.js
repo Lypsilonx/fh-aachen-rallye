@@ -46056,7 +46056,7 @@ case 4:return A.M(null,r)}})
 return A.N($async$$0,r)},
 $S:19}
 A.ayA.prototype={
-$1(a){return new A.ng("^FHAR-\\d{4}$",A.cr("UNLOCK_CHALLENGE","",null),null)},
+$1(a){return new A.ng("^FHAR-[0-9A-Z]{8}$",A.cr("UNLOCK_CHALLENGE","",null),null)},
 $S:211}
 A.pe.prototype={
 gD6(){return"assets/background_1.png"},
