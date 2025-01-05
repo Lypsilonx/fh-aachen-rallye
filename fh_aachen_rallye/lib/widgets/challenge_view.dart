@@ -49,6 +49,10 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
     SubscriptionManager.subscribe<Challenge>(this, widget.challengeId);
     SubscriptionManager.subscribe<User>(this, Backend.userId!);
     stringInputFocusNode = FocusNode();
+
+    if (challenge.userStatus != -1) {
+      Backend.setChallengeStatus(challenge.challengeId, -1);
+    }
   }
 
   @override
@@ -141,8 +145,15 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
         print("Requesting focus");
         stringInputFocusNode.requestFocus();
       }
-      Backend.setChallengeState(challenge.challengeId,
-          ChallengeState(currentStep, shuffleSource, shuffleTargets));
+      Backend.setChallengeState(
+        challenge.challengeId,
+        ChallengeState(
+          currentStep,
+          shuffleSource,
+          shuffleTargets,
+          ChallengeUserStatus.none,
+        ),
+      );
     });
   }
 
@@ -375,7 +386,15 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
                                                 const SizedBox(
                                                     height: Sizes.small),
                                               if (isNew)
-                                                Helpers.displayTags(challenge),
+                                                LayoutBuilder(
+                                                  builder:
+                                                      (context, constraints) {
+                                                    return Helpers.displayTags(
+                                                      challenge,
+                                                      constraints.maxWidth,
+                                                    );
+                                                  },
+                                                ),
                                             ],
                                           ),
                                         ),

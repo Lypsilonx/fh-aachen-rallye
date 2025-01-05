@@ -1,3 +1,4 @@
+import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 
 class User extends ServerObject {
@@ -53,19 +54,23 @@ class ChallengeState {
   final int step;
   final int? shuffleSource;
   final List<int> shuffleTargets;
+  final ChallengeUserStatus userStatus;
 
-  ChallengeState(this.step, this.shuffleSource, this.shuffleTargets);
+  ChallengeState(
+      this.step, this.shuffleSource, this.shuffleTargets, this.userStatus);
 
   factory ChallengeState.fromJson(Map<String, dynamic> json) {
     return ChallengeState(
-        json['step'] as int,
-        json['shuffleSource'] as int?,
-        json['shuffleTargets'] == null || json['shuffleTargets'] == ''
-            ? []
-            : (json['shuffleTargets'] as String)
-                .split(',')
-                .map(int.parse)
-                .toList());
+      json['step'] as int,
+      json['shuffleSource'] as int?,
+      json['shuffleTargets'] == null || json['shuffleTargets'] == ''
+          ? []
+          : (json['shuffleTargets'] as String)
+              .split(',')
+              .map(int.parse)
+              .toList(),
+      ChallengeUserStatus.fromInt(json['userStatus'] as int),
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -73,6 +78,7 @@ class ChallengeState {
       'step': step,
       'shuffleSource': shuffleSource,
       'shuffleTargets': shuffleTargets.join(','),
+      'userStatus': userStatus.value,
     };
   }
 }

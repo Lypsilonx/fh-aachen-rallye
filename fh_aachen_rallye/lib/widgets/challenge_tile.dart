@@ -6,8 +6,10 @@ import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/data/user.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_container.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
+import 'package:fh_aachen_rallye/translator.dart';
 import 'package:fh_aachen_rallye/widgets/challenge_view.dart';
 import 'package:flutter/material.dart';
+import 'package:vector_math/vector_math_64.dart' hide Colors;
 
 class ChallengeTile extends StatefulWidget {
   final String challengeId;
@@ -18,7 +20,7 @@ class ChallengeTile extends StatefulWidget {
   State<ChallengeTile> createState() => _ChallengeTileState();
 }
 
-class _ChallengeTileState extends State<ChallengeTile>
+class _ChallengeTileState extends TranslatedState<ChallengeTile>
     implements ServerObjectSubscriber {
   late Challenge challenge;
   late int currentStep;
@@ -66,6 +68,7 @@ class _ChallengeTileState extends State<ChallengeTile>
     );
 
     return Stack(
+      clipBehavior: Clip.none,
       children: [
         FunContainer(
           height: Sizes.extraLarge + Sizes.small,
@@ -139,8 +142,10 @@ class _ChallengeTileState extends State<ChallengeTile>
                 return Row(
                   children: [
                     Helpers.displayDifficulty(challenge.difficulty),
-                    Helpers.displayTags(challenge,
-                        maxWidth: constraints.maxWidth - Sizes.extraLarge * 2),
+                    Helpers.displayTags(
+                      challenge,
+                      constraints.maxWidth - Sizes.extraLarge * 2,
+                    ),
                   ],
                 );
               },
@@ -171,6 +176,38 @@ class _ChallengeTileState extends State<ChallengeTile>
             );
           },
         ),
+        if (challenge.userStatus != ChallengeUserStatus.none)
+          Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.translation(Vector3(
+              -Sizes.small,
+              -Sizes.small,
+              0,
+            ))
+              ..rotateZ(-pi / 16),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: Sizes.extraSmall,
+                    horizontal: Sizes.small,
+                  ),
+                  decoration: const BoxDecoration(
+                    color: Colors.red,
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(Sizes.borderRadius)),
+                  ),
+                  child: Center(
+                    child: Text(
+                      translate(challenge.userStatus.badgeMessage),
+                      style: Styles.bodySmall.copyWith(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
       ],
     );
   }

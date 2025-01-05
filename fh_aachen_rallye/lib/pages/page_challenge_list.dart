@@ -73,10 +73,16 @@ class _PageChallengeListState extends FunPageState<PageChallengeList>
       var challengeA = challengeChache.firstWhere((e) => e.id == a);
       var challengeB = challengeChache.firstWhere((e) => e.id == b);
 
-      // sort by progress, then difficulty, then title (progress 1 last)
-      if (challengeA.progress == 1) {
+      // sort by progress, then difficulty, then title (progress 1 last and ChallengeUserStatus.unlocked first)
+      if (challengeA.userStatus == ChallengeUserStatus.unlocked &&
+          challengeB.userStatus != ChallengeUserStatus.unlocked) {
+        return -1;
+      } else if (challengeB.userStatus == ChallengeUserStatus.unlocked &&
+          challengeA.userStatus != ChallengeUserStatus.unlocked) {
         return 1;
-      } else if (challengeB.progress == 1) {
+      } else if (challengeA.progress == 1 && challengeB.progress != 1) {
+        return 1;
+      } else if (challengeB.progress == 1 && challengeA.progress != 1) {
         return -1;
       } else if (challengeA.progress != challengeB.progress) {
         return challengeA.progress - challengeB.progress > 0 ? -1 : 1;
@@ -95,17 +101,24 @@ class _PageChallengeListState extends FunPageState<PageChallengeList>
     return Column(
       children: [
         Expanded(
-          child: ListView.builder(
-            itemCount: challengeIds.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: Sizes.medium),
-                child: ChallengeTile(
-                  challengeIds[index],
-                  key: UniqueKey(),
-                ),
-              );
-            },
+          child: ClipPath(
+            clipper: VerticalClipper(),
+            child: ListView.builder(
+              clipBehavior: Clip.none,
+              itemCount: challengeIds.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                    bottom: Sizes.medium,
+                    top: index == 0 ? Sizes.medium : 0,
+                  ),
+                  child: ChallengeTile(
+                    challengeIds[index],
+                    key: UniqueKey(),
+                  ),
+                );
+              },
+            ),
           ),
         ),
         FunButton(

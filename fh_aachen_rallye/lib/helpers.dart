@@ -29,8 +29,7 @@ class Helpers {
     );
   }
 
-  static Widget displayTags(Challenge challenge,
-      {double maxWidth = double.infinity}) {
+  static Widget displayTags(Challenge challenge, double maxWidth) {
     double overflowSize = 1000;
     return SizedBox(
       width: maxWidth,
@@ -91,7 +90,7 @@ class Helpers {
   static Widget tiledBackground(String imagePath, double tileSize, Color color,
       {List<Widget> stackChildren = const []}) {
     Image image = Image.asset(
-      color: color.withSaturation(0.8).withOpacity(0.3),
+      color: color.withSaturation(0.8).withAlpha((0.3 * 255).round()),
       imagePath,
     );
 
@@ -104,7 +103,7 @@ class Helpers {
           children: [
             Positioned.fill(
               child: Container(
-                color: color.withSaturation(0.8).withOpacity(0.3),
+                color: color.withSaturation(0.8).withAlpha((0.3 * 255).round()),
               ),
             ),
             Stack(
@@ -144,7 +143,7 @@ class Helpers {
       padding: EdgeInsets.only(
         left: extraPadding + Sizes.large,
         right: extraPadding + Sizes.large,
-        top: vertical ? Sizes.large : 0,
+        top: vertical ? Sizes.medium : 0,
         bottom: vertical ? Sizes.large : 0,
       ),
       child: child,
@@ -161,9 +160,9 @@ extension AdvancedColor on Color {
 
   Color withSaturation(double saturation) {
     HSLColor hsl = HSLColor.fromColor(this);
-    if (blue == green && green == red) {
+    if (b == g && g == r) {
       int value = (255 * saturation).toInt();
-      return Color.fromARGB(alpha, value, value, value);
+      return Color.fromARGB((a * 255).round(), value, value, value);
     }
 
     return hsl.withSaturation(saturation).toColor();
@@ -292,5 +291,23 @@ extension Intersperse<T> on Iterable<T> {
         yield iterator.current;
       }
     }
+  }
+}
+
+class VerticalClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+    path.moveTo(-double.maxFinite, 0);
+    path.lineTo(double.maxFinite, 0);
+    path.lineTo(double.maxFinite, size.height);
+    path.lineTo(-double.maxFinite, size.height);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return false;
   }
 }

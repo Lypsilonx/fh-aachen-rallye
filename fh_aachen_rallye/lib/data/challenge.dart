@@ -20,21 +20,30 @@ class Challenge extends ServerObject {
   final String descriptionEnd;
   final List<ChallengeStep> steps;
 
-  double get progress {
+  ChallengeState? get state {
     if (Backend.state.user == null) {
+      return null;
+    }
+
+    return Backend.state.user!.challengeStates[challengeId];
+  }
+
+  ChallengeUserStatus get userStatus {
+    if (state == null) {
+      return ChallengeUserStatus.new_;
+    }
+
+    return state!.userStatus;
+  }
+
+  double get progress {
+    if (state == null) {
       return 0;
     }
 
-    var user = Backend.state.user!;
-    ChallengeState? challengeState = user.challengeStates[challengeId];
-
-    if (challengeState == null) {
+    if (state!.step == -1) {
       return 0;
-    }
-
-    if (challengeState.step == -1) {
-      return 0;
-    } else if (challengeState.step == -2) {
+    } else if (state!.step == -2) {
       return 1;
     }
 
@@ -53,17 +62,16 @@ class Challenge extends ServerObject {
 
     int totalSteps = stepValues.sum();
 
-    if (challengeState.shuffleSource != null) {
-      ChallengeStep cStep = steps[challengeState.shuffleSource!];
+    if (state!.shuffleSource != null) {
+      ChallengeStep cStep = steps[state!.shuffleSource!];
       int completedStepsBeforeShuffle =
-          stepValues.take(challengeState.shuffleSource!).sum();
+          stepValues.take(state!.shuffleSource!).sum();
 
       int completedStepsAfterShuffle =
           stepValues.take(cStep.shuffleExit!).sum();
 
       double shuffleProgress = 1 -
-          (challengeState.shuffleTargets.length /
-              (cStep.alternativesInt.length + 1));
+          (state!.shuffleTargets.length / (cStep.alternativesInt.length + 1));
 
       return (completedStepsBeforeShuffle +
               (completedStepsAfterShuffle - completedStepsBeforeShuffle) *
@@ -71,7 +79,7 @@ class Challenge extends ServerObject {
           totalSteps;
     }
 
-    int completedSteps = stepValues.take(challengeState.step + 1).sum();
+    int completedSteps = stepValues.take(state!.step + 1).sum();
 
     return completedSteps / totalSteps;
   }
@@ -156,6 +164,37 @@ class Challenge extends ServerObject {
       image: json['image'] as String?,
     );
   }
+}
+
+class ChallengeUserStatus {
+  final String badgeMessage;
+  final int value;
+
+  factory ChallengeUserStatus.fromInt(int status) {
+    return switch (status) {
+      -1 => ChallengeUserStatus.none,
+      0 => ChallengeUserStatus.new_,
+      1 => ChallengeUserStatus.unlocked,
+      _ => throw Exception('Invalid status: $status'),
+    };
+  }
+
+  const ChallengeUserStatus(this.value, this.badgeMessage);
+
+  static const ChallengeUserStatus none = ChallengeUserStatus(-1, '');
+
+  static const ChallengeUserStatus new_ = ChallengeUserStatus(0, 'STATUS_NEW');
+
+  static const ChallengeUserStatus unlocked =
+      ChallengeUserStatus(1, 'STATUS_UNLOCKED');
+
+  @override
+  bool operator ==(Object other) {
+    return other is ChallengeUserStatus && other.value == value;
+  }
+
+  @override
+  int get hashCode => value.hashCode;
 }
 
 class ChallengeCategory {

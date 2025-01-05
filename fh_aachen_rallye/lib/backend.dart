@@ -199,6 +199,22 @@ class Backend {
 
     return (false, message);
   }
+
+  static Future<(bool, String)> setChallengeStatus(
+      String challengeId, int status) async {
+    print('Setting challenge status of $challengeId to $status');
+    var (result, message) =
+        await apiRequest('POST', 'game/setChallengeStatus', body: {
+      'challenge_id': challengeId,
+      'status': status,
+    });
+    fetch<User>(Backend.state.user!.id);
+    if (result != null) {
+      return (true, '');
+    }
+
+    return (false, message);
+  }
 }
 
 class BackendState implements ServerObjectSubscriber {
