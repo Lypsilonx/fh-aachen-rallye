@@ -62,8 +62,8 @@
         },
         {
             "type": "scan",
-            "text": "Some challenges require you to scan a QR code.\n\n\nIf you press 'Scan', the camera will open.\n\nMake sure to grant the app permission to access the camera.\n\nIf you don't want to do that, you can also manually enter the code below the QR code.\n\n\nSince this is only a tutorial, you don't have to scan a QR code.\n\nJust enter the code 'FHAR-1234' manually to continue.",
-            "correctAnswer": "FHAR-1234"
+            "text": "Some challenges require you to scan a QR code.\n\n\nIf you press 'Scan', the camera will open.\n\nMake sure to grant the app permission to access the camera.\n\nIf you don't want to do that, you can also manually enter the code below the QR code.\n\n\nSince this is only a tutorial, you don't have to scan a QR code.\n\nJust enter the code 'FHAR-TUTORIAL' manually to continue.",
+            "correctAnswer": "FHAR-TUTORIAL"
         },
         {
             "type": "say",

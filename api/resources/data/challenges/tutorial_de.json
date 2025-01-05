@@ -62,8 +62,8 @@
         },
         {
             "type": "scan",
-            "text": "Einige Aufgaben erfordern, dass du einen QR-Code scannst.\n\n\nWenn du 'Scannen' drückst, wird die Kamera geöffnet.\n\nStelle sicher, dass du der App die Berechtigung zum Zugriff auf die Kamera erteilst.\n\nFalls du das nicht möchtest, kannst du den Code unter dem QR-Code auch manuell eingeben.\n\n\nDa dies nur ein Tutorial ist, musst du keinen QR-Code scannen.\n\nGib einfach den Code 'FHAR-1234' manuell ein um fortzufahren.",
-            "correctAnswer": "FHAR-1234"
+            "text": "Einige Aufgaben erfordern, dass du einen QR-Code scannst.\n\n\nWenn du 'Scannen' drückst, wird die Kamera geöffnet.\n\nStelle sicher, dass du der App die Berechtigung zum Zugriff auf die Kamera erteilst.\n\nFalls du das nicht möchtest, kannst du den Code unter dem QR-Code auch manuell eingeben.\n\n\nDa dies nur ein Tutorial ist, musst du keinen QR-Code scannen.\n\nGib einfach den Code 'FHAR-TUTORIAL' manuell ein um fortzufahren.",
+            "correctAnswer": "FHAR-TUTORIAL"
         },
         {
             "type": "say",
