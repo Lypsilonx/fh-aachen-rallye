@@ -17,6 +17,7 @@ class ChallengeState extends Model
         'step',
         'shuffleSource',
         'shuffleTargets',
+        'userStatus',
     ];
 
     public function user()

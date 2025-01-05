@@ -68,10 +68,28 @@
   return codes
 }
 
-#let codes = random_codes(9, 123)
+#let amount_big = 6
+#let amount_small = 24
+#let codes = random_codes(amount_big + amount_small, 52)
 
 #grid(
-  columns: 3,
-  inset: 1em,
-  ..codes.map(id => fharCode(id, 0.7))
+  columns: (100% / 6,) * 6,
+  rows: (12.5%,) * int((amount_big * 4 + amount_small) / 6),
+  ..codes.enumerate()
+  .map(
+    item => {
+      let i = item.at(0)
+      let id = item.at(1)
+
+      let is_big = i < amount_big
+
+      grid.cell(
+        inset: if (is_big) {1em} else {0.75em},
+        rowspan: if (is_big) {2} else {1},
+        colspan: if (is_big) {2} else {1},
+      )[
+        #fharCode(id, if (is_big) {0.7} else {0.3})
+      ]
+    }
+  )
 )

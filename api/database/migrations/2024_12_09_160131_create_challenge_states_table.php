@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->integer('step');
             $table->integer('shuffleSource')->nullable();
             $table->string('shuffleTargets')->nullable();
+            $table->integer('userStatus')->default(0);
             $table->timestamps();
         });
     }
