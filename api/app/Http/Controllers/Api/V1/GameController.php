@@ -56,6 +56,48 @@ class GameController extends Controller
 
     }
 
+    public static function setChallengeStatusRequest(Request $request)
+    {
+        try {
+            $validatedUser = Validator::make(
+                $request->all(),
+                [
+                    'challenge_id' => 'required',
+                    'status' => 'required',
+                ],
+            );
+
+            if ($validatedUser->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Validation failed',
+                    'errors' => $validatedUser->errors()
+                ], 401);
+            }
+
+            $user = User::find(auth()->id());
+
+            if (!$user) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'User not found',
+                ], 404);
+            }
+
+            GameController::setChallengeStatus($user, $request->input('challenge_id'), $request->input('status'));
+
+            return response()->json([
+                'status' => true,
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
     public static function completeChallenge(User $user, string $challenge_id)
     {
         $challenge = Challenge::where('challenge_id', $challenge_id)->first();
@@ -90,10 +132,38 @@ class GameController extends Controller
                 'user_id' => $user->id,
                 'challenge_id' => $challenge->challenge_id,
                 'step' => -1,
+                'shuffleSource' => null,
+                'shuffleTargets' => null,
+                'userStatus' => 1,
             ]);
             $unlocked_challenges++;
         }
 
         return [$unlocked_challenges, $challenges->count()];
+    }
+
+    public static function setChallengeStatus(User $user, string $challenge_id, int $status)
+    {
+        $challengeState = ChallengeState::where('user_id', $user->id)
+            ->where('challenge_id', $challenge_id)
+            ->first();
+
+        if (!$challengeState) {
+            // create new challenge state if it is not locked
+            if (Challenge::where('challenge_id', $challenge_id)->first()->lock_id) {
+                return;
+            }
+            $challengeState = ChallengeState::create([
+                'user_id' => $user->id,
+                'challenge_id' => $challenge_id,
+                'step' => -1,
+                'shuffleSource' => null,
+                'shuffleTargets' => null,
+                'userStatus' => $status,
+            ]);
+        }
+
+        $challengeState->userStatus = $status;
+        $challengeState->save();
     }
 }

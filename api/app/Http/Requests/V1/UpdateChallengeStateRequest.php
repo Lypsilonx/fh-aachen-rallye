@@ -36,6 +36,7 @@ class UpdateChallengeStateRequest extends FormRequest
                 'step' => ['required', 'integer'],
                 'shuffleSource' => ['nullable', 'integer'],
                 'shuffleTargets' => ['nullable', 'string'],
+                'userStatus' => ['required', 'string'],
             ];
         } else {
             return [
@@ -44,6 +45,7 @@ class UpdateChallengeStateRequest extends FormRequest
                 'step' => ['sometimes', 'required', 'integer'],
                 'shuffleSource' => ['sometimes', 'nullable', 'integer'],
                 'shuffleTargets' => ['sometimes', 'nullable', 'string'],
+                'userStatus' => ['sometimes', 'required', 'string'],
             ];
         }
     }

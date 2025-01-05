@@ -33,6 +33,7 @@ class StoreChallengeStateRequest extends FormRequest
             'step' => ['required', 'integer'],
             'shuffleSource' => ['nullable', 'integer'],
             'shuffleTargets' => ['nullable', 'string'],
+            'userStatus' => ['required', 'string'],
         ];
     }
 }

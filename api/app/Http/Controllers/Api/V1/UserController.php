@@ -88,7 +88,8 @@ class UserController extends Controller
                     [
                         'step' => $step,
                         'shuffleSource' => $challengeState['shuffleSource'],
-                        'shuffleTargets' => $challengeState['shuffleTargets']
+                        'shuffleTargets' => $challengeState['shuffleTargets'],
+                        'userStatus' => $challengeState['userStatus'],
                     ]
                 );
             }

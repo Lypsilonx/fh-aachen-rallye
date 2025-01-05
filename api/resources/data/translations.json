@@ -34,6 +34,8 @@
     "CHALLENGES": { "en": "Challenges", "de": "Aufgaben" },
     "POINTS": { "en": "Points", "de": "Punkte" },
     "CATEGORY": { "en": "Category", "de": "Kategorie" },
+    "STATUS_NEW": { "en": "New!", "de": "Neu!" },
+    "STATUS_UNLOCKED": { "en": "Unlocked!", "de": "Freigeschaltet!" },
     "DIFFICULTY": { "en": "Difficulty", "de": "Schwierigkeit" },
     "DIFFICULTY_NONE": { "en": "No rating", "de": "Keine Bewertung" },
     "DIFFICULTY_VERYEASY": { "en": "Very Easy", "de": "Sehr leicht" },
