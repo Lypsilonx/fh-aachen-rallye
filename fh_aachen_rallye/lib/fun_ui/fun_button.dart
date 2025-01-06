@@ -66,6 +66,12 @@ class FunButtonState extends State<FunButton>
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (!isEnabled()) {
       _buttonState = ButtonState.disabled;

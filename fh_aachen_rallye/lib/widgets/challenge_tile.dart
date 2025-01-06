@@ -1,9 +1,7 @@
 import 'dart:math';
 
-import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
-import 'package:fh_aachen_rallye/data/user.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_container.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/translator.dart';
@@ -30,7 +28,6 @@ class _ChallengeTileState extends TranslatedState<ChallengeTile>
     super.initState();
 
     SubscriptionManager.subscribe<Challenge>(this, widget.challengeId);
-    SubscriptionManager.subscribe<User>(this, Backend.userId!);
   }
 
   @override
@@ -41,15 +38,10 @@ class _ChallengeTileState extends TranslatedState<ChallengeTile>
 
   @override
   void onUpdate(ServerObject object) {
-    if (object is Challenge) {
-      setState(() {
-        challenge = object;
-      });
-    } else if (object is User) {
-      setState(() {
-        currentStep = object.challengeStates[challenge.challengeId]?.step ?? -1;
-      });
-    }
+    setState(() {
+      challenge = object as Challenge;
+      currentStep = challenge.state?.step ?? -1;
+    });
   }
 
   @override

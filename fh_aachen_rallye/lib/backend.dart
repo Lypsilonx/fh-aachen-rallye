@@ -160,12 +160,12 @@ class Backend {
   }
 
   static void logout(BuildContext context) {
+    Cache.clear(dontDelete: [Translation]);
     Navigator.popUntil(context, (route) => route.isFirst);
     Translator.setLanguage(Translator.defaultLanguage);
     Navigator.pushReplacementNamed(context, '/login');
     prefs.clear();
-    state.user = null;
-    Cache.clear(dontDelete: [Translation]);
+    state.dispose();
   }
 
   static Future<(bool, String)> register(
@@ -229,6 +229,11 @@ class BackendState implements ServerObjectSubscriber {
     if (Backend.userId != null) {
       SubscriptionManager.subscribe<User>(this, Backend.userId!);
     }
+  }
+
+  void dispose() {
+    SubscriptionManager.unsubscribe(this);
+    user = null;
   }
 
   @override
