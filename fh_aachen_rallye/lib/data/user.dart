@@ -23,6 +23,9 @@ class User extends ServerObject {
       other is User && runtimeType == other.runtimeType && id == other.id;
 
   @override
+  int get hashCode => id.hashCode;
+
+  @override
   Map<String, dynamic> toJson() {
     return {
       'id': id,

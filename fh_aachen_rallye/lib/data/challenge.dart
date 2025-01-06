@@ -181,12 +181,20 @@ class ChallengeUserStatus {
 
   const ChallengeUserStatus(this.value, this.badgeMessage);
 
-  static const ChallengeUserStatus none = ChallengeUserStatus(-1, '');
+  static const ChallengeUserStatus none = ChallengeUserStatus(
+    -1,
+    'STATUS_NONE',
+  );
 
-  static const ChallengeUserStatus new_ = ChallengeUserStatus(0, 'STATUS_NEW');
+  static const ChallengeUserStatus new_ = ChallengeUserStatus(
+    0,
+    'STATUS_NEW',
+  );
 
-  static const ChallengeUserStatus unlocked =
-      ChallengeUserStatus(1, 'STATUS_UNLOCKED');
+  static const ChallengeUserStatus unlocked = ChallengeUserStatus(
+    1,
+    'STATUS_UNLOCKED',
+  );
 
   @override
   bool operator ==(Object other) {

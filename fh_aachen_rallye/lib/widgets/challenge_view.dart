@@ -50,8 +50,9 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
     SubscriptionManager.subscribe<User>(this, Backend.userId!);
     stringInputFocusNode = FocusNode();
 
-    if (challenge.userStatus != -1) {
-      Backend.setChallengeStatus(challenge.challengeId, -1);
+    if (challenge.userStatus != ChallengeUserStatus.none) {
+      Backend.setChallengeStatus(
+          challenge.challengeId, ChallengeUserStatus.none);
     }
   }
 
@@ -82,6 +83,7 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
     }
   }
 
+  // TEMP
   void nextStep(ChallengeStep? step) {
     if (step == null) {
       return;
@@ -92,6 +94,10 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
     } else {
       proceedStep(step.next ?? 1);
     }
+  }
+
+  void proceedStep(int step) {
+    gotoStep(currentStep + step, shuffle: step == 0);
   }
 
   void gotoStep(int step, {bool shuffle = false}) {
@@ -142,7 +148,6 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
       currentStep = step;
       if (currentStep >= 0 &&
           challenge.steps[currentStep] is ChallengeStepStringInput) {
-        print("Requesting focus");
         stringInputFocusNode.requestFocus();
       }
       Backend.setChallengeState(
@@ -155,10 +160,6 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
         ),
       );
     });
-  }
-
-  void proceedStep(int step) {
-    gotoStep(currentStep + step, shuffle: step == 0);
   }
 
   @override

@@ -130,17 +130,25 @@ class Backend {
   }
 
   // TEMP
-  static Future<String> setChallengeState(
+  static Future<(bool, String)> setChallengeState(
       String challengeId, ChallengeState challengeState) async {
+    print('Setting challenge state of $challengeId');
     state.user!.challengeStates[challengeId] = challengeState;
+    SubscriptionManager.notifyUpdate(state.user!);
 
-    var message = await Backend.patch(state.user!,
-        {'challengeStates': jsonEncode(state.user!.challengeStates)});
+    var (result, message) =
+        await apiRequest('POST', 'game/setChallengeState', body: {
+      'challenge_id': challengeId,
+      'state': jsonEncode(challengeState),
+    });
     if (challengeState.step == -2) {
       Backend.fetch<Challenge>('all');
     }
+    if (result != null) {
+      return (true, '');
+    }
 
-    return message;
+    return (false, message);
   }
 
   static Future<(bool, String)> login(String username, String password) async {
@@ -201,12 +209,12 @@ class Backend {
   }
 
   static Future<(bool, String)> setChallengeStatus(
-      String challengeId, int status) async {
-    print('Setting challenge status of $challengeId to $status');
+      String challengeId, ChallengeUserStatus status) async {
+    print('Setting challenge status of $challengeId to ${status.badgeMessage}');
     var (result, message) =
         await apiRequest('POST', 'game/setChallengeStatus', body: {
       'challenge_id': challengeId,
-      'status': status,
+      'status': status.value,
     });
     fetch<User>(Backend.state.user!.id);
     if (result != null) {
