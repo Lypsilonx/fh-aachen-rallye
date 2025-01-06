@@ -29,5 +29,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1', 'm
     Route::apiResource('challengeStates', ChallengeStateController::class);
     Route::apiResource('translations', TranslationController::class)->except(['index', 'show']);
     Route::post('game/unlock', [GameController::class, 'unlockRequest']);
+    Route::post('game/setChallengeState', [GameController::class, 'setChallengeStateRequest']);
     Route::post('game/setChallengeStatus', [GameController::class, 'setChallengeStatusRequest']);
 });

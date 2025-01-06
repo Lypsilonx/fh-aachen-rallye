@@ -59,42 +59,6 @@ class UserController extends Controller
     {
         $user->update($request->all());
 
-        if ($request->has('challengeStates')) {
-            $challengeStates = $request->input('challengeStates');
-
-            if (is_string($challengeStates)) {
-                $challengeStates = json_decode($challengeStates, true);
-            }
-
-            foreach ($challengeStates as $challenge_id => $challengeState) {
-                $step = $challengeState['step'];
-
-                if ($step === -2) {
-                    $previousStep = $user->challengeStates()->where('challenge_id', $challenge_id)->where('user_id', $user->id)->first();
-                    if (!$step) {
-                        continue;
-                    }
-
-                    if ($previousStep->step !== -2) {
-                        GameController::completeChallenge($user, $challenge_id);
-                    }
-                }
-
-                $user->challengeStates()->updateOrCreate(
-                    [
-                        'challenge_id' => $challenge_id,
-                        'user_id' => $user->id
-                    ],
-                    [
-                        'step' => $step,
-                        'shuffleSource' => $challengeState['shuffleSource'],
-                        'shuffleTargets' => $challengeState['shuffleTargets'],
-                        'userStatus' => $challengeState['userStatus'],
-                    ]
-                );
-            }
-        }
-
         $user->load('challengeStates');
 
         return new UserResource($user);
