@@ -151,7 +151,7 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
         stringInputFocusNode.requestFocus();
       }
       Backend.setChallengeState(
-        challenge.challengeId,
+        challenge,
         ChallengeState(
           currentStep,
           shuffleSource,
