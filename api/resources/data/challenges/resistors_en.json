@@ -1,0 +1,106 @@
+{
+    "challenge_id": "resistors",
+    "title": "Resistors",
+    "language": "en",
+    "difficulty": 2,
+    "duration": 2,
+    "category": "electricalEngineering",
+    "points": 40,
+    "descriptionStart": "What exactly is a resistor?\n\nIn this task, you will learn the basics of resistors.",
+    "descriptionEnd": "You now understand how resistors work and how they are used in circuits!",
+    "steps": [
+        {
+            "type": "options",
+            "text": "A resistor is measured in ____.",
+            "options": "{ \"Ohm\": 0, \"Volt\": 1, \"Ampere\": 1, \"Watt\": 1 }",
+            "alternatives": "2,4,6s8"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "Current always flows ____.",
+            "options": "{ \"along the shorter path\": 1, \"along the longer path\": 1, \"along the path of least resistance\": 0, \"along the path of greatest resistance\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "A resistor in a circuit is represented by a symbol that resembles a ____.",
+            "options": "{ \"rectangle\": 0, \"circle\": 1, \"triangle\": 1, \"square\": 0 }"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "Resistors are used in circuits to control ____.",
+            "options": "{ \"the current flow\": 0, \"the voltage\": 1, \"the power\": 1, \"the energy\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "How many ohms is this resistor?\n\n\n![Resistor](resistors/resistor_0.42.png)",
+            "correctAnswer": "0.42",
+            "indexOnIncorrect": 1,
+            "next": 6,
+            "alternatives": "2,4"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "How many ohms is this resistor?\n\n\n![Resistor](resistors/resistor_420.png)",
+            "correctAnswer": "420",
+            "indexOnIncorrect": 1,
+            "next": 4
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "How many ohms is this resistor?\n\n\n![Resistor](resistors/resistor_69.png)",
+            "correctAnswer": "69",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "What must be true for $D_1$ and $D_2$ to alternate in the following circuit?\n\n\n![Astable Multivibrator](resistors/astable_multivibrator.png)",
+            "options": "{ \"$R_2 > R_1$\": 2, \"$R_2 < R_1$\": 1, \"$R_2 = R_1$\": 1, \"It doesn't matter how large $R_1$ and $R_2$ are\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "say",
+            "text": "You now understand how resistors work and how they are used in circuits!",
+            "isLast": true
+        }
+    ]
+}

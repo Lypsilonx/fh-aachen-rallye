@@ -1,0 +1,75 @@
+{
+    "challenge_id": "coulomb",
+    "title": "Coulomb's Law",
+    "language": "en",
+    "difficulty": 1,
+    "duration": 1,
+    "category": "electricalEngineering",
+    "lock_id": "es_basics",
+    "points": 20,
+    "descriptionStart": "Coulomb's law describes the relationship between two point charges.\n\nCan you understand the law?",
+    "descriptionEnd": "Now you know what Coulomb's law is and how it is applied.",
+    "steps": [
+        {
+            "type": "options",
+            "text": "Coulomb's law is the basis of ____.",
+            "options": "{ \"Electrostatics\": 2, \"Electrodynamics\": 1, \"Electronics\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "Coulomb's law describes the ____ acting between two point charges.",
+            "options": "{ \"force\": 2, \"voltage\": 1, \"power\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "say",
+            "text": "Do you remember proportionality?\n\n\nWe use proportionality to talk about parts of formulas.\n\nFor example, here is **Ohm's law**: $U = R * I$\nHere $U$ is the **voltage**, $R$ is the **resistance**, and $I$ is the **current**.\n\nWe can split the formula into $U \\propto R$ and $U \\propto I$"
+        },
+        {
+            "type": "options",
+            "text": "The **force** $F$ is proportional to the distance between the charges (here $r$).\n\nWhich of the following options correctly describes this proportionality?",
+            "options": "{ \"$F \\\\propto \\\\frac{1}{r^3}$\": 1, \"$F \\\\propto r^2$\": 1, \"$F \\\\propto \\\\frac{1}{r^2}$\": 2, \"$F \\\\propto \\\\frac{1}{r}$\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "The **force** is also proportional to the charges $Q_1$ and $Q_2$.\n\nWhich of the following options correctly describes this proportionality?",
+            "options": "{ \"$F \\\\propto Q_1 * Q_2$\": 2, \"$F \\\\propto \\\\frac{Q_1}{Q_2}$\": 1, \"$F \\\\propto \\\\frac{Q_1}{Q_2^2}$\": 1, \"$F \\\\propto \\\\frac{Q_1}{Q_2^3}$\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Additionally, $F \\propto 1/(4*pi*\\epsilon_0)$\n\n\nWhat is $\\epsilon_0$?",
+            "correctAnswer": "Electric constant",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "say",
+            "text": "Thus follows **Coulomb's law**:\n\n$$F = \\frac{1}{4*\\pi*\\epsilon_0} * \\frac{Q_1 * Q_2}{r^2}$$",
+            "isLast": true
+        }
+    ]
+}
