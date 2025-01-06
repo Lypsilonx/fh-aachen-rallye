@@ -553,9 +553,6 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
   }
 
   Widget generateChatBubble(String text) {
-    text = text.replaceAllMapped(RegExp(r'!\[([^\]]*)\]\(([^)]*)\)'), (match) {
-      return '![${match.group(1)}](${Backend.url}/api/resources/data/images/${match.group(2)})';
-    });
     return Container(
       width: double.infinity,
       alignment: Alignment.centerLeft,

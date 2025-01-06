@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -210,7 +211,7 @@ class Styles {
     fontVariations: [
       FontVariation(
         'wght',
-        500,
+        400,
       ),
     ],
   );
@@ -257,12 +258,25 @@ class MdText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var text =
+        data.replaceAllMapped(RegExp(r'!\[([^\]]*)\]\(([^)]*)\)'), (match) {
+      return '![${match.group(1)}](${Backend.url}/api/resources/data/images/${match.group(2)})';
+    });
     return MarkdownBody(
-      data: data,
+      data: text,
       styleSheet: MarkdownStyleSheet(
         p: style,
         h1: Styles.h1,
         h2: Styles.h2,
+        strong: style.copyWith(
+          fontWeight: FontWeight.bold,
+          fontVariations: [
+            const FontVariation(
+              'wght',
+              900,
+            ),
+          ],
+        ),
       ),
       builders: {
         'latex': LatexElementBuilder(textStyle: style),
