@@ -131,19 +131,23 @@ class Backend {
 
   // TEMP
   static Future<(bool, String)> setChallengeState(
-      String challengeId, ChallengeState challengeState) async {
-    print('Setting challenge state of $challengeId');
-    state.user!.challengeStates[challengeId] = challengeState;
+      Challenge challenge, ChallengeState challengeState) async {
+    print('Setting challenge state of ${challenge.challengeId}');
+    state.user!.challengeStates[challenge.challengeId] = challengeState;
+    SubscriptionManager.notifyUpdate(state.user!);
 
     var (result, message) =
         await apiRequest('POST', 'game/setChallengeState', body: {
-      'challenge_id': challengeId,
+      'challenge_id': challenge.challengeId,
       'state': jsonEncode(challengeState),
     });
     if (challengeState.step == -2) {
       Backend.fetch<Challenge>('all');
     }
-    Backend.fetch<User>(Backend.state.user!.id);
+    if (challengeState.step == -2 ||
+        challenge.steps[challengeState.step].punishment != null) {
+      Backend.fetch<User>(Backend.state.user!.id);
+    }
     if (result != null) {
       return (true, '');
     }
