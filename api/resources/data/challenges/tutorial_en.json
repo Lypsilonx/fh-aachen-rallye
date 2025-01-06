@@ -48,12 +48,13 @@
         },
         {
             "type": "say",
-            "text": "If you enter a wrong answer, usually nothing bad happens.\n\n\nYou can often just try again.",
-            "next": -1
+            "text": "If you enter a wrong answer, you might lose points (These will be explained later).\n\n\nYou can still simply try again.",
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "say",
-            "text": "Well done!\n\nIf you enter a wrong answer, usually nothing bad happens.\n\n\nYou can often just try again.",
+            "text": "Well done!\n\nIf you enter a wrong answer, you might lose points (These will be explained later).\n\n\nYou can still simply try again.",
             "next": 2
         },
         {

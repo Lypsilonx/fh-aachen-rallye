@@ -69,6 +69,7 @@ class ChallengeController extends Controller
                 'type' => $step['type'],
                 'text' => $step['text'],
                 'next' => $step['next'] ?? null,
+                'punishment' => $step['punishment'] ?? null,
                 'alternatives' => $step['alternatives'] ?? null,
                 'isLast' => $step['isLast'] ?? false,
             ];

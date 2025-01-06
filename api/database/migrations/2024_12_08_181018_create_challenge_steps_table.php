@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->string('type');
             $table->string('text', 2048);
             $table->integer('next')->nullable();
+            $table->integer('punishment')->nullable();
             $table->string('alternatives')->nullable();
             $table->boolean('isLast');
 

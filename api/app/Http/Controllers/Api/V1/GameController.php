@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Models\User;
 use App\Models\Challenge;
 use App\Models\ChallengeState;
+use App\Models\ChallengeStep;
 use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -84,7 +85,14 @@ class GameController extends Controller
                 ], 404);
             }
 
-            GameController::setChallengeState($user, $request->input('challenge_id'), $request->input('state'));
+            $response = GameController::setChallengeState($user, $request->input('challenge_id'), $request->input('state'));
+
+            if ($response) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $response
+                ], 500);
+            }
 
             return response()->json([
                 'status' => true,
@@ -142,38 +150,54 @@ class GameController extends Controller
 
     public static function setChallengeState(User $user, string $challenge_id, string $state)
     {
-        // json decode state from string
-        $challengeState = json_decode($state, true);
+        try {
+            $challengeState = json_decode($state, true);
 
-        if (!$challengeState) {
-            return;
-        }
+            if (!$challengeState) {
+                return 'Invalid state';
+            }
 
-        $step = $challengeState['step'];
+            $step = $challengeState['step'];
 
-        if ($step === -2) {
+
             $previousStep = $user->challengeStates()->where('challenge_id', $challenge_id)->where('user_id', $user->id)->first();
-            if (!$step) {
-                return;
+            if ($step === null) {
+                return 'Invalid step';
             }
 
-            if ($previousStep->step !== -2) {
-                GameController::completeChallenge($user, $challenge_id);
+            if ($previousStep->step !== $step) {
+                $challenge = Challenge::where('challenge_id', $challenge_id)->first();
+                $currentStep = ChallengeStep::where('challenge_id', $challenge->id)->where('index', $step)->first();
+
+                if ($currentStep) {
+                    if ($currentStep->punishment) {
+                        $user->points -= $currentStep->punishment ?? 0;
+                        $user->save();
+                    }
+                }
+
+                if ($step === -2) {
+                    GameController::completeChallenge($user, $challenge_id);
+                }
             }
+
+            $user->challengeStates()->updateOrCreate(
+                [
+                    'challenge_id' => $challenge_id,
+                    'user_id' => $user->id
+                ],
+                [
+                    'step' => $step,
+                    'shuffleSource' => $challengeState['shuffleSource'],
+                    'shuffleTargets' => $challengeState['shuffleTargets'],
+                    'userStatus' => $challengeState['userStatus'],
+                ]
+            );
+        } catch (\Exception $e) {
+            return $e->getMessage();
         }
 
-        $user->challengeStates()->updateOrCreate(
-            [
-                'challenge_id' => $challenge_id,
-                'user_id' => $user->id
-            ],
-            [
-                'step' => $step,
-                'shuffleSource' => $challengeState['shuffleSource'],
-                'shuffleTargets' => $challengeState['shuffleTargets'],
-                'userStatus' => $challengeState['userStatus'],
-            ]
-        );
+        return null;
     }
 
     public static function completeChallenge(User $user, string $challenge_id)

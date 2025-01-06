@@ -48,12 +48,13 @@
         },
         {
             "type": "say",
-            "text": "Wenn du eine falsche Antwort eingibst, passiert meistens nichts schlimmes.\n\n\nDu kannst es oft einfach noch einmal versuchen.",
-            "next": -1
+            "text": "Wenn du eine falsche Antwort eingibst, verlierst du manchmal Punkte (Diese werden später erklärt).\n\n\nDu kannst es dennoch einfach noch einmal versuchen.",
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "say",
-            "text": "Gut gemacht!\n\nFalls du eine falsche Antwort eingibst, passiert meistens nichts schlimmes.\n\n\nDu kannst es oft einfach noch einmal versuchen.",
+            "text": "Gut gemacht!\n\nWenn du eine falsche Antwort eingibst, verlierst du manchmal Punkte (Diese werden später erklärt).\n\n\nDu kannst es dennoch einfach noch einmal versuchen.",
             "next": 2
         },
         {
