@@ -275,6 +275,7 @@ class ChallengeCategory {
 abstract class ChallengeStep {
   final String text;
   final int? next;
+  final int? punishment;
   final String? alternatives;
   final bool isLast;
 
@@ -310,6 +311,7 @@ abstract class ChallengeStep {
 
   const ChallengeStep(this.text,
       {this.next,
+      this.punishment,
       this.alternatives,
       this.isLast = false,
       this.hasNextButton = true});
@@ -349,6 +351,7 @@ class ChallengeStepSay extends ChallengeStep {
   const ChallengeStepSay(
     super.text, {
     super.next,
+    super.punishment,
     super.alternatives,
     super.isLast = false,
   }) : super(hasNextButton: true);
@@ -359,6 +362,7 @@ class ChallengeStepSay extends ChallengeStep {
       'type': 'say',
       'text': text,
       'next': next,
+      'punishment': punishment,
       'alternatives': alternatives,
       'isLast': isLast,
     };
@@ -368,6 +372,7 @@ class ChallengeStepSay extends ChallengeStep {
     return ChallengeStepSay(
       json['text'] as String,
       next: json['next'] as int?,
+      punishment: json['punishment'] as int?,
       isLast: json['isLast'] as int == 1,
       alternatives: (json['alternatives'] as String?),
     );
@@ -381,6 +386,7 @@ class ChallengeStepOptions extends ChallengeStep {
     super.text,
     this.options, {
     super.next,
+    super.punishment,
     super.alternatives,
     super.isLast = false,
   }) : super(hasNextButton: false);
@@ -392,6 +398,7 @@ class ChallengeStepOptions extends ChallengeStep {
       'text': text,
       'options': jsonEncode(options),
       'next': next,
+      'punishment': punishment,
       'alternatives': alternatives,
       'isLast': isLast,
     };
@@ -403,6 +410,7 @@ class ChallengeStepOptions extends ChallengeStep {
       (jsonDecode(json['options'] as String) as Map<String, dynamic>)
           .map((key, value) => MapEntry(key, value)),
       next: json['next'] as int?,
+      punishment: json['punishment'] as int?,
       alternatives: (json['alternatives'] as String?),
       isLast: json['isLast'] as int == 1,
     );
@@ -418,6 +426,7 @@ class ChallengeStepStringInput extends ChallengeStep {
     this.correctAnswer,
     this.indexOnIncorrect, {
     super.next,
+    super.punishment,
     super.alternatives,
     super.isLast = false,
   }) : super(hasNextButton: false);
@@ -430,6 +439,7 @@ class ChallengeStepStringInput extends ChallengeStep {
       'correctAnswer': correctAnswer,
       'indexOnIncorrect': indexOnIncorrect,
       'next': next,
+      'punishment': punishment,
       'alternatives': alternatives,
       'isLast': isLast,
     };
@@ -441,6 +451,7 @@ class ChallengeStepStringInput extends ChallengeStep {
       json['correctAnswer'] as String,
       json['indexOnIncorrect'] as int,
       next: json['next'] as int?,
+      punishment: json['punishment'] as int?,
       alternatives: (json['alternatives'] as String?),
       isLast: json['isLast'] as int == 1,
     );
@@ -454,6 +465,7 @@ class ChallengeStepScan extends ChallengeStep {
     super.text,
     this.correctAnswer, {
     super.next,
+    super.punishment,
     super.alternatives,
     super.isLast = false,
   }) : super(hasNextButton: false);
@@ -465,6 +477,7 @@ class ChallengeStepScan extends ChallengeStep {
       'text': text,
       'correctAnswer': correctAnswer,
       'next': next,
+      'punishment': punishment,
       'alternatives': alternatives,
       'isLast': isLast,
     };
@@ -475,6 +488,7 @@ class ChallengeStepScan extends ChallengeStep {
       json['text'] as String,
       json['correctAnswer'] as String,
       next: json['next'] as int?,
+      punishment: json['punishment'] as int?,
       alternatives: (json['alternatives'] as String?),
       isLast: json['isLast'] as int == 1,
     );

@@ -134,7 +134,6 @@ class Backend {
       String challengeId, ChallengeState challengeState) async {
     print('Setting challenge state of $challengeId');
     state.user!.challengeStates[challengeId] = challengeState;
-    SubscriptionManager.notifyUpdate(state.user!);
 
     var (result, message) =
         await apiRequest('POST', 'game/setChallengeState', body: {
@@ -144,6 +143,7 @@ class Backend {
     if (challengeState.step == -2) {
       Backend.fetch<Challenge>('all');
     }
+    Backend.fetch<User>(Backend.state.user!.id);
     if (result != null) {
       return (true, '');
     }
