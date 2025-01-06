@@ -100,27 +100,4 @@ class CacheController extends Controller
             return new DateTime($object->updated_at, new DateTimeZone('UTC'));
         }
     }
-
-    public static function completeChallenge(User $user, string $challenge_id)
-    {
-        $challenge = Challenge::find($challenge_id);
-        $user->points += $challenge->points;
-        $user->save();
-
-        GameController::unlock($user, $challenge->unlock_id);
-    }
-
-    public static function unlock(User $user, string $lock_id)
-    {
-        $challenges = Challenge::where('lock_id', $lock_id)->get();
-
-        foreach ($challenges as $challenge) {
-            // add challenge_state with step=-1
-            $challengeState = ChallengeState::create([
-                'user_id' => $user->id,
-                'challenge_id' => $challenge->id,
-                'step' => -1,
-            ]);
-        }
-    }
 }
