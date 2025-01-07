@@ -1,0 +1,55 @@
+{
+    "challenge_id": "fh_history",
+    "title": "History of the FH Aachen",
+    "language": "en",
+    "difficulty": 1,
+    "duration": 1,
+    "category": "general",
+    "points": 20,
+    "descriptionStart": "Come along on a journey through the history of FH Aachen!\n\nIn this task, you will learn about the most important milestones of the university.",
+    "descriptionEnd": "Now you know a little more about the history of FH Aachen.",
+    "steps": [
+        {
+            "type": "options",
+            "text": "Which two people founded FH Aachen?",
+            "options": "{ \"Prof. Dr. Hans Schwier and Prof. Dr. Helmut Strehl\": 1, \"Prof. Dr. Hildegard Reitz and Prof. Dr. Hans Schwier\": 1, \"Prof. Dr. Helmut Strehl and Prof. Dr. Hildegard Reitz\": 2 }"
+        },
+        {
+            "type": "say",
+            "text": "That is not correct.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "Which of the following titles is not a **founding name** of one of the schools from which FH Aachen emerged?",
+            "options": "{ \"Königlich-Preussische Baugewerkschule\": 1, \"Königliche Höhere Maschinenbauschule Aachen\": 1, \"Gewerbliche Zeichen- und Kunstgewerbeschule\": 1, \"Staatliche Ingenieurschule für Textilwesen Aachen\": 2 }"
+        },
+        {
+            "type": "say",
+            "text": "That is not correct.\n\n\nIt is about the **founding name**!",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "When did the first semester at FH Aachen start? (YYYY-MM-DD)",
+            "correctAnswer": "1971-09-01",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "options",
+            "text": "Which of the following departments did **not** exist at the founding of FH Aachen?",
+            "options": "{ \"Elektrotechnik\": 1, \"Maschinenbau\": 1, \"Architektur\": 1, \"Design\": 1, \"Physik\": 2 }"
+        },
+        {
+            "type": "say",
+            "text": "That is not correct.",
+            "next": -1
+        },
+        {
+            "type": "say",
+            "text": "Now you know a little more about the history of FH Aachen.",
+            "isLast": true
+        }
+    ]
+}
