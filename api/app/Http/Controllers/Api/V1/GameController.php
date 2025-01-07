@@ -153,7 +153,7 @@ class GameController extends Controller
         try {
             $challengeState = json_decode($state, true);
 
-            if (!$challengeState) {
+            if ($challengeState == null) {
                 return 'Invalid state';
             }
 
