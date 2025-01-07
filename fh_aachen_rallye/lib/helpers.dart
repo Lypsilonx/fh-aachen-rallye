@@ -357,13 +357,16 @@ extension Intersperse<T> on Iterable<T> {
 }
 
 class VerticalClipper extends CustomClipper<Path> {
+  final double margin;
+  VerticalClipper({this.margin = 100});
+
   @override
   Path getClip(Size size) {
     Path path = Path();
-    path.moveTo(-double.maxFinite, 0);
-    path.lineTo(double.maxFinite, 0);
-    path.lineTo(double.maxFinite, size.height);
-    path.lineTo(-double.maxFinite, size.height);
+    path.moveTo(-margin, 0);
+    path.lineTo(size.width + margin, 0);
+    path.lineTo(size.width + margin, size.height);
+    path.lineTo(-margin, size.height);
     path.close();
     return path;
   }
