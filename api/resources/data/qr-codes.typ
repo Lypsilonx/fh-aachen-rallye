@@ -35,6 +35,7 @@
           weight: 700,
           size: 1.5em * scale,
         )[
+          #show regex("[0-9]"): set text(fill: gray)
           FHAR-#id
         ]
       ]
@@ -68,9 +69,9 @@
   return codes
 }
 
-#let amount_big = 6
+#let amount_big = 8
 #let amount_small = 24
-#let codes = random_codes(amount_big + amount_small, 52)
+#let codes = random_codes(amount_big + amount_small, 0)
 
 #grid(
   columns: (100% / 6,) * 6,

@@ -1,0 +1,168 @@
+{
+    "challenge_id": "fh_tour_eupener_strasse",
+    "title": "Tour Eupener Straße",
+    "language": "de",
+    "difficulty": 2,
+    "duration": 3,
+    "category": "general",
+    "tags": "Outdoor,Eupener Straße",
+    "points": 100,
+    "descriptionStart": "Wilkommen am Campus Eupener Straße! In dieser Challenge wirst du den Campus Eupener Straße erkunden und dabei einige interessante Orte kennenlernen.",
+    "descriptionEnd": "Du kennst dich auf dem Campus Eupener Straße aus.",
+    "steps": [
+        {
+            "type": "options",
+            "text": "Auf dem Campus Eupener Straße befindet sich welcher Fachbereich **nicht**?",
+            "options": "{ \"Elektrotechnik\": 1, \"Informatik\": 1, \"Wirtschaftswissenschaften\": 1, \"Maschinenbau\": 2 }"
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch. Versuche es noch einmal.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "Welches Gebeude ist hier zu sehen?\n\n\n![](fh_tour_eupener_strasse/building_e.png)",
+            "options": "{ \"Gebäude E\": 0, \"Gebäude D\": 1, \"Gebäude G\": 1, \"Gebäude H\": 1 }",
+            "alternatives": "2,4,6s8"
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch. Versuche es noch einmal.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "Welches Gebeude ist hier zu sehen?\n\n\n![](fh_tour_eupener_strasse/building_d.png)",
+            "options": "{ \"Gebäude E\": 1, \"Gebäude D\": 0, \"Gebäude G\": 1, \"Gebäude H\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch. Versuche es noch einmal.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "Welches Gebeude ist hier zu sehen?\n\n\n![](fh_tour_eupener_strasse/building_g.png)",
+            "options": "{ \"Gebäude E\": 1, \"Gebäude D\": 1, \"Gebäude G\": 0, \"Gebäude H\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch. Versuche es noch einmal.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "Welches Gebeude ist hier zu sehen?\n\n\n![](fh_tour_eupener_strasse/building_h.png)",
+            "options": "{ \"Gebäude E\": 1, \"Gebäude D\": 1, \"Gebäude G\": 1, \"Gebäude H\": 0 }"
+        },
+        {
+            "type": "say",
+            "text": "Das ist leider falsch. Versuche es noch einmal.",
+            "next": -1
+        },
+        {
+            "type": "scan",
+            "text": "Na gut, das war einfach. Aber findest du diesen Gang?\n\n\n![](fh_tour_eupener_strasse/hall_e1.png)\n\n\nScanne den QR-Code nahe des roten Punktes in der Abbildung.",
+            "correctAnswer": "FHAR-0MAN3IHL",
+            "indexOnIncorrect": 1,
+            "next": 8,
+            "alternatives": "2,4,6"
+        },
+        {
+            "type": "say",
+            "text": "Das ist nicht der richtige Code. Versichere dich, dass du den richtigen Code scannst.\n\nZur Not kannst du den Code auch manuell eingeben.",
+            "next": -1
+        },
+        {
+            "type": "scan",
+            "text": "Na gut, das war einfach. Aber findest du diesen Gang?\n\n\n![](fh_tour_eupener_strasse/hall_e2.png)\n\n\nScanne den QR-Code nahe des roten Punktes in der Abbildung.",
+            "correctAnswer": "FHAR-H6AIX6O7",
+            "indexOnIncorrect": 1,
+            "next": 6
+        },
+        {
+            "type": "say",
+            "text": "Das ist nicht der richtige Code. Versichere dich, dass du den richtigen Code scannst.\n\nZur Not kannst du den Code auch manuell eingeben.",
+            "next": -1
+        },
+        {
+            "type": "scan",
+            "text": "Na gut, das war einfach. Aber findest du diesen Gang?\n\n\n![](fh_tour_eupener_strasse/hall_e3.png)\n\n\nScanne den QR-Code nahe des roten Punktes in der Abbildung.",
+            "correctAnswer": "FHAR-0OADRSWT",
+            "indexOnIncorrect": 1,
+            "next": 4
+        },
+        {
+            "type": "say",
+            "text": "Das ist nicht der richtige Code. Versichere dich, dass du den richtigen Code scannst.\n\nZur Not kannst du den Code auch manuell eingeben.",
+            "next": -1
+        },
+        {
+            "type": "scan",
+            "text": "Na gut, das war einfach. Aber findest du diesen Gang?\n\n\n![](fh_tour_eupener_strasse/stairs_e1.png)\n\n\nScanne den QR-Code nahe des roten Punktes in der Abbildung.",
+            "correctAnswer": "FHAR-I7B8MG4G",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "Das ist nicht der richtige Code. Versichere dich, dass du den richtigen Code scannst.\n\nZur Not kannst du den Code auch manuell eingeben.",
+            "next": -1
+        },
+        {
+            "type": "scan",
+            "text": "Ok, du hast einen Gang gefunden. Aber findest du auch den Ort an dem dieses Bild aufgenommen wurde?\n\n\n![](fh_tour_eupener_strasse/random_1.png)\n\n\nScanne den QR-Code nahe des roten Punktes in der Abbildung.",
+            "correctAnswer": "FHAR-1PB3G4B3",
+            "indexOnIncorrect": 1,
+            "next": 8,
+            "alternatives": "2,4,6"
+        },
+        {
+            "type": "say",
+            "text": "Das ist nicht der richtige Code. Versichere dich, dass du den richtigen Code scannst.\n\nZur Not kannst du den Code auch manuell eingeben.",
+            "next": -1
+        },
+        {
+            "type": "scan",
+            "text": "Ok, du hast einen Gang gefunden. Aber findest du auch den Ort an dem dieses Bild aufgenommen wurde?\n\n\n![](fh_tour_eupener_strasse/random_2.png)\n\n\nScanne den QR-Code nahe des roten Punktes in der Abbildung.",
+            "correctAnswer": "FHAR-J9BYARJP",
+            "indexOnIncorrect": 1,
+            "next": 6
+        },
+        {
+            "type": "say",
+            "text": "Das ist nicht der richtige Code. Versichere dich, dass du den richtigen Code scannst.\n\nZur Not kannst du den Code auch manuell eingeben.",
+            "next": -1
+        },
+        {
+            "type": "scan",
+            "text": "Ok, du hast einen Gang gefunden. Aber findest du auch den Ort an dem dieses Bild aufgenommen wurde?\n\n\n![](fh_tour_eupener_strasse/random_3.png)\n\n\nScanne den QR-Code nahe des roten Punktes in der Abbildung.",
+            "correctAnswer": "FHAR-2RBT5FQC",
+            "indexOnIncorrect": 1,
+            "next": 4
+        },
+        {
+            "type": "say",
+            "text": "Das ist nicht der richtige Code. Versichere dich, dass du den richtigen Code scannst.\n\nZur Not kannst du den Code auch manuell eingeben.",
+            "next": -1
+        },
+        {
+            "type": "scan",
+            "text": "Ok, du hast einen Gang gefunden. Aber findest du auch den Ort an dem dieses Bild aufgenommen wurde?\n\n\n![](fh_tour_eupener_strasse/random_4.png)\n\n\nScanne den QR-Code nahe des roten Punktes in der Abbildung.",
+            "correctAnswer": "FHAR-KABOY3YX",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "Das ist nicht der richtige Code. Versichere dich, dass du den richtigen Code scannst.\n\nZur Not kannst du den Code auch manuell eingeben.",
+            "next": -1
+        },
+        {
+            "type": "say",
+            "text": "Wow! Du kennst dich wohl echt gut auf dem Campus Eupener Straße aus! Du hast die Challenge erfolgreich abgeschlossen!",
+            "isLast": true
+        }
+    ]
+}

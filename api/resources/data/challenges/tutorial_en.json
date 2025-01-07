@@ -63,8 +63,15 @@
         },
         {
             "type": "scan",
-            "text": "Some challenges require you to scan a QR code.\n\n\nIf you press 'Scan', the camera will open.\n\nMake sure to grant the app permission to access the camera.\n\nIf you don't want to do that, you can also manually enter the code below the QR code.\n\n\nSince this is only a tutorial, you don't have to scan a QR code.\n\nJust enter the code 'FHAR-TUTORIAL' manually to continue.",
-            "correctAnswer": "FHAR-TUTORIAL"
+            "text": "Some challenges require you to scan a QR code.\n\n\nFH-Aachen Rallye QR Codes look like this:\n![](tutorial/qr_code_example.png)\n(Numbers are grey, so you can differentiate between Zero and 'O')\n\n\nIf you press 'Scan', the camera will open.\n\nMake sure to grant the app permission to access the camera.\n\nIf you don't want to do that, you can also manually enter the code below the QR code.\n\n\nSince this is only a tutorial, you don't have to scan a QR code.\n\nJust enter the code 'FHAR-TUTORIAL' manually to continue.",
+            "correctAnswer": "FHAR-TUTORIAL",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "You seem to have made a typo.\n\nTry again.",
+            "next": -1
         },
         {
             "type": "say",
