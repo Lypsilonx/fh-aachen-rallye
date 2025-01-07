@@ -119,7 +119,7 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
 
       if (shuffle && shuffleExit != null) {
         if (shuffleTargets.isEmpty) {
-          step = shuffleExit!;
+          step = shuffleSource! + shuffleExit!;
           shuffleSource = null;
           shuffleExit = null;
         } else {

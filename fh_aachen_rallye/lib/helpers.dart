@@ -1,4 +1,9 @@
+import 'dart:io';
 import 'dart:math';
+import 'dart:typed_data';
+
+import 'package:exif/exif.dart';
+import 'package:image/image.dart' as img;
 
 import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/challenge.dart';
@@ -258,12 +263,21 @@ class MdText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var text =
-        data.replaceAllMapped(RegExp(r'!\[([^\]]*)\]\(([^)]*)\)'), (match) {
-      return '![${match.group(1)}](${Backend.url}/api/resources/data/images/${match.group(2)})';
-    });
     return MarkdownBody(
-      data: text,
+      imageBuilder: (Uri uri, String? title, String? alt) {
+        String url =
+            "${Backend.url}/api/resources/data/images/${uri.toString()}";
+        return FutureBuilder(
+            future: applyRotationFix(url),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return snapshot.data!;
+              } else {
+                return const CircularProgressIndicator();
+              }
+            });
+      },
+      data: data,
       styleSheet: MarkdownStyleSheet(
         p: style,
         h1: Styles.h1,
@@ -286,6 +300,40 @@ class MdText extends StatelessWidget {
         [LatexInlineSyntax()],
       ),
     );
+  }
+}
+
+Future<Widget> applyRotationFix(String url) async {
+  try {
+    Uint8List imageBytes =
+        await HttpClient().getUrl(Uri.parse(url)).then((request) async {
+      return await request.close().then((response) async {
+        return Uint8List.fromList(
+            await response.expand((element) => element).toList());
+      });
+    });
+    Map<String, IfdTag> data = await readExifFromBytes(imageBytes);
+
+    String orientation = data['Image Orientation']?.toString() ?? '';
+    var rotation = 0;
+    if (orientation.contains('Rotated 90 CW')) {
+      rotation = 90;
+    } else if (orientation.contains('Rotated 180 CW')) {
+      rotation = 180;
+    } else if (orientation.contains('Rotated 270 CW')) {
+      rotation = 270;
+    }
+
+    if (rotation != 0) {
+      var image = img.decodeImage(imageBytes);
+      image = img.copyRotate(image!, angle: rotation);
+      imageBytes = img.encodeJpg(image);
+    }
+
+    print('Url: $url');
+    return Image.memory(imageBytes);
+  } catch (e) {
+    return Image.network(url);
   }
 }
 
