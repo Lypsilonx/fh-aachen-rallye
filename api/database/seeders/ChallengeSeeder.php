@@ -31,22 +31,25 @@ class ChallengeSeeder extends Seeder
                 }
             }
 
-            $challenge = Challenge::create([
-                'id' => \Ramsey\Uuid\Uuid::uuid4(),
-                'challenge_id' => $challengeJson['challenge_id'],
-                'title' => $challengeJson['title'],
-                'language' => $challengeJson['language'],
-                'difficulty' => $challengeJson['difficulty'],
-                'tags' => $tags,
-                'duration' => $challengeJson['duration'],
-                'lock_id' => $challengeJson['lock_id'] ?? null,
-                'unlock_id' => $challengeJson['unlock_id'] ?? null,
-                'points' => $challengeJson['points'],
-                'category' => $challengeJson['category'],
-                'descriptionStart' => $challengeJson['descriptionStart'],
-                'descriptionEnd' => $challengeJson['descriptionEnd'],
-                'image' => $challengeJson['image'] ?? null,
-            ]);
+            $challenge = Challenge::updateOrCreate(
+                [
+                    'challenge_id' => $challengeJson['challenge_id'],
+                    'language' => $challengeJson['language'],
+                ],
+                [
+                    'title' => $challengeJson['title'],
+                    'difficulty' => $challengeJson['difficulty'],
+                    'tags' => $tags,
+                    'duration' => $challengeJson['duration'],
+                    'lock_id' => $challengeJson['lock_id'] ?? null,
+                    'unlock_id' => $challengeJson['unlock_id'] ?? null,
+                    'points' => $challengeJson['points'],
+                    'category' => $challengeJson['category'],
+                    'descriptionStart' => $challengeJson['descriptionStart'],
+                    'descriptionEnd' => $challengeJson['descriptionEnd'],
+                    'image' => $challengeJson['image'] ?? null,
+                ]
+            );
 
             ChallengeController::storeSteps($challenge, $challengeJson['steps']);
         }

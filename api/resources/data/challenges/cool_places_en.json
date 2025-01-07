@@ -1,0 +1,96 @@
+{
+    "challenge_id": "cool_places",
+    "title": "Cool Places",
+    "language": "en",
+    "difficulty": 1,
+    "duration": 2,
+    "category": "general",
+    "tags": "Outdoor,Eupener Straße",
+    "points": 100,
+    "descriptionStart": "Find and discover interesting places on the Eupener Straße campus!",
+    "descriptionEnd": "Hopefully you have discovered places you didn't know before!",
+    "steps": [
+        {
+            "type": "stringInput",
+            "text": "Can you imagine where you can find this?\n\n\n![](cool_places/castle.png)\n\n\nIf you have found it, enter the name of the distinctive building you see here.",
+            "correctAnswer": "Gate,Archway",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "Not quite...\n\n\nHint: It is not a building in the traditional sense, but a distinctive structure. What is such a structure called?",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "To make sure you have found it, enter how many trees the avenue behind it has. Count all the trees in the two rows! (Even the ones at the very back)",
+            "correctAnswer": "17",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "Not quite...\n\nTry again!",
+            "next": -1
+        },
+        {
+            "type": "say",
+            "text": "You did it! You found the archway and counted the avenue. Incredible that such a beautiful place is hidden on the campus!"
+        },
+        {
+            "type": "stringInput",
+            "text": "On to the next place!\n\n\nDoes this sign look familiar?\n\n\n![](cool_places/sign_sculpture.png)\n\n\nIf you have found it, enter behind which building you find this sign.",
+            "correctAnswer": "E,E-Building,e-building,E Building",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "Not quite...\n\n\nHint: You might have seen it during your lunch break.",
+            "next": -1
+        },
+        {
+            "type": "scan",
+            "text": "What exactly is this thing?\n\n\n![](cool_places/sculpture_table_1.png)\n\n\nWell... look under the table from which this photo was taken and scan the QR code!",
+            "correctAnswer": "FHAR-3SBJTQ6K",
+            "indexOnIncorrect": 1,
+            "next": 6,
+            "alternatives": "2,4"
+        },
+        {
+            "type": "say",
+            "text": "Oops... either you scanned the wrong table or something completely different.\n\nTry again!",
+            "next": -1
+        },
+        {
+            "type": "scan",
+            "text": "What exactly is this thing?\n\n\n![](cool_places/sculpture_table_2.png)\n\n\nWell... look under the table from which this photo was taken and scan the QR code!",
+            "correctAnswer": "FHAR-LBBENEE7",
+            "indexOnIncorrect": 1,
+            "next": 4
+        },
+        {
+            "type": "say",
+            "text": "Oops... either you scanned the wrong table or something completely different.\n\nTry again!",
+            "next": -1
+        },
+        {
+            "type": "scan",
+            "text": "What exactly is this thing?\n\n\n![](cool_places/sculpture_table_3.png)\n\n\nWell... look under the table from which this photo was taken and scan the QR code!",
+            "correctAnswer": "FHAR-4UC9I2LT",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "Oops... either you scanned the wrong table or something completely different.\n\nTry again!",
+            "next": -1
+        },
+        {
+            "type": "say",
+            "text": "That's it for now! Hopefully you have discovered something new!",
+            "isLast": true
+        }
+    ]
+}

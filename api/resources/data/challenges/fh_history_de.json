@@ -1,0 +1,60 @@
+{
+    "challenge_id": "fh_history",
+    "title": "Geschichte der FH Aachen",
+    "language": "de",
+    "difficulty": 1,
+    "duration": 1,
+    "category": "general",
+    "points": 20,
+    "descriptionStart": "Komm mit auf eine Reise durch die Geschichte der FH Aachen!\n\nIn dieser Aufgabe lernst du die wichtigsten Meilensteine der Hochschule kennen.",
+    "descriptionEnd": "Nun weißt du ein bißchen mehr über die Geschichte der FH Aachen.",
+    "steps": [
+        {
+            "type": "options",
+            "text": "Welche beiden Personen gründeten die FH Aachen?",
+            "options": "{ \"Prof. Dr. Hans Schwier und Prof. Dr. Helmut Strehl\": 1, \"Prof. Dr. Hildegard Reitz und Prof. Dr. Hans Schwier\": 1, \"Prof. Dr. Helmut Strehl und Prof. Dr. Hildegard Reitz\": 2 }"
+        },
+        {
+            "type": "say",
+            "text": "Das ist nicht richtig.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "Welche der folgenden Titel ist kein **Gründungsname** einer der Schulen aus denen die FH Aachen hervorgegangen ist?",
+            "options": "{ \"Königlich-Preussische Baugewerkschule\": 1, \"Königliche Höhere Maschinenbauschule Aachen\": 1, \"Gewerbliche Zeichen- und Kunstgewerbeschule\": 1, \"Staatliche Ingenieurschule für Textilwesen Aachen\": 2 }"
+        },
+        {
+            "type": "say",
+            "text": "Das ist nicht richtig.\n\n\nEs geht um den **Gründungsnamen**!",
+            "next": -1
+        },
+        {
+            "type": "stringInput",
+            "text": "Wann fing das erste Semester an der FH Aachen an? (JJJJ-MM-TT)",
+            "correctAnswer": "1971-09-01",
+            "indexOnIncorrect": 1,
+            "next": 2
+        },
+        {
+            "type": "say",
+            "text": "Das ist nicht richtig.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "Welche der folgenden Fachbereiche gab es bei der Gründung der FH Aachen **nicht**?",
+            "options": "{ \"Elektrotechnik\": 1, \"Maschinenbau\": 1, \"Architektur\": 1, \"Design\": 1, \"Physik\": 2 }"
+        },
+        {
+            "type": "say",
+            "text": "Das ist nicht richtig.",
+            "next": -1
+        },
+        {
+            "type": "say",
+            "text": "Nun weißt du ein bißchen mehr über die Geschichte der FH Aachen.",
+            "isLast": true
+        }
+    ]
+}

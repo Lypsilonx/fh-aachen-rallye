@@ -1,0 +1,60 @@
+{
+    "challenge_id": "es_basics",
+    "title": "Grundlagen der Elektrostatik",
+    "language": "en",
+    "difficulty": 1,
+    "duration": 1,
+    "category": "electricalEngineering",
+    "unlock_id": "es_basics",
+    "points": 20,
+    "descriptionStart": "Are you ready for a trip into the world of electrostatics?\n\nIn this task, you will learn the basics of electrostatics.",
+    "descriptionEnd": "You have learned the basics of electrostatics!",
+    "steps": [
+        {
+            "type": "options",
+            "text": "Electric charges are always a multiple of the **elementary charge**.",
+            "options": "{ \"True\": 0, \"False\": 1 }",
+            "alternatives": "2,4,6s8"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "The **total field strength** of an arrangement consisting of several charges is obtained by *multiplying* the contributions of the individual charges.",
+            "options": "{ \"True\": 1, \"False\": 0 }"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "In a *closed* system, the sum of the charges is always constant.",
+            "options": "{ \"True\": 0, \"False\": 1 }"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "options",
+            "text": "Charges of *different* signs repel each other.",
+            "options": "{ \"True\": 1, \"False\": 0 }"
+        },
+        {
+            "type": "say",
+            "text": "That is incorrect.",
+            "next": -1
+        },
+        {
+            "type": "say",
+            "text": "You did it!\n\n\nThe basics are no longer foreign to you!",
+            "isLast": true
+        }
+    ]
+}
