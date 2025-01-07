@@ -16,22 +16,18 @@ class TranslationSeeder extends Seeder
         $initialTranslations = json_decode(file_get_contents(base_path('resources/data/translations.json')), true);
 
         foreach ($initialTranslations as $key => $initialTranslation) {
-            Translation::create([
-                'id' => \Ramsey\Uuid\Uuid::uuid4(),
+            Translation::updateOrCreate([
                 'key' => $key,
                 'language' => 'en',
+            ], [
                 'value' => $initialTranslation['en'],
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
 
-            Translation::create([
-                'id' => \Ramsey\Uuid\Uuid::uuid4(),
+            Translation::updateOrCreate([
                 'key' => $key,
                 'language' => 'de',
+            ], [
                 'value' => $initialTranslation['de'],
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
         }
     }
