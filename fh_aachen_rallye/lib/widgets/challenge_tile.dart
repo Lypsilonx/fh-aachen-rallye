@@ -1,7 +1,9 @@
 import 'dart:math';
 
+import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
+import 'package:fh_aachen_rallye/data/user.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_container.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/translator.dart';
@@ -74,6 +76,41 @@ class _ChallengeTileState extends TranslatedState<ChallengeTile>
               MaterialPageRoute(
                 builder: (context) => ChallengeView(widget.challengeId),
               ),
+            );
+          },
+          onLongPress: () {
+            if (widget.challengeId == '') {
+              return;
+            }
+
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text("Reset Challenge \"${challenge.title}\"?"),
+                  content: const Text(
+                      "This will reset the challenge to the beginning. Are you sure?"),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(translate('CLOSE')),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Backend.setChallengeState(
+                          challenge,
+                          ChallengeState(
+                              -1, null, [], ChallengeUserStatus.new_),
+                        );
+                        Navigator.pop(context);
+                      },
+                      child: Text(translate('RESET')),
+                    ),
+                  ],
+                );
+              },
             );
           },
           padding: EdgeInsets.zero,

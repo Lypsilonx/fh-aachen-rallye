@@ -146,10 +146,10 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
       scrollController.jumpTo(0);
       stringInputController.clear();
       currentStep = step;
-      if (currentStep >= 0 &&
-          challenge.steps[currentStep] is ChallengeStepStringInput) {
-        stringInputFocusNode.requestFocus();
-      }
+      // if (currentStep >= 0 &&
+      //     challenge.steps[currentStep] is ChallengeStepStringInput) {
+      //   stringInputFocusNode.requestFocus();
+      // }
       Backend.setChallengeState(
         challenge,
         ChallengeState(
@@ -449,6 +449,7 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
                                               Column(
                                                 children: [
                                                   FunTextInput(
+                                                    autofocus: false,
                                                     controller:
                                                         stringInputController,
                                                     focusNode:

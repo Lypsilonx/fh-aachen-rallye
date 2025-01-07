@@ -6,6 +6,7 @@ class FunContainer extends StatefulWidget {
     this.child,
     this.builder,
     this.onTap,
+    this.onLongPress,
     this.hoverStrength = 0.05,
     this.color = Colors.white,
     this.expand = true,
@@ -19,6 +20,7 @@ class FunContainer extends StatefulWidget {
   final Widget? child;
   final Widget? Function(bool hovered)? builder;
   final Function()? onTap;
+  final Function()? onLongPress;
   final Color color;
   final double hoverStrength;
   final bool expand;
@@ -40,6 +42,7 @@ class _FunContainerState extends State<FunContainer> {
         widget.color.modifySaturation(1 - (hovered ? widget.hoverStrength : 0));
     return GestureDetector(
       onTap: widget.onTap,
+      onLongPress: widget.onLongPress,
       child: MouseRegion(
         onEnter: (_) {
           setState(() {
