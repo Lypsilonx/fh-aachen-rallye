@@ -54,6 +54,12 @@ class CacheController extends Controller
                     }
                 } else {
                     $object = $typeClass::find($id);
+                    if (!$object) {
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'Object ' . $type . ':' . $id . ' not found',
+                        ], 404);
+                    }
                     if (CacheController::getUpdatedAt($typeClass, $object)->getTimestamp() > $lastUpdated) {
                         $update_list[] = "$type:" . $id;
                     }
