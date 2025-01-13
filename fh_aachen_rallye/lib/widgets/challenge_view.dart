@@ -454,7 +454,9 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
                                                         stringInputController,
                                                     focusNode:
                                                         stringInputFocusNode,
-                                                    submitButton:
+                                                    submitButtonStyle:
+                                                        SubmitButtonStyle.below,
+                                                    submitButtonText:
                                                         translate('SUBMIT'),
                                                     onSubmitted: (value) {
                                                       if (step.correctAnswer

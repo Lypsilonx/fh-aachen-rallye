@@ -4,6 +4,7 @@ import 'package:fh_aachen_rallye/fun_ui/fun_language_picker.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_text_input.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
+import 'package:fh_aachen_rallye/pages/page_challenge_list.dart';
 import 'package:flutter/material.dart';
 
 class PageLoginRegister extends FunPage {
@@ -62,14 +63,16 @@ class _PageLoginRegisterState extends FunPageState<PageLoginRegister> {
             FunTextInput(
               label: translate('PASSWORD'),
               obscureText: true,
-              submitButton:
+              submitButtonStyle: SubmitButtonStyle.below,
+              submitButtonText:
                   isLogin ? translate('LOGIN') : translate('REGISTER'),
               onSubmitted: (value) async {
                 var (loggedIn, failMessage) = isLogin
                     ? await Backend.login(usernameController.text, value)
                     : await Backend.register(usernameController.text, value);
                 if (loggedIn) {
-                  Navigator.of(context).pushReplacementNamed('/challenges');
+                  Navigator.of(context)
+                      .pushReplacementNamed(const PageChallengeList().navPath);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

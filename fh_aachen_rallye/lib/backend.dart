@@ -5,6 +5,7 @@ import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/data/translation.dart';
 import 'package:fh_aachen_rallye/data/user.dart';
+import 'package:fh_aachen_rallye/pages/page_login_register.dart';
 import 'package:fh_aachen_rallye/translator.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -146,7 +147,7 @@ class Backend {
     }
     if (challengeState.step == -2 ||
         challenge.steps[challengeState.step].punishment != null) {
-      Backend.fetch<User>(Backend.state.user!.id);
+      Backend.fetch<User>(Backend.userId!);
     }
     if (result != null) {
       return (true, '');
@@ -162,8 +163,8 @@ class Backend {
       'password': password,
     });
     if (result != null) {
-      prefs.setString('userId', result['userId']);
-      prefs.setString('token', result['token']);
+      await prefs.setString('userId', result['userId']);
+      await prefs.setString('token', result['token']);
       state.trySubscribe();
       return (true, '');
     }
@@ -173,11 +174,11 @@ class Backend {
 
   static void logout(BuildContext context) {
     Cache.clear(dontDelete: [Translation]);
-    Navigator.popUntil(context, (route) => route.isFirst);
     Translator.setLanguage(Translator.defaultLanguage);
-    Navigator.pushReplacementNamed(context, '/login');
-    prefs.clear();
     state.dispose();
+    Navigator.of(context).pushNamedAndRemoveUntil(
+        const PageLoginRegister().navPath, (Route<dynamic> route) => false);
+    prefs.clear();
   }
 
   static Future<(bool, String)> register(
@@ -188,8 +189,8 @@ class Backend {
       'password': password,
     });
     if (result != null) {
-      prefs.setString('userId', result['userId']);
-      prefs.setString('token', result['token']);
+      await prefs.setString('userId', result['userId']);
+      await prefs.setString('token', result['token']);
       state.trySubscribe();
       return (true, '');
     }
@@ -220,7 +221,20 @@ class Backend {
       'challenge_id': challengeId,
       'status': status.value,
     });
-    fetch<User>(Backend.state.user!.id);
+    fetch<User>(Backend.userId!);
+    if (result != null) {
+      return (true, '');
+    }
+
+    return (false, message);
+  }
+
+  static Future<(bool, String)> changePassword(String password) async {
+    print('Setting password of $userId');
+    var (result, message) =
+        await apiRequest('POST', 'auth/changePassword', body: {
+      'password': password,
+    });
     if (result != null) {
       return (true, '');
     }
@@ -236,7 +250,7 @@ class BackendState implements ServerObjectSubscriber {
     trySubscribe();
   }
 
-  void trySubscribe() async {
+  void trySubscribe() {
     SubscriptionManager.unsubscribe(this);
     if (Backend.userId != null) {
       SubscriptionManager.subscribe<User>(this, Backend.userId!);

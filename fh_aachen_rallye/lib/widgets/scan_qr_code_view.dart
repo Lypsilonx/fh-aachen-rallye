@@ -133,7 +133,8 @@ class ScanQRCodeViewState extends FunPageState<ScanQRCodeView>
           FunTextInput(
             autofocus: false,
             label: widget.manualInput!,
-            submitButton: translate('SUBMIT'),
+            submitButtonStyle: SubmitButtonStyle.below,
+            submitButtonText: translate('SUBMIT'),
             onSubmitted: (value) {
               checkCode(value);
             },

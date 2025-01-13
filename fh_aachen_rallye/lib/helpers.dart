@@ -155,6 +155,49 @@ class Helpers {
       child: child,
     );
   }
+
+  static Widget blendList(Widget list) {
+    return ShaderMask(
+      shaderCallback: (rect) {
+        return const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.transparent,
+            Colors.black,
+            Colors.black,
+            Colors.transparent,
+          ],
+          stops: [
+            0.0,
+            0.02,
+            0.98,
+            1.0,
+          ],
+        ).createShader(
+          Rect.fromLTRB(
+            0,
+            0,
+            rect.width,
+            rect.height,
+          ),
+        );
+      },
+      blendMode: BlendMode.dstIn,
+      child: ClipPath(
+        clipper: VerticalClipper(),
+        child: list,
+      ),
+    );
+  }
+
+  static void showSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+      ),
+    );
+  }
 }
 
 enum ChallengeDifficulty { none, veryEasy, easy, medium, hard, veryHard }

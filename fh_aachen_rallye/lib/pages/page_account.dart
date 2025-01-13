@@ -4,6 +4,7 @@ import 'package:fh_aachen_rallye/data/user.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_button.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
+import 'package:fh_aachen_rallye/widgets/editable_field.dart';
 import 'package:flutter/material.dart';
 
 class PageAccount extends FunPage {
@@ -60,18 +61,55 @@ class _PageAccountState extends FunPageState<PageAccount>
   Widget buildPage(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: Sizes.medium),
-        Text('User ID: ${user.id}', style: Styles.h2),
-        const SizedBox(height: Sizes.medium),
-        Text('${translate('POINTS')}: ${user.points}', style: Styles.h2),
-        const SizedBox(height: Sizes.extraLarge),
-        FunButton(
-          translate('LOGOUT'),
-          Colors.red,
-          onPressed: () {
-            Backend.logout(context);
-          },
+        Expanded(
+          child: Helpers.blendList(
+            ListView(
+              children: [
+                const SizedBox(height: Sizes.medium),
+                Text('User ID: ${user.id}', style: Styles.h2),
+                const SizedBox(height: Sizes.medium),
+                Text('${translate('POINTS')}: ${user.points}',
+                    style: Styles.h2),
+                const SizedBox(height: Sizes.extraLarge),
+                EditableField(
+                  translate('USERNAME'),
+                  user.username,
+                  (value) {
+                    Backend.patch(user, {'username': value});
+                  },
+                ),
+                const SizedBox(height: Sizes.medium),
+                EditableField(
+                  translate('DISPLAY_NAME'),
+                  user.displayName ?? '',
+                  (value) {
+                    Backend.patch(
+                        user, {'displayName': value.isEmpty ? null : value});
+                  },
+                ),
+                const SizedBox(height: Sizes.medium),
+                EditableField(
+                  translate('PASSWORD'),
+                  '',
+                  (value) {
+                    Backend.changePassword(value);
+                  },
+                  isPassword: true,
+                ),
+                const SizedBox(height: Sizes.extraLarge),
+                FunButton(
+                  translate('LOGOUT'),
+                  Colors.red,
+                  onPressed: () {
+                    Backend.logout(context);
+                  },
+                ),
+                const SizedBox(height: Sizes.extraLarge),
+              ],
+            ),
+          ),
         ),
+        const SizedBox(height: Sizes.medium),
       ],
     );
   }

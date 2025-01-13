@@ -1,10 +1,9 @@
-import 'package:fh_aachen_rallye/backend.dart';
+import 'package:fh_aachen_rallye/data/cache.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/data/user.dart';
-import 'package:fh_aachen_rallye/fun_ui/fun_button.dart';
-import 'package:fh_aachen_rallye/fun_ui/fun_language_picker.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
+import 'package:fh_aachen_rallye/widgets/user_tile.dart';
 import 'package:flutter/material.dart';
 
 class PageLeaderboard extends FunPage {
@@ -34,33 +33,61 @@ class PageLeaderboard extends FunPage {
 
 class _PageLeaderboardState extends FunPageState<PageLeaderboard>
     implements ServerObjectSubscriber {
-  late User user;
+  List<String> userIds = [];
 
   @override
   void initState() {
     super.initState();
-    //SubscriptionManager.subscribe<User>(this, Backend.userId!);
+    SubscriptionManager.subscribeAll<User>(this);
   }
 
   @override
   void dispose() {
-    //SubscriptionManager.unsubscribe(this);
+    SubscriptionManager.unsubscribe(this);
     super.dispose();
   }
 
   @override
   void onUpdate(ServerObject object) {
-    // if (object is User) {
-    //   setState(() {
-    //     user = object;
-    //   });
-    // }
+    var userChache = Cache.fetchAll<User>();
+    userIds = userChache.map((e) => e.id).toList();
+
+    userIds.sort((a, b) {
+      var userA = userChache.firstWhere((e) => e.id == a);
+      var userB = userChache.firstWhere((e) => e.id == b);
+
+      return userB.points.compareTo(userA.points);
+    });
+
+    setState(() {});
   }
 
   @override
   Widget buildPage(BuildContext context) {
     return Column(
-      children: [],
+      children: [
+        Expanded(
+          child: Helpers.blendList(
+            ListView.builder(
+              clipBehavior: Clip.none,
+              itemCount: userIds.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                    bottom: Sizes.medium,
+                    top: index == 0 ? Sizes.medium : 0,
+                  ),
+                  child: UserTile(
+                    userIds[index],
+                    key: UniqueKey(),
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+        const SizedBox(height: Sizes.medium),
+      ],
     );
   }
 }

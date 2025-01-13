@@ -44,7 +44,7 @@ class _PageChallengeListState extends FunPageState<PageChallengeList>
   void initState() {
     super.initState();
     SubscriptionManager.subscribeAll<Challenge>(this);
-    SubscriptionManager.subscribe<User>(this, Backend.state.user!.id);
+    SubscriptionManager.subscribe<User>(this, Backend.userId!);
   }
 
   @override
@@ -93,9 +93,8 @@ class _PageChallengeListState extends FunPageState<PageChallengeList>
     return Column(
       children: [
         Expanded(
-          child: ClipPath(
-            clipper: VerticalClipper(),
-            child: ListView.builder(
+          child: Helpers.blendList(
+            ListView.builder(
               clipBehavior: Clip.none,
               itemCount: challengeIds.length,
               itemBuilder: (context, index) {
@@ -113,6 +112,7 @@ class _PageChallengeListState extends FunPageState<PageChallengeList>
             ),
           ),
         ),
+        const SizedBox(height: Sizes.medium),
         FunButton(
           translate('UNLOCK_CHALLENGE'),
           Colors.blue,

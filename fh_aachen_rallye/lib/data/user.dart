@@ -7,6 +7,8 @@ class User extends ServerObject {
   final Map<String, ChallengeState> challengeStates;
   final String? displayName;
 
+  String get name => displayName ?? username;
+
   User(super.id, this.username, this.points, this.challengeStates,
       {this.displayName});
 

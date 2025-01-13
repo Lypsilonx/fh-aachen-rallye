@@ -146,6 +146,11 @@ abstract class FunPageState<T extends FunPage> extends TranslatedState<T>
                                                         page,
                                                 transitionsBuilder: (context,
                                                     animation, _, child) {
+                                                  if (animation.status ==
+                                                      AnimationStatus
+                                                          .completed) {
+                                                    return child;
+                                                  }
                                                   return Stack(
                                                     children: <Widget>[
                                                       SlideTransition(
