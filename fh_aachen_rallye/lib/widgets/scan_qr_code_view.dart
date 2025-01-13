@@ -14,6 +14,15 @@ class ScanQRCodeView extends FunPage {
   const ScanQRCodeView({super.key, this.acceptRegex, this.manualInput});
 
   @override
+  String get title => 'SCAN_QR_CODE';
+
+  @override
+  String get navPath => '/scan_qr_code';
+
+  @override
+  IconData? get footerIcon => null;
+
+  @override
   ScanQRCodeViewState createState() => ScanQRCodeViewState();
 
   @override
@@ -131,10 +140,5 @@ class ScanQRCodeViewState extends FunPageState<ScanQRCodeView>
           ),
       ],
     );
-  }
-
-  @override
-  Widget title(BuildContext context) {
-    return Text(translate('SCAN_QR_CODE'), style: Styles.h1);
   }
 }

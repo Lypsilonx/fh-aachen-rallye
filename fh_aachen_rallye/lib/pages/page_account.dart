@@ -2,13 +2,21 @@ import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/data/user.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_button.dart';
-import 'package:fh_aachen_rallye/fun_ui/fun_language_picker.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:flutter/material.dart';
 
 class PageAccount extends FunPage {
   const PageAccount({super.key});
+
+  @override
+  String get title => 'ACCOUNT';
+
+  @override
+  String get navPath => '/account';
+
+  @override
+  IconData? get footerIcon => Icons.person;
 
   @override
   String get tileAssetPath => 'assets/background_1.png';
@@ -46,15 +54,6 @@ class _PageAccountState extends FunPageState<PageAccount>
         user = object;
       });
     }
-  }
-
-  @override
-  Widget title(BuildContext context) =>
-      Text(translate('ACCOUNT'), style: Styles.h1);
-
-  @override
-  Widget trailing(BuildContext context) {
-    return const FunLanguagePicker();
   }
 
   @override

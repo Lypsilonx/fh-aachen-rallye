@@ -10,6 +10,15 @@ class PageLoginRegister extends FunPage {
   const PageLoginRegister({super.key});
 
   @override
+  String get title => 'LOGIN';
+
+  @override
+  String get navPath => '/login';
+
+  @override
+  IconData? get footerIcon => null;
+
+  @override
   String get tileAssetPath => 'assets/background_1.png';
 
   @override
@@ -28,8 +37,7 @@ class _PageLoginRegisterState extends FunPageState<PageLoginRegister> {
   bool isLogin = true;
 
   @override
-  Widget title(BuildContext context) =>
-      Text(translate(isLogin ? 'LOGIN' : 'REGISTER'), style: Styles.h1);
+  String get title => isLogin ? widget.title : 'REGISTER';
 
   @override
   Widget trailing(BuildContext context) {

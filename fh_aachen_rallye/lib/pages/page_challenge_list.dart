@@ -15,6 +15,15 @@ class PageChallengeList extends FunPage {
   const PageChallengeList({super.key});
 
   @override
+  String get title => 'CHALLENGES';
+
+  @override
+  String get navPath => '/challenges';
+
+  @override
+  IconData? get footerIcon => Icons.home;
+
+  @override
   String get tileAssetPath => 'assets/background_1.png';
 
   @override
@@ -29,23 +38,6 @@ class PageChallengeList extends FunPage {
 
 class _PageChallengeListState extends FunPageState<PageChallengeList>
     implements ServerObjectSubscriber {
-  @override
-  Widget title(BuildContext context) =>
-      Text(translate('CHALLENGES'), style: Styles.h1);
-
-  @override
-  Widget? trailing(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, '/account');
-      },
-      child: const Icon(
-        Icons.account_circle,
-        color: Colors.grey,
-      ),
-    );
-  }
-
   List<String> challengeIds = [];
 
   @override

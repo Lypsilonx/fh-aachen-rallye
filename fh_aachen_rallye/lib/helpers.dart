@@ -143,14 +143,14 @@ class Helpers {
   }
 
   static Widget intelligentPadding(BuildContext context, Widget child,
-      {bool vertical = true}) {
+      {bool vertical = true, bool bottom = true}) {
     double extraPadding = Helpers.extraPadding(context);
     return Padding(
       padding: EdgeInsets.only(
         left: extraPadding + Sizes.large,
         right: extraPadding + Sizes.large,
         top: vertical ? Sizes.medium : 0,
-        bottom: vertical ? Sizes.large : 0,
+        bottom: vertical && bottom ? Sizes.large : 0,
       ),
       child: child,
     );
