@@ -41,17 +41,7 @@ class FHAachenRallyeState extends State<FHAachenRallye> {
   static bool hasInternet = false;
   static bool validToken = false;
 
-  @override
-  void initState() {
-    super.initState();
-
-    // look for internet every few seconds
-    update();
-    Timer.periodic(
-      const Duration(seconds: 10),
-      (timer) => update(),
-    );
-  }
+  static Timer? updateTimer;
 
   void update() async {
     try {
@@ -88,6 +78,13 @@ class FHAachenRallyeState extends State<FHAachenRallye> {
 
   @override
   Widget build(BuildContext context) {
+    if (updateTimer == null) {
+      update();
+      updateTimer = Timer.periodic(
+        const Duration(seconds: 10),
+        (timer) => update(),
+      );
+    }
     return MaterialApp(
       key: UniqueKey(),
       scaffoldMessengerKey: rootScaffoldMessengerKey,
