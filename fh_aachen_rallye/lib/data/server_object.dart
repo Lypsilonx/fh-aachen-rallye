@@ -68,6 +68,10 @@ class SubscriptionManager {
       _subscribers[T]![id] = [];
     }
 
+    if (_subscribers[T]![id]!.contains(subscriber)) {
+      return;
+    }
+
     _subscribers[T]![id]!.add(subscriber);
 
     if (Cache.contains(T, id: id)) {

@@ -5,6 +5,7 @@ import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/data/translation.dart';
 import 'package:fh_aachen_rallye/data/user.dart';
+import 'package:fh_aachen_rallye/main.dart';
 import 'package:fh_aachen_rallye/pages/page_login_register.dart';
 import 'package:fh_aachen_rallye/translator.dart';
 import 'package:flutter/material.dart';
@@ -13,16 +14,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Backend {
   static late BackendState state;
+  static late SharedPreferences prefs;
+
+  static bool initialized = false;
+
   static Future<void> init() async {
     prefs = await SharedPreferences.getInstance();
     state = BackendState();
     Translator();
+    initialized = true;
   }
 
   static const String url =
       'https://www.politischdekoriert.de/fh-aachen-rallye';
   static const String apiUrl = '$url/api/public/index.php/';
-  static late SharedPreferences prefs;
 
   static Future<String> patch(
       ServerObject object, Map<String, dynamic> changes) async {
@@ -166,6 +171,7 @@ class Backend {
       await prefs.setString('userId', result['userId']);
       await prefs.setString('token', result['token']);
       state.trySubscribe();
+      FHAachenRallyeState.validToken = true;
       return (true, '');
     }
 
@@ -192,6 +198,7 @@ class Backend {
       await prefs.setString('userId', result['userId']);
       await prefs.setString('token', result['token']);
       state.trySubscribe();
+      FHAachenRallyeState.validToken = true;
       return (true, '');
     }
 
@@ -241,6 +248,26 @@ class Backend {
 
     return (false, message);
   }
+
+  static Future<(bool, String)> deleteAccount() async {
+    print('Deleting account of $userId');
+    var (result, message) = await apiRequest('POST', 'auth/deleteAccount');
+    if (result != null) {
+      return (true, '');
+    }
+
+    return (false, message);
+  }
+
+  static Future<bool> checkToken() async {
+    if (prefs.getString('token') != null) {
+      var (result, message) = await apiRequest('GET', 'auth/checkToken');
+      if (result != null) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
 
 class BackendState implements ServerObjectSubscriber {
@@ -251,7 +278,6 @@ class BackendState implements ServerObjectSubscriber {
   }
 
   void trySubscribe() {
-    SubscriptionManager.unsubscribe(this);
     if (Backend.userId != null) {
       SubscriptionManager.subscribe<User>(this, Backend.userId!);
     }
