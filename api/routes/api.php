@@ -31,4 +31,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1', 'm
     Route::post('game/unlock', [GameController::class, 'unlockRequest']);
     Route::post('game/setChallengeState', [GameController::class, 'setChallengeStateRequest']);
     Route::post('game/setChallengeStatus', [GameController::class, 'setChallengeStatusRequest']);
+    Route::post('auth/changePassword', [AuthController::class, 'changePassword']);
+    Route::post('auth/deleteAccount', [AuthController::class, 'deleteAccount']);
+    Route::get('auth/checkToken', [AuthController::class, 'checkToken']);
 });

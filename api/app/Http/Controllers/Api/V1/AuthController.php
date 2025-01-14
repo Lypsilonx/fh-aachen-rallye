@@ -134,4 +134,100 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
+    public function changePassword(Request $request)
+    {
+        try {
+            $validatedUser = Validator::make(
+                $request->all(),
+                [
+                    'password' => 'required',
+                ],
+            );
+
+            if ($validatedUser->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Validation failed',
+                    'errors' => $validatedUser->errors()
+                ], 401);
+            }
+
+            $user = User::find(auth()->id());
+
+            if (!$user) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'User not found',
+                ], 404);
+            }
+
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Password changed successfully'
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function deleteAccount()
+    {
+        try {
+            $user = User::find(auth()->id());
+
+            if (!$user) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'User not found',
+                ], 404);
+            }
+
+            $user->delete();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'User deleted successfully'
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function checkToken(Request $request)
+    {
+        try {
+            $user = User::find(auth()->id());
+
+            if (!$user) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'User not found',
+                ], 404);
+            }
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Token is valid',
+                'userId' => $user->id
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }

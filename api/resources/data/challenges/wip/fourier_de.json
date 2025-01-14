@@ -21,7 +21,7 @@
         },
         {
             "type": "options",
-            "text": "Das ist richtig!\n\n\nSchau dir mal die folgende Funktion an:![](fourier/wave_1.png)\n\nWelche der folgenden Funktionen ist die Fourier-Transformation dieser Funktion?",
+            "text": "Das ist richtig!\n\n\nSchau dir mal die folgende Funktion an:![](fourier/wave_1.png)\n\nDas Bild zeigt eine Periode einer periodischen Funktion\n\nWelche der folgenden Funktionen ist die Fourier-Transformation dieser Funktion?",
             "options": "{ \"![](fourier/fourier_1.png)\": 8, \"![](fourier/fourier_2.png)\": 1, \"![](fourier/fourier_3.png)\": 1, \"![](fourier/fourier_4.png)\": 1 }",
             "alternatives": "2,4,6"
         },
@@ -32,7 +32,7 @@
         },
         {
             "type": "options",
-            "text": "Das ist richtig!\n\n\nSchau dir mal die folgende Funktion an:![](fourier/wave_2.png)\n\nWelche der folgenden Funktionen ist die Fourier-Transformation dieser Funktion?",
+            "text": "Das ist richtig!\n\n\nSchau dir mal die folgende Funktion an:![](fourier/wave_2.png)\n\nDas Bild zeigt eine Periode einer periodischen Funktion\n\nWelche der folgenden Funktionen ist die Fourier-Transformation dieser Funktion?",
             "options": "{ \"![](fourier/fourier_1.png)\": 1, \"![](fourier/fourier_2.png)\": 6, \"![](fourier/fourier_3.png)\": 1, \"![](fourier/fourier_4.png)\": 1 }"
         },
         {
@@ -42,7 +42,7 @@
         },
         {
             "type": "options",
-            "text": "Das ist richtig!\n\n\nSchau dir mal die folgende Funktion an:![](fourier/wave_3.png)\n\nWelche der folgenden Funktionen ist die Fourier-Transformation dieser Funktion?",
+            "text": "Das ist richtig!\n\n\nSchau dir mal die folgende Funktion an:![](fourier/wave_3.png)\n\nDas Bild zeigt eine Periode einer periodischen Funktion\n\nWelche der folgenden Funktionen ist die Fourier-Transformation dieser Funktion?",
             "options": "{ \"![](fourier/fourier_1.png)\": 1, \"![](fourier/fourier_2.png)\": 1, \"![](fourier/fourier_3.png)\": 4, \"![](fourier/fourier_4.png)\": 1 }"
         },
         {
@@ -52,7 +52,7 @@
         },
         {
             "type": "options",
-            "text": "Das ist richtig!\n\n\nSchau dir mal die folgende Funktion an:![](fourier/wave_4.png)\n\nWelche der folgenden Funktionen ist die Fourier-Transformation dieser Funktion?",
+            "text": "Das ist richtig!\n\n\nSchau dir mal die folgende Funktion an:![](fourier/wave_4.png)\n\nDas Bild zeigt eine Periode einer periodischen Funktion\n\nWelche der folgenden Funktionen ist die Fourier-Transformation dieser Funktion?",
             "options": "{ \"![](fourier/fourier_1.png)\": 1, \"![](fourier/fourier_2.png)\": 1, \"![](fourier/fourier_3.png)\": 1, \"![](fourier/fourier_4.png)\": 2 }"
         },
         {

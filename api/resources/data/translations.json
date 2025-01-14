@@ -3,7 +3,17 @@
     "REGISTER": { "en": "Register", "de": "Registrieren" },
     "LOGOUT": { "en": "Logout", "de": "Abmelden" },
     "USERNAME": { "en": "Username", "de": "Benutzername" },
+    "DISPLAY_NAME": { "en": "Display Name", "de": "Anzeigename" },
     "PASSWORD": { "en": "Password", "de": "Passwort" },
+    "DELETE_ACCOUNT": { "en": "Delete Account", "de": "Benutzerkonto löschen" },
+    "DELETE_ACCOUNT_CONFIRM": {
+        "en": "Are you sure you want to delete your account?",
+        "de": "Möchtest du dein Benutzerkonto wirklich löschen?"
+    },
+    "PASSWORD_MISSMATCH": {
+        "en": "Passwords do not match",
+        "de": "Passwörter stimmen nicht überein"
+    },
     "ALREADY_REGISTERED": {
         "en": "Already registered? Log in!",
         "de": "Bereits registriert? Melde dich an!"
@@ -12,8 +22,10 @@
         "en": "Not registered? Register!",
         "de": "Noch nicht registriert? Registriere dich!"
     },
+    "FIELD_UPDATED": { "en": "{0} updated", "de": "{0} aktualisiert" },
     "ACCOUNT": { "en": "Account", "de": "Benutzerkonto" },
     "SETTINGS": { "en": "Settings", "de": "Einstellungen" },
+    "LEADERBOARD": { "en": "Leaderboard", "de": "Rangliste" },
     "SAVE": { "en": "Save", "de": "Speichern" },
     "START": { "en": "Start", "de": "Start" },
     "NEXT": { "en": "Next", "de": "Weiter" },
