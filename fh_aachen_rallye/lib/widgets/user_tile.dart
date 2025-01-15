@@ -47,16 +47,19 @@ class _UserTileState extends TranslatedState<UserTile>
       height: Sizes.extraLarge + Sizes.small,
       padding: EdgeInsets.zero,
       child: ListTile(
-        title: Text(user.name),
+        title: Text(user.name, style: Styles.h2),
         subtitle: user.name != user.username
             ? Text(
                 user.username,
-                style: Styles.body.copyWith(
+                style: Styles.subtitle.copyWith(
                   color: Colors.grey,
                 ),
               )
             : null,
-        trailing: Text(user.points.toString()),
+        trailing: Text(
+          user.points.toString(),
+          style: Styles.subtitle,
+        ),
       ),
     );
   }

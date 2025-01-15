@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
+import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/pages/page_account.dart';
 import 'package:fh_aachen_rallye/pages/page_challenge_list.dart';
 import 'package:fh_aachen_rallye/pages/page_leaderboard.dart';
@@ -37,40 +38,41 @@ class FHAachenRallye extends StatefulWidget {
   State<FHAachenRallye> createState() => FHAachenRallyeState();
 }
 
+enum AppSate { loading, loggedIn, loggedOut, noInternet }
+
 class FHAachenRallyeState extends State<FHAachenRallye> {
-  static bool hasInternet = false;
-  static bool validToken = false;
+  static AppSate appState = AppSate.loading;
 
   static Timer? updateTimer;
 
   void update() async {
     try {
       await InternetAddress.lookup('example.com');
-      if (!hasInternet) {
-        setState(() {
-          hasInternet = true;
-        });
-      }
       if (!Backend.initialized) {
         await Backend.init();
       } else {
         SubscriptionManager.pollCache();
       }
       if (await Backend.checkToken()) {
-        if (!validToken) {
+        if (appState != AppSate.loggedIn) {
           setState(() {
-            validToken = true;
+            appState = AppSate.loggedIn;
           });
         }
       } else {
         if (Backend.userId != null) {
           Backend.logout(context);
         }
+        if (appState != AppSate.loggedOut) {
+          setState(() {
+            appState = AppSate.loggedOut;
+          });
+        }
       }
     } on SocketException catch (_) {
-      if (hasInternet) {
+      if (appState != AppSate.noInternet) {
         setState(() {
-          hasInternet = false;
+          appState = AppSate.noInternet;
         });
       }
     }
@@ -95,24 +97,32 @@ class FHAachenRallyeState extends State<FHAachenRallye> {
           }),
         ),
       ),
-      initialRoute: hasInternet
-          ? !validToken
-              ? const PageLoginRegister().navPath
-              : const PageChallengeList().navPath
-          : null,
-      home: hasInternet
-          ? null
-          : const Scaffold(
+      initialRoute:
+          appState == AppSate.loading || appState == AppSate.noInternet
+              ? null
+              : appState == AppSate.loggedOut
+                  ? const PageLoginRegister().navPath
+                  : const PageChallengeList().navPath,
+      home: appState == AppSate.loading || appState == AppSate.noInternet
+          ? Scaffold(
               body: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.wifi_off),
-                    Text('No internet connection'),
-                  ],
+                  children: appState == AppSate.noInternet
+                      ? const [
+                          Icon(Icons.wifi_off),
+                          SizedBox(height: Sizes.medium),
+                          Text('No internet connection'),
+                        ]
+                      : const [
+                          CircularProgressIndicator(),
+                          SizedBox(height: Sizes.medium),
+                          Text('Loading...'),
+                        ],
                 ),
               ),
-            ),
+            )
+          : null,
     );
   }
 }

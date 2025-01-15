@@ -171,7 +171,7 @@ class Backend {
       await prefs.setString('userId', result['userId']);
       await prefs.setString('token', result['token']);
       state.trySubscribe();
-      FHAachenRallyeState.validToken = true;
+      FHAachenRallyeState.appState = AppSate.loggedIn;
       return (true, '');
     }
 
@@ -198,7 +198,7 @@ class Backend {
       await prefs.setString('userId', result['userId']);
       await prefs.setString('token', result['token']);
       state.trySubscribe();
-      FHAachenRallyeState.validToken = true;
+      FHAachenRallyeState.appState = AppSate.loggedIn;
       return (true, '');
     }
 
