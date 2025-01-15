@@ -10,6 +10,7 @@
         "en": "Are you sure you want to delete your account?",
         "de": "Möchtest du dein Benutzerkonto wirklich löschen?"
     },
+    "CHANGE_PASSWORD": { "en": "Change Password", "de": "Passwort ändern" },
     "PASSWORD_MISSMATCH": {
         "en": "Passwords do not match",
         "de": "Passwörter stimmen nicht überein"
@@ -23,6 +24,10 @@
         "de": "Noch nicht registriert? Registriere dich!"
     },
     "FIELD_UPDATED": { "en": "{0} updated", "de": "{0} aktualisiert" },
+    "FIELD_UPDATE_ERROR": {
+        "en": "Error updating {0}",
+        "de": "Fehler beim Aktualisieren von {0}"
+    },
     "ACCOUNT": { "en": "Account", "de": "Benutzerkonto" },
     "SETTINGS": { "en": "Settings", "de": "Einstellungen" },
     "LEADERBOARD": { "en": "Leaderboard", "de": "Rangliste" },
