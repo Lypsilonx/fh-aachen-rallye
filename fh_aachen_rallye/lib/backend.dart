@@ -29,18 +29,18 @@ class Backend {
       'https://www.politischdekoriert.de/fh-aachen-rallye';
   static const String apiUrl = '$url/api/public/index.php/';
 
-  static Future<String> patch(
+  static Future<(bool, String)> patch(
       ServerObject object, Map<String, dynamic> changes) async {
     print('Patching object: $object with $changes');
     // Patch object on server
     if (object is User) {
-      var (_, message) =
+      var (user, message) =
           await apiRequest('PATCH', 'users/${object.id}', body: changes);
       fetch<User>(object.id);
-      return message;
+      return (user != null, message);
     }
 
-    return '';
+    return (false, 'Unknown object type');
   }
 
   static void fetch<T extends ServerObject>(String id) async {

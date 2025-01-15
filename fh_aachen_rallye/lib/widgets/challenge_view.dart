@@ -7,6 +7,7 @@ import 'package:fh_aachen_rallye/data/user.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_app_bar.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_button.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_container.dart';
+import 'package:fh_aachen_rallye/fun_ui/fun_feedback.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_text_input.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/translator.dart';
@@ -35,6 +36,8 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
 
   List<String> options = [];
 
+  bool locked = false;
+
   int? shuffleSource;
   int? shuffleExit;
   List<int> shuffleTargets = [];
@@ -42,6 +45,9 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
   final ScrollController scrollController = ScrollController();
   final TextEditingController stringInputController = TextEditingController();
   late FocusNode stringInputFocusNode;
+
+  final FunFeedbackController feedbackController = FunFeedbackController();
+  final List<FunFeedbackController> buttonFeedbacks = [];
 
   @override
   void initState() {
@@ -426,51 +432,114 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
                                           children: [
                                             if (step is ChallengeStepOptions)
                                               Column(
-                                                children: options
-                                                    .map((option) => Column(
-                                                          children: [
-                                                            const SizedBox(
-                                                                height: Sizes
-                                                                    .small),
-                                                            FunButton(
-                                                              option,
-                                                              Colors.blue,
-                                                              onPressed: () =>
-                                                                  proceedStep(step
-                                                                          .options[
-                                                                      option]!),
-                                                            ),
-                                                          ],
-                                                        ))
-                                                    .toList(),
+                                                children:
+                                                    options.indexed.map((item) {
+                                                  var index = item.$1;
+                                                  var option = item.$2;
+                                                  while (
+                                                      buttonFeedbacks.length <=
+                                                          index) {
+                                                    buttonFeedbacks.add(
+                                                        FunFeedbackController());
+                                                  }
+                                                  var buttonFeedback =
+                                                      buttonFeedbacks[index];
+                                                  return Column(
+                                                    children: [
+                                                      const SizedBox(
+                                                          height: Sizes.small),
+                                                      FunFeedback(
+                                                        controller:
+                                                            buttonFeedback,
+                                                        child: FunButton(
+                                                          option,
+                                                          Colors.blue,
+                                                          onPressed: () {
+                                                            if (locked) {
+                                                              return;
+                                                            }
+
+                                                            var nextStep =
+                                                                step.options[
+                                                                    option]!;
+                                                            locked = true;
+                                                            if (challenge
+                                                                    .steps[
+                                                                        nextStep]
+                                                                    .next
+                                                                    ?.isNegative ??
+                                                                false) {
+                                                              buttonFeedback
+                                                                  .triggerError()
+                                                                  .then((_) {
+                                                                locked = false;
+                                                                proceedStep(
+                                                                    nextStep);
+                                                              });
+                                                            } else {
+                                                              buttonFeedback
+                                                                  .triggerSuccess()
+                                                                  .then((_) {
+                                                                locked = false;
+                                                                proceedStep(
+                                                                    nextStep);
+                                                              });
+                                                            }
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                }).toList(),
                                               ),
                                             if (step
                                                 is ChallengeStepStringInput)
                                               Column(
                                                 children: [
-                                                  FunTextInput(
-                                                    autofocus: false,
+                                                  FunFeedback(
                                                     controller:
-                                                        stringInputController,
-                                                    focusNode:
-                                                        stringInputFocusNode,
-                                                    submitButtonStyle:
-                                                        SubmitButtonStyle.below,
-                                                    submitButtonText:
-                                                        translate('SUBMIT'),
-                                                    onSubmitted: (value) {
-                                                      if (step.correctAnswer
-                                                          .split(',')
-                                                          .map((e) =>
-                                                              e.toLowerCase())
-                                                          .contains(value
-                                                              .toLowerCase())) {
-                                                        nextStep(step);
-                                                      } else {
-                                                        proceedStep(step
-                                                            .indexOnIncorrect);
-                                                      }
-                                                    },
+                                                        feedbackController,
+                                                    child: FunTextInput(
+                                                      autofocus: false,
+                                                      controller:
+                                                          stringInputController,
+                                                      focusNode:
+                                                          stringInputFocusNode,
+                                                      submitButtonStyle:
+                                                          SubmitButtonStyle
+                                                              .below,
+                                                      submitButtonText:
+                                                          translate('SUBMIT'),
+                                                      onSubmitted: (value) {
+                                                        if (locked) {
+                                                          return;
+                                                        }
+
+                                                        if (step.correctAnswer
+                                                            .split(',')
+                                                            .map((e) =>
+                                                                e.toLowerCase())
+                                                            .contains(value
+                                                                .toLowerCase())) {
+                                                          locked = true;
+                                                          feedbackController
+                                                              .triggerSuccess()
+                                                              .then((_) {
+                                                            locked = false;
+                                                            nextStep(step);
+                                                          });
+                                                        } else {
+                                                          locked = true;
+                                                          feedbackController
+                                                              .triggerError()
+                                                              .then((_) {
+                                                            locked = false;
+                                                            proceedStep(step
+                                                                .indexOnIncorrect);
+                                                          });
+                                                        }
+                                                      },
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -507,7 +576,9 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
                                               FunButton(
                                                   step.isLast
                                                       ? "${translate('COMPLETE')} (+${challenge.points} ${translate('POINTS')})"
-                                                      : translate('NEXT'),
+                                                      : (step.next ?? 0) < 0
+                                                          ? translate('BACK')
+                                                          : translate('NEXT'),
                                                   step.isLast
                                                       ? Colors.green
                                                       : Colors.orange,

@@ -75,24 +75,24 @@ class _PageAccountState extends FunPageState<PageAccount>
                   translate('USERNAME'),
                   user.username,
                   (value) {
-                    Backend.patch(user, {'username': value});
+                    return Backend.patch(user, {'username': value});
                   },
                 ),
                 const SizedBox(height: Sizes.medium),
                 EditableField(
                   translate('DISPLAY_NAME'),
                   user.displayName ?? '',
-                  (value) {
-                    Backend.patch(
+                  (value) async {
+                    return Backend.patch(
                         user, {'displayName': value.isEmpty ? null : value});
                   },
                 ),
                 const SizedBox(height: Sizes.medium),
                 EditableField(
-                  translate('PASSWORD'),
+                  translate('CHANGE_PASSWORD'),
                   '',
                   (value) {
-                    Backend.changePassword(value);
+                    return Backend.changePassword(value);
                   },
                   isPassword: true,
                 ),

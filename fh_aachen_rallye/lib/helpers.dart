@@ -241,6 +241,9 @@ class Sizes {
   static const double large = Sizes.medium * 2;
   static const double extraLarge = Sizes.large * 2;
 
+  static const double tileHeight = Sizes.extraLarge + Sizes.small;
+  static const double textBoxHeight = Sizes.extraLarge - Sizes.small;
+
   static const double borderRadiusSmall = Sizes.borderRadius / 2;
   static const double borderRadius = Sizes.small;
   static const double borderRadiusLarge = Sizes.borderRadius * 2;

@@ -23,7 +23,7 @@ class PageSettings extends FunPage {
   double get tileSize => 200;
 
   @override
-  Color get color => Colors.blue;
+  Color get color => Colors.grey;
 
   @override
   State<PageSettings> createState() => _PageSettingsState();

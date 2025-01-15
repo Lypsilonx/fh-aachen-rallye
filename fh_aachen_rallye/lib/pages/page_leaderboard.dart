@@ -1,3 +1,4 @@
+import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/cache.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/data/user.dart';
@@ -86,44 +87,75 @@ class _PageLeaderboardState extends FunPageState<PageLeaderboard>
               itemBuilder: (context, index) {
                 var placement = pointsToPlacement[
                     Cache.fetch<User>(userIds[index])?.points ?? 0]!;
-                return Padding(
-                  padding: EdgeInsets.only(
-                    bottom: Sizes.medium,
-                    top: index == 0 ? Sizes.medium : 0,
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: Sizes.borderRadiusLarge * 2,
-                        height: Sizes.borderRadiusLarge * 2,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: switch (placement) {
-                            1 => const Color.fromARGB(255, 147, 132, 50),
-                            2 => Colors.grey,
-                            3 => const Color.fromARGB(255, 156, 78, 50),
-                            _ => Colors.transparent
-                          },
-                          borderRadius:
-                              BorderRadius.circular(Sizes.borderRadiusLarge),
-                        ),
-                        child: Text(
-                          '$placement${placement < 4 ? '' : '.'}',
-                          style: Styles.h1.copyWith(
-                            color: placement < 4 ? Colors.white : Colors.black,
+                return Stack(
+                  children: [
+                    if (userIds[index] == Backend.userId)
+                      Transform.translate(
+                        offset: const Offset(-Sizes.medium, Sizes.extraSmall),
+                        child: Container(
+                          width: double.infinity,
+                          height:
+                              Sizes.tileHeight + Sizes.extraSmall + Sizes.small,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [
+                                Color.fromARGB(128, 255, 0, 0),
+                                Color.fromARGB(0, 255, 0, 0),
+                                Color.fromARGB(0, 255, 0, 0),
+                              ],
+                              stops: [0, 0.2, 1],
+                            ),
+                            borderRadius:
+                                BorderRadius.circular(Sizes.borderRadius),
                           ),
                         ),
                       ),
-                      const SizedBox(width: Sizes.medium),
-                      Expanded(
-                        child: UserTile(
-                          userIds[index],
-                          key: UniqueKey(),
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: Sizes.small,
                       ),
-                    ],
-                  ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Transform.translate(
+                            offset: const Offset(0, Sizes.extraSmall / 2),
+                            child: Container(
+                              width: Sizes.borderRadiusLarge * 2,
+                              height: Sizes.borderRadiusLarge * 2,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: switch (placement) {
+                                  1 => const Color.fromARGB(255, 147, 132, 50),
+                                  2 => Colors.grey,
+                                  3 => const Color.fromARGB(255, 156, 78, 50),
+                                  _ => Colors.transparent
+                                },
+                                borderRadius: BorderRadius.circular(
+                                    Sizes.borderRadiusLarge),
+                              ),
+                              child: Text(
+                                '$placement${placement < 4 ? '' : '.'}',
+                                style: Styles.h1.copyWith(
+                                  color: placement < 4
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: Sizes.medium),
+                          Expanded(
+                            child: UserTile(
+                              userIds[index],
+                              key: UniqueKey(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 );
               },
             ),

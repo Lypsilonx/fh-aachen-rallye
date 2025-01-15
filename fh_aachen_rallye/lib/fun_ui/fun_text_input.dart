@@ -99,8 +99,8 @@ class _FunTextInputState extends State<FunTextInput> {
           const SizedBox(width: Sizes.small),
         if (widget.submitButtonStyle == SubmitButtonStyle.right)
           FunContainer(
-            width: Sizes.extraLarge - Sizes.small,
-            height: Sizes.extraLarge - Sizes.small,
+            width: Sizes.textBoxHeight,
+            height: Sizes.textBoxHeight,
             expand: false,
             color: Colors.orange,
             onTap: () {

@@ -68,130 +68,141 @@ abstract class FunPageState<T extends FunPage> extends TranslatedState<T>
                           bottomLeft: false,
                           bottomRight: false,
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: FHAachenRallye.pages
-                              .where(
-                                (page) => page.showFooter,
-                              )
-                              .map<Widget>(
-                                (page) {
-                                  bool isCurrentPage =
-                                      ModalRoute.of(context)!.settings.name ==
-                                          page.navPath;
-                                  return ElevatedButton(
-                                    style: ButtonStyle(
-                                      padding: WidgetStateProperty.all(
-                                        EdgeInsets.zero,
-                                      ),
-                                      shape: WidgetStateProperty.all(
-                                        RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            Sizes.borderRadius,
+                        child: LayoutBuilder(builder: (context, constraints) {
+                          bool isSmall = constraints.maxWidth < 450;
+
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: FHAachenRallye.pages
+                                .where(
+                                  (page) => page.showFooter,
+                                )
+                                .map<Widget>(
+                                  (page) {
+                                    bool isCurrentPage =
+                                        ModalRoute.of(context)!.settings.name ==
+                                            page.navPath;
+                                    return ElevatedButton(
+                                      style: ButtonStyle(
+                                        padding: WidgetStateProperty.all(
+                                          EdgeInsets.zero,
+                                        ),
+                                        shape: WidgetStateProperty.all(
+                                          RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              Sizes.borderRadius,
+                                            ),
+                                          ),
+                                        ),
+                                        elevation: WidgetStateProperty.all(0),
+                                        backgroundColor: isCurrentPage
+                                            ? WidgetStateColor.resolveWith(
+                                                (_) => Colors.grey.withAlpha(
+                                                    (0.2 * 255).floor()),
+                                              )
+                                            : WidgetStateColor.transparent,
+                                        fixedSize: WidgetStateProperty.all(
+                                          Size(
+                                            isSmall
+                                                ? Sizes.extraLarge * 0.75
+                                                : Sizes.extraLarge * 1.5,
+                                            Sizes.large * 1.5,
                                           ),
                                         ),
                                       ),
-                                      elevation: WidgetStateProperty.all(0),
-                                      backgroundColor: isCurrentPage
-                                          ? WidgetStateColor.resolveWith(
-                                              (_) => Colors.grey.withAlpha(
-                                                  (0.2 * 255).floor()),
-                                            )
-                                          : WidgetStateColor.transparent,
-                                      fixedSize: WidgetStateProperty.all(
-                                        const Size(
-                                          Sizes.extraLarge * 1.5,
-                                          Sizes.large * 1.5,
-                                        ),
+                                      onPressed: isCurrentPage
+                                          ? null
+                                          : () {
+                                              int fromIndex = FHAachenRallye
+                                                  .pages
+                                                  .indexWhere((p) =>
+                                                      p.navPath ==
+                                                      widget.navPath);
+                                              int toIndex = FHAachenRallye.pages
+                                                  .indexWhere((p) =>
+                                                      p.navPath ==
+                                                      page.navPath);
+
+                                              Offset begin = Offset(
+                                                  toIndex >= fromIndex
+                                                      ? -1.0
+                                                      : 1.0,
+                                                  0.0);
+                                              const curve = Curves.ease;
+
+                                              var tween = Tween(
+                                                      begin: Offset.zero,
+                                                      end: begin)
+                                                  .chain(
+                                                CurveTween(curve: curve),
+                                              );
+                                              var secondaryTween = Tween(
+                                                      begin: -begin,
+                                                      end: Offset.zero)
+                                                  .chain(
+                                                CurveTween(curve: curve),
+                                              );
+
+                                              Navigator.of(context)
+                                                  .pushReplacement(
+                                                PageRouteBuilder(
+                                                  settings: RouteSettings(
+                                                      name: page.navPath),
+                                                  pageBuilder:
+                                                      (context, animation, _) =>
+                                                          page,
+                                                  transitionsBuilder: (context,
+                                                      animation, _, child) {
+                                                    if (animation.status ==
+                                                        AnimationStatus
+                                                            .completed) {
+                                                      return child;
+                                                    }
+                                                    return Stack(
+                                                      children: <Widget>[
+                                                        SlideTransition(
+                                                            position:
+                                                                tween.animate(
+                                                                    animation),
+                                                            child: widget),
+                                                        SlideTransition(
+                                                            position:
+                                                                secondaryTween
+                                                                    .animate(
+                                                                        animation),
+                                                            child: child)
+                                                      ],
+                                                    );
+                                                  },
+                                                ),
+                                              );
+                                            },
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Icon(
+                                            page.footerIcon,
+                                            color: isCurrentPage
+                                                ? Colors.grey
+                                                : page.color,
+                                            size: Sizes.medium * 1.5,
+                                          ),
+                                          if (!isSmall)
+                                            Text(translate(page.title),
+                                                style: Styles.body),
+                                        ],
                                       ),
-                                    ),
-                                    onPressed: isCurrentPage
-                                        ? null
-                                        : () {
-                                            int fromIndex = FHAachenRallye.pages
-                                                .indexWhere((p) =>
-                                                    p.navPath ==
-                                                    widget.navPath);
-                                            int toIndex = FHAachenRallye.pages
-                                                .indexWhere((p) =>
-                                                    p.navPath == page.navPath);
-
-                                            Offset begin = Offset(
-                                                toIndex >= fromIndex
-                                                    ? -1.0
-                                                    : 1.0,
-                                                0.0);
-                                            const curve = Curves.ease;
-
-                                            var tween = Tween(
-                                                    begin: Offset.zero,
-                                                    end: begin)
-                                                .chain(
-                                              CurveTween(curve: curve),
-                                            );
-                                            var secondaryTween = Tween(
-                                                    begin: -begin,
-                                                    end: Offset.zero)
-                                                .chain(
-                                              CurveTween(curve: curve),
-                                            );
-
-                                            Navigator.of(context)
-                                                .pushReplacement(
-                                              PageRouteBuilder(
-                                                settings: RouteSettings(
-                                                    name: page.navPath),
-                                                pageBuilder:
-                                                    (context, animation, _) =>
-                                                        page,
-                                                transitionsBuilder: (context,
-                                                    animation, _, child) {
-                                                  if (animation.status ==
-                                                      AnimationStatus
-                                                          .completed) {
-                                                    return child;
-                                                  }
-                                                  return Stack(
-                                                    children: <Widget>[
-                                                      SlideTransition(
-                                                          position:
-                                                              tween.animate(
-                                                                  animation),
-                                                          child: widget),
-                                                      SlideTransition(
-                                                          position:
-                                                              secondaryTween
-                                                                  .animate(
-                                                                      animation),
-                                                          child: child)
-                                                    ],
-                                                  );
-                                                },
-                                              ),
-                                            );
-                                          },
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Icon(
-                                          page.footerIcon,
-                                          color: isCurrentPage
-                                              ? Colors.grey
-                                              : page.color,
-                                          size: Sizes.medium * 1.5,
-                                        ),
-                                        Text(translate(page.title),
-                                            style: Styles.body),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              )
-                              .intersperse(
-                                const SizedBox(width: Sizes.medium),
-                              )
-                              .toList(),
-                        ),
+                                    );
+                                  },
+                                )
+                                .intersperse(
+                                  isSmall
+                                      ? const SizedBox(width: Sizes.small)
+                                      : const SizedBox(width: Sizes.medium),
+                                )
+                                .toList(),
+                          );
+                        }),
                       ),
                     ),
                   ),

@@ -1,3 +1,4 @@
+import 'package:fh_aachen_rallye/fun_ui/fun_feedback.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_text_input.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/translator.dart';
@@ -7,7 +8,7 @@ class EditableField extends StatefulWidget {
   final String label;
   final String value;
   final bool isPassword;
-  final void Function(String) onChanged;
+  final Future<(bool, String)> Function(String) onChanged;
 
   const EditableField(
     this.label,
@@ -27,6 +28,8 @@ class _EditableFieldState extends TranslatedState<EditableField> {
 
   late FocusNode focusNode;
 
+  FunFeedbackController feedbackController = FunFeedbackController();
+
   @override
   void initState() {
     super.initState();
@@ -42,39 +45,59 @@ class _EditableFieldState extends TranslatedState<EditableField> {
       children: [
         Text(widget.label, style: Styles.h2),
         const SizedBox(height: Sizes.small),
-        if (widget.isPassword)
-          FunTextInput(
-            autofocus: false,
-            obscureText: true,
-            controller: passwordController,
-            onSubmitted: (value) {
-              focusNode.requestFocus();
-            },
+        FunFeedback(
+          controller: feedbackController,
+          child: Column(
+            children: [
+              if (widget.isPassword)
+                FunTextInput(
+                  autofocus: false,
+                  obscureText: true,
+                  controller: passwordController,
+                  onSubmitted: (value) {
+                    focusNode.requestFocus();
+                  },
+                ),
+              if (widget.isPassword) const SizedBox(height: Sizes.small),
+              FunTextInput(
+                autofocus: false,
+                obscureText: widget.isPassword,
+                controller: controller,
+                focusNode: focusNode,
+                onSubmitted: (value) async {
+                  if (widget.isPassword && controller.text != value) {
+                    Helpers.showSnackBar(
+                        context, translate('PASSWORD_MISSMATCH'));
+                    feedbackController.triggerError();
+                    return;
+                  }
+                  var (success, message) = await widget.onChanged(value);
+                  if (!success) {
+                    Helpers.showSnackBar(
+                        context,
+                        translate('FIELD_UPDATE_ERROR', args: [
+                          widget.label,
+                        ]));
+                    feedbackController.triggerError();
+                    return;
+                  } else {
+                    Helpers.showSnackBar(
+                      context,
+                      translate('FIELD_UPDATED', args: [
+                        widget.label,
+                      ]),
+                    );
+                    feedbackController.triggerSuccess();
+                  }
+                  if (widget.isPassword) {
+                    controller.clear();
+                    passwordController.clear();
+                  }
+                },
+                submitButtonStyle: SubmitButtonStyle.right,
+              ),
+            ],
           ),
-        if (widget.isPassword) const SizedBox(height: Sizes.small),
-        FunTextInput(
-          autofocus: false,
-          obscureText: widget.isPassword,
-          controller: controller,
-          focusNode: focusNode,
-          onSubmitted: (value) {
-            if (widget.isPassword && controller.text != value) {
-              Helpers.showSnackBar(context, translate('PASSWORD_MISSMATCH'));
-              return;
-            }
-            widget.onChanged(value);
-            Helpers.showSnackBar(
-              context,
-              translate('FIELD_UPDATED', args: [
-                widget.label,
-              ]),
-            );
-            if (widget.isPassword) {
-              controller.clear();
-              passwordController.clear();
-            }
-          },
-          submitButtonStyle: SubmitButtonStyle.right,
         ),
       ],
     );

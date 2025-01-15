@@ -65,7 +65,7 @@ class _ChallengeTileState extends TranslatedState<ChallengeTile>
       clipBehavior: Clip.none,
       children: [
         FunContainer(
-          height: Sizes.extraLarge + Sizes.small,
+          height: Sizes.tileHeight,
           onTap: () {
             if (widget.challengeId == '') {
               return;
@@ -184,7 +184,7 @@ class _ChallengeTileState extends TranslatedState<ChallengeTile>
         LayoutBuilder(
           builder: (context, constraints) {
             return SizedBox(
-              height: Sizes.extraLarge + Sizes.small,
+              height: Sizes.tileHeight,
               width: constraints.maxWidth,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(Sizes.borderRadius),
