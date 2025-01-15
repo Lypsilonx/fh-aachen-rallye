@@ -16,7 +16,7 @@ class PageLeaderboard extends FunPage {
   String get navPath => '/leaderboard';
 
   @override
-  IconData? get footerIcon => Icons.leaderboard;
+  IconData? get footerIcon => Icons.star;
 
   @override
   String get tileAssetPath => 'assets/background_1.png';
@@ -34,11 +34,12 @@ class PageLeaderboard extends FunPage {
 class _PageLeaderboardState extends FunPageState<PageLeaderboard>
     implements ServerObjectSubscriber {
   List<String> userIds = [];
+  Map<int, int> pointsToPlacement = {};
 
   @override
   void initState() {
     super.initState();
-    SubscriptionManager.subscribeAll<User>(this);
+    SubscriptionManager.subscribeAny<User>(this);
   }
 
   @override
@@ -59,6 +60,17 @@ class _PageLeaderboardState extends FunPageState<PageLeaderboard>
       return userB.points.compareTo(userA.points);
     });
 
+    int lastPlacement = 0;
+    int lastPoints = -10000;
+    for (var i = 0; i < userIds.length; i++) {
+      var user = userChache.firstWhere((e) => e.id == userIds[i]);
+      if (user.points != lastPoints) {
+        lastPlacement++;
+        lastPoints = user.points;
+      }
+      pointsToPlacement[user.points] = lastPlacement;
+    }
+
     setState(() {});
   }
 
@@ -72,14 +84,45 @@ class _PageLeaderboardState extends FunPageState<PageLeaderboard>
               clipBehavior: Clip.none,
               itemCount: userIds.length,
               itemBuilder: (context, index) {
+                var placement = pointsToPlacement[
+                    Cache.fetch<User>(userIds[index])?.points ?? 0]!;
                 return Padding(
                   padding: EdgeInsets.only(
                     bottom: Sizes.medium,
                     top: index == 0 ? Sizes.medium : 0,
                   ),
-                  child: UserTile(
-                    userIds[index],
-                    key: UniqueKey(),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: Sizes.borderRadiusLarge * 2,
+                        height: Sizes.borderRadiusLarge * 2,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: switch (placement) {
+                            1 => const Color.fromARGB(255, 147, 132, 50),
+                            2 => Colors.grey,
+                            3 => const Color.fromARGB(255, 156, 78, 50),
+                            _ => Colors.transparent
+                          },
+                          borderRadius:
+                              BorderRadius.circular(Sizes.borderRadiusLarge),
+                        ),
+                        child: Text(
+                          '$placement${placement < 4 ? '' : '.'}',
+                          style: Styles.h1.copyWith(
+                            color: placement < 4 ? Colors.white : Colors.black,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: Sizes.medium),
+                      Expanded(
+                        child: UserTile(
+                          userIds[index],
+                          key: UniqueKey(),
+                        ),
+                      ),
+                    ],
                   ),
                 );
               },
