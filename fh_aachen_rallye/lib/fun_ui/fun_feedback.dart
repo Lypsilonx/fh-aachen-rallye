@@ -27,11 +27,11 @@ class FunFeedbackState extends TranslatedState<FunFeedback>
 
     errorController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 350),
     );
     successController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 350),
     );
 
     errorController.addListener(() {
@@ -61,18 +61,15 @@ class FunFeedbackState extends TranslatedState<FunFeedback>
 
   @override
   Widget build(BuildContext context) {
-    int errorBackgroundValue = (CurveTween(
-              curve: Curves.easeInOut,
-            ).transform(errorController.value) *
-            128)
-        .toInt();
-    int successBackgroundValue = (CurveTween(
-              curve: Curves.easeInOut,
-            ).transform(
-              successController.value,
-            ) *
-            128)
-        .toInt();
+    double errorCurveValue = CurveTween(
+      curve: Curves.easeInOut,
+    ).transform(errorController.value);
+    double successCurveValue = CurveTween(
+      curve: Curves.easeInOut,
+    ).transform(successController.value);
+
+    int errorBackgroundValue = (errorCurveValue * 128).toInt();
+    int successBackgroundValue = (successCurveValue * 128).toInt();
 
     return Stack(
       children: [
@@ -101,15 +98,15 @@ class FunFeedbackState extends TranslatedState<FunFeedback>
           child: IgnorePointer(
             child: Center(
               child: Transform.rotate(
-                angle: (-0.2 + successController.value * 0.25) * 3.1415,
+                angle: (-0.2 + successCurveValue * 0.25) * 3.1415,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.green,
-                    borderRadius: BorderRadius.circular(Sizes.borderRadius),
+                    borderRadius: BorderRadius.circular(Sizes.medium),
                   ),
                   child: Icon(
                     Icons.check,
-                    size: successController.value * Sizes.large,
+                    size: successCurveValue * Sizes.large,
                     color: Colors.white,
                   ),
                 ),
@@ -123,11 +120,11 @@ class FunFeedbackState extends TranslatedState<FunFeedback>
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.red,
-                  borderRadius: BorderRadius.circular(Sizes.borderRadius),
+                  borderRadius: BorderRadius.circular(Sizes.medium),
                 ),
                 child: Icon(
                   Icons.close,
-                  size: errorController.value * Sizes.large,
+                  size: errorCurveValue * Sizes.large,
                   color: Colors.white,
                 ),
               ),

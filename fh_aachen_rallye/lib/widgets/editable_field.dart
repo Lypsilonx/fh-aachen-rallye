@@ -65,7 +65,7 @@ class _EditableFieldState extends TranslatedState<EditableField> {
                 controller: controller,
                 focusNode: focusNode,
                 onSubmitted: (value) async {
-                  if (widget.isPassword && controller.text != value) {
+                  if (widget.isPassword && passwordController.text != value) {
                     Helpers.showSnackBar(
                         context, translate('PASSWORD_MISSMATCH'));
                     feedbackController.triggerError();

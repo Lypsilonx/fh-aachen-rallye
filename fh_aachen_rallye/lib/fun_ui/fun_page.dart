@@ -80,7 +80,7 @@ abstract class FunPageState<T extends FunPage> extends TranslatedState<T>
                                 .map<Widget>(
                                   (page) {
                                     bool isCurrentPage =
-                                        ModalRoute.of(context)!.settings.name ==
+                                        ModalRoute.of(context)?.settings.name ==
                                             page.navPath;
                                     return ElevatedButton(
                                       style: ButtonStyle(

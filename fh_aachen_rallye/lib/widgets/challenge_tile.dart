@@ -83,34 +83,22 @@ class _ChallengeTileState extends TranslatedState<ChallengeTile>
               return;
             }
 
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: Text("Reset Challenge \"${challenge.title}\"?"),
-                  content: const Text(
-                      "This will reset the challenge to the beginning. Are you sure?"),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text(translate('CLOSE')),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Backend.setChallengeState(
-                          challenge,
-                          ChallengeState(
-                              -1, null, [], ChallengeUserStatus.new_),
-                        );
-                        Navigator.pop(context);
-                      },
-                      child: Text(translate('RESET')),
-                    ),
-                  ],
-                );
-              },
+            Helpers.showFunDialog(
+              context,
+              "Reset Challenge \"${challenge.title}\"?",
+              "This will reset the challenge to the beginning. Are you sure?",
+              [
+                (
+                  'RESET',
+                  (context) {
+                    Backend.setChallengeState(
+                      challenge,
+                      ChallengeState(-1, null, [], ChallengeUserStatus.new_),
+                    );
+                    Navigator.pop(context);
+                  },
+                )
+              ],
             );
           },
           padding: EdgeInsets.zero,

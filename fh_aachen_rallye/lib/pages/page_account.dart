@@ -109,30 +109,20 @@ class _PageAccountState extends FunPageState<PageAccount>
                   translate('DELETE_ACCOUNT'),
                   Colors.red,
                   onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text('${translate('DELETE_ACCOUNT')}?'),
-                          content: Text(translate('DELETE_ACCOUNT_CONFIRM')),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text(translate('CLOSE')),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Backend.deleteAccount();
-                                Navigator.pop(context);
-                                Backend.logout(context);
-                              },
-                              child: Text(translate('DELETE')),
-                            ),
-                          ],
-                        );
-                      },
+                    Helpers.showFunDialog(
+                      context,
+                      'DELETE_ACCOUNT_ASK',
+                      'DELETE_ACCOUNT_CONFIRM',
+                      [
+                        (
+                          'DELETE',
+                          (context) {
+                            Backend.deleteAccount();
+                            Navigator.pop(context);
+                            Backend.logout(context);
+                          },
+                        ),
+                      ],
                     );
                   },
                 ),
