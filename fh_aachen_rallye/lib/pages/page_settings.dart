@@ -2,6 +2,7 @@ import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/data/user.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_language_picker.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
+import 'package:fh_aachen_rallye/settings.dart';
 import 'package:flutter/material.dart';
 
 class PageSettings extends FunPage {
@@ -55,8 +56,10 @@ class _PageSettingsState extends FunPageState<PageSettings>
 
   @override
   Widget buildPage(BuildContext context) {
-    return const Column(
-      children: [],
+    return Column(
+      children: [
+        Settings.showWipChallengesWidget,
+      ],
     );
   }
 }
