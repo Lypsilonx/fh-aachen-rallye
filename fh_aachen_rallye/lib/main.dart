@@ -12,6 +12,9 @@ import 'package:fh_aachen_rallye/pages/page_login_register.dart';
 import 'package:fh_aachen_rallye/pages/page_settings.dart';
 import 'package:fh_aachen_rallye/widgets/scan_qr_code_view.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+const bool kIsWeb = bool.fromEnvironment('dart.library.js_util');
 
 // build with: flutter build web --release --wasm --base-href="/fh-aachen-rallye/" -o ..
 
@@ -47,7 +50,11 @@ class FHAachenRallyeState extends State<FHAachenRallye> {
 
   void update() async {
     try {
-      await InternetAddress.lookup('example.com');
+      if (kIsWeb) {
+        await http.get(Uri.parse('www.example.com'));
+      } else {
+        await InternetAddress.lookup('www.example.com');
+      }
       if (!Backend.initialized) {
         await Backend.init();
       } else {
