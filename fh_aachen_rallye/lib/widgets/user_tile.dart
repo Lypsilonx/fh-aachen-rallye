@@ -44,18 +44,10 @@ class _UserTileState extends TranslatedState<UserTile>
   @override
   Widget build(BuildContext context) {
     return FunContainer(
-      height: Sizes.tileHeight,
+      height: Sizes.tileHeight * 0.75,
       padding: EdgeInsets.zero,
       child: ListTile(
         title: Text(user.name, style: Styles.h2),
-        subtitle: user.name != user.username
-            ? Text(
-                user.username,
-                style: Styles.subtitle.copyWith(
-                  color: Colors.grey,
-                ),
-              )
-            : null,
         trailing: Text(
           user.points.toString(),
           style: Styles.subtitle,

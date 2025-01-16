@@ -108,41 +108,36 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
 
   void gotoStep(int step, {bool shuffle = false}) {
     if (!(step < 0 || step >= challenge.steps.length)) {
-      ChallengeStep challengeStep = challenge.steps[step];
-
-      if (challengeStep.alternatives != null &&
-          challengeStep.alternatives!.isNotEmpty) {
-        if (challengeStep.shuffleAlternatives) {
+      bool repeat = true;
+      while (repeat) {
+        repeat = false;
+        ChallengeStep challengeStep = challenge.steps[step];
+        if (challengeStep.alternatives != null &&
+            challengeStep.alternatives!.isNotEmpty) {
           if (shuffleExit == null) {
             shuffleSource = step;
             shuffleExit = challengeStep.shuffleExit;
             shuffleTargets =
                 ([0, ...challengeStep.alternativesInt]).toSet().toList();
+            shuffleTargets.shuffle();
+            shuffleTargets =
+                shuffleTargets.take(challengeStep.shuffleAmount!).toList();
+
             shuffle = true;
           }
         }
-      }
 
-      if (shuffle && shuffleExit != null) {
-        if (shuffleTargets.isEmpty) {
-          step = shuffleSource! + shuffleExit!;
-          shuffleSource = null;
-          shuffleExit = null;
-        } else {
-          step = shuffleTargets[Random().nextInt(shuffleTargets.length)] +
-              shuffleSource!;
-          shuffleTargets.remove(step - shuffleSource!);
-        }
-        challengeStep = challenge.steps[step];
-      }
-
-      if (challengeStep.alternatives != null &&
-          challengeStep.alternatives!.isNotEmpty) {
-        if (!challengeStep.shuffleAlternatives) {
-          // Randomly select one of the alternatives or the original step
-          var possibleSteps =
-              ([0, ...challengeStep.alternativesInt]).toSet().toList();
-          step = possibleSteps[Random().nextInt(possibleSteps.length)] + step;
+        if (shuffle && shuffleExit != null) {
+          if (shuffleTargets.isEmpty) {
+            step = shuffleSource! + shuffleExit!;
+            shuffleSource = null;
+            shuffleExit = null;
+            repeat = true;
+          } else {
+            step = shuffleTargets[Random().nextInt(shuffleTargets.length)] +
+                shuffleSource!;
+            shuffleTargets.remove(step - shuffleSource!);
+          }
         }
       }
     }

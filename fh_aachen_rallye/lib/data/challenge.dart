@@ -51,27 +51,31 @@ class Challenge extends ServerObject {
         .map((element) => (element.next == null || element.next! >= 0) ? 1 : 0)
         .toList();
 
+    int nullifyUntil = -1;
     for (int i = 0; i < steps.length; i++) {
+      if (i <= nullifyUntil) {
+        stepValues[i] = 0;
+      }
       ChallengeStep cStep = steps[i];
-      if (cStep.alternativesInt.isNotEmpty && !cStep.shuffleAlternatives) {
-        for (int alternative in cStep.alternativesInt) {
-          stepValues[alternative + i] = 0;
-        }
+      if (cStep.alternativesInt.isNotEmpty) {
+        stepValues[i] = cStep.shuffleAmount!;
+        nullifyUntil = cStep.shuffleExit! + i - 1;
       }
     }
 
-    int totalSteps = stepValues.sum();
+    int totalSteps = stepValues.sum() + 1;
 
     if (state!.shuffleSource != null) {
-      ChallengeStep cStep = steps[state!.shuffleSource!];
+      ChallengeStep sourceStep = steps[state!.shuffleSource!];
       int completedStepsBeforeShuffle =
           stepValues.take(state!.shuffleSource!).sum();
 
-      int completedStepsAfterShuffle =
-          stepValues.take(cStep.shuffleExit!).sum();
+      int completedStepsAfterShuffle = stepValues
+          .take(sourceStep.shuffleExit! + state!.shuffleSource!)
+          .sum();
 
-      double shuffleProgress = 1 -
-          (state!.shuffleTargets.length / (cStep.alternativesInt.length + 1));
+      double shuffleProgress =
+          1 - (state!.shuffleTargets.length / (sourceStep.shuffleAmount!));
 
       return (completedStepsBeforeShuffle +
               (completedStepsAfterShuffle - completedStepsBeforeShuffle) *
@@ -286,15 +290,9 @@ abstract class ChallengeStep {
       return [];
     }
 
-    String alternativesWithoutShuffle = alternatives!.contains("s")
-        ? alternatives!.substring(0, alternatives!.indexOf("s"))
-        : alternatives!;
+    String alternativesWithoutShuffle = alternatives!.split('|').first;
 
     return alternativesWithoutShuffle.split(',').map(int.parse).toList();
-  }
-
-  bool get shuffleAlternatives {
-    return alternatives != null && alternatives!.contains("s");
   }
 
   int? get shuffleExit {
@@ -302,11 +300,19 @@ abstract class ChallengeStep {
       return null;
     }
 
-    if (alternatives!.contains("s")) {
-      return int.parse(alternatives!.substring(alternatives!.indexOf("s") + 1));
-    } else {
+    return int.parse(alternatives!.split('|')[1]);
+  }
+
+  int? get shuffleAmount {
+    if (alternatives == null) {
       return null;
     }
+
+    if (alternatives!.split('|').length < 3) {
+      return alternativesInt.length + 1;
+    }
+
+    return int.parse(alternatives!.split('|')[2]);
   }
 
   const ChallengeStep(this.text,

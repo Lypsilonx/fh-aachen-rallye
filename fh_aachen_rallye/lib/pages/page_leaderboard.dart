@@ -94,8 +94,9 @@ class _PageLeaderboardState extends FunPageState<PageLeaderboard>
                         offset: const Offset(-Sizes.medium, Sizes.extraSmall),
                         child: Container(
                           width: double.infinity,
-                          height:
-                              Sizes.tileHeight + Sizes.extraSmall + Sizes.small,
+                          height: Sizes.tileHeight * 0.75 +
+                              Sizes.extraSmall +
+                              Sizes.small,
                           decoration: BoxDecoration(
                             gradient: const LinearGradient(
                               begin: Alignment.centerLeft,

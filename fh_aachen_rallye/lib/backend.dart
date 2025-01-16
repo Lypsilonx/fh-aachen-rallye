@@ -151,7 +151,8 @@ class Backend {
       Backend.fetch<Challenge>('all');
     }
     if (challengeState.step == -2 ||
-        challenge.steps[challengeState.step].punishment != null) {
+        (challengeState.step != -1 &&
+            challenge.steps[challengeState.step].punishment != null)) {
       Backend.fetch<User>(Backend.userId!);
     }
     if (result != null) {
@@ -185,6 +186,7 @@ class Backend {
     Navigator.of(context).pushNamedAndRemoveUntil(
         const PageLoginRegister().navPath, (Route<dynamic> route) => false);
     prefs.clear();
+    FHAachenRallyeState.appState = AppSate.loggedOut;
   }
 
   static Future<(bool, String)> register(

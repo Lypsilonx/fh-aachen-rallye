@@ -3,6 +3,7 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:exif/exif.dart';
+import 'package:fh_aachen_rallye/fun_ui/fun_dialog.dart';
 import 'package:image/image.dart' as img;
 
 import 'package:fh_aachen_rallye/backend.dart';
@@ -198,6 +199,22 @@ class Helpers {
       ),
     );
   }
+
+  static void showFunDialog(BuildContext context, String title, String message,
+      List<(String, void Function(BuildContext context))> actions,
+      {bool hasCancelButton = true}) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        opaque: false,
+        pageBuilder: (BuildContext context, _, __) => FunDialog(
+          title: title,
+          message: message,
+          actions: actions,
+          hasCancelButton: hasCancelButton,
+        ),
+      ),
+    );
+  }
 }
 
 enum ChallengeDifficulty { none, veryEasy, easy, medium, hard, veryHard }
@@ -375,8 +392,6 @@ Future<Widget> applyRotationFix(String url) async {
       image = img.copyRotate(image!, angle: rotation);
       imageBytes = img.encodeJpg(image);
     }
-
-    print('Url: $url');
     return Image.memory(imageBytes);
   } catch (e) {
     return Image.network(url);
