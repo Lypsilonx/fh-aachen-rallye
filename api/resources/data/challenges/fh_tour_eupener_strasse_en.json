@@ -24,7 +24,7 @@
             "type": "options",
             "text": "Which building is shown here?\n\n\n![](fh_tour_eupener_strasse/building_e.png)",
             "options": "{ \"Building E\": 0, \"Building D\": 1, \"Building G\": 1, \"Building H\": 1 }",
-            "alternatives": "2,4,6s8"
+            "alternatives": "2,4,6|8"
         },
         {
             "type": "say",
@@ -66,8 +66,8 @@
             "text": "Alright, that was easy. But can you find this hallway?\n\n\n![](fh_tour_eupener_strasse/hall_e1.png)\n\n\nScan the QR code near the red dot in the image.",
             "correctAnswer": "FHAR-0MAN3IHL",
             "indexOnIncorrect": 1,
-            "next": 8,
-            "alternatives": "2,4,6"
+            "next": 0,
+            "alternatives": "2,4,6|8|1"
         },
         {
             "type": "say",
@@ -79,7 +79,7 @@
             "text": "Alright, that was easy. But can you find this hallway?\n\n\n![](fh_tour_eupener_strasse/hall_e2.png)\n\n\nScan the QR code near the red dot in the image.",
             "correctAnswer": "FHAR-H6AIX6O7",
             "indexOnIncorrect": 1,
-            "next": 6
+            "next": 0
         },
         {
             "type": "say",
@@ -91,7 +91,7 @@
             "text": "Alright, that was easy. But can you find this hallway?\n\n\n![](fh_tour_eupener_strasse/hall_e3.png)\n\n\nScan the QR code near the red dot in the image.",
             "correctAnswer": "FHAR-0OADRSWT",
             "indexOnIncorrect": 1,
-            "next": 4
+            "next": 0
         },
         {
             "type": "say",
@@ -103,7 +103,7 @@
             "text": "Alright, that was easy. But can you find this hallway?\n\n\n![](fh_tour_eupener_strasse/stairs_e1.png)\n\n\nScan the QR code near the red dot in the image.",
             "correctAnswer": "FHAR-I7B8MG4G",
             "indexOnIncorrect": 1,
-            "next": 2
+            "next": 0
         },
         {
             "type": "say",
@@ -115,8 +115,8 @@
             "text": "Okay, you found a hallway. But can you also find the place where this picture was taken?\n\n\n![](fh_tour_eupener_strasse/random_1.png)\n\n\nScan the QR code near the red dot in the image.",
             "correctAnswer": "FHAR-1PB3G4B3",
             "indexOnIncorrect": 1,
-            "next": 8,
-            "alternatives": "2,4,6"
+            "next": 0,
+            "alternatives": "2,4,6|8|1"
         },
         {
             "type": "say",
@@ -128,7 +128,7 @@
             "text": "Okay, you found a hallway. But can you also find the place where this picture was taken?\n\n\n![](fh_tour_eupener_strasse/random_2.png)\n\n\nScan the QR code near the red dot in the image.",
             "correctAnswer": "FHAR-J9BYARJP",
             "indexOnIncorrect": 1,
-            "next": 6
+            "next": 0
         },
         {
             "type": "say",
@@ -140,7 +140,7 @@
             "text": "Okay, you found a hallway. But can you also find the place where this picture was taken?\n\n\n![](fh_tour_eupener_strasse/random_3.png)\n\n\nScan the QR code near the red dot in the image.",
             "correctAnswer": "FHAR-2RBT5FQC",
             "indexOnIncorrect": 1,
-            "next": 4
+            "next": 0
         },
         {
             "type": "say",
@@ -152,7 +152,7 @@
             "text": "Okay, you found a hallway. But can you also find the place where this picture was taken?\n\n\n![](fh_tour_eupener_strasse/random_4.png)\n\n\nScan the QR code near the red dot in the image.",
             "correctAnswer": "FHAR-KABOY3YX",
             "indexOnIncorrect": 1,
-            "next": 2
+            "next": 0
         },
         {
             "type": "say",

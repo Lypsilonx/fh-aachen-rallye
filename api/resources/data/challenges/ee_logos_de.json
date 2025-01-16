@@ -15,7 +15,7 @@
             "correctAnswer": "analogdevices,Analog Devices",
             "indexOnIncorrect": 1,
             "next": 0,
-            "alternatives": "2,4,6,8,10,12s14"
+            "alternatives": "2,4,6,8,10,12|14|3"
         },
         {
             "type": "say",

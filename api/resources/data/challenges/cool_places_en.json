@@ -55,8 +55,8 @@
             "text": "What exactly is this thing?\n\n\n![](cool_places/sculpture_table_1.png)\n\n\nWell... look under the table from which this photo was taken and scan the QR code!",
             "correctAnswer": "FHAR-3SBJTQ6K",
             "indexOnIncorrect": 1,
-            "next": 6,
-            "alternatives": "2,4"
+            "next": 0,
+            "alternatives": "2,4|6|1"
         },
         {
             "type": "say",
@@ -68,7 +68,7 @@
             "text": "What exactly is this thing?\n\n\n![](cool_places/sculpture_table_2.png)\n\n\nWell... look under the table from which this photo was taken and scan the QR code!",
             "correctAnswer": "FHAR-LBBENEE7",
             "indexOnIncorrect": 1,
-            "next": 4
+            "next": 0
         },
         {
             "type": "say",
@@ -80,7 +80,7 @@
             "text": "What exactly is this thing?\n\n\n![](cool_places/sculpture_table_3.png)\n\n\nWell... look under the table from which this photo was taken and scan the QR code!",
             "correctAnswer": "FHAR-4UC9I2LT",
             "indexOnIncorrect": 1,
-            "next": 2
+            "next": 0
         },
         {
             "type": "say",

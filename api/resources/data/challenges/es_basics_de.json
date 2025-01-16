@@ -14,7 +14,7 @@
             "type": "options",
             "text": "Elektrische Ladungen sind immer ein vielfaches der **Elementarladung**.",
             "options": "{ \"Wahr\": 0, \"Falsch\": 1 }",
-            "alternatives": "2,4,6s8"
+            "alternatives": "2,4,6|8"
         },
         {
             "type": "say",

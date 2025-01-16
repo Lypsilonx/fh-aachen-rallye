@@ -14,7 +14,7 @@
             "type": "options",
             "text": "Electric charges are always a multiple of the **elementary charge**.",
             "options": "{ \"True\": 0, \"False\": 1 }",
-            "alternatives": "2,4,6s8"
+            "alternatives": "2,4,6|8"
         },
         {
             "type": "say",

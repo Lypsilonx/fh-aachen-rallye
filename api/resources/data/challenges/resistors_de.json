@@ -13,7 +13,7 @@
             "type": "options",
             "text": "Ein Widerstand wird in der Einheit ____ gemessen.",
             "options": "{ \"Ohm\": 0, \"Volt\": 1, \"Ampere\": 1, \"Watt\": 1 }",
-            "alternatives": "2,4,6s8"
+            "alternatives": "2,4,6|8"
         },
         {
             "type": "say",
@@ -55,8 +55,8 @@
             "text": "Wie viel Ohm hat dieser Widerstand?\n\n\n![Widerstand](resistors/resistor_0.42.png)",
             "correctAnswer": "0.42",
             "indexOnIncorrect": 1,
-            "next": 6,
-            "alternatives": "2,4"
+            "next": 0,
+            "alternatives": "2,4|6|1"
         },
         {
             "type": "say",
@@ -68,7 +68,7 @@
             "text": "Wie viel Ohm hat dieser Widerstand?\n\n\n![Widerstand](resistors/resistor_420.png)",
             "correctAnswer": "420",
             "indexOnIncorrect": 1,
-            "next": 4
+            "next": 0
         },
         {
             "type": "say",
@@ -80,7 +80,7 @@
             "text": "Wie viel Ohm hat dieser Widerstand?\n\n\n![Widerstand](resistors/resistor_69.png)",
             "correctAnswer": "69",
             "indexOnIncorrect": 1,
-            "next": 2
+            "next": 0
         },
         {
             "type": "say",

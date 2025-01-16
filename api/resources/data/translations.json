@@ -5,7 +5,15 @@
     "USERNAME": { "en": "Username", "de": "Benutzername" },
     "DISPLAY_NAME": { "en": "Display Name", "de": "Anzeigename" },
     "PASSWORD": { "en": "Password", "de": "Passwort" },
-    "DELETE_ACCOUNT": { "en": "Delete Account", "de": "Benutzerkonto löschen" },
+    "RESET": { "en": "Reset", "de": "Zurücksetzen" },
+    "DELETE_ACCOUNT": {
+        "en": "Delete Account",
+        "de": "Benutzerkonto löschen"
+    },
+    "DELETE_ACCOUNT_ASK": {
+        "en": "Delete Account?",
+        "de": "Benutzerkonto löschen?"
+    },
     "DELETE_ACCOUNT_CONFIRM": {
         "en": "Are you sure you want to delete your account?",
         "de": "Möchtest du dein Benutzerkonto wirklich löschen?"

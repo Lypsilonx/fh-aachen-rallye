@@ -18,8 +18,8 @@
             "text": "Verschlüssele den Klartext 'FH Aachen' mit dem Schlüssel 5.",
             "correctAnswer": "KM Ffhmjs",
             "indexOnIncorrect": 1,
-            "next": 8,
-            "alternatives": "2,4,6"
+            "next": 0,
+            "alternatives": "2,4,6|8|1"
         },
         {
             "type": "say",
@@ -31,7 +31,7 @@
             "text": "Verschlüssele den Klartext 'FH Aachen' mit dem Schlüssel 9.",
             "correctAnswer": "OQ Jjlqnw",
             "indexOnIncorrect": 1,
-            "next": 6
+            "next": 0
         },
         {
             "type": "say",
@@ -43,7 +43,7 @@
             "text": "Verschlüssele den Klartext 'FH Aachen' mit dem Schlüssel 14.",
             "correctAnswer": "TV Ooqvsb",
             "indexOnIncorrect": 1,
-            "next": 4
+            "next": 0
         },
         {
             "type": "say",
@@ -55,7 +55,7 @@
             "text": "Verschlüssele den Klartext 'FH Aachen' mit dem Schlüssel 25.",
             "correctAnswer": "EG Zzbgdm",
             "indexOnIncorrect": 1,
-            "next": 2
+            "next": 0
         },
         {
             "type": "say",
@@ -71,8 +71,8 @@
             "text": "Welcher Buchstabe wird im Morsecode mit '..-.' dargestellt?",
             "correctAnswer": "F",
             "indexOnIncorrect": 1,
-            "next": 8,
-            "alternatives": "2,4,6"
+            "next": 0,
+            "alternatives": "2,4,6|8|1"
         },
         {
             "type": "say",
@@ -84,7 +84,7 @@
             "text": "Welcher Buchstabe wird im Morsecode mit '....' dargestellt?",
             "correctAnswer": "H",
             "indexOnIncorrect": 1,
-            "next": 6
+            "next": 0
         },
         {
             "type": "say",
@@ -96,7 +96,7 @@
             "text": "Welcher Buchstabe wird im Morsecode mit '-.-.' dargestellt?",
             "correctAnswer": "C",
             "indexOnIncorrect": 1,
-            "next": 4
+            "next": 0
         },
         {
             "type": "say",
@@ -108,7 +108,7 @@
             "text": "Welcher Buchstabe wird im Morsecode mit '.-' dargestellt?",
             "correctAnswer": "A",
             "indexOnIncorrect": 1,
-            "next": 2
+            "next": 0
         },
         {
             "type": "say",

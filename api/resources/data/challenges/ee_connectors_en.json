@@ -15,7 +15,7 @@
             "correctAnswer": "BNC",
             "indexOnIncorrect": 1,
             "next": 2,
-            "alternatives": "4,8,12,16,20s24"
+            "alternatives": "4,8,12,16,20|24|3"
         },
         {
             "type": "say",

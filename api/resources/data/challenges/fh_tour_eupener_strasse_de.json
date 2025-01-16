@@ -24,7 +24,7 @@
             "type": "options",
             "text": "Welches Gebeude ist hier zu sehen?\n\n\n![](fh_tour_eupener_strasse/building_e.png)",
             "options": "{ \"Gebäude E\": 0, \"Gebäude D\": 1, \"Gebäude G\": 1, \"Gebäude H\": 1 }",
-            "alternatives": "2,4,6s8"
+            "alternatives": "2,4,6|8"
         },
         {
             "type": "say",
@@ -66,8 +66,8 @@
             "text": "Na gut, das war einfach. Aber findest du diesen Gang?\n\n\n![](fh_tour_eupener_strasse/hall_e1.png)\n\n\nScanne den QR-Code nahe des roten Punktes in der Abbildung.",
             "correctAnswer": "FHAR-0MAN3IHL",
             "indexOnIncorrect": 1,
-            "next": 8,
-            "alternatives": "2,4,6"
+            "next": 0,
+            "alternatives": "2,4,6|8|1"
         },
         {
             "type": "say",
@@ -79,7 +79,7 @@
             "text": "Na gut, das war einfach. Aber findest du diesen Gang?\n\n\n![](fh_tour_eupener_strasse/hall_e2.png)\n\n\nScanne den QR-Code nahe des roten Punktes in der Abbildung.",
             "correctAnswer": "FHAR-H6AIX6O7",
             "indexOnIncorrect": 1,
-            "next": 6
+            "next": 0
         },
         {
             "type": "say",
@@ -91,7 +91,7 @@
             "text": "Na gut, das war einfach. Aber findest du diesen Gang?\n\n\n![](fh_tour_eupener_strasse/hall_e3.png)\n\n\nScanne den QR-Code nahe des roten Punktes in der Abbildung.",
             "correctAnswer": "FHAR-0OADRSWT",
             "indexOnIncorrect": 1,
-            "next": 4
+            "next": 0
         },
         {
             "type": "say",
@@ -103,7 +103,7 @@
             "text": "Na gut, das war einfach. Aber findest du diesen Gang?\n\n\n![](fh_tour_eupener_strasse/stairs_e1.png)\n\n\nScanne den QR-Code nahe des roten Punktes in der Abbildung.",
             "correctAnswer": "FHAR-I7B8MG4G",
             "indexOnIncorrect": 1,
-            "next": 2
+            "next": 0
         },
         {
             "type": "say",
@@ -115,8 +115,8 @@
             "text": "Ok, du hast einen Gang gefunden. Aber findest du auch den Ort an dem dieses Bild aufgenommen wurde?\n\n\n![](fh_tour_eupener_strasse/random_1.png)\n\n\nScanne den QR-Code nahe des roten Punktes in der Abbildung.",
             "correctAnswer": "FHAR-1PB3G4B3",
             "indexOnIncorrect": 1,
-            "next": 8,
-            "alternatives": "2,4,6"
+            "next": 0,
+            "alternatives": "2,4,6|8|1"
         },
         {
             "type": "say",
@@ -128,7 +128,7 @@
             "text": "Ok, du hast einen Gang gefunden. Aber findest du auch den Ort an dem dieses Bild aufgenommen wurde?\n\n\n![](fh_tour_eupener_strasse/random_2.png)\n\n\nScanne den QR-Code nahe des roten Punktes in der Abbildung.",
             "correctAnswer": "FHAR-J9BYARJP",
             "indexOnIncorrect": 1,
-            "next": 6
+            "next": 0
         },
         {
             "type": "say",
@@ -140,7 +140,7 @@
             "text": "Ok, du hast einen Gang gefunden. Aber findest du auch den Ort an dem dieses Bild aufgenommen wurde?\n\n\n![](fh_tour_eupener_strasse/random_3.png)\n\n\nScanne den QR-Code nahe des roten Punktes in der Abbildung.",
             "correctAnswer": "FHAR-2RBT5FQC",
             "indexOnIncorrect": 1,
-            "next": 4
+            "next": 0
         },
         {
             "type": "say",
@@ -152,7 +152,7 @@
             "text": "Ok, du hast einen Gang gefunden. Aber findest du auch den Ort an dem dieses Bild aufgenommen wurde?\n\n\n![](fh_tour_eupener_strasse/random_4.png)\n\n\nScanne den QR-Code nahe des roten Punktes in der Abbildung.",
             "correctAnswer": "FHAR-KABOY3YX",
             "indexOnIncorrect": 1,
-            "next": 2
+            "next": 0
         },
         {
             "type": "say",
