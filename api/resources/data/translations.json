@@ -122,5 +122,9 @@
     "CHALLENGES_UNLOCKED_ALL": {
         "en": "{0} challenges unlocked",
         "de": "{0} Aufgaben freigeschaltet"
+    },
+    "SETTING_SHOW_WIP_CHALLENGES": {
+        "en": "Show work in progress challenges",
+        "de": "Zeige unfertige Aufgaben"
     }
 }
