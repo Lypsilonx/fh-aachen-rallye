@@ -78,6 +78,12 @@ class SubscriptionManager {
       subscriber.onUpdate(Cache.fetch<T>(id)!);
     } else {
       subscriber.onUpdate(ServerObject.empty<T>(id));
+      if (id == '*' || id == 'all') {
+        var chachedObjects = Cache.fetchAll<T>();
+        if (chachedObjects.isNotEmpty && chachedObjects.length > 2) {
+          return;
+        }
+      }
       Backend.fetch<T>(id);
     }
   }
