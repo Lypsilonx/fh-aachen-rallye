@@ -13,8 +13,7 @@ import 'package:fh_aachen_rallye/pages/page_settings.dart';
 import 'package:fh_aachen_rallye/widgets/scan_qr_code_view.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
-const bool kIsWeb = bool.fromEnvironment('dart.library.js_util');
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 // build with: flutter build web --release --wasm --base-href="/fh-aachen-rallye/" -o ..
 
@@ -95,7 +94,6 @@ class FHAachenRallyeState extends State<FHAachenRallye> {
       );
     }
     return MaterialApp(
-      title: 'FH Aachen Rallye',
       key: UniqueKey(),
       scaffoldMessengerKey: rootScaffoldMessengerKey,
       routes: Map.fromEntries(
