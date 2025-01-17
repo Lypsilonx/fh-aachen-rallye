@@ -288,6 +288,10 @@ extension AdvancedColor on Color {
     double hue = (hsl.hue + 180) % 360;
     return HSLColor.fromAHSL(a, hue, hsl.saturation, hsl.lightness).toColor();
   }
+
+  Color mix(Color other, double amount) {
+    return Color.lerp(this, other, amount)!;
+  }
 }
 
 class Sizes {

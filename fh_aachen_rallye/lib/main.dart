@@ -7,11 +7,13 @@ import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/pages/page_account.dart';
 import 'package:fh_aachen_rallye/pages/page_challenge_list.dart';
+import 'package:fh_aachen_rallye/pages/page_challenge_view.dart';
 import 'package:fh_aachen_rallye/pages/page_leaderboard.dart';
 import 'package:fh_aachen_rallye/pages/page_login_register.dart';
 import 'package:fh_aachen_rallye/pages/page_settings.dart';
 import 'package:fh_aachen_rallye/widgets/scan_qr_code_view.dart';
 import 'package:flutter/material.dart';
+import 'package:stack_trace/stack_trace.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart' show kIsWeb;
 
@@ -20,7 +22,16 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
     GlobalKey<ScaffoldMessengerState>();
 void main() {
-  runApp(const FHAachenRallye());
+  FlutterError.onError = (FlutterErrorDetails details) {
+    print("Error :  ${details.exception}");
+    //print(Trace.from(details.stack!).terse);
+  };
+  Chain.capture(() async {
+    runApp(const FHAachenRallye());
+  }, onError: (error, stackTrace) {
+    print("Async Error :  $error");
+    //print(stackTrace.terse);
+  });
 }
 
 class FHAachenRallye extends StatefulWidget {
@@ -33,6 +44,7 @@ class FHAachenRallye extends StatefulWidget {
     PageAccount(),
     //Util
     PageLoginRegister(),
+    PageChallengeView(),
     ScanQRCodeView(),
   ];
 
@@ -94,11 +106,20 @@ class FHAachenRallyeState extends State<FHAachenRallye> {
       );
     }
     return MaterialApp(
+      title: 'FH Aachen Rallye',
+      color: Colors.blue,
       key: UniqueKey(),
       scaffoldMessengerKey: rootScaffoldMessengerKey,
       routes: Map.fromEntries(
         FHAachenRallye.pages.map<MapEntry<String, WidgetBuilder>>(
           (page) => MapEntry(page.navPath, (context) {
+            if (page is PageChallengeView) {
+              final args = ModalRoute.of(context)!.settings.arguments
+                  as Map<String, dynamic>;
+              return PageChallengeView(
+                challengeId: args['challengeId'] as String,
+              );
+            }
             return page;
           }),
         ),

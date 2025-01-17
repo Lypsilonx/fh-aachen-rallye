@@ -7,7 +7,7 @@ import 'package:fh_aachen_rallye/data/user.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_container.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/translator.dart';
-import 'package:fh_aachen_rallye/widgets/challenge_view.dart';
+import 'package:fh_aachen_rallye/pages/page_challenge_view.dart';
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart' hide Colors;
 
@@ -70,12 +70,12 @@ class _ChallengeTileState extends TranslatedState<ChallengeTile>
             if (widget.challengeId == '') {
               return;
             }
-
-            Navigator.push(
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute(
-                builder: (context) => ChallengeView(widget.challengeId),
-              ),
+              const PageChallengeView().navPath,
+              arguments: {
+                'challengeId': widget.challengeId,
+              },
             );
           },
           onLongPress: () {

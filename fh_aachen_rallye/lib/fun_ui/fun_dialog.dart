@@ -10,11 +10,12 @@ class FunDialog extends StatefulWidget {
   final List<(String, void Function(BuildContext context))> actions;
   final bool hasCancelButton;
 
-  FunDialog({
+  const FunDialog({
     this.title = '',
     this.message = '',
     this.actions = const [],
     this.hasCancelButton = true,
+    super.key,
   });
 
   List<(String, void Function(BuildContext context))> actionWidgets(
