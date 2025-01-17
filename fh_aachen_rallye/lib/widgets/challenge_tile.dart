@@ -124,11 +124,11 @@ class _ChallengeTileState extends TranslatedState<ChallengeTile>
                       ),
                       // place stars in a radial pattern around the icon depending on the duration
                       ...List.generate(
-                        challenge.duration.index,
+                        challenge.duration.level,
                         (index) {
                           double iconAngle = 30;
                           double radialOffset =
-                              max(challenge.duration.index - 1, 0) /
+                              max(challenge.duration.level - 1, 0) /
                                   2 *
                                   iconAngle;
                           double angle = index * iconAngle - radialOffset;

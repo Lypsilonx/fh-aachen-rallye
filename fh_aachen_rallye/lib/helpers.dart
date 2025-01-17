@@ -219,7 +219,46 @@ class Helpers {
 
 enum ChallengeDifficulty { none, veryEasy, easy, medium, hard, veryHard }
 
-enum ChallengeDuration { none, minutes, hours, days, more }
+class ChallengeDuration {
+  final int minutes;
+
+  (String, int, int) get levelData {
+    return levelNames.entries
+        .firstWhere((element) => element.key >= minutes)
+        .value;
+  }
+
+  int get level {
+    return levelData.$2;
+  }
+
+  String get description {
+    return levelData.$1;
+  }
+
+  List<String> get args {
+    int factor = levelData.$3;
+    return [
+      (minutes / factor).ceil().toString(),
+    ];
+  }
+
+  static const Map<int, (String, int, int)> levelNames = {
+    0: ('NONE', 0, 1),
+    1: ('MINUTES_SINGLE', 1, 1),
+    10: ('MINUTES_LOW', 2, 1),
+    45: ('MINUTES', 3, 1),
+    90: ('HOURS_SINGLE', 4, 60),
+    180: ('HOURS_LOW', 5, 60),
+    480: ('HOURS', 6, 60),
+    1000: ('DAYS_SINGLE', 7, 480),
+    2000: ('DAYS_LOW', 8, 480),
+    5000: ('DAYS', 9, 480),
+    10000: ('MORE', 10, 480),
+  };
+
+  ChallengeDuration(this.minutes);
+}
 
 extension AdvancedColor on Color {
   bool get isLight => computeLuminance() > 0.5;

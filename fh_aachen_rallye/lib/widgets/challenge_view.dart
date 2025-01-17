@@ -328,7 +328,10 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
                                                               ),
                                                               Text(
                                                                 translate(
-                                                                    'DURATION_${challenge.duration.name.toUpperCase()}'),
+                                                                    'DURATION_${challenge.duration.description}',
+                                                                    args: challenge
+                                                                        .duration
+                                                                        .args),
                                                               ),
                                                             ],
                                                           ),

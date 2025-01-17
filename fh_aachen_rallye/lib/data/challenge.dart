@@ -114,7 +114,7 @@ class Challenge extends ServerObject {
       language: Language.en,
       difficulty: ChallengeDifficulty.none,
       tags: [],
-      duration: ChallengeDuration.none,
+      duration: ChallengeDuration(0),
       category: ChallengeCategory.loading,
       points: 0,
       descriptionStart: 'LOADING',
@@ -132,7 +132,7 @@ class Challenge extends ServerObject {
       'language': language.name,
       'difficulty': difficulty.index,
       'tags': tags.join(','),
-      'duration': duration.index,
+      'duration': duration.minutes,
       'category': category.categoryName(),
       'points': points,
       'descriptionStart': descriptionStart,
@@ -157,7 +157,7 @@ class Challenge extends ServerObject {
       tags: json['tags'] == null
           ? []
           : (json['tags'] as String).split(',').toList(),
-      duration: ChallengeDuration.values[json['duration'] as int],
+      duration: ChallengeDuration(json['duration'] as int),
       category: ChallengeCategory.fromString(json['category'] as String),
       points: json['points'] as int,
       descriptionStart: json['descriptionStart'] as String,
