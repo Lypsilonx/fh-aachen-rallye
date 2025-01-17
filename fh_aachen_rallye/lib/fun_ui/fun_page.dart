@@ -36,6 +36,14 @@ abstract class FunPageState<T extends FunPage> extends TranslatedState<T>
       ModalRoute.of(context)!.settings.name != widget.navPath;
 
   @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 100)).then((_) {
+      setState(() {});
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Title(
       title: finishedTitle,

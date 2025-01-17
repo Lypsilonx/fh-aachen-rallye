@@ -85,10 +85,6 @@ class _PageChallengeViewState extends FunPageState<PageChallengeView>
       Backend.setChallengeStatus(
           challenge.challengeId, ChallengeUserStatus.none);
     }
-
-    Future.delayed(const Duration(milliseconds: 100)).then((_) {
-      setState(() {});
-    });
   }
 
   @override
