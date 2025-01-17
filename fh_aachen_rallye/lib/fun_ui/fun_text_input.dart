@@ -69,6 +69,7 @@ class _FunTextInputState extends State<FunTextInput> {
                 right: Sizes.small,
               ),
               child: TextField(
+                autocorrect: false,
                 obscureText: widget.obscureText,
                 cursorHeight: Sizes.fontSizeLarge,
                 style: Styles.bodyLarge,

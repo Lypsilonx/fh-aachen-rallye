@@ -95,6 +95,7 @@ class FHAachenRallyeState extends State<FHAachenRallye> {
       );
     }
     return MaterialApp(
+      title: 'FH Aachen Rallye',
       key: UniqueKey(),
       scaffoldMessengerKey: rootScaffoldMessengerKey,
       routes: Map.fromEntries(

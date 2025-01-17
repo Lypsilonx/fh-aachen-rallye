@@ -512,26 +512,36 @@ class ChallengeViewState extends TranslatedState<ChallengeView>
 
                                                         if (step.correctAnswer
                                                             .split(',')
-                                                            .map((e) =>
-                                                                e.toLowerCase())
-                                                            .contains(value
-                                                                .toLowerCase())) {
+                                                            .map(
+                                                              (e) => e
+                                                                  .trim()
+                                                                  .toLowerCase(),
+                                                            )
+                                                            .contains(
+                                                              value
+                                                                  .trim()
+                                                                  .toLowerCase(),
+                                                            )) {
                                                           locked = true;
                                                           feedbackController
                                                               .triggerSuccess()
-                                                              .then((_) {
-                                                            locked = false;
-                                                            nextStep(step);
-                                                          });
+                                                              .then(
+                                                            (_) {
+                                                              locked = false;
+                                                              nextStep(step);
+                                                            },
+                                                          );
                                                         } else {
                                                           locked = true;
                                                           feedbackController
                                                               .triggerError()
-                                                              .then((_) {
-                                                            locked = false;
-                                                            proceedStep(step
-                                                                .indexOnIncorrect);
-                                                          });
+                                                              .then(
+                                                            (_) {
+                                                              locked = false;
+                                                              proceedStep(step
+                                                                  .indexOnIncorrect);
+                                                            },
+                                                          );
                                                         }
                                                       },
                                                     ),
