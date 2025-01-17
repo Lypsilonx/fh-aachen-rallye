@@ -3,7 +3,7 @@
     "title": "Stecker-Quiz",
     "language": "de",
     "difficulty": 2,
-    "duration": 2,
+    "duration": 20,
     "category": "electricalEngineering",
     "points": 50,
     "descriptionStart": "Sind dir diese Stecker bekannt?",

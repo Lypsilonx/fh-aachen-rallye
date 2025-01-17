@@ -70,9 +70,18 @@
     "DIFFICULTY_VERYHARD": { "en": "Very Hard", "de": "Sehr schwer" },
     "DURATION": { "en": "Duration", "de": "Dauer" },
     "DURATION_NONE": { "en": "No rating", "de": "Keine Bewertung" },
-    "DURATION_MINUTES": { "en": "a few minutes", "de": "ein paar Minuten" },
-    "DURATION_HOURS": { "en": "a few hours", "de": "ein paar Stunden" },
-    "DURATION_DAYS": { "en": "a couple of days", "de": "einige Tage" },
+    "DURATION_MINUTES_SINGLE": {
+        "en": "about a minute",
+        "de": "ca. eine Minuten"
+    },
+    "DURATION_MINUTES_LOW": { "en": "a few minutes", "de": "einige Minuten" },
+    "DURATION_MINUTES": { "en": "about {0} minutes", "de": "ca. {0} Minuten" },
+    "DURATION_HOURS_SINGLE": { "en": "about an hour", "de": "ca. eine Stunde" },
+    "DURATION_HOURS_LOW": { "en": "a few hours", "de": "einige Stunden" },
+    "DURATION_HOURS": { "en": "about {0} hours", "de": "ca. {0} Stunden" },
+    "DURATION_DAYS_SINGLE": { "en": "about a day", "de": "ca. ein Tag" },
+    "DURATION_DAYS_LOW": { "en": "a few days", "de": "einige Tage" },
+    "DURATION_DAYS": { "en": "about {0} days", "de": "ca. {0} Tage" },
     "DURATION_MORE": { "en": "more than a week", "de": "mehr als eine Woche" },
     "CATEGORY_TUTORIAL": { "en": "Tutorial", "de": "Tutorial" },
     "CATEGORY_TUTORIAL_DESCRIPTION": {
