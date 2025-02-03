@@ -23,6 +23,7 @@ class ChallengeStep extends Model
         'options',
         'correctAnswer',
         'indexOnIncorrect',
+        'hintCost',
     ];
 
     public function challenge()

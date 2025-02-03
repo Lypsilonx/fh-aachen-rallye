@@ -34,14 +34,14 @@
         },
         {
             "type": "stringInput",
-            "text": "Andere Aufgaben erfordern, dass du eine Antwort eingibst.\n\n\nSchreibe 'FH-Aachen Rallye' in das Textfeld und drücke auf 'Senden', um fortzufahren.",
+            "text": "Andere Aufgaben erfordern, dass du eine Antwort eingibst.\n\n\nSchreibe 'FH-Aachen Rallye' in das Textfeld und drücke auf den Haken, um fortzufahren.",
             "correctAnswer": "FH-Aachen Rallye",
             "indexOnIncorrect": 2,
             "next": 3
         },
         {
             "type": "stringInput",
-            "text": "Versuche es nocheinmal.\n\n\nSchreibe 'FH-Aachen Rallye' in das Textfeld und drücke auf 'Senden', um fortzufahren.",
+            "text": "Versuche es nocheinmal.\n\n\nSchreibe 'FH-Aachen Rallye' in das Textfeld und drücke auf den Haken, um fortzufahren.",
             "correctAnswer": "FH-Aachen Rallye",
             "indexOnIncorrect": 1,
             "next": 3

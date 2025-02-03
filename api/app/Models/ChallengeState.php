@@ -17,6 +17,8 @@ class ChallengeState extends Model
         'step',
         'shuffleSource',
         'shuffleTargets',
+        'otherShuffleTargets',
+        'stringInputHint',
         'userStatus',
     ];
 

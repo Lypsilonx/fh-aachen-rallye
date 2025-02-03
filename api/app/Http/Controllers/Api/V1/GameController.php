@@ -148,6 +148,48 @@ class GameController extends Controller
         }
     }
 
+    public static function payPointsRequest(Request $request)
+    {
+        try {
+            $validatedUser = Validator::make(
+                $request->all(),
+                [
+                    'points' => 'required|integer|min:1',
+                ],
+            );
+
+            if ($validatedUser->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Validation failed',
+                    'errors' => $validatedUser->errors()
+                ], 401);
+            }
+
+            $user = User::find(auth()->id());
+
+            if (!$user) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'User not found',
+                ], 404);
+            }
+
+            $user->points -= $request->input('points');
+            $user->save();
+
+            return response()->json([
+                'status' => true,
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
     public static function setChallengeState(User $user, string $challenge_id, string $state)
     {
         try {
@@ -190,6 +232,8 @@ class GameController extends Controller
                     'step' => $step,
                     'shuffleSource' => $challengeState['shuffleSource'],
                     'shuffleTargets' => $challengeState['shuffleTargets'],
+                    'otherShuffleTargets' => $challengeState['otherShuffleTargets'],
+                    'stringInputHint' => $challengeState['stringInputHint'],
                     'userStatus' => $challengeState['userStatus'],
                 ]
             );
@@ -236,6 +280,8 @@ class GameController extends Controller
                 'step' => -1,
                 'shuffleSource' => null,
                 'shuffleTargets' => null,
+                'otherShuffleTargets' => null,
+                'stringInputHint' => null,
                 'userStatus' => 1,
             ]);
             $unlocked_challenges++;
@@ -261,6 +307,8 @@ class GameController extends Controller
                 'step' => -1,
                 'shuffleSource' => null,
                 'shuffleTargets' => null,
+                'otherShuffleTargets' => null,
+                'stringInputHint' => null,
                 'userStatus' => $status,
             ]);
         }

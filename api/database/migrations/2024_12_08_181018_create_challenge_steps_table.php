@@ -27,6 +27,7 @@ return new class extends Migration {
             // ChallengeStepStringInput
             $table->string('correctAnswer')->nullable();
             $table->integer('indexOnIncorrect')->nullable();
+            $table->integer('hintCost')->nullable();
 
             $table->timestamps();
         });

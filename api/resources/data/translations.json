@@ -56,7 +56,16 @@
         "de": "Aufgabe freischalten"
     },
     "ENTER_CODE": { "en": "Enter code", "de": "Code eingeben" },
+    "BUY_HINT": { "en": "Hint ({0} pt)", "de": "Hinweis ({0} p)" },
+    "BUY_OTHER_QUESTION": {
+        "en": "Other question ({0} pt)",
+        "de": "Andere Frage ({0} p)"
+    },
     "CHALLENGES": { "en": "Challenges", "de": "Aufgaben" },
+    "CHALLENGES_COMPLETED": {
+        "en": "({0} / {1})",
+        "de": "({0} / {1})"
+    },
     "POINTS": { "en": "Points", "de": "Punkte" },
     "CATEGORY": { "en": "Category", "de": "Kategorie" },
     "STATUS_NEW": { "en": "New!", "de": "Neu!" },

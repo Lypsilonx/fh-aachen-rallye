@@ -34,14 +34,14 @@
         },
         {
             "type": "stringInput",
-            "text": "Other challenges require you to enter an answer.\n\n\nWrite 'FH-Aachen Rallye' in the text field and press 'Submit' to continue.",
+            "text": "Other challenges require you to enter an answer.\n\n\nWrite 'FH-Aachen Rallye' in the text field and press the checkmark to continue.",
             "correctAnswer": "FH-Aachen Rallye",
             "indexOnIncorrect": 2,
             "next": 3
         },
         {
             "type": "stringInput",
-            "text": "Try again.\n\n\nWrite 'FH-Aachen Rallye' in the text field and press 'Submit' to continue.",
+            "text": "Try again.\n\n\nWrite 'FH-Aachen Rallye' in the text field and press the checkmark to continue.",
             "correctAnswer": "FH-Aachen Rallye",
             "indexOnIncorrect": 1,
             "next": 3

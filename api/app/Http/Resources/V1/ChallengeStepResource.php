@@ -27,6 +27,7 @@ class ChallengeStepResource extends JsonResource
             'options' => $this->options,
             'correctAnswer' => $this->correctAnswer,
             'indexOnIncorrect' => $this->indexOnIncorrect,
+            'hintCost' => $this->hintCost,
         ];
     }
 }

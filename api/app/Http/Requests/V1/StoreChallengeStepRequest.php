@@ -48,6 +48,7 @@ class StoreChallengeStepRequest extends FormRequest
 
         if ($this->input('type') === 'stringInput') {
             $rules['indexOnIncorrect'] = ['required', 'integer'];
+            $rules['hintCost'] = ['required', 'integer'];
         }
 
         return $rules;
