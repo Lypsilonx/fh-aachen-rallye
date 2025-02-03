@@ -59,10 +59,12 @@ class ChallengeState {
   final int step;
   final int? shuffleSource;
   final List<int> shuffleTargets;
+  final List<int> otherShuffleTargets;
+  final String stringInputHint;
   final ChallengeUserStatus userStatus;
 
-  ChallengeState(
-      this.step, this.shuffleSource, this.shuffleTargets, this.userStatus);
+  ChallengeState(this.step, this.shuffleSource, this.shuffleTargets,
+      this.otherShuffleTargets, this.stringInputHint, this.userStatus);
 
   factory ChallengeState.fromJson(Map<String, dynamic> json) {
     return ChallengeState(
@@ -74,6 +76,13 @@ class ChallengeState {
               .split(',')
               .map(int.parse)
               .toList(),
+      json['otherShuffleTargets'] == null || json['otherShuffleTargets'] == ''
+          ? []
+          : (json['otherShuffleTargets'] as String)
+              .split(',')
+              .map(int.parse)
+              .toList(),
+      json['stringInputHint'] == null ? '' : json['stringInputHint'] as String,
       ChallengeUserStatus.fromInt(json['userStatus'] as int),
     );
   }
@@ -83,6 +92,8 @@ class ChallengeState {
       'step': step,
       'shuffleSource': shuffleSource,
       'shuffleTargets': shuffleTargets.join(','),
+      'otherShuffleTargets': otherShuffleTargets.join(','),
+      'stringInputHint': stringInputHint,
       'userStatus': userStatus.value,
     };
   }

@@ -7,12 +7,14 @@ class FunAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.backgroundColor, {
     required this.title,
     this.trailing,
+    this.customBackAction,
     super.key,
   });
 
   final Color backgroundColor;
   final Widget title;
   final Widget? trailing;
+  final Function? customBackAction;
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +34,15 @@ class FunAppBar extends StatelessWidget implements PreferredSizeWidget {
               Container(
                 width: Sizes.large,
                 alignment: Alignment.center,
-                child: ModalRoute.of(context)?.canPop ?? false
+                child: (customBackAction != null ||
+                        (ModalRoute.of(context)?.canPop ?? false))
                     ? GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pop();
+                          if (customBackAction != null) {
+                            customBackAction!();
+                          } else {
+                            Navigator.of(context).pop();
+                          }
                         },
                         child: const Icon(
                           Icons.arrow_back,

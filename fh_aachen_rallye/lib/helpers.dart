@@ -157,7 +157,7 @@ class Helpers {
     );
   }
 
-  static Widget blendList(Widget list) {
+  static Widget blendList(Widget list, {double bottomSpacing = 0}) {
     return ShaderMask(
       shaderCallback: (rect) {
         return const LinearGradient(
@@ -308,18 +308,18 @@ class Sizes {
   static const double borderRadius = Sizes.small;
   static const double borderRadiusLarge = Sizes.borderRadius * 2;
 
-  static const double fontSizeExtraSmall = Sizes.fontSizeSmall / 1.2;
-  static const double fontSizeSmall = Sizes.fontSizeMedium / 1.2;
-  static const double fontSizeMedium = 16;
-  static const double fontSizeLarge = Sizes.fontSizeMedium * 1.2;
+  static double fontSizeExtraSmall = Sizes.fontSizeSmall / 1.2;
+  static double fontSizeSmall = Sizes.fontSizeMedium / 1.2;
+  static double fontSizeMedium = 16;
+  static double fontSizeLarge = Sizes.fontSizeMedium * 1.2;
 }
 
 class Styles {
-  static const TextStyle body = TextStyle(
+  static TextStyle body = TextStyle(
     fontSize: Sizes.fontSizeSmall,
     fontFamily: 'JosefinSans',
     fontWeight: FontWeight.normal,
-    fontVariations: [
+    fontVariations: const [
       FontVariation(
         'wght',
         400,
@@ -363,9 +363,9 @@ class Styles {
 
 class MdText extends StatelessWidget {
   final String data;
-  final TextStyle style;
+  final TextStyle? style;
 
-  const MdText(this.data, {this.style = Styles.body, super.key});
+  const MdText(this.data, {this.style, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -385,10 +385,10 @@ class MdText extends StatelessWidget {
       },
       data: data,
       styleSheet: MarkdownStyleSheet(
-        p: style,
+        p: style ?? Styles.body,
         h1: Styles.h1,
         h2: Styles.h2,
-        strong: style.copyWith(
+        strong: (style ?? Styles.body).copyWith(
           fontWeight: FontWeight.bold,
           fontVariations: [
             const FontVariation(

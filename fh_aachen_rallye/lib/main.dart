@@ -24,13 +24,13 @@ final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
 void main() {
   FlutterError.onError = (FlutterErrorDetails details) {
     print("Error :  ${details.exception}");
-    //print(Trace.from(details.stack!).terse);
+    print(Trace.from(details.stack!).terse);
   };
   Chain.capture(() async {
     runApp(const FHAachenRallye());
   }, onError: (error, stackTrace) {
     print("Async Error :  $error");
-    //print(stackTrace.terse);
+    print(stackTrace.terse);
   });
 }
 
@@ -80,6 +80,7 @@ class FHAachenRallyeState extends State<FHAachenRallye> {
       } else {
         if (Backend.userId != null) {
           Backend.logout(context);
+          setState(() {});
         }
         if (appState != AppSate.loggedOut) {
           setState(() {

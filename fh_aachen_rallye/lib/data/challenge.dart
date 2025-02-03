@@ -216,7 +216,7 @@ class ChallengeCategory {
   final Color color;
 
   const ChallengeCategory(this.name, this.description, this.icon,
-      {this.color = Colors.orange});
+      {this.color = Colors.black});
 
   static ChallengeCategory fromString(String name) {
     return switch (name) {
@@ -237,6 +237,13 @@ class ChallengeCategory {
       _ => 'loading',
     };
   }
+
+  static List<ChallengeCategory> get all => [
+        ChallengeCategory.tutorial,
+        ChallengeCategory.general,
+        ChallengeCategory.electricalEngineering,
+        ChallengeCategory.maths,
+      ];
 
   static const double _saturation = 0.9;
 
@@ -426,11 +433,13 @@ class ChallengeStepOptions extends ChallengeStep {
 class ChallengeStepStringInput extends ChallengeStep {
   final String correctAnswer;
   final int indexOnIncorrect;
+  final int hintCost;
 
   const ChallengeStepStringInput(
     super.text,
     this.correctAnswer,
-    this.indexOnIncorrect, {
+    this.indexOnIncorrect,
+    this.hintCost, {
     super.next,
     super.punishment,
     super.alternatives,
@@ -444,6 +453,7 @@ class ChallengeStepStringInput extends ChallengeStep {
       'text': text,
       'correctAnswer': correctAnswer,
       'indexOnIncorrect': indexOnIncorrect,
+      'hintCost': hintCost,
       'next': next,
       'punishment': punishment,
       'alternatives': alternatives,
@@ -456,6 +466,7 @@ class ChallengeStepStringInput extends ChallengeStep {
       json['text'] as String,
       json['correctAnswer'] as String,
       json['indexOnIncorrect'] as int,
+      json['hintCost'] as int,
       next: json['next'] as int?,
       punishment: json['punishment'] as int?,
       alternatives: (json['alternatives'] as String?),

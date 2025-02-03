@@ -60,6 +60,13 @@ class _PageChallengeViewState extends FunPageState<PageChallengeView>
   int? shuffleSource;
   int? shuffleExit;
   List<int> shuffleTargets = [];
+  List<int> otherShuffleTargets = [];
+  String stringInputHint = "";
+  String get stringInputHintText =>
+      stringInputHint.contains('|') ? stringInputHint.split('|')[1] : "";
+  int get stringInputHintStepIndex => stringInputHint.split('|')[0] == ""
+      ? -1
+      : int.parse(stringInputHint.split('|')[0]);
 
   final ScrollController scrollController = ScrollController();
   final TextEditingController stringInputController = TextEditingController();
@@ -110,6 +117,8 @@ class _PageChallengeViewState extends FunPageState<PageChallengeView>
           shuffleExit = challenge.steps[shuffleSource!].shuffleExit;
         }
         shuffleTargets = challengeState?.shuffleTargets ?? [];
+        otherShuffleTargets = challengeState?.otherShuffleTargets ?? [];
+        stringInputHint = challengeState?.stringInputHint ?? "";
       });
     }
   }
@@ -147,6 +156,9 @@ class _PageChallengeViewState extends FunPageState<PageChallengeView>
             shuffleTargets.shuffle();
             shuffleTargets =
                 shuffleTargets.take(challengeStep.shuffleAmount!).toList();
+            otherShuffleTargets = challengeStep.alternativesInt
+                .where((element) => !shuffleTargets.contains(element))
+                .toList();
 
             shuffle = true;
           }
@@ -172,20 +184,84 @@ class _PageChallengeViewState extends FunPageState<PageChallengeView>
       scrollController.jumpTo(0);
       stringInputController.clear();
       currentStep = step;
+      if (currentStep >= 0 &&
+          challenge.steps[currentStep] is ChallengeStepStringInput &&
+          stringInputHintStepIndex != currentStep) {
+        stringInputHint = "";
+      }
       // if (currentStep >= 0 &&
       //     challenge.steps[currentStep] is ChallengeStepStringInput) {
       //   stringInputFocusNode.requestFocus();
       // }
-      Backend.setChallengeState(
-        challenge,
-        ChallengeState(
-          currentStep,
-          shuffleSource,
-          shuffleTargets,
-          ChallengeUserStatus.none,
-        ),
-      );
+      saveState();
     });
+  }
+
+  void saveState() {
+    Backend.setChallengeState(
+      challenge,
+      ChallengeState(
+        currentStep,
+        shuffleSource,
+        shuffleTargets,
+        otherShuffleTargets,
+        stringInputHint,
+        ChallengeUserStatus.none,
+      ),
+    );
+  }
+
+  bool canBuyHint() {
+    if (challenge.steps[currentStep] is! ChallengeStepStringInput) {
+      return false;
+    }
+    var challengeStep =
+        challenge.steps[currentStep] as ChallengeStepStringInput;
+    var correctAnswers = challengeStep.correctAnswer.split(',');
+    var correctAnswer = correctAnswers[0];
+
+    if (stringInputHintText == correctAnswer) {
+      return false;
+    }
+
+    return true;
+  }
+
+  void buyHint() async {
+    if (!canBuyHint()) {
+      return;
+    }
+
+    var challengeStep =
+        challenge.steps[currentStep] as ChallengeStepStringInput;
+    var correctAnswers = challengeStep.correctAnswer.split(',');
+    var correctAnswer = correctAnswers[0];
+
+    var (success, message) = await Backend.payPoints(challengeStep.hintCost);
+    if (!success) {
+      Helpers.showSnackBar(context, message);
+      return;
+    }
+
+    if (stringInputHintText.isEmpty) {
+      stringInputHint =
+          "$currentStep|${correctAnswer.replaceAll(RegExp(r'[^ ]'), '_')}";
+    }
+
+    // reveal one more character
+    var possibleIndices = <int>[];
+    for (var i = 0; i < stringInputHintText.length; i++) {
+      if (stringInputHintText[i] == '_') {
+        possibleIndices.add(i);
+      }
+    }
+
+    var index = possibleIndices[Random().nextInt(possibleIndices.length)];
+    stringInputHint =
+        "$currentStep|${stringInputHintText.substring(0, index) + correctAnswer[index] + stringInputHintText.substring(index + 1)}";
+
+    saveState();
+    setState(() {});
   }
 
   @override
@@ -456,13 +532,36 @@ class _PageChallengeViewState extends FunPageState<PageChallengeView>
                           if (step is ChallengeStepStringInput)
                             Column(
                               children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      stringInputHintText,
+                                      style: Styles.h1.copyWith(
+                                        letterSpacing: 2,
+                                      ),
+                                    ),
+                                    FunButton(
+                                      translate('BUY_HINT',
+                                          args: [step.hintCost.toString()]),
+                                      Colors.green,
+                                      expand: false,
+                                      isEnabled: canBuyHint,
+                                      onPressed: buyHint,
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: Sizes.medium),
                                 FunFeedback(
                                   controller: feedbackController,
                                   child: FunTextInput(
                                     autofocus: false,
                                     controller: stringInputController,
                                     focusNode: stringInputFocusNode,
-                                    submitButtonStyle: SubmitButtonStyle.below,
+                                    submitButtonStyle: SubmitButtonStyle.right,
                                     submitButtonText: translate('SUBMIT'),
                                     onSubmitted: (value) {
                                       if (locked) {
@@ -534,6 +633,27 @@ class _PageChallengeViewState extends FunPageState<PageChallengeView>
                                 step.isLast ? Colors.green : Colors.orange,
                                 sizeFactor: step.isLast ? 1.5 : -1,
                                 onPressed: () => nextStep(step)),
+                          if (otherShuffleTargets.isNotEmpty)
+                            const SizedBox(
+                              height: Sizes.medium,
+                            ),
+                          if (otherShuffleTargets.isNotEmpty &&
+                              step is ChallengeStepStringInput)
+                            FunButton(
+                              translate('BUY_OTHER_QUESTION', args: ["10"]),
+                              Colors.red,
+                              onPressed: () async {
+                                var (success, message) =
+                                    await Backend.payPoints(10);
+                                if (!success) {
+                                  Helpers.showSnackBar(context, message);
+                                  return;
+                                }
+                                var newTarget = otherShuffleTargets.removeAt(0);
+                                gotoStep(newTarget);
+                                saveState();
+                              },
+                            ),
                           const SizedBox(
                             height: Sizes.extraSmall,
                           ),

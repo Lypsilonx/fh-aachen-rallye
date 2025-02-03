@@ -43,7 +43,7 @@ class Backend {
     return (false, 'Unknown object type');
   }
 
-  static void fetch<T extends ServerObject>(String id) async {
+  static Future<void> fetch<T extends ServerObject>(String id) async {
     print('Fetching object: $T with id $id');
 
     String requestEndpoint = '';
@@ -147,15 +147,28 @@ class Backend {
       'challenge_id': challenge.challengeId,
       'state': jsonEncode(challengeState),
     });
-    if (challengeState.step == -2) {
-      Backend.fetch<Challenge>('all');
-    }
-    if (challengeState.step == -2 ||
-        (challengeState.step != -1 &&
-            challenge.steps[challengeState.step].punishment != null)) {
-      Backend.fetch<User>(Backend.userId!);
-    }
     if (result != null) {
+      if (challengeState.step == -2) {
+        Backend.fetch<Challenge>('all');
+      }
+      if (challengeState.step == -2 ||
+          (challengeState.step != -1 &&
+              challenge.steps[challengeState.step].punishment != null)) {
+        Backend.fetch<User>(Backend.userId!);
+      }
+      return (true, '');
+    }
+
+    return (false, message);
+  }
+
+  static Future<(bool, String)> payPoints(int points) async {
+    print('Paying $points points');
+    var (result, message) = await apiRequest('POST', 'game/payPoints', body: {
+      'points': points,
+    });
+    if (result != null) {
+      await fetch<User>(Backend.userId!);
       return (true, '');
     }
 
@@ -183,8 +196,12 @@ class Backend {
     Cache.clear(dontDelete: [Translation]);
     Translator.setLanguage(Translator.defaultLanguage);
     state.dispose();
-    Navigator.of(context).pushNamedAndRemoveUntil(
-        const PageLoginRegister().navPath, (Route<dynamic> route) => false);
+    try {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          const PageLoginRegister().navPath, (Route<dynamic> route) => false);
+    } catch (e) {
+      print(e);
+    }
     prefs.clear();
     FHAachenRallyeState.appState = AppSate.loggedOut;
   }
@@ -212,8 +229,8 @@ class Backend {
     var (result, message) = await apiRequest('POST', 'game/unlock', body: {
       'lock_id': lockId,
     });
-    fetch<Challenge>('all');
     if (result != null) {
+      fetch<Challenge>('all');
       int unlockedChallenges = result['unlocked_challenges'];
       int totalChallenges = result['total_challenges'];
       return (true, '$unlockedChallenges/$totalChallenges');
@@ -230,8 +247,8 @@ class Backend {
       'challenge_id': challengeId,
       'status': status.value,
     });
-    fetch<User>(Backend.userId!);
     if (result != null) {
+      fetch<User>(Backend.userId!);
       return (true, '');
     }
 

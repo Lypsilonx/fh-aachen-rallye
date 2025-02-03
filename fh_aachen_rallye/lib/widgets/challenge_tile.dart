@@ -93,7 +93,8 @@ class _ChallengeTileState extends TranslatedState<ChallengeTile>
                   (context) {
                     Backend.setChallengeState(
                       challenge,
-                      ChallengeState(-1, null, [], ChallengeUserStatus.new_),
+                      ChallengeState(
+                          -1, null, [], [], "", ChallengeUserStatus.new_),
                     );
                     Navigator.pop(context);
                   },

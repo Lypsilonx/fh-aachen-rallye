@@ -1,9 +1,10 @@
 import 'package:fh_aachen_rallye/fun_ui/fun_container.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:flutter/material.dart';
+import 'package:vector_math/vector_math_64.dart' show Vector3;
 
 class FunButton extends StatefulWidget {
-  final String text;
+  final dynamic content;
   final Color color;
   final double sizeFactor;
   final bool expand;
@@ -11,7 +12,7 @@ class FunButton extends StatefulWidget {
   final void Function()? onPressed;
   final bool Function()? isEnabled;
 
-  const FunButton(this.text, this.color,
+  const FunButton(this.content, this.color,
       {this.sizeFactor = -1,
       this.expand = true,
       this.onPressed,
@@ -77,17 +78,13 @@ class FunButtonState extends State<FunButton>
       _buttonState = ButtonState.disabled;
     }
 
-    return Container(
-      padding: EdgeInsets.symmetric(
-        vertical:
-            (widget.sizeFactor > 0 ? widget.sizeFactor * Sizes.extraSmall : 0) -
-                _size * Sizes.extraSmall,
-      ),
+    return SizedBox(
       width: widget.expand ? double.infinity : null,
       child: Transform(
         transformHitTests: false,
         alignment: Alignment.center,
-        transform: Matrix4.rotationZ(_angle),
+        transform: Matrix4.rotationZ(_angle)
+          ..scale(Vector3(1, 1 + _size * 0.12, 1)),
         child: MouseRegion(
           onEnter: (_) {
             if (!isEnabled()) {
@@ -143,24 +140,29 @@ class FunButtonState extends State<FunButton>
               color: switch (_buttonState) {
                 ButtonState.idle => widget.color.modifySaturation(0.9),
                 ButtonState.pressed => widget.color.modifySaturation(0.7),
-                ButtonState.loading => Colors.grey,
-                ButtonState.disabled => Colors.grey,
+                ButtonState.loading => widget.color.modifySaturation(0.2),
+                ButtonState.disabled => widget.color.modifySaturation(0.2),
                 ButtonState.hovered => widget.color.modifySaturation(0.8),
               },
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: Sizes.small + _size * Sizes.extraSmall,
-                  bottom: Sizes.small + _size * Sizes.extraSmall,
-                  left: Sizes.medium + _size * Sizes.small,
-                  right: Sizes.medium + _size * Sizes.small,
-                ),
-                child: MdText(
-                  widget.text,
-                  style: Styles.bodyLarge.copyWith(
-                    color: widget.color.isLight ? Colors.black : Colors.white,
-                  ),
-                ),
-              ),
+              child: widget.content is String
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: Sizes.small,
+                        horizontal: Sizes.medium,
+                      ),
+                      child: MdText(
+                        widget.content,
+                        style: Styles.bodyLarge.copyWith(
+                          color: (_buttonState == ButtonState.disabled ||
+                                  _buttonState == ButtonState.loading)
+                              ? Colors.grey
+                              : widget.color.isLight
+                                  ? Colors.black
+                                  : Colors.white,
+                        ),
+                      ),
+                    )
+                  : widget.content,
             ),
           ),
         ),
