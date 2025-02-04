@@ -115,6 +115,16 @@
         "en": "Mathematical problems and puzzles.",
         "de": "Mathematische Probleme und Rätsel."
     },
+    "CATEGORY_OUTDOOR": { "en": "Outdoor", "de": "Draußen" },
+    "CATEGORY_OUTDOOR_DESCRIPTION": {
+        "en": "Challenges that require you to go outside.",
+        "de": "Aufgaben, die dich nach draußen führen."
+    },
+    "CATEGORY_HISTORY": { "en": "History", "de": "Geschichte" },
+    "CATEGORY_HISTORY_DESCRIPTION": {
+        "en": "Historical facts and trivia.",
+        "de": "Historische Fakten und Trivia."
+    },
     "SCAN": { "en": "Scan", "de": "Scannen" },
     "SCAN_QR_CODE": { "en": "Scan QR code", "de": "QR-Code scannen" },
     "INVALID_QR_CODE": {

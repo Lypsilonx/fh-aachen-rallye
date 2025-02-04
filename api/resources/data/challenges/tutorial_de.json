@@ -34,7 +34,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Andere Aufgaben erfordern, dass du eine Antwort eingibst.\n\n\nSchreibe 'FH-Aachen Rallye' in das Textfeld und drücke auf den Haken, um fortzufahren.",
+            "text": "Andere Aufgaben erfordern, dass du eine Antwort eingibst.\n\n\nSchreibe 'FH-Aachen Rallye' in das Textfeld und drücke auf den Haken, um fortzufahren.\n\n\nWenn dir so eine Aufgabe mal zu schwer ist, kannst du einen Hinweis mit Punkten kaufen.",
             "correctAnswer": "FH-Aachen Rallye",
             "indexOnIncorrect": 2,
             "next": 3
@@ -48,13 +48,13 @@
         },
         {
             "type": "say",
-            "text": "Wenn du eine falsche Antwort eingibst, verlierst du manchmal Punkte (Diese werden später erklärt).\n\n\nDu kannst es dennoch einfach noch einmal versuchen.",
+            "text": "Wenn du eine falsche Antwort eingibst, verlierst du manchmal Punkte.\n\n\nDu kannst es dennoch einfach noch einmal versuchen.",
             "next": -1,
             "punishment": 1
         },
         {
             "type": "say",
-            "text": "Gut gemacht!\n\nWenn du eine falsche Antwort eingibst, verlierst du manchmal Punkte (Diese werden später erklärt).\n\n\nDu kannst es dennoch einfach noch einmal versuchen.",
+            "text": "Gut gemacht!\n\nWenn du eine falsche Antwort eingibst, verlierst du manchmal Punkte.\n\n\nDu kannst es dennoch einfach noch einmal versuchen.",
             "next": 2
         },
         {
