@@ -114,9 +114,9 @@ class _PageAchievementsState extends FunPageState<PageAchievements>
           child: Helpers.blendList(
             GridView.builder(
               padding: const EdgeInsets.all(Sizes.medium),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 0.8,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: isSmall ? 1 : 3,
+                childAspectRatio: isSmall ? 4 : 0.8,
                 crossAxisSpacing: Sizes.medium,
                 mainAxisSpacing: Sizes.medium,
               ),
@@ -124,21 +124,23 @@ class _PageAchievementsState extends FunPageState<PageAchievements>
               itemBuilder: (context, index) {
                 bool isCompleted = achivements[index].isCompleted!();
                 return Tooltip(
-                  message: isCompleted
-                      ? translate(achivements[index].description,
-                          args: achivements[index].args)
-                      : '',
+                  verticalOffset: isSmall ? 50 : 100,
+                  message: translate(achivements[index].description,
+                      args: achivements[index].args),
                   child: FunContainer(
                     color: isCompleted ? Colors.white : Colors.grey,
                     modifyColor: false,
                     padding: const EdgeInsets.all(Sizes.medium),
-                    child: Column(
+                    child: Flex(
+                      direction: isSmall ? Axis.horizontal : Axis.vertical,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(Sizes.medium),
+                          padding: isSmall
+                              ? const EdgeInsets.all(0)
+                              : const EdgeInsets.all(Sizes.medium),
                           child: Transform.scale(
-                            scale: 1.5,
+                            scale: isSmall ? 1 : 1.5,
                             child: FunMedal.color(
                               isCompleted
                                   ? achivements[index].color
@@ -150,11 +152,9 @@ class _PageAchievementsState extends FunPageState<PageAchievements>
                           ),
                         ),
                         Text(
-                          isCompleted
-                              ? translate(achivements[index].title,
-                                  args: achivements[index].args)
-                              : '???',
-                          style: Styles.h2,
+                          translate(achivements[index].title,
+                              args: achivements[index].args),
+                          style: isSmall ? Styles.body : Styles.h2,
                           textAlign: TextAlign.center,
                         ),
                       ],

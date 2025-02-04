@@ -10,8 +10,10 @@ class FunButton extends StatefulWidget {
   final double? height;
   final double sizeFactor;
   final bool expand;
+  final EdgeInsets padding;
 
   final void Function()? onPressed;
+  final void Function()? onLongPress;
   final bool Function()? isEnabled;
 
   const FunButton(
@@ -21,7 +23,12 @@ class FunButton extends StatefulWidget {
     this.height,
     this.sizeFactor = -1,
     this.expand = true,
+    this.padding = const EdgeInsets.symmetric(
+      vertical: Sizes.small,
+      horizontal: Sizes.medium,
+    ),
     this.onPressed,
+    this.onLongPress,
     this.isEnabled,
     super.key,
   });
@@ -39,6 +46,8 @@ class FunButtonState extends State<FunButton> with TickerProviderStateMixin {
   late bool _direction;
   late AnimationController clickController;
   late AnimationController hoverController;
+
+  int? startTime;
 
   bool isEnabled() {
     if (widget.isEnabled == null) {
@@ -140,6 +149,7 @@ class FunButtonState extends State<FunButton> with TickerProviderStateMixin {
               clickController.forward();
               setState(() {
                 _buttonState = ButtonState.pressed;
+                startTime = DateTime.now().millisecondsSinceEpoch;
                 _direction = !_direction;
               });
             },
@@ -149,7 +159,12 @@ class FunButtonState extends State<FunButton> with TickerProviderStateMixin {
                   return;
                 }
 
-                widget.onPressed?.call();
+                if (DateTime.now().millisecondsSinceEpoch - startTime! < 500) {
+                  widget.onPressed?.call();
+                } else {
+                  widget.onLongPress?.call();
+                }
+                startTime = null;
                 setState(() {
                   _buttonState = ButtonState.idle;
                 });
@@ -175,10 +190,7 @@ class FunButtonState extends State<FunButton> with TickerProviderStateMixin {
               },
               child: widget.content is String
                   ? Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: Sizes.small,
-                        horizontal: Sizes.medium,
-                      ),
+                      padding: widget.padding,
                       child: MdText(
                         widget.content,
                         style: Styles.bodyLarge.copyWith(

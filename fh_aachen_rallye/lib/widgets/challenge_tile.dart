@@ -4,7 +4,7 @@ import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/data/user.dart';
-import 'package:fh_aachen_rallye/fun_ui/fun_container.dart';
+import 'package:fh_aachen_rallye/fun_ui/fun_button.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/translator.dart';
 import 'package:fh_aachen_rallye/pages/page_challenge_view.dart';
@@ -61,60 +61,11 @@ class _ChallengeTileState extends TranslatedState<ChallengeTile>
               : Colors.orange,
     );
 
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        FunContainer(
-          height: Sizes.tileHeight,
-          onTap: () {
-            if (widget.challengeId == '') {
-              return;
-            }
-            Navigator.pushNamed(
-              context,
-              const PageChallengeView().navPath,
-              arguments: {
-                'challengeId': widget.challengeId,
-              },
-            );
-          },
-          onLongPress: () {
-            if (widget.challengeId == '') {
-              return;
-            }
-
-            Helpers.showFunDialog(
-              context,
-              "Reset Challenge \"${challenge.title}\"?",
-              "This will reset the challenge to the beginning. Are you sure?",
-              [
-                (
-                  'RESET',
-                  (context) {
-                    Backend.setChallengeState(
-                      challenge,
-                      ChallengeState(
-                          -1, null, [], [], "", ChallengeUserStatus.new_),
-                    );
-                    Navigator.pop(context);
-                  },
-                ),
-                (
-                  'COMPLETE',
-                  (context) {
-                    Backend.setChallengeState(
-                      challenge,
-                      ChallengeState(
-                          -2, null, [], [], "", ChallengeUserStatus.none),
-                    );
-                    Navigator.pop(context);
-                  }
-                ),
-              ],
-            );
-          },
-          padding: EdgeInsets.zero,
-          child: ListTile(
+    return FunButton(
+      Stack(
+        clipBehavior: Clip.none,
+        children: [
+          ListTile(
             leading: LayoutBuilder(
               builder: (context, constraints) {
                 double circleSize = constraints.maxHeight * 0.9;
@@ -180,94 +131,144 @@ class _ChallengeTileState extends TranslatedState<ChallengeTile>
               },
             ),
           ),
-        ),
-        LayoutBuilder(
-          builder: (context, constraints) {
-            return SizedBox(
-              height: Sizes.tileHeight,
-              width: constraints.maxWidth,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(Sizes.borderRadius),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          LayoutBuilder(
+            builder: (context, constraints) {
+              return SizedBox(
+                height: Sizes.tileHeight,
+                width: constraints.maxWidth,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(Sizes.borderRadius),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: constraints.maxWidth * challenge.progress,
+                        height: Sizes.extraSmall,
+                        color: challenge.progress == 1
+                            ? Colors.green
+                            : Colors.orange,
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+          if (challenge.userStatus != ChallengeUserStatus.none)
+            Positioned(
+              left: -Sizes.medium,
+              top: -Sizes.small,
+              child: Transform(
+                alignment: Alignment.center,
+                transform: Matrix4.rotationZ(-pi / 16),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                      width: constraints.maxWidth * challenge.progress,
-                      height: Sizes.extraSmall,
-                      color: challenge.progress == 1
-                          ? Colors.green
-                          : Colors.orange,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: Sizes.extraSmall,
+                        horizontal: Sizes.small,
+                      ),
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(Sizes.borderRadius)),
+                      ),
+                      child: Center(
+                        child: Text(
+                          translate(challenge.userStatus.badgeMessage),
+                          style: Styles.bodySmall.copyWith(color: Colors.white),
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
-            );
+            ),
+          if (challenge.progress == 1)
+            Positioned(
+              right: -Sizes.medium,
+              top: -Sizes.small,
+              child: Transform(
+                alignment: Alignment.center,
+                transform: Matrix4.rotationZ(pi / 16),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: Sizes.extraSmall,
+                        horizontal: Sizes.small,
+                      ),
+                      decoration: const BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(Sizes.borderRadius)),
+                      ),
+                      child: Center(
+                        child: Text(
+                          translate("COMPLETED"),
+                          style: Styles.bodySmall.copyWith(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+        ],
+      ),
+      Colors.white,
+      height: Sizes.tileHeight,
+      onPressed: () {
+        if (widget.challengeId == '') {
+          return;
+        }
+        Navigator.pushNamed(
+          context,
+          const PageChallengeView().navPath,
+          arguments: {
+            'challengeId': widget.challengeId,
           },
-        ),
-        if (challenge.userStatus != ChallengeUserStatus.none)
-          Positioned(
-            left: -Sizes.medium,
-            top: -Sizes.small,
-            child: Transform(
-              alignment: Alignment.center,
-              transform: Matrix4.rotationZ(-pi / 16),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: Sizes.extraSmall,
-                      horizontal: Sizes.small,
-                    ),
-                    decoration: const BoxDecoration(
-                      color: Colors.red,
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(Sizes.borderRadius)),
-                    ),
-                    child: Center(
-                      child: Text(
-                        translate(challenge.userStatus.badgeMessage),
-                        style: Styles.bodySmall.copyWith(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+        );
+      },
+      onLongPress: () {
+        if (widget.challengeId == '') {
+          return;
+        }
+
+        Helpers.showFunDialog(
+          context,
+          "Reset Challenge \"${challenge.title}\"?",
+          "This will reset the challenge to the beginning. Are you sure?",
+          [
+            (
+              'RESET',
+              (context) {
+                Backend.setChallengeState(
+                  challenge,
+                  ChallengeState(
+                      -1, null, [], [], "", ChallengeUserStatus.new_),
+                );
+                Navigator.pop(context);
+              },
             ),
-          ),
-        if (challenge.progress == 1)
-          Positioned(
-            right: -Sizes.medium,
-            top: -Sizes.small,
-            child: Transform(
-              alignment: Alignment.center,
-              transform: Matrix4.rotationZ(pi / 16),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: Sizes.extraSmall,
-                      horizontal: Sizes.small,
-                    ),
-                    decoration: const BoxDecoration(
-                      color: Colors.green,
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(Sizes.borderRadius)),
-                    ),
-                    child: Center(
-                      child: Text(
-                        translate("COMPLETED"),
-                        style: Styles.bodySmall.copyWith(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            (
+              'COMPLETE',
+              (context) {
+                Backend.setChallengeState(
+                  challenge,
+                  ChallengeState(
+                      -2, null, [], [], "", ChallengeUserStatus.none),
+                );
+                Navigator.pop(context);
+              }
             ),
-          )
-      ],
+          ],
+        );
+      },
+      padding: EdgeInsets.zero,
     );
   }
 }
