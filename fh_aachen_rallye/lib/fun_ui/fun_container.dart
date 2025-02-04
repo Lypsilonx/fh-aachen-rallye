@@ -9,6 +9,7 @@ class FunContainer extends StatefulWidget {
     this.onLongPress,
     this.hoverStrength = 0.05,
     this.color = Colors.white,
+    this.modifyColor = true,
     this.expand = true,
     this.width,
     this.height,
@@ -22,6 +23,7 @@ class FunContainer extends StatefulWidget {
   final Function()? onTap;
   final Function()? onLongPress;
   final Color color;
+  final bool modifyColor;
   final double hoverStrength;
   final bool expand;
   final double? width;
@@ -38,8 +40,10 @@ class _FunContainerState extends State<FunContainer> {
 
   @override
   Widget build(BuildContext context) {
-    var finalColor =
-        widget.color.modifySaturation(1 - (hovered ? widget.hoverStrength : 0));
+    var finalColor = widget.modifyColor
+        ? widget.color
+            .modifySaturation(1 - (hovered ? widget.hoverStrength : 0))
+        : widget.color;
     return GestureDetector(
       onTap: widget.onTap,
       onLongPress: widget.onLongPress,

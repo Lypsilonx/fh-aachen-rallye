@@ -278,10 +278,22 @@ class _PageChallengeViewState extends FunPageState<PageChallengeView>
               children: [
                 Container(
                   width: constraints.maxWidth * challenge.progress,
-                  height: Sizes.small,
+                  height: Sizes.medium,
                   color: challenge.progress == 1
                       ? Colors.green
                       : challenge.category.color.inverted(),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: Sizes.small),
+                      child: Text("${challenge.progress * 100 ~/ 1}%",
+                          style: Styles.body.copyWith(
+                              color: challenge.category.color.inverted().isLight
+                                  ? Colors.black
+                                  : Colors.white)),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -312,354 +324,368 @@ class _PageChallengeViewState extends FunPageState<PageChallengeView>
           Sizes.small,
         );
 
-        return SingleChildScrollView(
-          controller: scrollController,
-          scrollDirection: Axis.vertical,
-          child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: constraints.maxHeight),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: isNew || isCompleted
-                  ? [
-                      FunContainer(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(Sizes.small),
-                              width: double.infinity,
-                              child: MdText(
-                                isNew
-                                    ? challenge.descriptionStart
-                                    : challenge.descriptionEnd,
-                                //style: Styles.body,
-                              ),
-                            ),
-                            SizedBox(height: isNew ? Sizes.large : 0),
-                            if (isNew)
-                              Table(
-                                border: const TableBorder(
-                                  verticalInside: BorderSide(
-                                    color: Colors.grey,
-                                    width: 0.2,
-                                  ),
-                                  horizontalInside: BorderSide(
-                                    color: Colors.grey,
-                                    width: 0.2,
+        return Helpers.blendList(
+          SingleChildScrollView(
+            clipBehavior: Clip.none,
+            controller: scrollController,
+            scrollDirection: Axis.vertical,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: isNew || isCompleted
+                    ? [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: Sizes.small,
+                          ),
+                          child: FunContainer(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(Sizes.small),
+                                  width: double.infinity,
+                                  child: MdText(
+                                    isNew
+                                        ? challenge.descriptionStart
+                                        : challenge.descriptionEnd,
+                                    //style: Styles.body,
                                   ),
                                 ),
-                                children: [
-                                  TableRow(
+                                SizedBox(height: isNew ? Sizes.large : 0),
+                                if (isNew)
+                                  Table(
+                                    border: const TableBorder(
+                                      verticalInside: BorderSide(
+                                        color: Colors.grey,
+                                        width: 0.2,
+                                      ),
+                                      horizontalInside: BorderSide(
+                                        color: Colors.grey,
+                                        width: 0.2,
+                                      ),
+                                    ),
                                     children: [
-                                      Tooltip(
-                                        message: translate(
-                                            challenge.category.description),
-                                        child: Padding(
-                                          padding: tableEdgeInsets,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                translate('CATEGORY'),
-                                                style: Styles.subtitle,
-                                              ),
-                                              Row(
+                                      TableRow(
+                                        children: [
+                                          Tooltip(
+                                            message: translate(
+                                                challenge.category.description),
+                                            child: Padding(
+                                              padding: tableEdgeInsets,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
-                                                  Icon(
-                                                    challenge.category.icon,
-                                                    color: challenge
-                                                        .category.color,
-                                                  ),
-                                                  const SizedBox(
-                                                      width: Sizes.small),
                                                   Text(
-                                                    translate(challenge
-                                                        .category.name),
-                                                    style: Styles.body,
+                                                    translate('CATEGORY'),
+                                                    style: Styles.subtitle,
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Icon(
+                                                        challenge.category.icon,
+                                                        color: challenge
+                                                            .category.color,
+                                                      ),
+                                                      const SizedBox(
+                                                          width: Sizes.small),
+                                                      Text(
+                                                        translate(challenge
+                                                            .category.name),
+                                                        style: Styles.body,
+                                                      ),
+                                                    ],
                                                   ),
                                                 ],
                                               ),
-                                            ],
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: tableEdgeInsets,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              translate('DURATION'),
-                                              style: Styles.subtitle,
+                                          Padding(
+                                            padding: tableEdgeInsets,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  translate('DURATION'),
+                                                  style: Styles.subtitle,
+                                                ),
+                                                Text(
+                                                  translate(
+                                                      'DURATION_${challenge.duration.description}',
+                                                      args: challenge
+                                                          .duration.args),
+                                                ),
+                                              ],
                                             ),
-                                            Text(
-                                              translate(
-                                                  'DURATION_${challenge.duration.description}',
-                                                  args:
-                                                      challenge.duration.args),
-                                            ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                  TableRow(
-                                    children: [
-                                      Tooltip(
-                                        message: translate(
-                                            'DIFFICULTY_${challenge.difficulty.name.toUpperCase()}'),
-                                        child: Padding(
-                                          padding: tableEdgeInsets,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                translate('DIFFICULTY'),
-                                                style: Styles.subtitle,
+                                      TableRow(
+                                        children: [
+                                          Tooltip(
+                                            message: translate(
+                                                'DIFFICULTY_${challenge.difficulty.name.toUpperCase()}'),
+                                            child: Padding(
+                                              padding: tableEdgeInsets,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    translate('DIFFICULTY'),
+                                                    style: Styles.subtitle,
+                                                  ),
+                                                  Helpers.displayDifficulty(
+                                                      challenge.difficulty),
+                                                ],
                                               ),
-                                              Helpers.displayDifficulty(
-                                                  challenge.difficulty),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: tableEdgeInsets,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              translate('POINTS'),
-                                              style: Styles.subtitle,
                                             ),
-                                            Text('${challenge.points}'),
-                                          ],
-                                        ),
+                                          ),
+                                          Padding(
+                                            padding: tableEdgeInsets,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  translate('POINTS'),
+                                                  style: Styles.subtitle,
+                                                ),
+                                                Text('${challenge.points}'),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
-                            if (isNew) const SizedBox(height: Sizes.small),
-                            if (isNew)
-                              LayoutBuilder(
-                                builder: (context, constraints) {
-                                  return Helpers.displayTags(
-                                    challenge,
-                                    constraints.maxWidth,
-                                  );
-                                },
-                              ),
-                          ],
-                        ),
-                      ),
-                      Column(
-                        children: [
-                          const SizedBox(
-                            height: Sizes.small,
+                                if (isNew) const SizedBox(height: Sizes.small),
+                                if (isNew)
+                                  LayoutBuilder(
+                                    builder: (context, constraints) {
+                                      return Helpers.displayTags(
+                                        challenge,
+                                        constraints.maxWidth,
+                                      );
+                                    },
+                                  ),
+                              ],
+                            ),
                           ),
-                          FunButton(
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: Sizes.small,
+                            bottom: Sizes.medium,
+                          ),
+                          child: FunButton(
                             isNew ? translate('START') : translate('RESTART'),
                             Colors.green,
                             onPressed: () => proceedStep(1),
                           ),
-                          const SizedBox(
-                            height: Sizes.extraSmall,
+                        ),
+                      ]
+                    : [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: Sizes.small,
+                            bottom: Sizes.large,
                           ),
-                        ],
-                      ),
-                    ]
-                  : [
-                      generateChatBubbles(step.text),
-                      const SizedBox(
-                        height: Sizes.large,
-                      ),
-                      Column(
-                        children: [
-                          if (step is ChallengeStepOptions)
-                            Column(
-                              children: options.indexed.map((item) {
-                                var index = item.$1;
-                                var option = item.$2;
-                                while (buttonFeedbacks.length <= index) {
-                                  buttonFeedbacks.add(FunFeedbackController());
-                                }
-                                var buttonFeedback = buttonFeedbacks[index];
-                                return Column(
-                                  children: [
-                                    const SizedBox(height: Sizes.small),
-                                    FunFeedback(
-                                      controller: buttonFeedback,
-                                      child: FunButton(
-                                        option,
-                                        Colors.blue,
-                                        onPressed: () {
-                                          if (locked) {
-                                            return;
-                                          }
-
-                                          var nextStep = step.options[option]!;
-                                          locked = true;
-                                          if (challenge.steps[nextStep].next
-                                                  ?.isNegative ??
-                                              false) {
-                                            buttonFeedback
-                                                .triggerError()
-                                                .then((_) {
-                                              locked = false;
-                                              proceedStep(nextStep);
-                                            });
-                                          } else {
-                                            buttonFeedback
-                                                .triggerSuccess()
-                                                .then((_) {
-                                              locked = false;
-                                              proceedStep(nextStep);
-                                            });
-                                          }
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              }).toList(),
-                            ),
-                          if (step is ChallengeStepStringInput)
-                            Column(
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      stringInputHintText,
-                                      style: Styles.h1.copyWith(
-                                        letterSpacing: 2,
-                                      ),
-                                    ),
-                                    FunButton(
-                                      translate('BUY_HINT',
-                                          args: [step.hintCost.toString()]),
-                                      Colors.green,
-                                      expand: false,
-                                      isEnabled: canBuyHint,
-                                      onPressed: buyHint,
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(height: Sizes.medium),
-                                FunFeedback(
-                                  controller: feedbackController,
-                                  child: FunTextInput(
-                                    autofocus: false,
-                                    controller: stringInputController,
-                                    focusNode: stringInputFocusNode,
-                                    submitButtonStyle: SubmitButtonStyle.right,
-                                    submitButtonText: translate('SUBMIT'),
-                                    onSubmitted: (value) {
-                                      if (locked) {
-                                        return;
-                                      }
-
-                                      if (step.correctAnswer
-                                          .split(',')
-                                          .map(
-                                            (e) => e.trim().toLowerCase(),
-                                          )
-                                          .contains(
-                                            value.trim().toLowerCase(),
-                                          )) {
-                                        locked = true;
-                                        feedbackController
-                                            .triggerSuccess()
-                                            .then(
-                                          (_) {
-                                            locked = false;
-                                            nextStep(step);
-                                          },
-                                        );
-                                      } else {
-                                        locked = true;
-                                        feedbackController.triggerError().then(
-                                          (_) {
-                                            locked = false;
-                                            proceedStep(step.indexOnIncorrect);
-                                          },
-                                        );
-                                      }
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          if (step is ChallengeStepScan)
-                            FunButton(
-                              translate('SCAN'),
-                              Colors.blue,
-                              onPressed: () async {
-                                var value = await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ScanQRCodeView(
-                                      acceptRegex: step.correctAnswer
-                                          .replaceAll(',', '|'),
-                                      manualInput: translate('ENTER_CODE'),
-                                    ),
-                                  ),
-                                );
-                                if (value != null) {
-                                  if (step.correctAnswer
-                                      .split(',')
-                                      .contains(value)) {
-                                    nextStep(step);
+                          child: generateChatBubbles(step.text),
+                        ),
+                        Column(
+                          children: [
+                            if (step is ChallengeStepOptions)
+                              Column(
+                                children: options.indexed.map((item) {
+                                  var index = item.$1;
+                                  var option = item.$2;
+                                  while (buttonFeedbacks.length <= index) {
+                                    buttonFeedbacks
+                                        .add(FunFeedbackController());
                                   }
-                                }
-                              },
-                            ),
-                          if (step.hasNextButton)
-                            FunButton(
-                                step.isLast
-                                    ? "${translate('COMPLETE')} (+${challenge.points} ${translate('POINTS')})"
-                                    : (step.next ?? 0) < 0
-                                        ? translate('BACK')
-                                        : translate('NEXT'),
-                                step.isLast ? Colors.green : Colors.orange,
-                                sizeFactor: step.isLast ? 1.5 : -1,
-                                onPressed: () => nextStep(step)),
-                          if (otherShuffleTargets.isNotEmpty)
+                                  var buttonFeedback = buttonFeedbacks[index];
+                                  return Column(
+                                    children: [
+                                      const SizedBox(height: Sizes.small),
+                                      FunFeedback(
+                                        controller: buttonFeedback,
+                                        child: FunButton(
+                                          option,
+                                          Colors.blue,
+                                          onPressed: () {
+                                            if (locked) {
+                                              return;
+                                            }
+
+                                            var nextStep =
+                                                step.options[option]!;
+                                            locked = true;
+                                            if (challenge.steps[nextStep].next
+                                                    ?.isNegative ??
+                                                false) {
+                                              buttonFeedback
+                                                  .triggerError()
+                                                  .then((_) {
+                                                locked = false;
+                                                proceedStep(nextStep);
+                                              });
+                                            } else {
+                                              buttonFeedback
+                                                  .triggerSuccess()
+                                                  .then((_) {
+                                                locked = false;
+                                                proceedStep(nextStep);
+                                              });
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }).toList(),
+                              ),
+                            if (step is ChallengeStepStringInput)
+                              Column(
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        stringInputHintText,
+                                        style: Styles.h1.copyWith(
+                                          letterSpacing: 2,
+                                        ),
+                                      ),
+                                      FunButton(
+                                        translate('BUY_HINT',
+                                            args: [step.hintCost.toString()]),
+                                        Colors.green,
+                                        expand: false,
+                                        isEnabled: canBuyHint,
+                                        onPressed: buyHint,
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(height: Sizes.medium),
+                                  FunFeedback(
+                                    controller: feedbackController,
+                                    child: FunTextInput(
+                                      autofocus: false,
+                                      controller: stringInputController,
+                                      focusNode: stringInputFocusNode,
+                                      submitButtonStyle:
+                                          SubmitButtonStyle.right,
+                                      submitButtonText: translate('SUBMIT'),
+                                      onSubmitted: (value) {
+                                        if (locked) {
+                                          return;
+                                        }
+
+                                        if (step.correctAnswer
+                                            .split(',')
+                                            .map(
+                                              (e) => e.trim().toLowerCase(),
+                                            )
+                                            .contains(
+                                              value.trim().toLowerCase(),
+                                            )) {
+                                          locked = true;
+                                          feedbackController
+                                              .triggerSuccess()
+                                              .then(
+                                            (_) {
+                                              locked = false;
+                                              nextStep(step);
+                                            },
+                                          );
+                                        } else {
+                                          locked = true;
+                                          feedbackController
+                                              .triggerError()
+                                              .then(
+                                            (_) {
+                                              locked = false;
+                                              proceedStep(
+                                                  step.indexOnIncorrect);
+                                            },
+                                          );
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            if (step is ChallengeStepScan)
+                              FunButton(
+                                translate('SCAN'),
+                                Colors.blue,
+                                onPressed: () async {
+                                  var value = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ScanQRCodeView(
+                                        acceptRegex: step.correctAnswer
+                                            .replaceAll(',', '|'),
+                                        manualInput: translate('ENTER_CODE'),
+                                      ),
+                                    ),
+                                  );
+                                  if (value != null) {
+                                    if (step.correctAnswer
+                                        .split(',')
+                                        .contains(value)) {
+                                      nextStep(step);
+                                    }
+                                  }
+                                },
+                              ),
+                            if (step.hasNextButton)
+                              FunButton(
+                                  step.isLast
+                                      ? "${translate('COMPLETE')} (+${challenge.points} ${translate('POINTS')})"
+                                      : (step.next ?? 0) < 0
+                                          ? translate('BACK')
+                                          : translate('NEXT'),
+                                  step.isLast ? Colors.green : Colors.orange,
+                                  sizeFactor: step.isLast ? 1.5 : -1,
+                                  onPressed: () => nextStep(step)),
+                            if (otherShuffleTargets.isNotEmpty)
+                              const SizedBox(
+                                height: Sizes.medium,
+                              ),
+                            if (otherShuffleTargets.isNotEmpty &&
+                                step is ChallengeStepStringInput)
+                              FunButton(
+                                translate('BUY_OTHER_QUESTION', args: ["10"]),
+                                Colors.red,
+                                onPressed: () async {
+                                  var (success, message) =
+                                      await Backend.payPoints(10);
+                                  if (!success) {
+                                    Helpers.showSnackBar(context, message);
+                                    return;
+                                  }
+                                  var newTarget =
+                                      otherShuffleTargets.removeAt(0);
+                                  gotoStep(newTarget);
+                                  saveState();
+                                },
+                              ),
                             const SizedBox(
                               height: Sizes.medium,
                             ),
-                          if (otherShuffleTargets.isNotEmpty &&
-                              step is ChallengeStepStringInput)
-                            FunButton(
-                              translate('BUY_OTHER_QUESTION', args: ["10"]),
-                              Colors.red,
-                              onPressed: () async {
-                                var (success, message) =
-                                    await Backend.payPoints(10);
-                                if (!success) {
-                                  Helpers.showSnackBar(context, message);
-                                  return;
-                                }
-                                var newTarget = otherShuffleTargets.removeAt(0);
-                                gotoStep(newTarget);
-                                saveState();
-                              },
-                            ),
-                          const SizedBox(
-                            height: Sizes.extraSmall,
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+              ),
             ),
           ),
         );

@@ -6,8 +6,6 @@ import 'package:fh_aachen_rallye/data/user.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_button.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
-import 'package:fh_aachen_rallye/settings.dart';
-import 'package:fh_aachen_rallye/translator.dart';
 import 'package:fh_aachen_rallye/widgets/challenge_tile.dart';
 import 'package:fh_aachen_rallye/widgets/scan_qr_code_view.dart';
 import 'package:flutter/material.dart';
@@ -74,15 +72,9 @@ class _PageChallengeListState extends FunPageState<PageChallengeList>
 
   @override
   void onUpdate(ServerObject object) {
-    var hiddenTags = ['wip', 'empty', 'needs translation'];
     var challengeChache = Cache.fetchAll<Challenge>();
-    challengeIds = challengeChache
-        .where((e) =>
-            e.language == Translator.language &&
-            (Settings.showWipChallenges ||
-                !hiddenTags.any((tag) => e.tags.contains(tag))))
-        .map((e) => e.id)
-        .toList();
+    challengeIds =
+        challengeChache.where((e) => !e.hidden).map((e) => e.id).toList();
 
     challengeIds.sort((a, b) {
       var challengeA = challengeChache.firstWhere((e) => e.id == a);

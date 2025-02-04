@@ -1,7 +1,10 @@
+import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/data/user.dart';
+import 'package:fh_aachen_rallye/fun_ui/fun_button.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_language_picker.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
+import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/settings.dart';
 import 'package:flutter/material.dart';
 
@@ -57,9 +60,19 @@ class _PageSettingsState extends FunPageState<PageSettings>
   @override
   Widget buildPage(BuildContext context) {
     return Column(
-      children: [
+      children: <Widget>[
         Settings.showWipChallengesWidget,
-      ],
+        FunButton(translate('ACCOUNT'), Colors.blue, onPressed: () {
+          Navigator.of(context).pushNamed('/account');
+        }),
+        FunButton(
+          translate('LOGOUT'),
+          Colors.red,
+          onPressed: () {
+            Backend.logout(context);
+          },
+        ),
+      ].intersperse(const SizedBox(height: Sizes.medium)).toList(),
     );
   }
 }

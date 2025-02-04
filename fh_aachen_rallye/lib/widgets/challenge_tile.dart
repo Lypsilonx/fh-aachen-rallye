@@ -98,7 +98,18 @@ class _ChallengeTileState extends TranslatedState<ChallengeTile>
                     );
                     Navigator.pop(context);
                   },
-                )
+                ),
+                (
+                  'COMPLETE',
+                  (context) {
+                    Backend.setChallengeState(
+                      challenge,
+                      ChallengeState(
+                          -2, null, [], [], "", ChallengeUserStatus.none),
+                    );
+                    Navigator.pop(context);
+                  }
+                ),
               ],
             );
           },
@@ -195,35 +206,65 @@ class _ChallengeTileState extends TranslatedState<ChallengeTile>
           },
         ),
         if (challenge.userStatus != ChallengeUserStatus.none)
-          Transform(
-            alignment: Alignment.center,
-            transform: Matrix4.translation(Vector3(
-              -Sizes.small,
-              -Sizes.small,
-              0,
-            ))
-              ..rotateZ(-pi / 16),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: Sizes.extraSmall,
-                    horizontal: Sizes.small,
-                  ),
-                  decoration: const BoxDecoration(
-                    color: Colors.red,
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(Sizes.borderRadius)),
-                  ),
-                  child: Center(
-                    child: Text(
-                      translate(challenge.userStatus.badgeMessage),
-                      style: Styles.bodySmall.copyWith(color: Colors.white),
+          Positioned(
+            left: -Sizes.medium,
+            top: -Sizes.small,
+            child: Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.rotationZ(-pi / 16),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: Sizes.extraSmall,
+                      horizontal: Sizes.small,
+                    ),
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(Sizes.borderRadius)),
+                    ),
+                    child: Center(
+                      child: Text(
+                        translate(challenge.userStatus.badgeMessage),
+                        style: Styles.bodySmall.copyWith(color: Colors.white),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
+            ),
+          ),
+        if (challenge.progress == 1)
+          Positioned(
+            right: -Sizes.medium,
+            top: -Sizes.small,
+            child: Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.rotationZ(pi / 16),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: Sizes.extraSmall,
+                      horizontal: Sizes.small,
+                    ),
+                    decoration: const BoxDecoration(
+                      color: Colors.green,
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(Sizes.borderRadius)),
+                    ),
+                    child: Center(
+                      child: Text(
+                        translate("COMPLETED"),
+                        style: Styles.bodySmall.copyWith(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           )
       ],

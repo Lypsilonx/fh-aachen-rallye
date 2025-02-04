@@ -4,6 +4,7 @@ import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/data/user.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
+import 'package:fh_aachen_rallye/settings.dart';
 import 'package:fh_aachen_rallye/translator.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,13 @@ class Challenge extends ServerObject {
   final String descriptionStart;
   final String descriptionEnd;
   final List<ChallengeStep> steps;
+
+  bool get hidden {
+    var hiddenTags = ['wip', 'empty', 'needs translation'];
+    return language != Translator.language ||
+        (!Settings.showWipChallenges &&
+            hiddenTags.any((tag) => tags.contains(tag)));
+  }
 
   ChallengeState? get state {
     if (Backend.state.user == null) {

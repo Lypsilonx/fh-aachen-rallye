@@ -30,14 +30,15 @@ class FunButton extends StatefulWidget {
   FunButtonState createState() => FunButtonState();
 }
 
-class FunButtonState extends State<FunButton>
-    with SingleTickerProviderStateMixin {
+class FunButtonState extends State<FunButton> with TickerProviderStateMixin {
   ButtonState _buttonState = ButtonState.idle;
 
-  double _size = 0;
+  double _sizeX = 0;
+  double _sizeY = 0;
   double _angle = 0;
   late bool _direction;
-  late AnimationController controller;
+  late AnimationController clickController;
+  late AnimationController hoverController;
 
   bool isEnabled() {
     if (widget.isEnabled == null) {
@@ -53,29 +54,46 @@ class FunButtonState extends State<FunButton>
 
     _direction = DateTime.now().millisecond % 2 == 0;
 
-    controller = AnimationController(
+    clickController = AnimationController(
       duration: const Duration(milliseconds: 100),
       vsync: this,
     );
 
-    controller.addListener(() {
-      setState(() {
-        _size = widget.sizeFactor *
-            CurveTween(curve: Curves.easeInOut).transform(controller.value);
+    hoverController = AnimationController(
+      duration: const Duration(milliseconds: 100),
+      vsync: this,
+    );
 
-        _angle =
-            CurveTween(curve: Curves.easeInOut).transform(controller.value) *
-                0.02 *
-                (_direction ? 1 : -1) *
-                (widget.expand ? 0.3 : 1) *
-                3.14159265359;
-      });
+    clickController.addListener(() {
+      _updateButtonState();
+    });
+
+    hoverController.addListener(() {
+      _updateButtonState();
+    });
+  }
+
+  void _updateButtonState() {
+    setState(() {
+      var clickValue =
+          CurveTween(curve: Curves.easeInOut).transform(clickController.value);
+      var hoverValue =
+          CurveTween(curve: Curves.easeInOut).transform(hoverController.value) *
+              0.5;
+      _sizeX = hoverValue;
+      _sizeY = widget.sizeFactor * clickValue + hoverValue;
+
+      _angle = clickValue *
+          0.02 *
+          (_direction ? 1 : -1) *
+          (widget.expand ? 0.3 : 1) *
+          3.14159265359;
     });
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    clickController.dispose();
     super.dispose();
   }
 
@@ -91,13 +109,14 @@ class FunButtonState extends State<FunButton>
         transformHitTests: false,
         alignment: Alignment.center,
         transform: Matrix4.rotationZ(_angle)
-          ..scale(Vector3(1, 1 + _size * 0.12, 1)),
+          ..scale(Vector3(1 + _sizeX * 0.12, 1 + _sizeY * 0.12, 1)),
         child: MouseRegion(
           onEnter: (_) {
             if (!isEnabled()) {
               return;
             }
 
+            hoverController.forward();
             setState(() {
               _buttonState = ButtonState.hovered;
             });
@@ -107,6 +126,7 @@ class FunButtonState extends State<FunButton>
               return;
             }
 
+            hoverController.reverse();
             setState(() {
               _buttonState = ButtonState.idle;
             });
@@ -117,14 +137,14 @@ class FunButtonState extends State<FunButton>
                 return;
               }
 
-              controller.forward();
+              clickController.forward();
               setState(() {
                 _buttonState = ButtonState.pressed;
                 _direction = !_direction;
               });
             },
             onTapUp: (_) {
-              controller.reverse().then((value) {
+              clickController.reverse().then((value) {
                 if (!isEnabled()) {
                   return;
                 }
@@ -136,7 +156,7 @@ class FunButtonState extends State<FunButton>
               });
             },
             onTapCancel: () {
-              controller.reverse();
+              clickController.reverse();
               setState(() {
                 _buttonState = ButtonState.idle;
               });

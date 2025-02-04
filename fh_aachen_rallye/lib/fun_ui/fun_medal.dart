@@ -5,21 +5,38 @@ import 'package:vector_math/vector_math_64.dart' show Vector3;
 class FunMedal extends StatelessWidget {
   const FunMedal({
     super.key,
-    required this.placement,
+    this.placement,
+    this.color = Colors.transparent,
+    this.icon,
   });
 
-  final int placement;
+  factory FunMedal.placement(int placement) => FunMedal(
+        placement: placement,
+      );
+
+  factory FunMedal.color(
+    Color color,
+    IconData icon,
+  ) =>
+      FunMedal(
+        color: color,
+        icon: icon,
+      );
+
+  final int? placement;
+  final Color color;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
-    Color color = switch (placement) {
+    Color medalColor = switch (placement) {
       1 => Colors.yellow,
       2 => Colors.white,
       3 => const Color.fromARGB(255, 184, 110, 83),
-      _ => Colors.transparent
+      _ => color,
     };
 
-    double brightSaturation = 1;
+    double brightSaturation = 0.9;
     double normalSaturation = 0.8;
     double darkSaturation = 0.4;
 
@@ -28,7 +45,7 @@ class FunMedal extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          if (placement < 4)
+          if (placement == null || placement! < 4)
             Transform(
               alignment: Alignment.center,
               transform: Matrix4.skewY(0.75)
@@ -37,10 +54,10 @@ class FunMedal extends StatelessWidget {
                 width: Sizes.borderRadiusLarge * 2 - Sizes.small * 1.5,
                 height: Sizes.medium,
                 decoration: BoxDecoration(
-                    color: color.withSaturation(brightSaturation)),
+                    color: medalColor.withSaturation(brightSaturation)),
               ),
             ),
-          if (placement < 4)
+          if (placement == null || placement! < 4)
             Transform(
               alignment: Alignment.center,
               transform: Matrix4.skewY(-0.75)
@@ -49,11 +66,11 @@ class FunMedal extends StatelessWidget {
                 width: Sizes.borderRadiusLarge * 2 - Sizes.small * 1.5,
                 height: Sizes.medium,
                 decoration: BoxDecoration(
-                  color: color.withSaturation(normalSaturation),
+                  color: medalColor.withSaturation(normalSaturation),
                 ),
               ),
             ),
-          if (placement < 4)
+          if (placement == null || placement! < 4)
             Container(
               width: Sizes.borderRadiusLarge * 2,
               height: Sizes.borderRadiusLarge * 2,
@@ -61,16 +78,16 @@ class FunMedal extends StatelessWidget {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: color.withSaturation(darkSaturation),
+                    color: medalColor.withSaturation(darkSaturation),
                     offset: const Offset(0, 2),
                     blurRadius: 0,
                   ),
                 ],
-                color: color.withSaturation(normalSaturation),
+                color: medalColor.withSaturation(normalSaturation),
                 borderRadius: BorderRadius.circular(Sizes.borderRadiusLarge),
               ),
             ),
-          if (placement < 4)
+          if (placement == null || placement! < 4)
             Transform(
               alignment: Alignment.centerLeft,
               transform: Matrix4.identity()
@@ -80,7 +97,7 @@ class FunMedal extends StatelessWidget {
                 width: Sizes.borderRadiusLarge - Sizes.extraSmall,
                 height: Sizes.borderRadiusLarge * 2 - Sizes.small,
                 decoration: BoxDecoration(
-                  color: color.withSaturation(brightSaturation),
+                  color: medalColor.withSaturation(brightSaturation),
                   borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(
                         Sizes.borderRadiusLarge - Sizes.extraSmall),
@@ -90,19 +107,26 @@ class FunMedal extends StatelessWidget {
                 ),
               ),
             ),
-          Text(
-            '$placement${placement < 4 ? '' : '.'}',
-            style: Styles.h1.copyWith(
-              shadows: [
-                const Shadow(
-                  color: Colors.black,
-                  offset: Offset(0, 0),
-                  blurRadius: 4,
-                ),
-              ],
-              color: Colors.white,
+          if (placement != null)
+            Text(
+              '$placement${placement! < 4 ? '' : '.'}',
+              style: Styles.h1.copyWith(
+                shadows: [
+                  const Shadow(
+                    color: Colors.black,
+                    offset: Offset(0, 0),
+                    blurRadius: 4,
+                  ),
+                ],
+                color: Colors.white,
+              ),
             ),
-          ),
+          if (icon != null)
+            Icon(
+              icon,
+              color: Colors.white,
+              size: Sizes.medium,
+            ),
         ],
       ),
     );

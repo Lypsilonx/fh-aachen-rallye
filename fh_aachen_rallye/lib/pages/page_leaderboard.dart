@@ -121,7 +121,7 @@ class _PageLeaderboardState extends FunPageState<PageLeaderboard>
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          FunMedal(placement: placement),
+                          FunMedal.placement(placement),
                           const SizedBox(width: Sizes.medium),
                           Expanded(
                             child: UserTile(

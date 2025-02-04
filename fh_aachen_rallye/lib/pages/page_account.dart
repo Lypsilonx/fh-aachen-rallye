@@ -17,7 +17,7 @@ class PageAccount extends FunPage {
   String get navPath => '/account';
 
   @override
-  IconData? get footerIcon => Icons.person;
+  IconData? get footerIcon => null;
 
   @override
   String get tileAssetPath => 'assets/background_1.png';
@@ -64,6 +64,7 @@ class _PageAccountState extends FunPageState<PageAccount>
         Expanded(
           child: Helpers.blendList(
             ListView(
+              clipBehavior: Clip.none,
               children: [
                 const SizedBox(height: Sizes.medium),
                 Text('User ID: ${user.id}', style: Styles.h2),
