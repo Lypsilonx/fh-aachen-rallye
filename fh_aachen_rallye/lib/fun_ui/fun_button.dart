@@ -6,18 +6,25 @@ import 'package:vector_math/vector_math_64.dart' show Vector3;
 class FunButton extends StatefulWidget {
   final dynamic content;
   final Color color;
+  final double? width;
+  final double? height;
   final double sizeFactor;
   final bool expand;
 
   final void Function()? onPressed;
   final bool Function()? isEnabled;
 
-  const FunButton(this.content, this.color,
-      {this.sizeFactor = -1,
-      this.expand = true,
-      this.onPressed,
-      this.isEnabled,
-      super.key});
+  const FunButton(
+    this.content,
+    this.color, {
+    this.width,
+    this.height,
+    this.sizeFactor = -1,
+    this.expand = true,
+    this.onPressed,
+    this.isEnabled,
+    super.key,
+  });
 
   @override
   FunButtonState createState() => FunButtonState();
@@ -137,6 +144,8 @@ class FunButtonState extends State<FunButton>
             child: FunContainer(
               padding: EdgeInsets.zero,
               expand: widget.expand,
+              width: widget.width,
+              height: widget.height,
               color: switch (_buttonState) {
                 ButtonState.idle => widget.color.modifySaturation(0.9),
                 ButtonState.pressed => widget.color.modifySaturation(0.7),

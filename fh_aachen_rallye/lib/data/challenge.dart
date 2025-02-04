@@ -224,6 +224,8 @@ class ChallengeCategory {
       'general' => ChallengeCategory.general,
       'electricalEngineering' => ChallengeCategory.electricalEngineering,
       'maths' => ChallengeCategory.maths,
+      'outdoor' => ChallengeCategory.outdoor,
+      'history' => ChallengeCategory.history,
       _ => ChallengeCategory.loading,
     };
   }
@@ -234,6 +236,8 @@ class ChallengeCategory {
       'CATEGORY_GENERAL' => 'general',
       'CATEGORY_ELECTRICAL_ENGINEERING' => 'electricalEngineering',
       'CATEGORY_MATHS' => 'maths',
+      'CATEGORY_OUTDOOR' => 'outdoor',
+      'CATEGORY_HISTORY' => 'history',
       _ => 'loading',
     };
   }
@@ -243,6 +247,8 @@ class ChallengeCategory {
         ChallengeCategory.general,
         ChallengeCategory.electricalEngineering,
         ChallengeCategory.maths,
+        ChallengeCategory.outdoor,
+        ChallengeCategory.history,
       ];
 
   static const double _saturation = 0.9;
@@ -280,6 +286,20 @@ class ChallengeCategory {
     "CATEGORY_MATHS_DESCRIPTION",
     Icons.calculate,
     color: Colors.red.withSaturation(_saturation),
+  );
+
+  static ChallengeCategory outdoor = ChallengeCategory(
+    "CATEGORY_OUTDOOR",
+    "CATEGORY_OUTDOOR_DESCRIPTION",
+    Icons.directions_walk,
+    color: Colors.green.withSaturation(_saturation),
+  );
+
+  static ChallengeCategory history = ChallengeCategory(
+    "CATEGORY_HISTORY",
+    "CATEGORY_HISTORY_DESCRIPTION",
+    Icons.history_edu,
+    color: Colors.brown.withSaturation(_saturation),
   );
 }
 

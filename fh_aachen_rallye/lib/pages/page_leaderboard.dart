@@ -2,6 +2,7 @@ import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/cache.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
 import 'package:fh_aachen_rallye/data/user.dart';
+import 'package:fh_aachen_rallye/fun_ui/fun_medal.dart';
 import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/widgets/user_tile.dart';
@@ -120,32 +121,7 @@ class _PageLeaderboardState extends FunPageState<PageLeaderboard>
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Transform.translate(
-                            offset: const Offset(0, Sizes.extraSmall / 2),
-                            child: Container(
-                              width: Sizes.borderRadiusLarge * 2,
-                              height: Sizes.borderRadiusLarge * 2,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: switch (placement) {
-                                  1 => const Color.fromARGB(255, 147, 132, 50),
-                                  2 => Colors.grey,
-                                  3 => const Color.fromARGB(255, 156, 78, 50),
-                                  _ => Colors.transparent
-                                },
-                                borderRadius: BorderRadius.circular(
-                                    Sizes.borderRadiusLarge),
-                              ),
-                              child: Text(
-                                '$placement${placement < 4 ? '' : '.'}',
-                                style: Styles.h1.copyWith(
-                                  color: placement < 4
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
+                          FunMedal(placement: placement),
                           const SizedBox(width: Sizes.medium),
                           Expanded(
                             child: UserTile(

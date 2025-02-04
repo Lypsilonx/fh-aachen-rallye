@@ -56,6 +56,10 @@ class _PageChallengeListState extends FunPageState<PageChallengeList>
   }
 
   @override
+  String get title =>
+      selectedCategory != null ? selectedCategory!.name : widget.title;
+
+  @override
   void initState() {
     super.initState();
     SubscriptionManager.subscribeAll<Challenge>(this);
@@ -118,7 +122,11 @@ class _PageChallengeListState extends FunPageState<PageChallengeList>
   @override
   Widget buildPage(BuildContext context) {
     if (selectedCategory == null) {
-      var categories = ChallengeCategory.all;
+      var categories = ChallengeCategory.all.where((e) {
+        return challengeIds
+            .map((id) => Cache.fetch<Challenge>(id)!)
+            .any((challenge) => challenge.category == e);
+      }).toList();
 
       categories.sort((a, b) {
         // sort by progress (asc), then title
