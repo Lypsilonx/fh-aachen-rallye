@@ -1,5 +1,4 @@
 import 'package:fh_aachen_rallye/fun_ui/fun_button.dart';
-import 'package:fh_aachen_rallye/fun_ui/fun_container.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:flutter/material.dart';
 
@@ -99,16 +98,15 @@ class _FunTextInputState extends State<FunTextInput> {
         if (widget.submitButtonStyle == SubmitButtonStyle.right)
           const SizedBox(width: Sizes.small),
         if (widget.submitButtonStyle == SubmitButtonStyle.right)
-          FunContainer(
+          FunButton(
+            Icon(widget.submitButtonIcon ?? Icons.check, color: Colors.white),
+            Colors.orange,
+            expand: false,
             width: Sizes.textBoxHeight,
             height: Sizes.textBoxHeight,
-            expand: false,
-            color: Colors.orange,
-            onTap: () {
+            onPressed: () {
               widget.onSubmitted?.call(controller.text);
             },
-            child: Icon(widget.submitButtonIcon ?? Icons.check,
-                color: Colors.white),
           ),
       ],
     );
