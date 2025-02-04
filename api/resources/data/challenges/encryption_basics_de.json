@@ -10,7 +10,6 @@
     "descriptionEnd": "Du hast die Grundlagen der Verschlüsselung kennengelernt!",
     "steps": [
         {
-            "type": "say",
             "text": "Ally möchte mit Brim über eine *sichere Verbindung* kommunizieren. Ally verschlüsselt alle Nachrichten mit einem **Schlüssel**, den nur die beiden kennen.\n\n\nDer einfachheit halber benutzen wir hier eine einfache Verschlüsselungsmethode: **Die Caesar-Verschlüsselung**.\n\nBei der Caesar-Verschlüsselung wird jeder Buchstabe des Klartextes *um eine feste Anzahl von Positionen im Alphabet verschoben*. Der **Schlüssel** gibt an, um wie viele Positionen verschoben wird.\n\n\n**Beispiel**:\n\n*Klartext*: 'Hallo'\n\n*Schlüssel*: 3\n\n*Verschlüsselter Text*: 'Kdoor'"
         },
         {
@@ -22,9 +21,9 @@
             "alternatives": "2,4,6|8|1"
         },
         {
-            "type": "say",
             "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
@@ -34,9 +33,9 @@
             "next": 0
         },
         {
-            "type": "say",
             "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
@@ -46,9 +45,9 @@
             "next": 0
         },
         {
-            "type": "say",
             "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
@@ -58,12 +57,11 @@
             "next": 0
         },
         {
-            "type": "say",
             "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
-            "type": "say",
             "text": "Super! Die nachricht ist nun verschlüsselt und kann *nur von Brim* entschlüsselt werden.\n\n(Brim muss dafür die empfangene Nachricht nur noch einmal um 26 - den Schlüssel - verschieben.)\n\n\nUm die Nachricht jedoch zu versenden muss Ally die Nachricht noch in ein **Format** bringen, das über das Internet verschickt werden kann. Dafür wird die Nachricht in eine Reihe von 0en und 1en umgewandelt.\n\n\nDafür benutzen die beiden ein eigenes **Protokoll**. Jeder Buchstabe wird erst **in Morsecode umgewandelt** und dann **binär kodiert**."
         },
         {
@@ -75,9 +73,9 @@
             "alternatives": "2,4,6|8|1"
         },
         {
-            "type": "say",
             "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
@@ -87,9 +85,9 @@
             "next": 0
         },
         {
-            "type": "say",
             "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
@@ -99,9 +97,9 @@
             "next": 0
         },
         {
-            "type": "say",
             "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
@@ -111,9 +109,9 @@
             "next": 0
         },
         {
-            "type": "say",
             "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
@@ -123,9 +121,9 @@
             "next": 2
         },
         {
-            "type": "say",
             "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
@@ -135,9 +133,9 @@
             "next": 2
         },
         {
-            "type": "say",
             "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
@@ -147,12 +145,11 @@
             "next": 2
         },
         {
-            "type": "say",
             "text": "Das ist leider nicht korrekt. Versuche es noch einmal.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
-            "type": "say",
             "text": "Super! Die Nachricht wurde erfolgreich entschlüsselt und Brim kann sie lesen!",
             "isLast": true
         }

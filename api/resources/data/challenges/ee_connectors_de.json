@@ -10,17 +10,20 @@
     "descriptionEnd": "Du hast alle Stecker ihren Funktionen und Bezeichnungen zugeordnet!",
     "steps": [
         {
+            "text": "Izzy hat bei sich zu hause eine Kramkiste mit verschiedenen Steckern und Kabeln (Was eine Unordnung!). Kannst du Izzy helfen, die verschiedenen Stecker zu identifizieren?"
+        },
+        {
             "type": "stringInput",
-            "text": "Welcher Stecker ist das?\n\n\n![Stecker](ee_connectors/BNC.png)",
+            "text": "Was ist das wohl?\n\n\n![Stecker](ee_connectors/BNC.png)\n\n\nIzzy kann sich nicht daran erinnern diesen Stecker im Haushalt verwendet zu haben... Vielleicht ist es ein Stecker aus dem Elektrotechnik-Labor auf Arbeit?\n\n\nWas ist das für ein Stecker?",
             "correctAnswer": "BNC",
             "indexOnIncorrect": 1,
             "next": 2,
-            "alternatives": "4,8,12,16,20|24|3"
+            "alternatives": "4,8,12,16|20|3"
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -28,21 +31,21 @@
             "options": "{ \"Radio- & Videosignale\": 0, \"Audiosignale\": 1, \"Stromversorgung\": 1 }"
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
-            "text": "Welcher Stecker ist das?\n\n\n![Stecker](ee_connectors/DIN.png)",
+            "text": "Den stecker hat Izzy ewig nicht mehr gesehen. Das letzte mal wahrscheinlich beim Keyboard spielen...\n\n\n![Stecker](ee_connectors/DIN.png)\n\n\nWas ist das für ein Stecker?",
             "correctAnswer": "DIN",
             "indexOnIncorrect": 1,
             "next": 2
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -50,21 +53,21 @@
             "options": "{ \"Video-, Audio- oder MIDI-Signale\": 0, \"Ethernet und lokale Netzwerke\": 1, \"Hochspannungsversorgung\": 1 }"
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
-            "text": "Welcher Stecker ist das?\n\n\n![Stecker](ee_connectors/RCA.png)",
+            "text": "Dieser Anschluss kommt Izzy bekannt vor, aber benutzt wurde der hier im Haushalt schon seit mehreren Jahren nicht mehr...\n\n\n![Stecker](ee_connectors/RCA.png)\n\n\nWie heißt der nochmal?",
             "correctAnswer": "RCA,Chinch",
             "indexOnIncorrect": 1,
             "next": 2
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -72,21 +75,21 @@
             "options": "{ \"Audio- & Videosignale\": 0, \"Synchronisierung von Systemen\": 1, \"Serielles Interface\": 1 }"
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
-            "text": "Welcher Stecker ist das?\n\n\n![Stecker](ee_connectors/SMA.png)",
+            "text": "Diesen Stecker hat Izzy bestimmt schon mal in der Hand gehabt... Aber wo?\n\n\n![Stecker](ee_connectors/RJ45.png)\n\n\nWie heißt der Stecker?",
             "correctAnswer": "SMA",
             "indexOnIncorrect": 1,
             "next": 2
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -94,41 +97,18 @@
             "options": "{ \"Antennen & Mikrowellensysteme\": 0, \"High Fidelity Audio\": 1, \"Stromversorgung\": 1 }"
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
-            "text": "Welcher Stecker ist das?\n\n\n![Stecker](ee_connectors/TNC.png)",
-            "correctAnswer": "TNC",
-            "indexOnIncorrect": 1,
-            "next": 2
-        },
-        {
-            "type": "say",
-            "text": "Das ist leider falsch.",
-            "next": -1
-        },
-        {
-            "type": "options",
-            "text": "![Stecker](ee_connectors/TNC.png)\n\n\nWofur wird der TNC-Stecker verwendet?",
-            "options": "{ \"Radio- & Mikrowellensysteme\": 0, \"Optische Fasernetzwerke\": 1, \"High Fidelity Audio\": 1 }"
-        },
-        {
-            "type": "say",
-            "text": "Das ist leider falsch.",
-            "next": -1
-        },
-        {
-            "type": "stringInput",
-            "text": "Welcher Stecker ist das?\n\n\n![Stecker](ee_connectors/XLR.png)",
+            "text": "Izzy meint diesen Stecker das letzte mal bei einer Schulaufführung gesehen zu haben... (Wie ist der bloß hierher gekommen?)\n\n\n![Stecker](ee_connectors/XLR.png)\n\n\nWie heißt dieser Stecker?",
             "correctAnswer": "XLR",
             "indexOnIncorrect": 1,
             "next": 2
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch."
         },
         {
@@ -137,13 +117,12 @@
             "options": "{ \"Bühnenveranstaltungen\": 0, \"Medizinische Verfahren\": 1, \"Messungen\": 1 }"
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
-            "type": "say",
-            "text": "Du hast alle Stecker ihren Funktionen und Bezeichnungen zugeordnet!",
+            "text": "Super, die Stecker sind sortiert! Du hast alle Stecker ihren Funktionen und Bezeichnungen zugeordnet!",
             "isLast": true
         }
     ]

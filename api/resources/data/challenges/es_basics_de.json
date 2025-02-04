@@ -17,9 +17,9 @@
             "alternatives": "2,4,6|8"
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -27,9 +27,9 @@
             "options": "{ \"Wahr\": 1, \"Falsch\": 0 }"
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -37,9 +37,9 @@
             "options": "{ \"Wahr\": 0, \"Falsch\": 1 }"
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -47,12 +47,11 @@
             "options": "{ \"Wahr\": 1, \"Falsch\": 0 }"
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
-            "type": "say",
             "text": "Du hast es geschafft!\n\n\nDie Grundlagen sind dir nicht mehr fremd!",
             "isLast": true
         }

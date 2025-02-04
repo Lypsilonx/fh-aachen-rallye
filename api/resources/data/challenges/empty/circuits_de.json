@@ -10,11 +10,9 @@
     "descriptionEnd": "Du kannst dir jetzt vorstellen wie ein elektronischer Schaltkreis funktioniert!",
     "steps": [
         {
-            "type": "say",
             "text": ""
         },
         {
-            "type": "say",
             "text": "",
             "isLast": true
         }

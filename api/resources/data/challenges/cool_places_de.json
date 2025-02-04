@@ -18,9 +18,9 @@
             "next": 2
         },
         {
-            "type": "say",
             "text": "Nicht ganz...\n\n\nTipp: Es ist kein Gebäude im eigentlichen Sinne, sondern eine markante Struktur. Wie heißt solch eine Struktur?",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
@@ -30,12 +30,11 @@
             "next": 2
         },
         {
-            "type": "say",
             "text": "Nicht ganz...\n\nVersuche es noch einmal!",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
-            "type": "say",
             "text": "Du hast es geschafft! Du hast den Torbogen gefunden und die Allée gezählt. Unglaublich, dass sich so ein schöner Ort auf dem Campus versteckt!"
         },
         {
@@ -46,9 +45,9 @@
             "next": 2
         },
         {
-            "type": "say",
             "text": "Nicht ganz...\n\n\nTipp: Du könntest es in der Mittagspause schon einmal gesehen haben.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "scan",
@@ -59,9 +58,9 @@
             "alternatives": "2,4|6|1"
         },
         {
-            "type": "say",
             "text": "Ups... da hast du entweder den falschen Tisch gescannt oder irgendwas ganz anderes.\n\nVersuche es noch einmal!",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "scan",
@@ -71,9 +70,9 @@
             "next": 0
         },
         {
-            "type": "say",
             "text": "Ups... da hast du entweder den falschen Tisch gescannt oder irgendwas ganz anderes.\n\nVersuche es noch einmal!",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "scan",
@@ -83,12 +82,11 @@
             "next": 0
         },
         {
-            "type": "say",
             "text": "Ups... da hast du entweder den falschen Tisch gescannt oder irgendwas ganz anderes.\n\nVersuche es noch einmal!",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
-            "type": "say",
             "text": "Das ist es erstmal! Hoffentlich hast du etwas Neues entdeckt!",
             "isLast": true
         }

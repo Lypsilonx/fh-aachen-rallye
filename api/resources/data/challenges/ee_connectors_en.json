@@ -1,150 +1,128 @@
 {
     "challenge_id": "ee_connectors",
-    "title": "Connector-Quiz",
+    "title": "Plug Quiz",
     "language": "en",
     "difficulty": 2,
     "duration": 20,
     "category": "electricalEngineering",
     "points": 50,
-    "descriptionStart": "Do you know these connectors?",
-    "descriptionEnd": "You have assigned all connectors their functions and names!",
+    "descriptionStart": "Are you familiar with these plugs?",
+    "descriptionEnd": "You have matched all plugs to their functions and names!",
     "steps": [
         {
+            "text": "Izzy has a box of various plugs and cables at home (What a mess!). Can you help Izzy identify the different plugs?"
+        },
+        {
             "type": "stringInput",
-            "text": "Which connector is this?\n\n\n![Connector](ee_connectors/BNC.png)",
+            "text": "What could this be?\n\n\n![Plug](ee_connectors/BNC.png)\n\n\nIzzy can't remember using this plug at home... Maybe it's a plug from the electrical engineering lab at work?\n\n\nWhat kind of plug is this?",
             "correctAnswer": "BNC",
             "indexOnIncorrect": 1,
             "next": 2,
-            "alternatives": "4,8,12,16,20|24|3"
+            "alternatives": "4,8,12,16|20|3"
         },
         {
-            "type": "say",
-            "text": "That is incorrect.",
-            "next": -1
+            "text": "That is unfortunately incorrect.",
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
-            "text": "![Connector](ee_connectors/BNC.png)\n\n\nWhat function does BNC have?",
-            "options": "{ \"Radio & Video Signals\": 0, \"Audio Signals\": 1, \"Power Supply\": 1 }"
+            "text": "![Plug](ee_connectors/BNC.png)\n\n\nWhat is the function of BNC?",
+            "options": "{ \"Radio & Video signals\": 0, \"Audio signals\": 1, \"Power supply\": 1 }"
         },
         {
-            "type": "say",
-            "text": "That is incorrect.",
-            "next": -1
+            "text": "That is unfortunately incorrect.",
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
-            "text": "Which connector is this?\n\n\n![Connector](ee_connectors/DIN.png)",
+            "text": "Izzy hasn't seen this plug in ages. Probably the last time while playing the keyboard...\n\n\n![Plug](ee_connectors/DIN.png)\n\n\nWhat kind of plug is this?",
             "correctAnswer": "DIN",
             "indexOnIncorrect": 1,
             "next": 2
         },
         {
-            "type": "say",
-            "text": "That is incorrect.",
-            "next": -1
+            "text": "That is unfortunately incorrect.",
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
-            "text": "![Connector](ee_connectors/DIN.png)\n\n\nWhat function does DIN have?",
-            "options": "{ \"Video, Audio or MIDI Signals\": 0, \"Ethernet and Local Networks\": 1, \"High Voltage Supply\": 1 }"
+            "text": "![Plug](ee_connectors/DIN.png)\n\n\nWhat is the function of DIN?",
+            "options": "{ \"Video, Audio or MIDI signals\": 0, \"Ethernet and local networks\": 1, \"High voltage supply\": 1 }"
         },
         {
-            "type": "say",
-            "text": "That is incorrect.",
-            "next": -1
+            "text": "That is unfortunately incorrect.",
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
-            "text": "Which connector is this?\n\n\n![Connector](ee_connectors/RCA.png)",
+            "text": "This plug looks familiar to Izzy, but it hasn't been used in the household for several years...\n\n\n![Plug](ee_connectors/RCA.png)\n\n\nWhat is it called again?",
             "correctAnswer": "RCA,Chinch",
             "indexOnIncorrect": 1,
             "next": 2
         },
         {
-            "type": "say",
-            "text": "That is incorrect.",
-            "next": -1
+            "text": "That is unfortunately incorrect.",
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
-            "text": "![Connector](ee_connectors/RCA.png)\n\n\nWhat function does RCA/Chinch have?",
-            "options": "{ \"Audio & Video Signals\": 0, \"Systems Synchonization\": 1, \"Serial Communication\": 1 }"
+            "text": "![Plug](ee_connectors/RCA.png)\n\n\nWhat is the function of RCA/Chinch?",
+            "options": "{ \"Audio & Video signals\": 0, \"System synchronization\": 1, \"Serial interface\": 1 }"
         },
         {
-            "type": "say",
-            "text": "That is incorrect.",
-            "next": -1
+            "text": "That is unfortunately incorrect.",
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
-            "text": "Which connector is this?\n\n\n![Connector](ee_connectors/SMA.png)",
+            "text": "Izzy has definitely held this plug before... But where?\n\n\n![Plug](ee_connectors/RJ45.png)\n\n\nWhat is the name of this plug?",
             "correctAnswer": "SMA",
             "indexOnIncorrect": 1,
             "next": 2
         },
         {
-            "type": "say",
-            "text": "That is incorrect.",
-            "next": -1
+            "text": "That is unfortunately incorrect.",
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
-            "text": "![Connector](ee_connectors/SMA.png)\n\n\nWhat is the SMA connector used for?",
-            "options": "{ \"Antennas & Microwave Systems\": 0, \"High Fidelity Audio\": 1, \"Power Supply\": 1 }"
+            "text": "![Plug](ee_connectors/SMA.png)\n\n\nWhat is the SMA plug used for?",
+            "options": "{ \"Antennas & Microwave systems\": 0, \"High Fidelity Audio\": 1, \"Power supply\": 1 }"
         },
         {
-            "type": "say",
-            "text": "That is incorrect.",
-            "next": -1
-        },
-        {
-            "type": "stringInput",
-            "text": "Which connector is this?\n\n\n![Connector](ee_connectors/TNC.png)",
-            "correctAnswer": "TNC",
-            "indexOnIncorrect": 1,
-            "next": 2
-        },
-        {
-            "type": "say",
-            "text": "That is incorrect.",
-            "next": -1
-        },
-        {
-            "type": "options",
-            "text": "![Connector](ee_connectors/TNC.png)\n\n\nWhat is the TNC connector used for?",
-            "options": "{ \"Radio & Microwave Systems\": 0, \"Optical Fiber Networks\": 1, \"High Fidelity Audio\": 1 }"
-        },
-        {
-            "type": "say",
-            "text": "That is incorrect.",
-            "next": -1
+            "text": "That is unfortunately incorrect.",
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
-            "text": "Which connector is this?\n\n\n![Connector](ee_connectors/XLR.png)",
+            "text": "Izzy thinks they last saw this plug at a school performance... (How did it get here?)\n\n\n![Plug](ee_connectors/XLR.png)\n\n\nWhat is the name of this plug?",
             "correctAnswer": "XLR",
             "indexOnIncorrect": 1,
             "next": 2
         },
         {
-            "type": "say",
-            "text": "That is incorrect.",
-            "next": -1
+            "text": "That is unfortunately incorrect."
         },
         {
             "type": "options",
-            "text": "![Connector](ee_connectors/XLR.png)\n\n\nIn which field is the XLR connector used?",
-            "options": "{ \"Stage Events\": 0, \"Medical Procedures\": 1, \"Measuements\": 1 }"
+            "text": "![Plug](ee_connectors/XLR.png)\n\n\nIn which area is the XLR plug used?",
+            "options": "{ \"Stage events\": 0, \"Medical procedures\": 1, \"Measurements\": 1 }"
         },
         {
-            "type": "say",
-            "text": "That is incorrect.",
-            "next": -1
+            "text": "That is unfortunately incorrect.",
+            "next": -1,
+            "punishment": 1
         },
         {
-            "type": "say",
-            "text": "You have assigned all connectors their functions and names!",
+            "text": "Great, the plugs are sorted! You have matched all plugs to their functions and names!",
             "isLast": true
         }
     ]

@@ -11,11 +11,9 @@
     "descriptionEnd": "Du hast die Labore der FH Aachen kennengelernt!",
     "steps": [
         {
-            "type": "say",
             "text": ""
         },
         {
-            "type": "say",
             "text": "",
             "isLast": true
         }

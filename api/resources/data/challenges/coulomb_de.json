@@ -16,9 +16,9 @@
             "options": "{ \"Elektrostatik\": 2, \"Elektrodynamik\": 1, \"Elektronik\": 1 }"
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -26,12 +26,11 @@
             "options": "{ \"Kraft\": 2, \"Spannung\": 1, \"Leistung\": 1 }"
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
-            "type": "say",
             "text": "Erinnerst du dich noch an Proportionalität?\n\n\nWir verwenden Proportionalität um über teile von Formeln zu sprechen.\n\nAls Beispiel hier das **Ohmsche Gesetz**: $U = R * I$\nHier ist $U$ die **Spannung**, $R$ der **Widerstand** und $I$ der **Strom**.\n\nWir können die Formel aufspalten in $U \\propto R$ und $U \\propto I$"
         },
         {
@@ -40,9 +39,9 @@
             "options": "{ \"$F \\\\propto \\\\frac{1}{r^3}$\": 1, \"$F \\\\propto r^2$\": 1, \"$F \\\\propto \\\\frac{1}{r^2}$\": 2, \"$F \\\\propto \\\\frac{1}{r}$\": 1 }"
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -50,9 +49,9 @@
             "options": "{ \"$F \\\\propto Q_1 * Q_2$\": 2, \"$F \\\\propto \\\\frac{Q_1}{Q_2}$\": 1, \"$F \\\\propto \\\\frac{Q_1}{Q_2^2}$\": 1, \"$F \\\\propto \\\\frac{Q_1}{Q_2^3}$\": 1 }"
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
@@ -62,12 +61,11 @@
             "next": 2
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
-            "type": "say",
             "text": "Somit folgt das **Coulombsche Gesetz**:\n\n$$F = \\frac{1}{4*\\pi*\\epsilon_0} * \\frac{Q_1 * Q_2}{r^2}$$",
             "isLast": true
         }

@@ -15,9 +15,9 @@
             "options": "{ \"Prof. Dr. Hans Schwier und Prof. Dr. Helmut Strehl\": 1, \"Prof. Dr. Hildegard Reitz und Prof. Dr. Hans Schwier\": 1, \"Prof. Dr. Helmut Strehl und Prof. Dr. Hildegard Reitz\": 2 }"
         },
         {
-            "type": "say",
             "text": "Das ist nicht richtig.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -25,9 +25,9 @@
             "options": "{ \"Königlich-Preussische Baugewerkschule\": 1, \"Königliche Höhere Maschinenbauschule Aachen\": 1, \"Gewerbliche Zeichen- und Kunstgewerbeschule\": 1, \"Staatliche Ingenieurschule für Textilwesen Aachen\": 2 }"
         },
         {
-            "type": "say",
             "text": "Das ist nicht richtig.\n\n\nEs geht um den **Gründungsnamen**!",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
@@ -37,9 +37,9 @@
             "next": 2
         },
         {
-            "type": "say",
             "text": "Das ist nicht richtig.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -47,12 +47,11 @@
             "options": "{ \"Elektrotechnik\": 1, \"Maschinenbau\": 1, \"Architektur\": 1, \"Design\": 1, \"Physik\": 2 }"
         },
         {
-            "type": "say",
             "text": "Das ist nicht richtig.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
-            "type": "say",
             "text": "Nun weißt du ein bißchen mehr über die Geschichte der FH Aachen.",
             "isLast": true
         }

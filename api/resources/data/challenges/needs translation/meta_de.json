@@ -15,9 +15,9 @@
             "options": "{ \"Heuhaufen A\": 1, \"Heuhaufen B\": 1, \"Heuhaufen C\": 1, \"Heuhaufen D\": 1, \"Heuhaufen E\": 1, \"Heuhaufen F\": 1, \"Heuhaufen G${\\\\tiny Nadel}$\": 2, \"Heuhaufen H\": 1, \"Heuhaufen I\": 1, \"Heuhaufen J\": 1, \"Heuhaufen K\": 1, \"Heuhaufen L\": 1, \"Heuhaufen M\": 1, \"Heuhaufen N\": 1, \"Heuhaufen O\": 1, \"Heuhaufen P\": 1, \"Heuhaufen Q\": 1, \"Heuhaufen R\": 1, \"Heuhaufen S\": 1, \"Heuhaufen T\": 1, \"Heuhaufen U\": 1, \"Heuhaufen V\": 1, \"Heuhaufen W\": 1, \"Heuhaufen X\": 1, \"Heuhaufen Y\": 1, \"Heuhaufen Z\": 1, \"Heuhaufen A1\": 1, \"Heuhaufen B1\": 1, \"Heuhaufen C1\": 1, \"Heuhaufen D1\": 1, \"Heuhaufen E1\": 1, \"Heuhaufen F1\": 1, \"Heuhaufen G1\": 1, \"Heuhaufen H1\": 1, \"Heuhaufen I1\": 1, \"Heuhaufen J1\": 1, \"Heuhaufen K1\": 1, \"Heuhaufen L1\": 1, \"Heuhaufen M1\": 1, \"Heuhaufen N1\": 1, \"Heuhaufen O1\": 1, \"Heuhaufen P1\": 1, \"Heuhaufen Q1\": 1, \"Heuhaufen R1\": 1, \"Heuhaufen S1\": 1, \"Heuhaufen T1\": 1, \"Heuhaufen U1\": 1, \"Heuhaufen V1\": 1, \"Heuhaufen W1\": 1, \"Heuhaufen X1\": 1, \"Heuhaufen Y1\": 1, \"Heuhaufen Z1\": 1 }"
         },
         {
-            "type": "say",
             "text": "*raschel* *raschel* *raschel*",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
@@ -27,9 +27,9 @@
             "next": 2
         },
         {
-            "type": "say",
             "text": "huh? So hab ich das nicht gemeint!",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
@@ -39,12 +39,11 @@
             "next": 2
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
-            "type": "say",
             "text": "Das war's!\n\n\nDu hast es geschafft!",
             "isLast": true
         }

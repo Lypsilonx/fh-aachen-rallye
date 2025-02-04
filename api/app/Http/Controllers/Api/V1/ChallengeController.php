@@ -65,8 +65,9 @@ class ChallengeController extends Controller
 
         $index = 0;
         foreach ($steps as $step) {
+            $type = $step['type'] ?? 'say';
             $values = [
-                'type' => $step['type'],
+                'type' => $type,
                 'text' => $step['text'],
                 'next' => $step['next'] ?? null,
                 'punishment' => $step['punishment'] ?? null,
@@ -74,15 +75,15 @@ class ChallengeController extends Controller
                 'isLast' => $step['isLast'] ?? false,
             ];
 
-            if ($step['type'] === 'options') {
+            if ($type === 'options') {
                 $values['options'] = $step['options'];
             }
 
-            if ($step['type'] === 'stringInput' || $step['type'] === 'scan') {
+            if ($type === 'stringInput' || $type === 'scan') {
                 $values['correctAnswer'] = $step['correctAnswer'];
             }
 
-            if ($step['type'] === 'stringInput') {
+            if ($type === 'stringInput') {
                 $values['indexOnIncorrect'] = $step['indexOnIncorrect'];
                 $values['hintCost'] = $step['hintCost'] ?? 5;
             }

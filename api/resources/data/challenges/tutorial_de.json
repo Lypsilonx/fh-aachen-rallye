@@ -11,11 +11,9 @@
     "descriptionEnd": "Am Ende des Tutorials bekommst du hier noch eine kleine Zusammenfassung der Aufgabe.",
     "steps": [
         {
-            "type": "say",
             "text": "Aufgaben können auf verschiedene Weisen freigeschaltet werden.\n\n\nDiese Aufgabe ist standardmäßig freigeschaltet, sodass du direkt beginnen kannst.\n\n\nAndere Aufgaben werden freigeschaltet, wenn du QR-Codes auf dem Campus scannst oder andere Aufgaben löst.\n\n\nDrücke auf 'Weiter', um fortzufahren."
         },
         {
-            "type": "say",
             "text": "Die meisten Aufgaben beginnen mit einer Aufgabenstellung\n\nDiese enthält Informationen (Text und/oder Bilder), die du benötigst, um die Aufgabe zu lösen."
         },
         {
@@ -24,12 +22,10 @@
             "options": "{ \"A\": 1, \"B\": 2 }"
         },
         {
-            "type": "say",
             "text": "Du hast option A gewählt, sehr gut!",
             "next": 2
         },
         {
-            "type": "say",
             "text": "Du hast option B gewählt, sehr gut!"
         },
         {
@@ -47,18 +43,14 @@
             "next": 3
         },
         {
-            "type": "say",
             "text": "Wenn du eine falsche Antwort eingibst, verlierst du manchmal Punkte.\n\n\nDu kannst es dennoch einfach noch einmal versuchen.",
-            "next": -1,
-            "punishment": 1
+            "next": -1
         },
         {
-            "type": "say",
             "text": "Gut gemacht!\n\nWenn du eine falsche Antwort eingibst, verlierst du manchmal Punkte.\n\n\nDu kannst es dennoch einfach noch einmal versuchen.",
             "next": 2
         },
         {
-            "type": "say",
             "text": "Gut gemacht!"
         },
         {
@@ -69,12 +61,10 @@
             "next": 2
         },
         {
-            "type": "say",
             "text": "Da hast du dich wohl vertippt.\n\nVersuche es noch einmal.",
             "next": -1
         },
         {
-            "type": "say",
             "text": "Gut gemacht!\n\nDu hast das Tutorial erfolgreich abgeschlossen!\n\n\nDrücke auf 'Abschließen', um deine Punkte zu erhalten.\n\n\nPunkte zeigen anderen Rallye-Teilnehmern an, wie gut du bist.\n\n\nSchwierigere Aufgaben geben mehr Punkte.\n\n\nViel Glück und viel Spaß bei der FH-Aachen Rallye!",
             "isLast": true
         }

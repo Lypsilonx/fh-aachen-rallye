@@ -7,96 +7,98 @@
     "category": "electricalEngineering",
     "points": 50,
     "descriptionStart": "Erkennst du diese Logos von Elektrotechnik-Unternehmen?",
-    "descriptionEnd": "Du hast alle Logos erkannt!",
+    "descriptionEnd": "Du hast Ruby geholfen, alle Logos zu erkennen!",
     "steps": [
         {
+            "text": "Ruby hat eine Sammlung von verschiedensten Geräten und Bauteilen aus der Elektrotechnik. Einige davon haben ein Logo aufgedruckt. Kannst du helfen die Firmen zu identifizieren, die hinter den Logos stecken?"
+        },
+        {
             "type": "stringInput",
-            "text": "Welche Firma steckt hinter diesem Logo?\n\n\n![Logo](ee_logos/AnalogDevices_Logo.png)",
+            "text": "Auf einem Chip kann Ruby das folgende Symbol erkennen...\n\n\n![Logo](ee_logos/AnalogDevices_Logo.png)\n\n\n...wer hat diesen Chip hergestellt?",
             "correctAnswer": "analogdevices,Analog Devices",
             "indexOnIncorrect": 1,
             "next": 0,
             "alternatives": "2,4,6,8,10,12|14|3"
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
-            "text": "Welche Firma steckt hinter diesem Logo?\n\n\n![Logo](ee_logos/Arduino_Logo.png)",
+            "text": "Mehrere von Ruby's Microcontrollern haben das folgende Logo:\n\n\n![Logo](ee_logos/Arduino_Logo.png)\n\n\nWer hat diese Microcontroller hergestellt?",
             "correctAnswer": "arduino",
             "indexOnIncorrect": 1,
             "next": 0
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
-            "text": "Welche Firma steckt hinter diesem Logo?\n\n\n![Logo](ee_logos/Atmel_Logo.png)",
+            "text": "Auf einem der Mikroprozessoren findet Ruby das folgende Logo:\n\n\n![Logo](ee_logos/Atmel_Logo.png)\n\n\nWer hat diesen Mikroprozessor hergestellt?",
             "correctAnswer": "atmel",
             "indexOnIncorrect": 1,
             "next": 0
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
-            "text": "Welche Firma steckt hinter diesem Logo?\n\n\n![Logo](ee_logos/MicrochipTechnology_Logo.png)",
+            "text": "Auf einem der Microcontroller ist diese 'M' zu sehen:\n\n\n![Logo](ee_logos/MicrochipTechnology_Logo.png)\n\n\nWer hat diesen Microcontroller hergestellt?",
             "correctAnswer": "microchiptechnology,Microchip Technology,microchip",
             "indexOnIncorrect": 1,
             "next": 0
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
-            "text": "Welche Firma steckt hinter diesem Logo?\n\n\n![Logo](ee_logos/STMicroelectronics_Logo.png)",
+            "text": "Ein Chip hat die folgenden Initialen aufgedruckt:\n\n\n![Logo](ee_logos/NXP_Logo.png)\n\n\nWer hat diesen Chip hergestellt?",
             "correctAnswer": "stmicroelectronics,STMicroelectronics",
             "indexOnIncorrect": 1,
             "next": 0
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
-            "text": "Welche Firma steckt hinter diesem Logo?\n\n\n![Logo](ee_logos/TexasInstruments_Logo.png)",
+            "text": "Viele von Ruby's Gates für Logikschaltungen haben das folgende Logo:\n\n\n![Logo](ee_logos/STMicroelectronics_Logo.png)\n\n\nWer hat diese Gates hergestellt?",
             "correctAnswer": "texasinstruments,Texas Instruments",
             "indexOnIncorrect": 1,
             "next": 0
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
-            "text": "Welche Firma steckt hinter diesem Logo?\n\n\n![Logo](ee_logos/TSMC_Logo.png)",
+            "text": "Ruby findet eine Spezifikation für einen Prozessor mit diesem komischen Schachbrett-ähnlichen Logo:\n\n\n![Logo](ee_logos/TSMC_Logo.png)\n\n\nWer hat diese Spezifikation herausgegeben?",
             "correctAnswer": "tsmc",
             "indexOnIncorrect": 1,
             "next": 0
         },
         {
-            "type": "say",
             "text": "Das ist leider falsch.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
-            "type": "say",
-            "text": "Du hast alle Logos erkannt!",
+            "text": "Wow! Du konntest alle Geräte und Bauteile identifizieren und hast Ruby geholfen die Firmen hinter den Logos zu erkennen. Gut gemacht!",
             "isLast": true
         }
     ]
