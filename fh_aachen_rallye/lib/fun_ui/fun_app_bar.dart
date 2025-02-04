@@ -19,7 +19,7 @@ class FunAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: backgroundColor.withSaturation(0.8).withAlpha((255 * 0.3).round()),
+      color: backgroundColor.withSaturation(0.8).mix(Colors.white, 0.7),
       child: Helpers.intelligentPadding(
         context,
         vertical: false,

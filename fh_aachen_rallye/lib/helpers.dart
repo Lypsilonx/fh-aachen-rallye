@@ -110,7 +110,7 @@ class Helpers {
           children: [
             Positioned.fill(
               child: Container(
-                color: color.withSaturation(0.8).withAlpha((0.3 * 255).round()),
+                color: color.withSaturation(0.8).mix(Colors.white, 0.7),
               ),
             ),
             Stack(
