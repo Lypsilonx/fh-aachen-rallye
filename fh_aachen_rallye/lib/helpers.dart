@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
 import 'package:markdown/markdown.dart' as md;
+import 'package:vector_math/vector_math_64.dart' show Vector3;
 
 class Helpers {
   static Widget displayDifficulty(ChallengeDifficulty difficulty) {
@@ -157,37 +158,40 @@ class Helpers {
     );
   }
 
-  static Widget blendList(Widget list, {double bottomSpacing = 0}) {
-    return ShaderMask(
-      shaderCallback: (rect) {
-        return const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Colors.transparent,
-            Colors.black,
-            Colors.black,
-            Colors.transparent,
-          ],
-          stops: [
-            0.0,
-            0.02,
-            0.98,
-            1.0,
-          ],
-        ).createShader(
-          Rect.fromLTRB(
-            0,
-            0,
-            rect.width,
-            rect.height,
+  static Widget blendList(Widget list) {
+    return Transform(
+      alignment: Alignment.center,
+      transform: Matrix4.identity()..scale(Vector3(2, 1, 1)),
+      child: ShaderMask(
+        shaderCallback: (rect) {
+          return const LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.transparent,
+              Colors.black,
+              Colors.black,
+              Colors.transparent,
+            ],
+            stops: [
+              0.0,
+              0.02,
+              0.98,
+              1.0,
+            ],
+          ).createShader(
+            Offset.zero & rect.size,
+          );
+        },
+        blendMode: BlendMode.dstIn,
+        child: ClipPath(
+          clipper: VerticalClipper(),
+          child: Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.identity()..scale(Vector3(0.5, 1, 1)),
+            child: list,
           ),
-        );
-      },
-      blendMode: BlendMode.dstIn,
-      child: ClipPath(
-        clipper: VerticalClipper(),
-        child: list,
+        ),
       ),
     );
   }
