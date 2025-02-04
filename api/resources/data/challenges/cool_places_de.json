@@ -24,7 +24,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Um sicher zu gehen, dass du es gefunden hast, gib ein, wie viele bäume die Allée dahinter hat. Alle Bäume in den zwei Reihen zählen! (Auch die ganz hinten)",
+            "text": "![](cool_places/castle.png)\n\n\nUm sicher zu gehen, dass du es gefunden hast, gib ein, wie viele bäume die Allée dahinter hat. Alle Bäume in den zwei Reihen zählen! (Auch die ganz hinten)",
             "correctAnswer": "17",
             "indexOnIncorrect": 1,
             "next": 2

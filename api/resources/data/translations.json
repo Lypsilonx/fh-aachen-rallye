@@ -46,6 +46,7 @@
     "RESTART": { "en": "Restart", "de": "Neu starten" },
     "SUBMIT": { "en": "Submit", "de": "Senden" },
     "COMPLETE": { "en": "Complete", "de": "Abschließen" },
+    "COMPLETED": { "en": "Completed", "de": "Abgeschlossen" },
     "LOADING": { "en": "Loading", "de": "Lädt" },
     "CANCEL": { "en": "Cancel", "de": "Abbrechen" },
     "EDIT": { "en": "Edit", "de": "Bearbeiten" },
@@ -154,5 +155,29 @@
     "SETTING_SHOW_WIP_CHALLENGES": {
         "en": "Show work in progress challenges",
         "de": "Zeige unfertige Aufgaben"
+    },
+    "ACHIEVEMENT_FIRST_STEPS": {
+        "en": "First Steps",
+        "de": "Erste Schritte"
+    },
+    "ACHIEVEMENT_FIRST_STEPS_DESCRIPTION": {
+        "en": "Complete your first challenge.",
+        "de": "Schließe deine erste Aufgabe ab."
+    },
+    "ACHIEVEMENT_TOUCH_GRASS": {
+        "en": "Touch Grass",
+        "de": "Gras anfassen"
+    },
+    "ACHIEVEMENT_TOUCH_GRASS_DESCRIPTION": {
+        "en": "Complete a challenge outside.",
+        "de": "Schließe eine Aufgabe draußen ab."
+    },
+    "ACHIEVEMENT_COMPLETE_CATEGORY": {
+        "en": "\"{0}\" Complete",
+        "de": "\"{0}\" abgeschlossen"
+    },
+    "ACHIEVEMENT_COMPLETE_CATEGORY_DESCRIPTION": {
+        "en": "Complete all challenges in the \"{0}\" category.",
+        "de": "Schließe alle Aufgaben in der Kategorie \"{0}\" ab."
     }
 }
