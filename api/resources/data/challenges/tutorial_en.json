@@ -34,7 +34,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Other challenges require you to enter an answer.\n\n\nWrite 'FH-Aachen Rallye' in the text field and press the checkmark to continue.",
+            "text": "Other challenges require you to enter an answer.\n\n\nWrite 'FH-Aachen Rallye' in the text field and press the checkmark to continue.\n\n\nIf you find such a challenge too difficult, you can buy a hint with points.",
             "correctAnswer": "FH-Aachen Rallye",
             "indexOnIncorrect": 2,
             "next": 3
@@ -48,13 +48,13 @@
         },
         {
             "type": "say",
-            "text": "If you enter a wrong answer, you might lose points (These will be explained later).\n\n\nYou can still simply try again.",
+            "text": "If you enter a wrong answer, you might lose points.\n\n\nYou can still simply try again.",
             "next": -1,
             "punishment": 1
         },
         {
             "type": "say",
-            "text": "Well done!\n\nIf you enter a wrong answer, you might lose points (These will be explained later).\n\n\nYou can still simply try again.",
+            "text": "Well done!\n\nIf you enter a wrong answer, you might lose points.\n\n\nYou can still simply try again.",
             "next": 2
         },
         {
