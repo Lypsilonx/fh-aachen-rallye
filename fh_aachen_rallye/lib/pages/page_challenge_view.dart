@@ -13,6 +13,7 @@ import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/widgets/scan_qr_code_view.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/foundation.dart' show kReleaseMode;
 
 class PageChallengeView extends FunPage {
   final String challengeId;
@@ -283,7 +284,9 @@ class _PageChallengeViewState extends FunPageState<PageChallengeView>
                       ? Colors.green
                       : challenge.category.color.inverted(),
                   child: Align(
-                    alignment: Alignment.centerRight,
+                    alignment: challenge.progress == 1
+                        ? Alignment.center
+                        : Alignment.centerRight,
                     child: Padding(
                       padding:
                           const EdgeInsets.symmetric(horizontal: Sizes.small),
@@ -477,17 +480,18 @@ class _PageChallengeViewState extends FunPageState<PageChallengeView>
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: Sizes.small,
-                            bottom: Sizes.medium,
+                        if (!(kReleaseMode && isCompleted))
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: Sizes.small,
+                              bottom: Sizes.medium,
+                            ),
+                            child: FunButton(
+                              isNew ? translate('START') : translate('RESTART'),
+                              Colors.green,
+                              onPressed: () => proceedStep(1),
+                            ),
                           ),
-                          child: FunButton(
-                            isNew ? translate('START') : translate('RESTART'),
-                            Colors.green,
-                            onPressed: () => proceedStep(1),
-                          ),
-                        ),
                       ]
                     : [
                         Padding(

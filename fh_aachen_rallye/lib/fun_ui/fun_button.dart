@@ -159,7 +159,8 @@ class FunButtonState extends State<FunButton> with TickerProviderStateMixin {
                   return;
                 }
 
-                if (DateTime.now().millisecondsSinceEpoch - startTime! < 500) {
+                if (widget.onLongPress == null ||
+                    DateTime.now().millisecondsSinceEpoch - startTime! < 500) {
                   widget.onPressed?.call();
                 } else {
                   widget.onLongPress?.call();

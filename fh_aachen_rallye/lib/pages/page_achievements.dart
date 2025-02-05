@@ -1,3 +1,4 @@
+import 'package:fh_aachen_rallye/backend.dart';
 import 'package:fh_aachen_rallye/data/cache.dart';
 import 'package:fh_aachen_rallye/data/challenge.dart';
 import 'package:fh_aachen_rallye/data/server_object.dart';
@@ -52,7 +53,6 @@ class _PageAchievementsState extends FunPageState<PageAchievements>
   List<FHARAchievement> achivements = [
     FHARAchievement(
       title: 'ACHIEVEMENT_FIRST_STEPS',
-      description: 'ACHIEVEMENT_FIRST_STEPS_DESCRIPTION',
       icon: Icons.face_2,
       color: Colors.blue,
       isCompleted: () => Cache.fetchAll<Challenge>().any((challenge) {
@@ -61,12 +61,34 @@ class _PageAchievementsState extends FunPageState<PageAchievements>
     ),
     FHARAchievement(
       title: 'ACHIEVEMENT_TOUCH_GRASS',
-      description: 'ACHIEVEMENT_TOUCH_GRASS_DESCRIPTION',
       icon: Icons.grass,
       color: Colors.green,
       isCompleted: () => Cache.fetchAll<Challenge>().any((challenge) {
         return challenge.progress == 1 &&
             challenge.category == ChallengeCategory.outdoor;
+      }),
+    ),
+    FHARAchievement(
+      title: "ACHIEVEMENT_SO_EXTRA",
+      icon: Icons.star,
+      color: Colors.yellow,
+      isCompleted: () => Backend.state.user?.displayName != null,
+    ),
+    FHARAchievement(
+      title: "ACHIEVEMENT_LONG_TERM_COMMITMENT",
+      icon: Icons.calendar_today,
+      color: Colors.red,
+      isCompleted: () => Cache.fetchAll<Challenge>().any((challenge) {
+        return challenge.progress == 1 && challenge.duration.minutes >= 480;
+      }),
+    ),
+    FHARAchievement(
+      title: "ACHIEVEMENT_TRICKY_TRICKY",
+      icon: Icons.priority_high,
+      color: Colors.orange,
+      isCompleted: () => Cache.fetchAll<Challenge>().any((challenge) {
+        return challenge.progress == 1 &&
+            challenge.difficulty == ChallengeDifficulty.veryHard;
       }),
     ),
   ];
@@ -84,7 +106,6 @@ class _PageAchievementsState extends FunPageState<PageAchievements>
           .map((category) {
         return FHARAchievement(
           title: 'ACHIEVEMENT_COMPLETE_CATEGORY',
-          description: 'ACHIEVEMENT_COMPLETE_CATEGORY_DESCRIPTION',
           args: [translate(category.name)],
           icon: category.icon,
           color: category.color,
@@ -123,9 +144,31 @@ class _PageAchievementsState extends FunPageState<PageAchievements>
               itemCount: achivements.length,
               itemBuilder: (context, index) {
                 bool isCompleted = achivements[index].isCompleted!();
+
+                var items = [
+                  Padding(
+                    padding: isSmall
+                        ? const EdgeInsets.all(0)
+                        : const EdgeInsets.all(Sizes.medium),
+                    child: Transform.scale(
+                      scale: isSmall ? 1 : 1.5,
+                      child: FunMedal.color(
+                        isCompleted ? achivements[index].color : Colors.grey,
+                        isCompleted ? achivements[index].icon : Icons.lock,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    translate(achivements[index].title,
+                        args: achivements[index].args),
+                    style: isSmall ? Styles.body : Styles.h2,
+                    textAlign: TextAlign.center,
+                  ),
+                ];
+
                 return Tooltip(
                   verticalOffset: isSmall ? 50 : 100,
-                  message: translate(achivements[index].description,
+                  message: translate('${achivements[index].title}_DESCRIPTION',
                       args: achivements[index].args),
                   child: FunContainer(
                     color: isCompleted ? Colors.white : Colors.grey,
@@ -134,30 +177,9 @@ class _PageAchievementsState extends FunPageState<PageAchievements>
                     child: Flex(
                       direction: isSmall ? Axis.horizontal : Axis.vertical,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: isSmall
-                              ? const EdgeInsets.all(0)
-                              : const EdgeInsets.all(Sizes.medium),
-                          child: Transform.scale(
-                            scale: isSmall ? 1 : 1.5,
-                            child: FunMedal.color(
-                              isCompleted
-                                  ? achivements[index].color
-                                  : Colors.grey,
-                              isCompleted
-                                  ? achivements[index].icon
-                                  : Icons.lock,
-                            ),
-                          ),
-                        ),
-                        Text(
-                          translate(achivements[index].title,
-                              args: achivements[index].args),
-                          style: isSmall ? Styles.body : Styles.h2,
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+                      children: isSmall
+                          ? items.reversed.toList(growable: false)
+                          : items,
                     ),
                   ),
                 );
@@ -173,7 +195,6 @@ class _PageAchievementsState extends FunPageState<PageAchievements>
 
 class FHARAchievement {
   final String title;
-  final String description;
   final IconData icon;
   final Color color;
   final bool Function()? isCompleted;
@@ -182,7 +203,6 @@ class FHARAchievement {
 
   FHARAchievement({
     required this.title,
-    required this.description,
     required this.icon,
     required this.color,
     required this.isCompleted,

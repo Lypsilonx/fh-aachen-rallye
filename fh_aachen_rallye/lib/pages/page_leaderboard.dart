@@ -18,7 +18,7 @@ class PageLeaderboard extends FunPage {
   String get navPath => '/leaderboard';
 
   @override
-  IconData? get footerIcon => Icons.star;
+  IconData? get footerIcon => Icons.leaderboard;
 
   @override
   String get tileAssetPath => 'assets/background_1.png';

@@ -10,6 +10,7 @@ import 'package:fh_aachen_rallye/translator.dart';
 import 'package:fh_aachen_rallye/pages/page_challenge_view.dart';
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart' hide Colors;
+import 'package:flutter/foundation.dart' show kReleaseMode;
 
 class ChallengeTile extends StatefulWidget {
   final String challengeId;
@@ -233,41 +234,43 @@ class _ChallengeTileState extends TranslatedState<ChallengeTile>
           },
         );
       },
-      onLongPress: () {
-        if (widget.challengeId == '') {
-          return;
-        }
-
-        Helpers.showFunDialog(
-          context,
-          "Reset Challenge \"${challenge.title}\"?",
-          "This will reset the challenge to the beginning. Are you sure?",
-          [
-            (
-              'RESET',
-              (context) {
-                Backend.setChallengeState(
-                  challenge,
-                  ChallengeState(
-                      -1, null, [], [], "", ChallengeUserStatus.new_),
-                );
-                Navigator.pop(context);
-              },
-            ),
-            (
-              'COMPLETE',
-              (context) {
-                Backend.setChallengeState(
-                  challenge,
-                  ChallengeState(
-                      -2, null, [], [], "", ChallengeUserStatus.none),
-                );
-                Navigator.pop(context);
+      onLongPress: kReleaseMode
+          ? null
+          : () {
+              if (widget.challengeId == '') {
+                return;
               }
-            ),
-          ],
-        );
-      },
+
+              Helpers.showFunDialog(
+                context,
+                "Reset Challenge \"${challenge.title}\"?",
+                "This will reset the challenge to the beginning. Are you sure?",
+                [
+                  (
+                    'RESET',
+                    (context) {
+                      Backend.setChallengeState(
+                        challenge,
+                        ChallengeState(
+                            -1, null, [], [], "", ChallengeUserStatus.new_),
+                      );
+                      Navigator.pop(context);
+                    },
+                  ),
+                  (
+                    'COMPLETE',
+                    (context) {
+                      Backend.setChallengeState(
+                        challenge,
+                        ChallengeState(
+                            -2, null, [], [], "", ChallengeUserStatus.none),
+                      );
+                      Navigator.pop(context);
+                    }
+                  ),
+                ],
+              );
+            },
       padding: EdgeInsets.zero,
     );
   }

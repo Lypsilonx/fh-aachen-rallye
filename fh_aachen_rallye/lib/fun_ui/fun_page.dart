@@ -243,7 +243,11 @@ abstract class FunPageState<T extends FunPage> extends TranslatedState<T>
                                                   ),
                                                   if (!isSmall)
                                                     Text(translate(page.title),
-                                                        style: Styles.body),
+                                                        style: Styles.body.copyWith(
+                                                            color: isCurrentPage
+                                                                ? Colors.grey
+                                                                : Colors
+                                                                    .black)),
                                                 ],
                                               ),
                                             );

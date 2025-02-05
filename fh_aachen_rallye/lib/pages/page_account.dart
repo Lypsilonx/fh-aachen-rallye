@@ -6,6 +6,7 @@ import 'package:fh_aachen_rallye/fun_ui/fun_page.dart';
 import 'package:fh_aachen_rallye/helpers.dart';
 import 'package:fh_aachen_rallye/widgets/editable_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kReleaseMode;
 
 class PageAccount extends FunPage {
   const PageAccount({super.key});
@@ -66,8 +67,9 @@ class _PageAccountState extends FunPageState<PageAccount>
             ListView(
               clipBehavior: Clip.none,
               children: [
-                const SizedBox(height: Sizes.medium),
-                Text('User ID: ${user.id}', style: Styles.h2),
+                if (!kReleaseMode) const SizedBox(height: Sizes.medium),
+                if (!kReleaseMode)
+                  Text('User ID: ${user.id}', style: Styles.h2),
                 const SizedBox(height: Sizes.medium),
                 Text('${translate('POINTS')}: ${user.points}',
                     style: Styles.h2),
