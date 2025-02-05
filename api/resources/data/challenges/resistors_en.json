@@ -16,9 +16,9 @@
             "alternatives": "2,4,6|8"
         },
         {
-            "type": "say",
             "text": "That is incorrect.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -26,9 +26,9 @@
             "options": "{ \"along the shorter path\": 1, \"along the longer path\": 1, \"along the path of least resistance\": 0, \"along the path of greatest resistance\": 1 }"
         },
         {
-            "type": "say",
             "text": "That is incorrect.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -36,9 +36,9 @@
             "options": "{ \"rectangle\": 0, \"circle\": 1, \"triangle\": 1, \"square\": 0 }"
         },
         {
-            "type": "say",
             "text": "That is incorrect.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -46,9 +46,9 @@
             "options": "{ \"the current flow\": 0, \"the voltage\": 1, \"the power\": 1, \"the energy\": 1 }"
         },
         {
-            "type": "say",
             "text": "That is incorrect.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
@@ -59,9 +59,9 @@
             "alternatives": "2,4|6|1"
         },
         {
-            "type": "say",
             "text": "That is incorrect.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
@@ -71,9 +71,9 @@
             "next": 0
         },
         {
-            "type": "say",
             "text": "That is incorrect.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
@@ -83,9 +83,9 @@
             "next": 0
         },
         {
-            "type": "say",
             "text": "That is incorrect.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -93,12 +93,11 @@
             "options": "{ \"$R_2 > R_1$\": 2, \"$R_2 < R_1$\": 1, \"$R_2 = R_1$\": 1, \"It doesn't matter how large $R_1$ and $R_2$ are\": 1 }"
         },
         {
-            "type": "say",
             "text": "That is incorrect.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
-            "type": "say",
             "text": "You now understand how resistors work and how they are used in circuits!",
             "isLast": true
         }

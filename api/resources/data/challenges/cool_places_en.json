@@ -18,9 +18,9 @@
             "next": 2
         },
         {
-            "type": "say",
             "text": "Not quite...\n\n\nHint: It is not a building in the traditional sense, but a distinctive structure. What is such a structure called?",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
@@ -30,12 +30,11 @@
             "next": 2
         },
         {
-            "type": "say",
             "text": "Not quite...\n\nTry again!",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
-            "type": "say",
             "text": "You did it! You found the archway and counted the avenue. Incredible that such a beautiful place is hidden on the campus!"
         },
         {
@@ -46,9 +45,9 @@
             "next": 2
         },
         {
-            "type": "say",
             "text": "Not quite...\n\n\nHint: You might have seen it during your lunch break.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "scan",
@@ -59,9 +58,9 @@
             "alternatives": "2,4|6|1"
         },
         {
-            "type": "say",
             "text": "Oops... either you scanned the wrong table or something completely different.\n\nTry again!",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "scan",
@@ -71,9 +70,9 @@
             "next": 0
         },
         {
-            "type": "say",
             "text": "Oops... either you scanned the wrong table or something completely different.\n\nTry again!",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "scan",
@@ -83,12 +82,11 @@
             "next": 0
         },
         {
-            "type": "say",
             "text": "Oops... either you scanned the wrong table or something completely different.\n\nTry again!",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
-            "type": "say",
             "text": "That's it for now! Hopefully you have discovered something new!",
             "isLast": true
         }

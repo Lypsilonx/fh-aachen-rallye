@@ -17,9 +17,9 @@
             "alternatives": "2,4,6|8"
         },
         {
-            "type": "say",
             "text": "That is incorrect.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -27,9 +27,9 @@
             "options": "{ \"True\": 1, \"False\": 0 }"
         },
         {
-            "type": "say",
             "text": "That is incorrect.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -37,9 +37,9 @@
             "options": "{ \"True\": 0, \"False\": 1 }"
         },
         {
-            "type": "say",
             "text": "That is incorrect.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -47,12 +47,11 @@
             "options": "{ \"True\": 1, \"False\": 0 }"
         },
         {
-            "type": "say",
             "text": "That is incorrect.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
-            "type": "say",
             "text": "You did it!\n\n\nThe basics are no longer foreign to you!",
             "isLast": true
         }

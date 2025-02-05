@@ -16,9 +16,9 @@
             "options": "{ \"Electrostatics\": 2, \"Electrodynamics\": 1, \"Electronics\": 1 }"
         },
         {
-            "type": "say",
             "text": "That is incorrect.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -26,12 +26,11 @@
             "options": "{ \"force\": 2, \"voltage\": 1, \"power\": 1 }"
         },
         {
-            "type": "say",
             "text": "That is incorrect.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
-            "type": "say",
             "text": "Do you remember proportionality?\n\n\nWe use proportionality to talk about parts of formulas.\n\nFor example, here is **Ohm's law**: $U = R * I$\nHere $U$ is the **voltage**, $R$ is the **resistance**, and $I$ is the **current**.\n\nWe can split the formula into $U \\propto R$ and $U \\propto I$"
         },
         {
@@ -40,9 +39,9 @@
             "options": "{ \"$F \\\\propto \\\\frac{1}{r^3}$\": 1, \"$F \\\\propto r^2$\": 1, \"$F \\\\propto \\\\frac{1}{r^2}$\": 2, \"$F \\\\propto \\\\frac{1}{r}$\": 1 }"
         },
         {
-            "type": "say",
             "text": "That is incorrect.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -50,9 +49,9 @@
             "options": "{ \"$F \\\\propto Q_1 * Q_2$\": 2, \"$F \\\\propto \\\\frac{Q_1}{Q_2}$\": 1, \"$F \\\\propto \\\\frac{Q_1}{Q_2^2}$\": 1, \"$F \\\\propto \\\\frac{Q_1}{Q_2^3}$\": 1 }"
         },
         {
-            "type": "say",
             "text": "That is incorrect.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
@@ -62,12 +61,11 @@
             "next": 2
         },
         {
-            "type": "say",
             "text": "That is incorrect.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
-            "type": "say",
             "text": "Thus follows **Coulomb's law**:\n\n$$F = \\frac{1}{4*\\pi*\\epsilon_0} * \\frac{Q_1 * Q_2}{r^2}$$",
             "isLast": true
         }

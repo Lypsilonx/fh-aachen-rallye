@@ -49,8 +49,7 @@
         {
             "type": "say",
             "text": "If you enter a wrong answer, you might lose points.\n\n\nYou can still simply try again.",
-            "next": -1,
-            "punishment": 1
+            "next": -1
         },
         {
             "type": "say",

@@ -39,6 +39,7 @@
     "ACCOUNT": { "en": "Account", "de": "Benutzerkonto" },
     "SETTINGS": { "en": "Settings", "de": "Einstellungen" },
     "LEADERBOARD": { "en": "Leaderboard", "de": "Rangliste" },
+    "ACHIEVEMENTS": { "en": "Achievements", "de": "Erfolge" },
     "SAVE": { "en": "Save", "de": "Speichern" },
     "START": { "en": "Start", "de": "Start" },
     "NEXT": { "en": "Next", "de": "Weiter" },
@@ -171,6 +172,30 @@
     "ACHIEVEMENT_TOUCH_GRASS_DESCRIPTION": {
         "en": "Complete a challenge outside.",
         "de": "Schließe eine Aufgabe draußen ab."
+    },
+    "ACHIEVEMENT_SO_EXTRA": {
+        "en": "So Extra",
+        "de": "So Extra"
+    },
+    "ACHIEVEMENT_SO_EXTRA_DESCRIPTION": {
+        "en": "Have a custom display name.",
+        "de": "Habe einen individuellen Anzeigenamen."
+    },
+    "ACHIEVEMENT_LONG_TERM_COMMITMENT": {
+        "en": "Long Term Commitment",
+        "de": "Langfristiges Engagement"
+    },
+    "ACHIEVEMENT_LONG_TERM_COMMITMENT_DESCRIPTION": {
+        "en": "Complete a challenge that takes at least a day.",
+        "de": "Schließe eine Aufgabe ab, die mindestens einen Tag dauert."
+    },
+    "ACHIEVEMENT_TRICKY_TRICKY": {
+        "en": "Tricky, Tricky",
+        "de": "Schwierig, Schwierig"
+    },
+    "ACHIEVEMENT_TRICKY_TRICKY_DESCRIPTION": {
+        "en": "Complete a challenge with a difficulty rating of 'Very Hard'.",
+        "de": "Schließe eine Aufgabe mit einer Schwierigkeitsbewertung von 'Sehr schwer' ab."
     },
     "ACHIEVEMENT_COMPLETE_CATEGORY": {
         "en": "\"{0}\" Complete",

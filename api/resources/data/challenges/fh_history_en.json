@@ -15,9 +15,9 @@
             "options": "{ \"Prof. Dr. Hans Schwier and Prof. Dr. Helmut Strehl\": 1, \"Prof. Dr. Hildegard Reitz and Prof. Dr. Hans Schwier\": 1, \"Prof. Dr. Helmut Strehl and Prof. Dr. Hildegard Reitz\": 2 }"
         },
         {
-            "type": "say",
             "text": "That is not correct.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -25,9 +25,9 @@
             "options": "{ \"Königlich-Preussische Baugewerkschule\": 1, \"Königliche Höhere Maschinenbauschule Aachen\": 1, \"Gewerbliche Zeichen- und Kunstgewerbeschule\": 1, \"Staatliche Ingenieurschule für Textilwesen Aachen\": 2 }"
         },
         {
-            "type": "say",
             "text": "That is not correct.\n\n\nIt is about the **founding name**!",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "stringInput",
@@ -42,12 +42,11 @@
             "options": "{ \"Elektrotechnik\": 1, \"Maschinenbau\": 1, \"Architektur\": 1, \"Design\": 1, \"Physik\": 2 }"
         },
         {
-            "type": "say",
             "text": "That is not correct.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
-            "type": "say",
             "text": "Now you know a little more about the history of FH Aachen.",
             "isLast": true
         }

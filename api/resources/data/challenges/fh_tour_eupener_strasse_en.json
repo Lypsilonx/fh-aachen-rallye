@@ -16,9 +16,9 @@
             "options": "{ \"Electrical Engineering\": 1, \"Computer Science\": 1, \"Business Studies\": 1, \"Mechanical Engineering\": 2 }"
         },
         {
-            "type": "say",
             "text": "That is incorrect. Try again.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -27,9 +27,9 @@
             "alternatives": "2,4,6|8"
         },
         {
-            "type": "say",
             "text": "That is incorrect. Try again.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -37,9 +37,9 @@
             "options": "{ \"Building E\": 1, \"Building D\": 0, \"Building G\": 1, \"Building H\": 1 }"
         },
         {
-            "type": "say",
             "text": "That is incorrect. Try again.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -47,9 +47,9 @@
             "options": "{ \"Building E\": 1, \"Building D\": 1, \"Building G\": 0, \"Building H\": 1 }"
         },
         {
-            "type": "say",
             "text": "That is incorrect. Try again.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "options",
@@ -57,9 +57,9 @@
             "options": "{ \"Building E\": 1, \"Building D\": 1, \"Building G\": 1, \"Building H\": 0 }"
         },
         {
-            "type": "say",
             "text": "That is incorrect. Try again.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "scan",
@@ -70,9 +70,9 @@
             "alternatives": "2,4,6|8|1"
         },
         {
-            "type": "say",
             "text": "That is not the correct code. Make sure you scan the correct code.\n\nIf necessary, you can also enter the code manually.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "scan",
@@ -82,9 +82,9 @@
             "next": 0
         },
         {
-            "type": "say",
             "text": "That is not the correct code. Make sure you scan the correct code.\n\nIf necessary, you can also enter the code manually.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "scan",
@@ -94,9 +94,9 @@
             "next": 0
         },
         {
-            "type": "say",
             "text": "That is not the correct code. Make sure you scan the correct code.\n\nIf necessary, you can also enter the code manually.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "scan",
@@ -106,9 +106,9 @@
             "next": 0
         },
         {
-            "type": "say",
             "text": "That is not the correct code. Make sure you scan the correct code.\n\nIf necessary, you can also enter the code manually.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "scan",
@@ -119,9 +119,9 @@
             "alternatives": "2,4,6|8|1"
         },
         {
-            "type": "say",
             "text": "That is not the correct code. Make sure you scan the correct code.\n\nIf necessary, you can also enter the code manually.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "scan",
@@ -131,9 +131,9 @@
             "next": 0
         },
         {
-            "type": "say",
             "text": "That is not the correct code. Make sure you scan the correct code.\n\nIf necessary, you can also enter the code manually.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "scan",
@@ -143,9 +143,9 @@
             "next": 0
         },
         {
-            "type": "say",
             "text": "That is not the correct code. Make sure you scan the correct code.\n\nIf necessary, you can also enter the code manually.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
             "type": "scan",
@@ -155,12 +155,11 @@
             "next": 0
         },
         {
-            "type": "say",
             "text": "That is not the correct code. Make sure you scan the correct code.\n\nIf necessary, you can also enter the code manually.",
-            "next": -1
+            "next": -1,
+            "punishment": 1
         },
         {
-            "type": "say",
             "text": "Wow! You really know your way around the Eupener Straße Campus! You have successfully completed the challenge!",
             "isLast": true
         }
