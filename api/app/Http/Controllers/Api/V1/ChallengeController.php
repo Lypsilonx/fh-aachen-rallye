@@ -85,7 +85,7 @@ class ChallengeController extends Controller
 
             if ($type === 'stringInput') {
                 $values['indexOnIncorrect'] = $step['indexOnIncorrect'];
-                $values['hintCost'] = $step['hintCost'] ?? 5;
+                $values['hintCost'] = $step['hintCost'] ?? 10;
             }
 
             $challenge->steps()->updateOrCreate(
