@@ -134,7 +134,7 @@ class _PageAchievementsState extends FunPageState<PageAchievements>
         Expanded(
           child: Helpers.blendList(
             GridView.builder(
-              padding: const EdgeInsets.all(Sizes.medium),
+              padding: const EdgeInsets.symmetric(vertical: Sizes.medium),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: isSmall ? 1 : 3,
                 childAspectRatio: isSmall ? 4 : 0.8,
