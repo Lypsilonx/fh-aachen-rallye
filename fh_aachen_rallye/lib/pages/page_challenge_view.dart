@@ -238,7 +238,8 @@ class _PageChallengeViewState extends FunPageState<PageChallengeView>
     var correctAnswers = challengeStep.correctAnswer.split(',');
     var correctAnswer = correctAnswers[0];
 
-    var (success, message) = await Backend.payPoints(challengeStep.hintCost);
+    var (success, message) =
+        await Backend.payPoints(challengeStep.realHintCost);
     if (!success) {
       Helpers.showSnackBar(context, message);
       return;
@@ -569,8 +570,9 @@ class _PageChallengeViewState extends FunPageState<PageChallengeView>
                                         ),
                                       ),
                                       FunButton(
-                                        translate('BUY_HINT',
-                                            args: [step.hintCost.toString()]),
+                                        translate('BUY_HINT', args: [
+                                          step.realHintCost.toString()
+                                        ]),
                                         Colors.green,
                                         expand: false,
                                         isEnabled: canBuyHint,
@@ -668,11 +670,11 @@ class _PageChallengeViewState extends FunPageState<PageChallengeView>
                             if (otherShuffleTargets.isNotEmpty &&
                                 step is ChallengeStepStringInput)
                               FunButton(
-                                translate('BUY_OTHER_QUESTION', args: ["10"]),
+                                translate('BUY_OTHER_QUESTION', args: ["2"]),
                                 Colors.red,
                                 onPressed: () async {
                                   var (success, message) =
-                                      await Backend.payPoints(10);
+                                      await Backend.payPoints(2);
                                   if (!success) {
                                     Helpers.showSnackBar(context, message);
                                     return;

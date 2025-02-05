@@ -463,6 +463,10 @@ class ChallengeStepStringInput extends ChallengeStep {
   final int indexOnIncorrect;
   final int hintCost;
 
+  int get realHintCost =>
+      (hintCost / correctAnswer.split(",")[0].replaceAll(' ', '').length)
+          .ceil();
+
   const ChallengeStepStringInput(
     super.text,
     this.correctAnswer,
