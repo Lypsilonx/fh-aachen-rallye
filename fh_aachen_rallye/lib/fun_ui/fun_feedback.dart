@@ -31,7 +31,7 @@ class FunFeedbackState extends TranslatedState<FunFeedback>
     );
     successController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 350),
+      duration: const Duration(milliseconds: 450),
     );
 
     errorController.addListener(() {

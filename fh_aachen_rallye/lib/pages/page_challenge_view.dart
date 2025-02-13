@@ -529,8 +529,17 @@ class _PageChallengeViewState extends FunPageState<PageChallengeView>
 
                                             var nextStep =
                                                 step.options[option]!;
+                                            var stepIndex = nextStep;
+                                            if (nextStep == 0) {
+                                              stepIndex =
+                                                  shuffleSource! + shuffleExit!;
+                                            } else {
+                                              stepIndex += currentStep;
+                                            }
+                                            print(currentStep);
+                                            print(stepIndex);
                                             locked = true;
-                                            if (challenge.steps[nextStep].next
+                                            if (challenge.steps[stepIndex].next
                                                     ?.isNegative ??
                                                 false) {
                                               buttonFeedback
@@ -680,7 +689,8 @@ class _PageChallengeViewState extends FunPageState<PageChallengeView>
                                     return;
                                   }
                                   var newTarget =
-                                      otherShuffleTargets.removeAt(0);
+                                      otherShuffleTargets.removeAt(0) +
+                                          shuffleSource!;
                                   gotoStep(newTarget);
                                   saveState();
                                 },
