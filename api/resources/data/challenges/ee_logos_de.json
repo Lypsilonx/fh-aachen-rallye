@@ -63,7 +63,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Ein Chip hat die folgenden Initialen aufgedruckt:\n\n\n![Logo](ee_logos/NXP_Logo.png)\n\n\nWer hat diesen Chip hergestellt?",
+            "text": "Ein Chip hat die folgenden Initialen aufgedruckt:\n\n\n![Logo](ee_logos/STMicroelectronics_Logo.png)\n\n\nWer hat diesen Chip hergestellt?",
             "correctAnswer": "stmicroelectronics,STMicroelectronics",
             "indexOnIncorrect": 1,
             "next": 0
@@ -75,7 +75,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Viele von Ruby's Gates für Logikschaltungen haben das folgende Logo:\n\n\n![Logo](ee_logos/STMicroelectronics_Logo.png)\n\n\nWer hat diese Gates hergestellt?",
+            "text": "Viele von Ruby's Gates für Logikschaltungen haben das folgende Logo:\n\n\n![Logo](ee_logos/TexasInstruments_Logo.png)\n\n\nWer hat diese Gates hergestellt?",
             "correctAnswer": "texasinstruments,Texas Instruments",
             "indexOnIncorrect": 1,
             "next": 0

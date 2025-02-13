@@ -63,8 +63,8 @@
         },
         {
             "type": "stringInput",
-            "text": "A chip has the following initials printed on it:\n\n\n![Logo](ee_logos/NXP_Logo.png)\n\n\nWho manufactured this chip?",
-            "correctAnswer": "nxp,NXP",
+            "text": "A chip has the following initials printed on it:\n\n\n![Logo](ee_logos/STMicroelectronics_Logo.png)\n\n\nWho manufactured this chip?",
+            "correctAnswer": "stmicroelectronics,STMicroelectronics",
             "indexOnIncorrect": 1,
             "next": 0
         },
@@ -75,8 +75,8 @@
         },
         {
             "type": "stringInput",
-            "text": "Many of Ruby's logic gates have the following logo:\n\n\n![Logo](ee_logos/STMicroelectronics_Logo.png)\n\n\nWho manufactured these gates?",
-            "correctAnswer": "stmicroelectronics,STMicroelectronics",
+            "text": "Many of Ruby's logic gates have the following logo:\n\n\n![Logo](ee_logos/TexasInstruments_Logo.png)\n\n\nWho manufactured these gates?",
+            "correctAnswer": "texasinstruments,Texas Instruments",
             "indexOnIncorrect": 1,
             "next": 0
         },
