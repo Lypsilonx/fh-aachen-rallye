@@ -21,7 +21,7 @@
         },
         {
             "type": "options",
-            "text": "Welche der folgenden Titel ist kein **Gründungsname** einer der Schulen aus denen die FH Aachen hervorgegangen ist?",
+            "text": "Welche der folgenden Titel ist **kein Gründungsname** einer der Schulen aus denen die FH Aachen hervorgegangen ist?",
             "options": "{ \"Königlich-Preussische Baugewerkschule\": 1, \"Königliche Höhere Maschinenbauschule Aachen\": 1, \"Gewerbliche Zeichen- und Kunstgewerbeschule\": 1, \"Staatliche Ingenieurschule für Textilwesen Aachen\": 2 }"
         },
         {

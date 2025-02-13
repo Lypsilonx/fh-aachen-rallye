@@ -30,7 +30,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Andere Aufgaben erfordern, dass du eine Antwort eingibst.\n\n\nSchreibe 'FH-Aachen Rallye' in das Textfeld und drücke auf den Haken, um fortzufahren.\n\n\nWenn dir so eine Aufgabe mal zu schwer ist, kannst du einen Hinweis mit Punkten kaufen.",
+            "text": "Andere Aufgaben erfordern, dass du eine Antwort eingibst.\n\n\nSchreibe 'FH-Aachen Rallye' in das Textfeld und drücke auf den Haken, um fortzufahren.\n\n\nWenn dir so eine Aufgabe mal zu schwer ist, kannst du einen Hinweis mit Punkten kaufen (je kürzer die Antwort, desto teurer der Hinweis).",
             "correctAnswer": "FH-Aachen Rallye",
             "indexOnIncorrect": 2,
             "next": 3

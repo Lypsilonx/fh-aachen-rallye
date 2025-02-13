@@ -66,7 +66,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Welcher Buchstabe wird im Morsecode mit '..-.' dargestellt?",
+            "text": "Welcher Buchstabe wird im Morsecode mit '••—•' dargestellt?",
             "correctAnswer": "F",
             "indexOnIncorrect": 1,
             "next": 0,
@@ -79,7 +79,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Welcher Buchstabe wird im Morsecode mit '....' dargestellt?",
+            "text": "Welcher Buchstabe wird im Morsecode mit '••••' dargestellt?",
             "correctAnswer": "H",
             "indexOnIncorrect": 1,
             "next": 0
@@ -91,7 +91,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Welcher Buchstabe wird im Morsecode mit '-.-.' dargestellt?",
+            "text": "Welcher Buchstabe wird im Morsecode mit '—•—•' dargestellt?",
             "correctAnswer": "C",
             "indexOnIncorrect": 1,
             "next": 0
@@ -103,7 +103,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Welcher Buchstabe wird im Morsecode mit '.-' dargestellt?",
+            "text": "Welcher Buchstabe wird im Morsecode mit '•—' dargestellt?",
             "correctAnswer": "A",
             "indexOnIncorrect": 1,
             "next": 0
@@ -115,7 +115,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Super! Die Nachricht kann nun in Morsecode umgewandelt werden!\n\n\nMorse-Code hat vier verschiedene Zeichen ('.', '-', Zeichenende und Wortende). Wie viele **Bits** werden (pro Zeichen) benötigt, um Morse-Code (binär) zu kodieren?",
+            "text": "Super! Die Nachricht kann nun in Morsecode umgewandelt werden!\n\n\nMorse-Code hat vier verschiedene Zeichen ('•', '—', Zeichenende und Wortende). Wie viele **Bits** werden (pro Zeichen) benötigt, um Morse-Code (binär) zu kodieren?",
             "correctAnswer": "2",
             "indexOnIncorrect": 1,
             "next": 2
@@ -127,7 +127,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Wir verschlüsseln nun nach folgendem Schema von Morsecode zu binär:\n\n- . wird zu 00\n- \\- wird zu 01\n- Zeichenende wird zu 10\n- Wortende wird zu 11\n\nVerschlüssele den Morsecode '.... . .-.. .-.. ---' (*Hello*) in binär.",
+            "text": "Wir verschlüsseln nun nach folgendem Schema von Morsecode zu binär:\n\n- • wird zu 00\n- — wird zu 01\n- Zeichenende wird zu 10\n- Wortende wird zu 11\n\nVerschlüssele den Morsecode '•••• • •—•• •—•• ———' (*Hello*) in binär.",
             "correctAnswer": "000000001000100001000010000100001001010111",
             "indexOnIncorrect": 1,
             "next": 2
@@ -139,7 +139,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Super! Die Nachricht ist nun in binär kodiert und kann über das Internet verschickt werden.\n\n\nBrim empfängt die Nachricht und entschlüsselt sie. Dafür müssen die Schritte rückgängig gemacht werden. Zuerst wird die Nachricht aus binär in Morsecode umgewandelt, dann in Buchstaben und schließlich wird sie (Caesar-)entschlüsselt.\n\n\nBrim erhält die Nachricht '0001010110000000100100001001000010010100011000010111' und kennt den Caesar-Schlüssel 8. Entschlüssele die Nachricht.",
+            "text": "Super! Die Nachricht ist nun in binär kodiert und kann über das Internet verschickt werden.\n\n\nBrim empfängt die Nachricht und entschlüsselt sie. Dafür müssen die Schritte rückgängig gemacht werden. Zuerst wird die Nachricht aus binär in Morsecode umgewandelt, dann in Buchstaben und schließlich wird sie (Caesar-)entschlüsselt.\n\n\nBrim erhält die Nachricht '0001010110000000100100001001000010010100011000010111' und kennt den Caesar-Schlüssel 18. Entschlüssele die Nachricht.",
             "correctAnswer": "rallye",
             "indexOnIncorrect": 1,
             "next": 2

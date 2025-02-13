@@ -34,7 +34,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Other challenges require you to enter an answer.\n\n\nWrite 'FH-Aachen Rallye' in the text field and press the checkmark to continue.\n\n\nIf you find such a challenge too difficult, you can buy a hint with points.",
+            "text": "Other challenges require you to enter an answer.\n\n\nWrite 'FH-Aachen Rallye' in the text field and press the checkmark to continue.\n\n\nIf you find such a challenge too difficult, you can buy a hint with points (the shorter the answer, the more expensive the hint).",
             "correctAnswer": "FH-Aachen Rallye",
             "indexOnIncorrect": 2,
             "next": 3

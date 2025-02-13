@@ -66,7 +66,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Which letter is represented by '..-.' in Morse code?",
+            "text": "Which letter is represented by '••-•' in Morse code?",
             "correctAnswer": "F",
             "indexOnIncorrect": 1,
             "next": 0,
@@ -79,7 +79,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Which letter is represented by '....' in Morse code?",
+            "text": "Which letter is represented by '••••' in Morse code?",
             "correctAnswer": "H",
             "indexOnIncorrect": 1,
             "next": 0
@@ -91,7 +91,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Which letter is represented by '-.-.' in Morse code?",
+            "text": "Which letter is represented by '—•—•' in Morse code?",
             "correctAnswer": "C",
             "indexOnIncorrect": 1,
             "next": 0
@@ -103,7 +103,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Which letter is represented by '.-' in Morse code?",
+            "text": "Which letter is represented by '•—' in Morse code?",
             "correctAnswer": "A",
             "indexOnIncorrect": 1,
             "next": 0
@@ -115,7 +115,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Great! The message can now be converted to Morse code!\n\n\nMorse code has four different symbols ('.', '-', end of character, and end of word). How many **bits** are needed (per symbol) to encode Morse code (in binary)?",
+            "text": "Great! The message can now be converted to Morse code!\n\n\nMorse code has four different symbols ('•', '—', end of character, and end of word). How many **bits** are needed (per symbol) to encode Morse code (in binary)?",
             "correctAnswer": "2",
             "indexOnIncorrect": 1,
             "next": 2
@@ -127,7 +127,7 @@
         },
         {
             "type": "stringInput",
-            "text": "We now encrypt according to the following scheme from Morse code to binary:\n\n- . becomes 00\n- \\- becomes 01\n- End of character becomes 10\n- End of word becomes 11\n\nEncrypt the Morse code '.... . .-.. .-.. ---' (*Hello*) in binary.",
+            "text": "We now encrypt according to the following scheme from Morse code to binary:\n\n- • becomes 00\n- — becomes 01\n- End of character becomes 10\n- End of word becomes 11\n\nEncrypt the Morse code '•••• • •—•• •—•• ———' (*Hello*) in binary.",
             "correctAnswer": "000000001000100001000010000100001001010111",
             "indexOnIncorrect": 1,
             "next": 2
@@ -139,7 +139,7 @@
         },
         {
             "type": "stringInput",
-            "text": "Great! The message is now encoded in binary and can be sent over the internet.\n\n\nBrim receives the message and decrypts it. To do this, the steps must be reversed. First, the message is converted from binary to Morse code, then to letters, and finally, it is (Caesar) decrypted.\n\n\nBrim receives the message '0001010110000000100100001001000010010100011000010111' and knows the Caesar key 8. Decrypt the message.",
+            "text": "Great! The message is now encoded in binary and can be sent over the internet.\n\n\nBrim receives the message and decrypts it. To do this, the steps must be reversed. First, the message is converted from binary to Morse code, then to letters, and finally, it is (Caesar) decrypted.\n\n\nBrim receives the message '0001010110000000100100001001000010010100011000010111' and knows the Caesar key 18. Decrypt the message.",
             "correctAnswer": "rallye",
             "indexOnIncorrect": 1,
             "next": 2
