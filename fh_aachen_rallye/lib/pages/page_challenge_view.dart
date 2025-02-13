@@ -536,8 +536,6 @@ class _PageChallengeViewState extends FunPageState<PageChallengeView>
                                             } else {
                                               stepIndex += currentStep;
                                             }
-                                            print(currentStep);
-                                            print(stepIndex);
                                             locked = true;
                                             if (challenge.steps[stepIndex].next
                                                     ?.isNegative ??
