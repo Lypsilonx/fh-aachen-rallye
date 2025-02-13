@@ -32,7 +32,7 @@
         },
         {
             "type": "options",
-            "text": "Ein Widerstand in einem Schaltkreis wird durch ein Symbol dargestellt, das einem ____ ähnelt.",
+            "text": "Ein Widerstand in einem Schaltkreis wird häufig durch welches Symbol dargestellt?",
             "options": "{ \"Rechteck\": 0, \"Kreis\": 1, \"Dreieck\": 1, \"Quadrat\": 0 }"
         },
         {

@@ -35,7 +35,7 @@
         },
         {
             "type": "options",
-            "text": "Die **Kraft** $F$ ist propotional zum Abstand der Ladungen voneinander (hier $r$ ).\n\nWelche der folgenden Optionen beschreibt diese Proportionalität richtig?",
+            "text": "Die Abhängigkeit der **Kraft** $F$ vom Abstand (hier $r$ ) ist beschrieben durch welche Proportionalität?",
             "options": "{ \"$F \\\\propto \\\\frac{1}{r^3}$\": 1, \"$F \\\\propto r^2$\": 1, \"$F \\\\propto \\\\frac{1}{r^2}$\": 2, \"$F \\\\propto \\\\frac{1}{r}$\": 1 }"
         },
         {

@@ -32,7 +32,7 @@
         },
         {
             "type": "options",
-            "text": "A resistor in a circuit is represented by a symbol that resembles a ____.",
+            "text": "A resistor in a circuit is often represented by which symbol?",
             "options": "{ \"rectangle\": 0, \"circle\": 1, \"triangle\": 1, \"square\": 0 }"
         },
         {

@@ -21,11 +21,11 @@
         },
         {
             "type": "options",
-            "text": "Which of the following titles is **not a founding name** of one of the schools from which FH Aachen emerged?",
+            "text": "Which of the following titles is **not a founding name** of one of the 5 schools from which FH Aachen emerged?",
             "options": "{ \"Königlich-Preussische Baugewerkschule\": 1, \"Königliche Höhere Maschinenbauschule Aachen\": 1, \"Gewerbliche Zeichen- und Kunstgewerbeschule\": 1, \"Staatliche Ingenieurschule für Textilwesen Aachen\": 2 }"
         },
         {
-            "text": "That is not correct.\n\n\nIt is about the **founding name**!",
+            "text": "That is not correct.\n\n\nIt is about the **founding name** (name of the school at its founding)!",
             "next": -1,
             "punishment": 1
         },

@@ -35,7 +35,7 @@
         },
         {
             "type": "options",
-            "text": "The **force** $F$ is proportional to the distance between the charges (here $r$).\n\nWhich of the following options correctly describes this proportionality?",
+            "text": "The dependence of the **force** $F$ on the distance (here $r$ ) is described by which proportionality?",
             "options": "{ \"$F \\\\propto \\\\frac{1}{r^3}$\": 1, \"$F \\\\propto r^2$\": 1, \"$F \\\\propto \\\\frac{1}{r^2}$\": 2, \"$F \\\\propto \\\\frac{1}{r}$\": 1 }"
         },
         {
